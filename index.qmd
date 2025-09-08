@@ -1,0 +1,14 @@
+---
+title: "AIMECON R Workshop"
+author: "Your Name"
+---
+
+# Preface
+
+Welcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.
+
+## Workshop Goals
+
+- Learn R fundamentals
+- Practice data analysis
+- Build reproducible reports

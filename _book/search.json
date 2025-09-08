@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "AIMECON R Workshop",
+    "section": "",
+    "text": "1 Preface\nWelcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AIMECON R Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#workshop-goals",
+    "href": "index.html#workshop-goals",
+    "title": "AIMECON R Workshop",
+    "section": "1.1 Workshop Goals",
+    "text": "1.1 Workshop Goals\n\nLearn R fundamentals\nPractice data analysis\nBuild reproducible reports",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AIMECON R Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "2  Introduction to R",
+    "section": "",
+    "text": "3 Getting Started with R\nThis chapter covers the basics of R programming.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#installing-r",
+    "href": "intro.html#installing-r",
+    "title": "2  Introduction to R",
+    "section": "3.1 Installing R",
+    "text": "3.1 Installing R\nInstructions for installing R…",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Workshop Summary",
+    "section": "",
+    "text": "4 Summary\nKey takeaways from the workshop…",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Workshop Summary</span>"
+    ]
+  }
+]
