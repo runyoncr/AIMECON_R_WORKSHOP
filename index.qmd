@@ -1,6 +1,6 @@
 ---
-title: "AIMECON R Workshop"
-author: "Your Name"
+title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
+author: "Christopher Runyon"
 ---
 
 # Preface

@@ -17,6 +17,9 @@ format:
     theme: cosmo
     toc: true
     css: style.css
+    code-fold: true          # Participants can show/hide code
+    code-tools: true         # Download code button
+    code-copy: true          # Copy code button
 
 website:
   site-url: https://runyoncr.github.io/AIMECON_R_WORKSHOP
