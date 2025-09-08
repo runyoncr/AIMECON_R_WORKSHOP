@@ -3,7 +3,7 @@ project:
   output-dir: _book
 
 book:
-  title: "AIMECON R Workshop"
+  title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
   author: "Christopher Runyon"
   date: today
   
