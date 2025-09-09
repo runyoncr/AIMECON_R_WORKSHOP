@@ -7,8 +7,12 @@ author: "Christopher Runyon"
 
 Welcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.
 
-## Workshop Goals
+## Learning Objectives
 
-- Learn R fundamentals
-- Practice data analysis
-- Build reproducible reports
+[By the end of this workshop, participants will be able to:]{.underline}
+
+-	Explain key LLM architectural features that inform effective integration practices
+-	Apply prompt engineering principles to achieve consistent, reliable outputs in R workflows
+-	Implement both single-use and conversational API interactions with LLMs from R
+-	Design and deploy simple multi-agentic systems for complex tasks
+-	Build interactive Shiny applications that leverage LLM capabilities for end-user functionality

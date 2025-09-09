@@ -1,0 +1,15 @@
+---
+  title: "API Implementation"
+---
+  
+# Getting Started with R
+
+This chapter covers the basics of R programming.
+
+## Installing R
+
+Instructions for installing R...
+
+```{r}
+# Your first R code
+print("Hello, AIMECON!")
