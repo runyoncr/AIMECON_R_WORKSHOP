@@ -2,14 +2,12 @@
   title: "Shiny Integration"
 ---
   
-# Getting Started with R
+## What is Shiny?
 
 This chapter covers the basics of R programming.
 
-## Installing R
+## Vibe Coding
 
-Instructions for installing R...
+V I B E C O D I N G
 
-```{r}
-# Your first R code
-print("Hello, AIMECON!")
+![This is the image's alt text.](images/vibecoding.png)

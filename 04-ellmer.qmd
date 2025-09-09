@@ -2,14 +2,14 @@
   title: "The ellmer() package"
 ---
   
-# Getting Started with R
+## `ellmer()` is the GOAT 
 
-This chapter covers the basics of R programming.
+Implements conversational AI easily, much like a chatbot.
 
-## Installing R
+When good?
 
-Instructions for installing R...
+When bad?
 
-```{r}
-# Your first R code
-print("Hello, AIMECON!")
+## First Thing
+
+## Second Thing

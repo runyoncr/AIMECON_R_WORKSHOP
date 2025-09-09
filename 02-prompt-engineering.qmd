@@ -1,15 +1,23 @@
 ---
   title: "Prompt Engineering"
 ---
-  
-# Getting Started with R
 
-This chapter covers the basics of R programming.
+I have found [promptingguide.ai](https://www.promptingguide.ai/) to be a great source of advanced prompting techniques.
 
-## Installing R
+We'll only cover a sampling of these methods in the workshop today because we'll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.
 
-Instructions for installing R...
+## Prompt Engineering Importance
 
-```{r}
-# Your first R code
-print("Hello, AIMECON!")
+Tie in to chapter 1
+
+## Madlibs
+
+## Prompt Formulas
+
+## Prompt Chaining
+
+### Chain-of-thought Prompting
+
+#### Invisible Instructions
+
+### Manual Prompt Chaining

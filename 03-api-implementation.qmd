@@ -1,15 +1,19 @@
 ---
   title: "API Implementation"
 ---
-  
-# Getting Started with R
 
-This chapter covers the basics of R programming.
+This is why we're here today. The previous 2 chapters are broadly applicable to _any_ interactions with generative AI models; the exceptions are the sections on model parameters and manual prompt chaining. 
 
-## Installing R
+## API Keys
 
-Instructions for installing R...
+What they are. How to get them.
 
-```{r}
-# Your first R code
-print("Hello, AIMECON!")
+## R Packages for API Implementation
+
+Many available. Covering a handful - saving special time for `ellmer`, which was created by Hadley Wickham and other amazing developers at Posit.
+
+## System Prompt
+
+## User Prompt
+
+What's the difference?

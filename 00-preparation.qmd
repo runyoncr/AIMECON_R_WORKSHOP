@@ -2,14 +2,18 @@
   title: "Preparation"
 ---
   
-# Getting Started with R
-
-This chapter covers the basics of R programming.
+This section will help you ensure that you have the necessary versions of R and R packages for the workshop.
 
 ## Installing R
+
+## Installing R Studio
+
+## R Packages
 
 Instructions for installing R...
 
 ```{r}
 # Your first R code
 print("Hello, AIMECON!")
+
+```

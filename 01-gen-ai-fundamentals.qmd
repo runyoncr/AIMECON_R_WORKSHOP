@@ -1,15 +1,31 @@
 ---
   title: "Generative AI Fundamentals"
 ---
-  
-# Getting Started with R
 
-This chapter covers the basics of R programming.
+It is useful to learn some fundamental aspects about GenAI models prior to their use. I have often found that there are many guides online that tell you _how_ to use these LLMs, but don't tell you _why_ you should use these LLMs. Although the guidance given by these guides is often useful, when your prompt isn't resulting in the output you want it's unclear how to make improvements because you don't have the foundational knowledge of how the model might be processing your prompt.
 
-## Installing R
+Even though these generative AI models continue to improve without extensive prompt engineering, this foundational knowledge will serve you well in building your own generative AI workflows.
 
-Instructions for installing R...
+## What is Generative AI? 
 
-```{r}
-# Your first R code
-print("Hello, AIMECON!")
+## What is a GPT?
+
+## Co-occurrence
+
+## Attention
+
+## Model Parameters
+
+Organize into classes of parameters?
+
+### Temperature
+
+#### Generation based?
+
+Checking if 4 hashtags work
+
+### top_p
+
+### top_k
+
+### max tokens
