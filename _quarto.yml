@@ -9,28 +9,16 @@ book:
   
   chapters:
     - index.qmd
-    - intro.qmd
     - 00-preparation.qmd
     - 01-gen-ai-fundamentals.qmd
     - 02-prompt-engineering.qmd
     - 03-api-implementation.qmd
     - 04-ellmer.qmd
     - 05-shiny-integration.qmd
-    - summary.qmd
-    
-    # In _quarto.yml
-chapters:
-  - index.qmd              # Welcome & setup
-  - 01-basics.qmd          # R fundamentals
-  - 02-data-import.qmd     # Reading data
-  - 03-visualization.qmd   # ggplot2
-  - 04-analysis.qmd        # Statistical analysis
-  - 05-exercises.qmd       # Practice problems
-  - resources.qmd          # Additional resources
 
 format:
   html:
-    theme: cosmo
+    theme: spacelab
     toc: true
     css: style.css
     code-fold: true          # Participants can show/hide code
