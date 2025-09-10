@@ -20,6 +20,9 @@ book:
     - index.qmd
     
     - part: 00-preparation.qmd
+      chapters:
+        - 00a-R-setup.qmd
+        - 00b-R-packages.qmd
     
     - part: 01-gen-ai-fundamentals.qmd  
       chapters:
