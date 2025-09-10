@@ -16,14 +16,14 @@ page-footer:
 # cover-image: cover.jpg
 #  favicon: cover.jpg
 
- chapters:
-  - index.qmd
-  - 00-preparation.qmd
+  chapters:
+    - index.qmd
+    - 00-preparation.qmd
   
-  - part: 01-gen-ai-fundamentals.qmd  
-    chapters:
-      - 01a-gen-ai-basic.qmd
-      - 01b-gen-ai-learning.qmd
+    - part: 01-gen-ai-fundamentals.qmd  
+      chapters:
+         - 01a-gen-ai-basic.qmd
+         - 01b-gen-ai-learning.qmd
       
     - 02-prompt-engineering.qmd
     - 03-api-implementation.qmd
