@@ -1,8 +1,10 @@
 ---
-  title: "Preparation"
+  title: "Set Up"
 ---
-  
-This section will help you ensure that you have the necessary versions of R and R packages for the workshop.
+
+# Set Up
+
+This section will help you ensure that you are appropriately set up to complete the rest of the workshop.
 
 ## Installing R
 

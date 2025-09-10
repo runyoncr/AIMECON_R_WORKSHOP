@@ -18,17 +18,18 @@ book:
   
   chapters:
     - index.qmd
-    - 00-preparation.qmd
+    
+    - part: 00-preparation.qmd
     
     - part: 01-gen-ai-fundamentals.qmd  
       chapters:
         - 01a-gen-ai-basics.qmd
         - 01b-gen-ai-learning.qmd
     
-    - 02-prompt-engineering.qmd
-    - 03-api-implementation.qmd
-    - 04-ellmer.qmd
-    - 05-shiny-integration.qmd
+    - part: 02-prompt-engineering.qmd
+    - part: 03-api-implementation.qmd
+    - part: 04-ellmer.qmd
+    - part: 05-shiny-integration.qmd
 
 format:
   html:

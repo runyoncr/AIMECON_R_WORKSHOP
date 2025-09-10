@@ -1,9 +1,8 @@
 ---
-title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
-author: "Christopher Runyon"
+title: "Introduction"
 ---
 
-# Preface
+## Preface
 
 Welcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.
 
