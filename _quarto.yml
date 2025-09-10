@@ -16,25 +16,15 @@ page-footer:
 # cover-image: cover.jpg
 #  favicon: cover.jpg
 
-chapters:
-    - index.qmd
-
-    - preface-2e.qmd
-    - intro.qmd
-
-    - part: whole-game.qmd
-
-chapters:
-    - index.qmd
-    
-    - 00-preparation.qmd
-    
-    
-    - part: - 01-gen-ai-fundamentals.qmd
-      chapters:
-        - 01a-gen-ai-basic.qmd
-        - 01b-gen-ai-learning.qmd
-
+ chapters:
+  - index.qmd
+  - 00-preparation.qmd
+  
+  - part: 01-gen-ai-fundamentals.qmd  
+    chapters:
+      - 01a-gen-ai-basic.qmd
+      - 01b-gen-ai-learning.qmd
+      
     - 02-prompt-engineering.qmd
     - 03-api-implementation.qmd
     - 04-ellmer.qmd
