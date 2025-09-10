@@ -6,11 +6,35 @@ book:
   title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
   author: "Christopher Runyon"
   date: today
-  
-  chapters:
+
+page-footer:
+    left: |
+      This workshop was developed by Christopher Runyon.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+
+# cover-image: cover.jpg
+#  favicon: cover.jpg
+
+chapters:
     - index.qmd
+
+    - preface-2e.qmd
+    - intro.qmd
+
+    - part: whole-game.qmd
+
+chapters:
+    - index.qmd
+    
     - 00-preparation.qmd
-    - 01-gen-ai-fundamentals.qmd
+    
+    
+    - part: - 01-gen-ai-fundamentals.qmd
+      chapters:
+        - 01a-gen-ai-basic.qmd
+        - 01b-gen-ai-learning.qmd
+
     - 02-prompt-engineering.qmd
     - 03-api-implementation.qmd
     - 04-ellmer.qmd
@@ -24,7 +48,8 @@ format:
     code-fold: true          # Participants can show/hide code
     code-tools: true         # Download code button
     code-copy: true          # Copy code button
-
+    code-link: true
+    
 website:
   site-url: https://runyoncr.github.io/AIMECON_R_WORKSHOP
   repo-url: https://github.com/runyoncr/AIMECON_R_WORKSHOP
