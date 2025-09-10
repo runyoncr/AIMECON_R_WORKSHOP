@@ -1,0 +1,10 @@
+---
+  title: "R Set Up"
+---
+
+## Installing R
+
+## Installing R Studio
+
+## Installing other GUIs
+

@@ -1,0 +1,14 @@
+---
+  title: "R Set Up"
+---
+
+## R Packages
+
+Instructions for installing R...
+
+```{r}
+# Your first R code
+print("Hello, AIMECON!")
+
+```
+
