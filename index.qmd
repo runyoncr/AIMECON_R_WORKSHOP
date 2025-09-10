@@ -1,6 +1,5 @@
 ---
-title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
-author: "Christopher Runyon"
+title: "Introduction"
 ---
 
 # Preface
