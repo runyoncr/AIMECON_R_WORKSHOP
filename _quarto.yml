@@ -22,7 +22,7 @@ book:
     
     - part: 01-gen-ai-fundamentals.qmd  
       chapters:
-        - 01a-gen-ai-basic.qmd
+        - 01a-gen-ai-basics.qmd
         - 01b-gen-ai-learning.qmd
     
     - 02-prompt-engineering.qmd
