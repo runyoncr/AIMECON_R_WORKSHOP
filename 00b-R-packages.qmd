@@ -1,14 +1,13 @@
 ---
-  title: "R Set Up"
+  title: "Necessary R Packages"
 ---
 
 ## R Packages
 
-Instructions for installing R...
 
 ```{r}
-# Your first R code
-print("Hello, AIMECON!")
+
+install.packages(c("tidyverse", "curl", "ragnar", "duckdb", "shiny", "shinyjs"))
 
 ```
 

@@ -1,25 +1,8 @@
 ---
   title: "Set Up"
 ---
-<<<<<<< HEAD
 
 # Set Up
 
-=======
-  
->>>>>>> origin/main
 This section will help you ensure that you are appropriately set up to complete the rest of the workshop.
 
-## Installing R
-
-## Installing R Studio
-
-## R Packages
-
-Instructions for installing R...
-
-```{r}
-# Your first R code
-print("Hello, AIMECON!")
-
-```
