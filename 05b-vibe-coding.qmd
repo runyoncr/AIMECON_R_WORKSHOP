@@ -1,0 +1,8 @@
+---
+  title: "Vibe Coding"
+---
+  
+## Feel the Vibe!
+
+Reduces tedious syntax writing
+Focus on functionality

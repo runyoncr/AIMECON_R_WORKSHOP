@@ -1,7 +1,9 @@
 ---
-  title: "Vibe Coding"
+  title: "Shiny"
 ---
   
-## Feel the Vibe
+## Online Web Application
 
-Helps especially with the tedious
+Can be hosted locally
+
+Written in either R or Python
