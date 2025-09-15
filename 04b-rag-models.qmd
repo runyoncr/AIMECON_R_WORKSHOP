@@ -1,0 +1,7 @@
+---
+  title: "Retrieval Augmented Generation"
+---
+  
+## What are RAG models?
+
+When are these appropriate?

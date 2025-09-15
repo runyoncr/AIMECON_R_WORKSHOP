@@ -5,7 +5,7 @@
 ## R Packages
 
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 
 install.packages(c("tidyverse", "curl", "ragnar", "duckdb", "shiny", "shinyjs"))
 

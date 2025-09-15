@@ -30,9 +30,25 @@ book:
         - 01b-gen-ai-learning.qmd
     
     - part: 02-prompt-engineering.qmd
+      chapters: 
+        - 02a-general-prompt-information.qmd
+        - 02b-prompt-formulas.qmd
+        - 02c-chained-workflows.qmd
+    
     - part: 03-api-implementation.qmd
+      chapters: 
+        - 03a-api-keys.qmd
+        - 03b-prompting-models.qmd
+    
     - part: 04-ellmer.qmd
+      chapters: 
+        - 04a-conversations-via-api.qmd
+        - 04b-rag-models.qmd
+    
     - part: 05-shiny-integration.qmd
+      chapters: 
+        - 05a-shiny.qmd
+        - 05b-vibe-coding.qmd
 
 format:
   html:

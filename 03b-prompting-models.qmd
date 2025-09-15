@@ -1,0 +1,7 @@
+---
+  title: "Non-Conversational Models"
+---
+  
+## Single interactions with Models
+
+When are these appropriate?
