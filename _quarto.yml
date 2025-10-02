@@ -51,6 +51,11 @@ book:
         - 05b-vibe-coding.qmd
         
     - part: 06-reference-materials.qmd
+      chapters: 
+        - 06a-basic-refs.qmd
+        - 06b-ref-guides.qmd
+        - 06c-shiny-resources.qmd
+        - 06d-legal-info.qmd
 
 execute:
   echo: true  # Show code by default in all chapters

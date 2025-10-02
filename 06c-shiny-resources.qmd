@@ -1,0 +1,10 @@
+---
+  title: "Shiny-related Resources"
+---
+  
+Posit has [many useful things](https://shiny.posit.co/).
+* [Materials for the R language start here](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/).
+* [Materials for the Python language start here](https://shiny.posit.co/py/).
+
+[This github page by nanxstats has nicely organized many Shiny extension packages.](https://github.com/nanxstats/awesome-shiny-extensions)
+
