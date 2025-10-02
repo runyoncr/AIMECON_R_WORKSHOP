@@ -49,6 +49,8 @@ book:
       chapters: 
         - 05a-shiny.qmd
         - 05b-vibe-coding.qmd
+        
+    - part: 06-reference-materials.qmd
 
 execute:
   echo: true  # Show code by default in all chapters
