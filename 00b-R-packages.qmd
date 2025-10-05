@@ -11,7 +11,7 @@ R’s code is freely available for anyone to inspect, modify, and improve.
 This openness has cultivated a vibrant global community of statisticians, data scientists, and developers who actively contribute to the language's evolution.
 
 The R package ecosystem exemplifies this collaborative spirit. 
-Community members can develop packages that address specific needs that span many academic domains (see [Task Views](https://cran.r-project.org/web/views/)). 
+Community members can develop packages that address specific needs that span many academic domains (see [Task Views](https://cran.r-project.org/web/views/){target="_blank"}). 
 These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.
 
 
