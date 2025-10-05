@@ -1,6 +1,4 @@
----
-title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
----
+# Welcome {.unnumbered}
 
 Welcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.
 
