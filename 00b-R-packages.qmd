@@ -6,7 +6,14 @@ library(ggplot2)
 source("_formatting.R")
 ```
 
-R is a powerful tool because 
+R's strength lies not just in its statistical capabilities, but in its open-source nature. 
+R’s code is freely available for anyone to inspect, modify, and improve. 
+This openness has cultivated a vibrant global community of statisticians, data scientists, and developers who actively contribute to the language's evolution.
+
+The R package ecosystem exemplifies this collaborative spirit. 
+Community members can develop packages that address specific needs that span many academic domains (see [Task Views](https://cran.r-project.org/web/views/)). 
+These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.
+
 
 ```{r, eval=FALSE, echo=TRUE}
 
