@@ -1,9 +1,12 @@
----
-  title: "Necessary R Packages"
----
+# R Packages {#sec-r-packages}
 
-## R Packages
+```{r}
+library(ggplot2)
+#| echo: false
+source("_formatting.R")
+```
 
+R is a powerful tool because 
 
 ```{r, eval=FALSE, echo=TRUE}
 

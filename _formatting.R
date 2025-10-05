@@ -1,4 +1,5 @@
 set.seed(102025)
+library(ggplot2)
 
 knitr::opts_chunk$set(
   comment = "#>",
