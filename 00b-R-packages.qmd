@@ -3,7 +3,7 @@
 ```{r}
 library(ggplot2)
 #| echo: false
-source("_formatting.R")
+# source("_formatting.R")
 ```
 
 R's strength lies not just in its statistical capabilities, but in its open-source nature. 
