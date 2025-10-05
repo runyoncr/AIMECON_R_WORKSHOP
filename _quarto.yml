@@ -17,7 +17,7 @@ book:
   favicon: workshopcover.png
   
   chapters:
-    - index.qmd
+    # - index.qmd
     
     - part: 00-preparation.qmd
       chapters:

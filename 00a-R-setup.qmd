@@ -1,10 +1,26 @@
----
-  title: "Installing R and Related Software"
----
+# R Setup {#sec-r-setup}
+
+```{r}
+#| echo: false
+source("_formatting.R")
+```
 
 ## Installing R
 
-## Installing R Studio
+This workshop is based in the [R programming language](https://www.r-project.org/). As such, it is necessary to have a recent ($\geq$ R Version 4.4) installed on your computer. 
 
-## Installing other GUIs
+These workshop materials were built and tested using R version 4.5.1 (Great Square Root, released 2025-06-13), with all packages updated on or after October 5, 2025.
+
+## Installing R Studio Desktop
+
+Posit makes a wonderful integrated development environment (IDE) called R Studio Desktop. This is my preferred IDE for R, although you may choose others if you like. I will be using R Studio throughout the workshop.
+
+I am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.
+
+## Installing R Tools
+
+RTools is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. The packages that are available on CRAN do not require having RTools installed because the packages hosted there are precompiled binary packages.
+
+I'm unsure of which packages I've downloaded from Github or other sources that require compilation, so I recommend also installing at least RTools 4.4. (And it's just good to have in case you need it later.)
+
 

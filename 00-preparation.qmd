@@ -1,8 +1,9 @@
----
-  title: "Set Up"
----
+# Set Up {#sec-preparation .unnumbered}
 
-# Set Up
+```{r}
+#| echo: false
+source("_formatting.R")
+```
 
 This section will help you ensure that you are appropriately set up to complete the rest of the workshop.
 
