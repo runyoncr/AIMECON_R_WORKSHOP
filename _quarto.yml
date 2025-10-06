@@ -23,6 +23,7 @@ book:
       chapters:
         - 00a-R-setup.qmd
         - 00b-R-packages.qmd
+        - 00c-LLM-R-packages.qmd
     
     - part: 01-gen-ai-fundamentals.qmd  
       chapters:
