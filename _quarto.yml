@@ -59,6 +59,8 @@ book:
     #     - 06b-ref-guides.qmd
     #     - 06c-shiny-resources.qmd
     #     - 06d-legal-info.qmd
+    
+    - 07-acknowledgements.qmd
 
 execute:
   echo: true  # Show code by default in all chapters

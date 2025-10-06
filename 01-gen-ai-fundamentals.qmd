@@ -7,5 +7,8 @@ Even though these generative AI models continue to improve without extensive pro
 
 ## What is Generative AI? 
 
+![Comparison of AI and NLP](images/AI_NLP_Comparison_Cropped.png){width=80% fig-align="center"}
+
+
 ## What is a GPT?
 
