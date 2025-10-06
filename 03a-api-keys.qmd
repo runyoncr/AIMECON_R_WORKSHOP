@@ -1,7 +1,14 @@
----
-  title: "API Keys"
----
+# API Keys
   
 ## What are these?
 
-Show API keys
+## Workshop API Key
+
+I created an API key that you will be able to use for the purposes of the workshop.
+This API key will only be active during the workshop hours.
+If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
+
+Because API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. 
+Use costs are relatively low for this type of use and I'm happy to cover the cost and provide an API key for educational purposes.
+
+I used Anthropic's Claude model for the majority of

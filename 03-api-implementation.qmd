@@ -7,5 +7,16 @@ There is a text box, you enter a prompt, the model processes that prompt, and pr
 This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. 
 It's easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.
 
-However, for certain tasks (e.g., repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the _n_ number of times you need to complete a task.
+However, for certain tasks (e.g., repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the _n_ number of times you need to complete a task. In these instances it may be better to interact with a model via an _application programming interface_ (API). 
 
+An API is a structured way for one piece of software to communicate with another. 
+When you use a generative AI model through its API, you're programmatically sending requests with specific instructions and receiving structured responses—allowing you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. 
+Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.
+
+## Choosing a Generative AI Model
+
+### Anthropic
+
+### OpenAI
+
+### Other Model Options
