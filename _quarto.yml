@@ -13,8 +13,8 @@ book:
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
   
-  cover-image: workshopcover.png
-  favicon: workshopcover.png
+  cover-image: SimpleBookCover_Image.png
+  favicon: thumb_jpg.jpg
   
   chapters:
     - index.qmd
