@@ -7,5 +7,65 @@
   },
   "summary.qmd": {
     "summary.html": "6e6ed400"
+  },
+  "06-reference-materials.qmd": {
+    "06-reference-materials.html": "b98d3114"
+  },
+  "00-preparation.qmd": {
+    "00-preparation.html": "bb0e8cd5"
+  },
+  "00a-R-setup.qmd": {
+    "00a-R-setup.html": "a3d46cd5"
+  },
+  "00b-R-packages.qmd": {
+    "00b-R-packages.html": "a0c7cb1a"
+  },
+  "01-gen-ai-fundamentals.qmd": {
+    "01-gen-ai-fundamentals.html": "1faa0f85"
+  },
+  "01a-gen-ai-basics.qmd": {
+    "01a-gen-ai-basics.html": "0764f152"
+  },
+  "01b-gen-ai-learning.qmd": {
+    "01b-gen-ai-learning.html": "54bbcf4c"
+  },
+  "02-prompt-engineering.qmd": {
+    "02-prompt-engineering.html": "547db0c9"
+  },
+  "02a-general-prompt-information.qmd": {
+    "02a-general-prompt-information.html": "c6a3d618"
+  },
+  "02b-prompt-formulas.qmd": {
+    "02b-prompt-formulas.html": "e2b3a2c7"
+  },
+  "02c-chained-workflows.qmd": {
+    "02c-chained-workflows.html": "40f55f09"
+  },
+  "03-api-implementation.qmd": {
+    "03-api-implementation.html": "138d1987"
+  },
+  "03a-api-keys.qmd": {
+    "03a-api-keys.html": "e42f9a4f"
+  },
+  "03b-prompting-models.qmd": {
+    "03b-prompting-models.html": "ca89a4cb"
+  },
+  "04-ellmer.qmd": {
+    "04-ellmer.html": "c1a4ad41"
+  },
+  "04a-conversations-via-api.qmd": {
+    "04a-conversations-via-api.html": "be40953c"
+  },
+  "04b-rag-models.qmd": {
+    "04b-rag-models.html": "efe0e687"
+  },
+  "05-shiny-integration.qmd": {
+    "05-shiny-integration.html": "44079ada"
+  },
+  "05a-shiny.qmd": {
+    "05a-shiny.html": "c42f01f4"
+  },
+  "05b-vibe-coding.qmd": {
+    "05b-vibe-coding.html": "ea966325"
   }
 }

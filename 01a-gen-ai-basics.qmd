@@ -1,7 +1,7 @@
----
-  title: "Learning More about Gen AI"
----
-  
-## Foundational AI Concepts
+# Foundational Principles
 
-Papers and brief Descriptions here
+## Co-occurrence
+
+## Attention
+
+## Embeddings

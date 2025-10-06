@@ -2,11 +2,11 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "AIMECON R Workshop",
+    "title": "Integrating Generative AI into R Workflows: From APIs to Shiny Apps",
     "section": "",
-    "text": "1 Preface\nWelcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.",
+    "text": "Welcome\nWelcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AIMECON R Workshop</span>"
+      "Welcome"
     ]
   },
   {
@@ -47,6 +47,422 @@
     "text": "4 Summary\nKey takeaways from the workshop…",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Workshop Summary</span>"
+    ]
+  },
+  {
+    "objectID": "06-reference-materials.html",
+    "href": "06-reference-materials.html",
+    "title": "“Reference Materials”",
+    "section": "",
+    "text": "Background Information on GPTs\nThe 3Blue1Brown YouTube Channel provides several good videos on the some of the technical aspects of large language models.\nAnthropic’s paper On the Biology of a Large Language Model is particularly interesting.\nThis post on lesswrong provides a nice high-level summary for understanding LLMs.",
+    "crumbs": [
+      "\"Reference Materials\""
+    ]
+  },
+  {
+    "objectID": "06-reference-materials.html#background-information-on-gpts",
+    "href": "06-reference-materials.html#background-information-on-gpts",
+    "title": "“Reference Materials”",
+    "section": "",
+    "text": "The Neural Networks section is particularly informative.",
+    "crumbs": [
+      "\"Reference Materials\""
+    ]
+  },
+  {
+    "objectID": "06-reference-materials.html#reference-guides-and-prompt-engineering",
+    "href": "06-reference-materials.html#reference-guides-and-prompt-engineering",
+    "title": "“Reference Materials”",
+    "section": "Reference Guides (and Prompt Engineering)",
+    "text": "Reference Guides (and Prompt Engineering)\nOpenAI Cookbook",
+    "crumbs": [
+      "\"Reference Materials\""
+    ]
+  },
+  {
+    "objectID": "06-reference-materials.html#shiny-related-resources",
+    "href": "06-reference-materials.html#shiny-related-resources",
+    "title": "“Reference Materials”",
+    "section": "Shiny-related Resources",
+    "text": "Shiny-related Resources\nPosit has many useful things.\n\nMaterials for the R language start here.\nMaterials for the Python language start here.\n\nnanxstats has nicely organized many Shiny extension packages.",
+    "crumbs": [
+      "\"Reference Materials\""
+    ]
+  },
+  {
+    "objectID": "06-reference-materials.html#legal-considerations",
+    "href": "06-reference-materials.html#legal-considerations",
+    "title": "“Reference Materials”",
+    "section": "Legal Considerations",
+    "text": "Legal Considerations\nThe information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.",
+    "crumbs": [
+      "\"Reference Materials\""
+    ]
+  },
+  {
+    "objectID": "00a-R-setup.html",
+    "href": "00a-R-setup.html",
+    "title": "1  R Setup",
+    "section": "",
+    "text": "1.1 Installing R\nThis workshop is based in the R programming language. As such, it is necessary to have a recent (\\(\\geq\\) R Version 4.4) installed on your computer.\nThese workshop materials were built and tested using R version 4.5.1 (Great Square Root, released 2025-06-13), with all packages updated on or after October 5, 2025.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+    ]
+  },
+  {
+    "objectID": "00a-R-setup.html#installing-r-studio-desktop",
+    "href": "00a-R-setup.html#installing-r-studio-desktop",
+    "title": "1  R Setup",
+    "section": "\n1.2 Installing R Studio Desktop",
+    "text": "1.2 Installing R Studio Desktop\nPosit makes a wonderful integrated development environment (IDE) called R Studio Desktop. This is my preferred IDE for R, although you may choose others if you like. I will be using R Studio throughout the workshop.\nI am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+    ]
+  },
+  {
+    "objectID": "00a-R-setup.html#installing-r-tools",
+    "href": "00a-R-setup.html#installing-r-tools",
+    "title": "1  R Setup",
+    "section": "\n1.3 Installing R Tools",
+    "text": "1.3 Installing R Tools\nRTools is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. The packages that are available on CRAN do not require having RTools installed because the packages hosted there are precompiled binary packages.\nI’m unsure of which packages I’ve downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.4. (And it’s just good to have in case you need it later.)",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+    ]
+  },
+  {
+    "objectID": "00b-R-packages.html",
+    "href": "00b-R-packages.html",
+    "title": "2  R Packages",
+    "section": "",
+    "text": "Codelibrary(ggplot2)\n#| echo: false\n# source(\"_formatting.R\")\n\n\nR’s strength lies not just in its statistical capabilities, but in its open-source nature. R’s code is freely available for anyone to inspect, modify, and improve. This openness has cultivated a vibrant global community of statisticians, data scientists, and developers who actively contribute to the language’s evolution.\nThe R package ecosystem exemplifies this collaborative spirit. Community members can develop packages that address specific needs that span many academic domains (see Task Views). These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.\n\nCodeinstall.packages(c(\"tidyverse\", \"curl\", \"ragnar\", \"duckdb\", \"shiny\", \"shinyjs\"))",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "01a-gen-ai-basics.html",
+    "href": "01a-gen-ai-basics.html",
+    "title": "3  Learning More about Gen AI",
+    "section": "",
+    "text": "3.1 Foundational AI Concepts\nPapers and brief Descriptions here",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Learning More about Gen AI</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-learning.html",
+    "href": "01b-gen-ai-learning.html",
+    "title": "4  Learning More about Gen AI",
+    "section": "",
+    "text": "4.1 YouTube / Video Resources\nBrownBlue",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Learning More about Gen AI</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-learning.html#articles-and-blogs",
+    "href": "01b-gen-ai-learning.html#articles-and-blogs",
+    "title": "4  Learning More about Gen AI",
+    "section": "4.2 Articles and Blogs",
+    "text": "4.2 Articles and Blogs\nCool recent jawn",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Learning More about Gen AI</span>"
+    ]
+  },
+  {
+    "objectID": "02a-general-prompt-information.html",
+    "href": "02a-general-prompt-information.html",
+    "title": "5  General Prompt Engineering",
+    "section": "",
+    "text": "5.1 Including Content\nIntegrate AI Fundamentals information in this section.\nLink to promptingguide.ai here",
+    "crumbs": [
+      "Prompt Engineering",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>General Prompt Engineering</span>"
+    ]
+  },
+  {
+    "objectID": "02b-prompt-formulas.html",
+    "href": "02b-prompt-formulas.html",
+    "title": "6  Prompt Formulas",
+    "section": "",
+    "text": "6.1 Prompt Formulas\nLink to examples here",
+    "crumbs": [
+      "Prompt Engineering",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "02c-chained-workflows.html",
+    "href": "02c-chained-workflows.html",
+    "title": "7  Chained Workflows",
+    "section": "",
+    "text": "7.1 Workflows\nLink to examples",
+    "crumbs": [
+      "Prompt Engineering",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Chained Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "03a-api-keys.html",
+    "href": "03a-api-keys.html",
+    "title": "8  API Keys",
+    "section": "",
+    "text": "8.1 What are these?\nShow API keys",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>API Keys</span>"
+    ]
+  },
+  {
+    "objectID": "03b-prompting-models.html",
+    "href": "03b-prompting-models.html",
+    "title": "9  Non-Conversational Models",
+    "section": "",
+    "text": "9.1 Single interactions with Models\nWhen are these appropriate?",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Non-Conversational Models</span>"
+    ]
+  },
+  {
+    "objectID": "04a-conversations-via-api.html",
+    "href": "04a-conversations-via-api.html",
+    "title": "10  Conversational Models",
+    "section": "",
+    "text": "10.1 Continued interactions with models\nWhen are these appropriate?",
+    "crumbs": [
+      "The ellmer() package",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Conversational Models</span>"
+    ]
+  },
+  {
+    "objectID": "04b-rag-models.html",
+    "href": "04b-rag-models.html",
+    "title": "11  Retrieval Augmented Generation",
+    "section": "",
+    "text": "11.1 What are RAG models?\nWhen are these appropriate?",
+    "crumbs": [
+      "The ellmer() package",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Retrieval Augmented Generation</span>"
+    ]
+  },
+  {
+    "objectID": "05a-shiny.html",
+    "href": "05a-shiny.html",
+    "title": "12  Shiny",
+    "section": "",
+    "text": "12.1 Online Web Application\nCan be hosted locally\nWritten in either R or Python",
+    "crumbs": [
+      "Shiny Integration",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Shiny</span>"
+    ]
+  },
+  {
+    "objectID": "05b-vibe-coding.html",
+    "href": "05b-vibe-coding.html",
+    "title": "13  Vibe Coding",
+    "section": "",
+    "text": "13.1 Feel the Vibe!\nReduces tedious syntax writing Focus on functionality",
+    "crumbs": [
+      "Shiny Integration",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Vibe Coding</span>"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html",
+    "href": "01-gen-ai-fundamentals.html",
+    "title": "Generative AI Fundamentals",
+    "section": "",
+    "text": "What is Generative AI?",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html#what-is-a-gpt",
+    "href": "01-gen-ai-fundamentals.html#what-is-a-gpt",
+    "title": "Generative AI Fundamentals",
+    "section": "What is a GPT?",
+    "text": "What is a GPT?",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html#co-occurrence",
+    "href": "01-gen-ai-fundamentals.html#co-occurrence",
+    "title": "Generative AI Fundamentals",
+    "section": "Co-occurrence",
+    "text": "Co-occurrence",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html#attention",
+    "href": "01-gen-ai-fundamentals.html#attention",
+    "title": "Generative AI Fundamentals",
+    "section": "Attention",
+    "text": "Attention",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html#model-parameters",
+    "href": "01-gen-ai-fundamentals.html#model-parameters",
+    "title": "Generative AI Fundamentals",
+    "section": "Model Parameters",
+    "text": "Model Parameters\nOrganize into classes of parameters?\n\nTemperature\n\nGeneration based?\nChecking if 4 hashtags work\n\n\n\ntop_p\n\n\ntop_k\n\n\nmax tokens",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "02-prompt-engineering.html",
+    "href": "02-prompt-engineering.html",
+    "title": "Prompt Engineering",
+    "section": "",
+    "text": "Prompt Engineering Importance\nTie in to chapter 1",
+    "crumbs": [
+      "Prompt Engineering"
+    ]
+  },
+  {
+    "objectID": "02-prompt-engineering.html#madlibs",
+    "href": "02-prompt-engineering.html#madlibs",
+    "title": "Prompt Engineering",
+    "section": "Madlibs",
+    "text": "Madlibs",
+    "crumbs": [
+      "Prompt Engineering"
+    ]
+  },
+  {
+    "objectID": "02-prompt-engineering.html#prompt-formulas",
+    "href": "02-prompt-engineering.html#prompt-formulas",
+    "title": "Prompt Engineering",
+    "section": "Prompt Formulas",
+    "text": "Prompt Formulas",
+    "crumbs": [
+      "Prompt Engineering"
+    ]
+  },
+  {
+    "objectID": "02-prompt-engineering.html#prompt-chaining",
+    "href": "02-prompt-engineering.html#prompt-chaining",
+    "title": "Prompt Engineering",
+    "section": "Prompt Chaining",
+    "text": "Prompt Chaining\n\nChain-of-thought Prompting\n\nInvisible Instructions\n\n\n\nManual Prompt Chaining",
+    "crumbs": [
+      "Prompt Engineering"
+    ]
+  },
+  {
+    "objectID": "03-api-implementation.html",
+    "href": "03-api-implementation.html",
+    "title": "API Implementation",
+    "section": "",
+    "text": "API Keys\nWhat they are. How to get them.",
+    "crumbs": [
+      "API Implementation"
+    ]
+  },
+  {
+    "objectID": "03-api-implementation.html#r-packages-for-api-implementation",
+    "href": "03-api-implementation.html#r-packages-for-api-implementation",
+    "title": "API Implementation",
+    "section": "R Packages for API Implementation",
+    "text": "R Packages for API Implementation\nMany available. Covering a handful - saving special time for ellmer, which was created by Hadley Wickham and other amazing developers at Posit.",
+    "crumbs": [
+      "API Implementation"
+    ]
+  },
+  {
+    "objectID": "03-api-implementation.html#system-prompt",
+    "href": "03-api-implementation.html#system-prompt",
+    "title": "API Implementation",
+    "section": "System Prompt",
+    "text": "System Prompt",
+    "crumbs": [
+      "API Implementation"
+    ]
+  },
+  {
+    "objectID": "03-api-implementation.html#user-prompt",
+    "href": "03-api-implementation.html#user-prompt",
+    "title": "API Implementation",
+    "section": "User Prompt",
+    "text": "User Prompt\nWhat’s the difference?",
+    "crumbs": [
+      "API Implementation"
+    ]
+  },
+  {
+    "objectID": "04-ellmer.html",
+    "href": "04-ellmer.html",
+    "title": "The ellmer() package",
+    "section": "",
+    "text": "ellmer() is the GOAT\nImplements conversational AI easily, much like a chatbot.\nWhen good?\nWhen bad?",
+    "crumbs": [
+      "The ellmer() package"
+    ]
+  },
+  {
+    "objectID": "04-ellmer.html#first-thing",
+    "href": "04-ellmer.html#first-thing",
+    "title": "The ellmer() package",
+    "section": "First Thing",
+    "text": "First Thing",
+    "crumbs": [
+      "The ellmer() package"
+    ]
+  },
+  {
+    "objectID": "04-ellmer.html#second-thing",
+    "href": "04-ellmer.html#second-thing",
+    "title": "The ellmer() package",
+    "section": "Second Thing",
+    "text": "Second Thing",
+    "crumbs": [
+      "The ellmer() package"
+    ]
+  },
+  {
+    "objectID": "05-shiny-integration.html",
+    "href": "05-shiny-integration.html",
+    "title": "Shiny Integration",
+    "section": "",
+    "text": "What is Shiny?\nThis chapter covers the basics of R programming.",
+    "crumbs": [
+      "Shiny Integration"
+    ]
+  },
+  {
+    "objectID": "05-shiny-integration.html#vibe-coding",
+    "href": "05-shiny-integration.html#vibe-coding",
+    "title": "Shiny Integration",
+    "section": "Vibe Coding",
+    "text": "Vibe Coding\nV I B E C O D I N G\n\n\n\nThis is the image’s alt text.",
+    "crumbs": [
+      "Shiny Integration"
+    ]
+  },
+  {
+    "objectID": "00-preparation.html",
+    "href": "00-preparation.html",
+    "title": "Set Up",
+    "section": "",
+    "text": "This section will help you ensure that you are appropriately set up to complete the rest of the workshop.",
+    "crumbs": [
+      "Set Up"
     ]
   }
 ]

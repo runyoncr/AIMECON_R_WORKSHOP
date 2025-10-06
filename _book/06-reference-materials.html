@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Christopher Runyon">
-<meta name="dcterms.date" content="2025-10-05">
 
-<title>Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>“Reference Materials” – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./00-preparation.html" rel="next">
+<link href="./05b-vibe-coding.html" rel="prev">
 <link href="./workshopcover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-reference-materials.html">“Reference Materials”</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -295,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-reference-materials.html" class="sidebar-item-text sidebar-link">
+  <a href="./06-reference-materials.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">“Reference Materials”</span></a>
   </div>
 </li>
@@ -310,26 +308,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Integrating Generative AI into R Workflows: From APIs to Shiny Apps</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-preparation" class="quarto-section-identifier">“Reference Materials”</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Christopher Runyon </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">October 5, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -339,21 +325,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1><p><img src="workshopcover.png" title="Integrating Generative AI into R Workflows: From APIs to Shiny Apps" class="quarto-cover-image img-fluid"></p>
-<p>Welcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.</p>
-<div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
-<p>Learning Objectives</p>
-</div>
-<p><u>By the end of this workshop, participants will be able to:</u></p>
+<p>These materials / links were last checked on October 2, 2025. All apologies for links that no longer work. Please email me at <a href="mailto:CRunyon@nbme.org">CRunyon@nbme.org</a> if you notice something no longer works so I can change / remove the link.</p>
+<section id="background-information-on-gpts" class="level2">
+<h2 class="anchored" data-anchor-id="background-information-on-gpts">Background Information on GPTs</h2>
+<p>The <a href="https://www.youtube.com/c/3blue1brown" target="_blank">3Blue1Brown YouTube Channel</a> provides several good videos on the some of the technical aspects of large language models.</p>
 <ul>
-<li>Explain key LLM architectural features that inform effective integration practices</li>
-<li>Apply prompt engineering principles to achieve consistent, reliable outputs in R workflows</li>
-<li>Implement both single-use and conversational API interactions with LLMs from R</li>
-<li>Design and deploy simple multi-agentic systems for complex tasks</li>
-<li>Build interactive Shiny applications that leverage LLM capabilities for end-user functionality</li>
+<li>The <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank">Neural Networks</a> section is particularly informative.</li>
 </ul>
+<p>Anthropic’s paper <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html" target="_blank">On the Biology of a Large Language Model</a> is particularly interesting.</p>
+<p>This <a href="https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic" target="_blank">post on lesswrong</a> provides a nice high-level summary for understanding LLMs.</p>
+</section>
+<section id="reference-guides-and-prompt-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="reference-guides-and-prompt-engineering">Reference Guides (and Prompt Engineering)</h2>
+<p><a href="https://cookbook.openai.com/" target="_blank">OpenAI Cookbook</a></p>
+</section>
+<section id="shiny-related-resources" class="level2">
+<h2 class="anchored" data-anchor-id="shiny-related-resources">Shiny-related Resources</h2>
+<p>Posit has <a href="https://shiny.posit.co/" target="_blank">many useful things</a>.</p>
+<ul>
+<li><a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/" target="_blank">Materials for the R language start here</a>.</li>
+<li><a href="https://shiny.posit.co/py/" target="_blank">Materials for the Python language start here</a>.</li>
+</ul>
+<p><a href="https://github.com/nanxstats/awesome-shiny-extensions" target="_blank">nanxstats has nicely organized many Shiny extension packages.</a></p>
+</section>
+<section id="legal-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="legal-considerations">Legal Considerations</h2>
+<p>The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</p>
 
 
 <!-- -->
@@ -834,28 +831,43 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./05b-vibe-coding.html" class="pagination-link" aria-label="Vibe Coding">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Vibe Coding</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./00-preparation.html" class="pagination-link" aria-label="Set Up">
-        <span class="nav-page-text">Set Up</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Welcome {.unnumbered}</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># "Reference Materials" {#sec-preparation .unnumbered}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Welcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&lt;div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;"&gt;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Learning Objectives</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;/div&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>These materials / links were last checked on October 2, 2025. All apologies for links that no longer work. Please email me at <span class="co">[</span><span class="ot">CRunyon@nbme.org</span><span class="co">](mailto:CRunyon@nbme.org)</span> if you notice something no longer works so I can change / remove the link.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Background Information on GPTs</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">3Blue1Brown YouTube Channel</span><span class="co">](https://www.youtube.com/c/3blue1brown)</span>{target="_blank"} provides several good videos on the some of the technical aspects of large language models.</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">By the end of this workshop, participants will be able to:</span><span class="co">]</span>{.underline}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The <span class="co">[</span><span class="ot">Neural Networks</span><span class="co">](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)</span>{target="_blank"} section is particularly informative.</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Explain key LLM architectural features that inform effective integration practices</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Apply prompt engineering principles to achieve consistent, reliable outputs in R workflows</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Implement both single-use and conversational API interactions with LLMs from R</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Design and deploy simple multi-agentic systems for complex tasks</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Build interactive Shiny applications that leverage LLM capabilities for end-user functionality</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Anthropic's paper <span class="co">[</span><span class="ot">On the Biology of a Large Language Model</span><span class="co">](https://transformer-circuits.pub/2025/attribution-graphs/biology.html)</span>{target="_blank"} is particularly interesting.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>This <span class="co">[</span><span class="ot">post on lesswrong</span><span class="co">](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic)</span>{target="_blank"} provides a nice high-level summary for understanding LLMs.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reference Guides (and Prompt Engineering)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">OpenAI Cookbook</span><span class="co">](https://cookbook.openai.com/)</span>{target="_blank"}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shiny-related Resources</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Posit has <span class="co">[</span><span class="ot">many useful things</span><span class="co">](https://shiny.posit.co/)</span>{target="_blank"}.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Materials for the R language start here</span><span class="co">](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/)</span>{target="_blank"}.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Materials for the Python language start here</span><span class="co">](https://shiny.posit.co/py/)</span>{target="_blank"}.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">nanxstats has nicely organized many Shiny extension packages.</span><span class="co">](https://github.com/nanxstats/awesome-shiny-extensions)</span>{target="_blank"}</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legal Considerations</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
