@@ -18,3 +18,18 @@ Some summaries have been edited, some have not.
 
 **tidyprompt** is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g. ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g. via ellmer) to produce more robust, predictable interactions.
 
+## tidyllm
+**tidyllm** [Overview](https://github.com/edubruell/tidyllm){target="_blank"} [CRAN](https://cran.r-project.org/web/packages/tidyllm/index.html){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/tidyllm/refman/tidyllm.html){target="_blank"}  
+
+**tidyllm** provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g. Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.  
+
+## chattr
+**chattr** [Overview](https://mlverse.github.io/chattr/){target="_blank"} [CRAN](https://cran.r-project.org/web/packages/chattr/index.html){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/chattr/refman/chattr.html){target="_blank"}  
+
+**chattr** is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g. loaded data frames) and integrates with various back-ends (e.g. OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.  
+
+## LLMAgentR
+**LLMAgentR** [Overview](https://github.com/knowusuboaky/LLMAgentR){target="_blank"} [CRAN](https://cran.r-project.org/web/packages/LLMAgentR/index.html){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/LLMAgentR/refman/LLMAgentR.html){target="_blank"}  
+
+**LLMAgentR** is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g. code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.
+
