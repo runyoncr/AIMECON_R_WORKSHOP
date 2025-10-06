@@ -1,19 +1,11 @@
----
-  title: "API Implementation"
----
+# API Implementation
 
-This is why we're here today. The previous 2 chapters are broadly applicable to _any_ interactions with generative AI models; the exceptions are the sections on model parameters and manual prompt chaining. 
+Arguably the most popular method for interacting with a generative AI model is a simple chatbot-based interface.
+These interfaces support a conversational interactions with LLM much like a text conversation or Teams chat (or AOL Instant Messaging). 
+There is a text box, you enter a prompt, the model processes that prompt, and provides a response. And continue.
 
-## API Keys
+This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. 
+It's easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.
 
-What they are. How to get them.
+However, for certain tasks (e.g., repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the _n_ number of times you need to complete a task.
 
-## R Packages for API Implementation
-
-Many available. Covering a handful - saving special time for `ellmer`, which was created by Hadley Wickham and other amazing developers at Posit.
-
-## System Prompt
-
-## User Prompt
-
-What's the difference?

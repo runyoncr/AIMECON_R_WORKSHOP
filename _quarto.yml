@@ -14,7 +14,7 @@ book:
       This book was built with <a href="https://quarto.org/">Quarto</a>.
   
   cover-image: SimpleBookCover_Image.png
-  favicon: thumb_jpg.jpg
+  favicon: therefore.png
   
   chapters:
     - index.qmd

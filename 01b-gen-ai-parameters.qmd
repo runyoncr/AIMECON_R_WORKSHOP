@@ -15,3 +15,10 @@ Checking if 3 hashtags work
 ## max tokens
 
 ## Frequency Penalty
+
+What about other model arguments, such as:
+## System Prompt
+
+## User Prompt
+
+What's the difference?
