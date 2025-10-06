@@ -1,6 +1,4 @@
----
-  title: "Prompt Engineering"
----
+# Prompt Engineering
 
 I have found [promptingguide.ai](https://www.promptingguide.ai/) to be a great source of advanced prompting techniques.
 

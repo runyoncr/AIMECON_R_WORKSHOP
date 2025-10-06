@@ -1,7 +1,6 @@
----
-  title: "Prompt Formulas"
----
+#Prompt Formulas"
+
   
-## Prompt Formulas
+## Example Prompt Formulas
 
 Link to examples here

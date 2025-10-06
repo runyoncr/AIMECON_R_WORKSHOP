@@ -1,6 +1,4 @@
----
-  title: "Conversational Models"
----
+# Single Interactions via API
   
 ## Continued interactions with models
 

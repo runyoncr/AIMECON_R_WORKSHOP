@@ -1,6 +1,5 @@
----
-  title: "Retrieval Augmented Generation"
----
+# Retrieval Augmented Generation
+
   
 ## What are RAG models?
 

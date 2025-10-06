@@ -1,7 +1,6 @@
----
-  title: "Chained Workflows"
----
-  
-## Workflows
+# Chained Workflows
 
-Link to examples
+  
+## Prompt Chaining
+
+History in chain-of-thought models; evolved to workflows and reasoning models.

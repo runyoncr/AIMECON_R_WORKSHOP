@@ -1,4 +1,4 @@
-# Non-Conversational Interactions
+# Prompting LLMs via API
   
 ## Single interactions with Models
 

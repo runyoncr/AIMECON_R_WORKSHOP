@@ -1,9 +1,8 @@
----
-  title: "General Prompt Engineering"
----
+# General Prompt Engineering
+
   
-## Including Content
+## Including Context
 
 Integrate AI Fundamentals information in this section.
 
-Link to promptingguide.ai here
+Link to promptingguide.ai here?

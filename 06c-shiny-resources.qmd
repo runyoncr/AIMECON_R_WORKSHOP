@@ -1,6 +1,5 @@
----
-  title: "Shiny-related Resources"
----
+# "Shiny-related Resources"
+
   
 Posit has [many useful things](https://shiny.posit.co/).
 * [Materials for the R language start here](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/).
