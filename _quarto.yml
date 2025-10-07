@@ -19,6 +19,8 @@ book:
   chapters:
     - index.qmd
     
+    - test.qmd
+    
     - part: 00-preparation.qmd
       chapters:
         - 00a-R-setup.qmd
@@ -65,6 +67,7 @@ book:
 execute:
   echo: true  # Show code by default in all chapters
   eval: true
+  engine: knitr 
   
 format:
   html:
