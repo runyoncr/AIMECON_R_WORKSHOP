@@ -1,4 +1,4 @@
-# Acknowledgements
+# Acknowledgements {#sec-acknowledgements .unnumbered}
 
 Many thanks to those that helped me in creating this guide (whether they knew it or not 😅).
 

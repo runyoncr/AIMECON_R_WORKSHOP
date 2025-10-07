@@ -88,5 +88,11 @@
   },
   "07-acknowledgements.qmd": {
     "07-acknowledgements.html": "a2af0596"
+  },
+  "test.qmd": {
+    "test.html": "33c10e1d"
+  },
+  "08-ref-start.qmd": {
+    "08-ref-start.html": "2ddb16ed"
   }
 }

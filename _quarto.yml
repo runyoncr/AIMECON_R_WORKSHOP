@@ -54,17 +54,17 @@ book:
         - 05a-shiny.qmd
         - 05b-vibe-coding.qmd
         
-    - 08-ref-start.qmd
+    - 06-references.qmd
     
-    - 06-reference-materials.qmd
+    - 07-reference-materials.qmd
     # - part: 06-reference-materials.qmd
     #   chapters: 
-    #     - 06a-basic-refs.qmd
-    #     - 06b-ref-guides.qmd
-    #     - 06c-shiny-resources.qmd
-    #     - 06d-legal-info.qmd
+    #     - 07a-basic-refs.qmd
+    #     - 07b-ref-guides.qmd
+    #     - 07c-shiny-resources.qmd
+    #     - 07d-legal-info.qmd
     
-    - 07-acknowledgements.qmd
+    - 08-acknowledgements.qmd
 
 bibliography: references.bib
 csl: american-medical-association.csl

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Integrating Generative AI into R Workflows: From APIs to Shiny Apps",
     "section": "",
-    "text": "Welcome\nThis online book was created to be a user-friendly way to present the materials in support of the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at AIMECON in October, 2025. Although created primarily for this purpose, I intend to contiually update these materials as I learn. Changes to the book last made on r format(Sys.time(), '%Y-%m-%d %H:%M:%S')\nThe current time is r Sys.time().\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality",
+    "text": "Welcome\nThis online book was created to be a user-friendly way to present the materials in support of the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at AIMECON in October, 2025. Although created primarily for this purpose, I intend to contiually update these materials as I learn.\nChanges to the book last made on: 2025-10-07 10:09:32\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality",
     "crumbs": [
       "Welcome"
     ]
@@ -102,56 +102,56 @@
   {
     "objectID": "00a-R-setup.html",
     "href": "00a-R-setup.html",
-    "title": "1  R Setup",
+    "title": "2  R Setup",
     "section": "",
-    "text": "1.1 Installing R\nThis workshop is based in the R programming language. As such, it is necessary to have a recent (\\(\\geq\\) R Version 4.4) installed on your computer.\nThese workshop materials were built and tested using R version 4.5.1 (Great Square Root, released 2025-06-13), with all packages updated on or after October 5, 2025.",
+    "text": "2.1 Installing R\nThis workshop is based in the R programming language. As such, it is necessary to have a recent version installed on your computer. I would suggest R Version \\(\\geq\\) 4.4.\nThese workshop materials were built and tested using R version 4.5.1 (Great Square Root, released 2025-06-13), with all packages updated on or after October 5, 2025.",
     "crumbs": [
       "Set Up",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Setup</span>"
     ]
   },
   {
     "objectID": "00a-R-setup.html#installing-r-studio-desktop",
     "href": "00a-R-setup.html#installing-r-studio-desktop",
-    "title": "1  R Setup",
-    "section": "\n1.2 Installing R Studio Desktop",
-    "text": "1.2 Installing R Studio Desktop\nPosit makes a wonderful integrated development environment (IDE) called R Studio Desktop. This is my preferred IDE for R, although you may choose others if you like. I will be using R Studio throughout the workshop.\nI am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.",
+    "title": "2  R Setup",
+    "section": "\n2.2 Installing R Studio Desktop",
+    "text": "2.2 Installing R Studio Desktop\nPosit makes a wonderful integrated development environment (IDE) called R Studio Desktop. This is my preferred IDE for R, although you may choose others if you like. I will be using R Studio throughout the workshop.\nI am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.",
     "crumbs": [
       "Set Up",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Setup</span>"
     ]
   },
   {
     "objectID": "00a-R-setup.html#installing-r-tools",
     "href": "00a-R-setup.html#installing-r-tools",
-    "title": "1  R Setup",
-    "section": "\n1.3 Installing R Tools",
-    "text": "1.3 Installing R Tools\nRTools is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. The packages that are available on CRAN do not require having RTools installed because the packages hosted there are precompiled binary packages.\nI’m unsure of which packages I’ve downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.4. (And it’s just good to have in case you need it later.)",
+    "title": "2  R Setup",
+    "section": "\n2.3 Installing R Tools",
+    "text": "2.3 Installing R Tools\nRTools is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. The packages that are available on CRAN do not require having RTools installed because the packages hosted there are precompiled binary packages.\nI’m unsure of which packages I’ve downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.4. (And it’s just good to have in case you need it later.)",
     "crumbs": [
       "Set Up",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Setup</span>"
     ]
   },
   {
     "objectID": "00b-R-packages.html",
     "href": "00b-R-packages.html",
-    "title": "2  R Packages",
+    "title": "3  R Packages",
     "section": "",
-    "text": "Codelibrary(ggplot2)\n#| echo: false\n# source(\"_formatting.R\")\n\n\nR’s strength lies not just in its statistical capabilities, but in its open-source nature. R’s code is freely available for anyone to inspect, modify, and improve. This openness has cultivated a vibrant global community of statisticians, data scientists, and developers who actively contribute to the language’s evolution.\nThe R package ecosystem exemplifies this collaborative spirit. Community members can develop packages that address specific needs that span many academic domains (see Task Views). These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.\n\nCodeinstall.packages(c(\"tidyverse\", \"curl\", \"ragnar\", \"duckdb\", \"shiny\", \"shinyjs\"))",
+    "text": "3.1 Workshop package\nR’s strength lies not just in its statistical capabilities, but in its open-source nature. R’s code is freely available for anyone to inspect, modify, and improve. This openness has cultivated a vibrant global community of statisticians, data scientists, and developers who actively contribute to the language’s evolution.\nThe R package ecosystem exemplifies this collaborative spirit. Community members can develop packages that address specific needs that span many academic domains (see Task Views). These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.",
     "crumbs": [
       "Set Up",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Packages</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>R Packages</span>"
     ]
   },
   {
     "objectID": "01a-gen-ai-basics.html",
     "href": "01a-gen-ai-basics.html",
-    "title": "4  Foundational Principles",
+    "title": "5  Foundational Principles",
     "section": "",
-    "text": "4.1 Co-occurrence",
+    "text": "5.1 Co-occurrence",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Foundational Principles</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
     ]
   },
   {
@@ -544,23 +544,23 @@
   {
     "objectID": "01a-gen-ai-basics.html#attention",
     "href": "01a-gen-ai-basics.html#attention",
-    "title": "4  Foundational Principles",
-    "section": "4.2 Attention",
-    "text": "4.2 Attention",
+    "title": "5  Foundational Principles",
+    "section": "5.2 Attention",
+    "text": "5.2 Attention\nThe transformer architecture1 revolutionized NLP.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Foundational Principles</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
     ]
   },
   {
     "objectID": "01a-gen-ai-basics.html#embeddings",
     "href": "01a-gen-ai-basics.html#embeddings",
-    "title": "4  Foundational Principles",
-    "section": "4.3 Embeddings",
-    "text": "4.3 Embeddings",
+    "title": "5  Foundational Principles",
+    "section": "5.3 Embeddings",
+    "text": "5.3 Embeddings\n\n\n\n\n\n\n1. Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. Advances in neural information processing systems. 2017;30.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Foundational Principles</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
     ]
   },
   {
@@ -733,6 +733,37 @@
     "text": "Many thanks to those that helped me in creating this guide (whether they knew it or not 😅).\n\nVictoria Yaneva, who really helped me upskill in all things related to NLP and AI.\nHadley Wickham. Aside from being generally inspirational in the quality of their work and open-science attitude, I largely modeled this Quarto book off his immensely helpful “R for Data Science” book. Being able to review the code used to make that book saved me a significant amount of time in learning Quarto and making this book.",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Acknowledgements</span>"
+    ]
+  },
+  {
+    "objectID": "test.html",
+    "href": "test.html",
+    "title": "\n1  Test\n",
+    "section": "",
+    "text": "Inline test: 4\n\nCode2 + 2\n\n[1] 4",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Test</span>"
+    ]
+  },
+  {
+    "objectID": "08-ref-start.html",
+    "href": "08-ref-start.html",
+    "title": "References",
+    "section": "",
+    "text": "1. Vaswani A, Shazeer N, Parmar N, et al.\nAttention is all you need. Advances in neural information processing\nsystems. 2017;30.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "00b-R-packages.html#package-details",
+    "href": "00b-R-packages.html#package-details",
+    "title": "3  R Packages",
+    "section": "\n3.2 Package details",
+    "text": "3.2 Package details\n\nCodeinstall.packages(c(\"tidyverse\", \"curl\", \"ragnar\", \"duckdb\", \"shiny\", \"shinyjs\"))",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>R Packages</span>"
     ]
   }
 ]
