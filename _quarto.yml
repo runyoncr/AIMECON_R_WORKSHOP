@@ -54,6 +54,8 @@ book:
         - 05a-shiny.qmd
         - 05b-vibe-coding.qmd
         
+    - 08-ref-start.qmd
+    
     - 06-reference-materials.qmd
     # - part: 06-reference-materials.qmd
     #   chapters: 
@@ -68,7 +70,7 @@ bibliography: references.bib
 csl: american-medical-association.csl
 
 execute:
-  echo: true  # Show code by default in all chapters
+  echo: true
   eval: true
   engine: knitr 
   
@@ -77,12 +79,12 @@ format:
     theme: spacelab
     toc: false
     css: style.css
-    code-fold: show          # Participants can show/hide code
-    code-tools: true         # Download code button
-    code-copy: true          # Copy code button
+    code-fold: show
+    code-tools: true
+    code-copy: true
     code-link: true
-    link-citations: true      # Add this here
-    citation-hover: true 
+    link-citations: true
+    citation-hover: true
     
 website:
   site-url: https://runyoncr.github.io/AIMECON_R_WORKSHOP
