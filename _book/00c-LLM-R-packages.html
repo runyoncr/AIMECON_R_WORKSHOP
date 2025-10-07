@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Prompt Engineering – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>3&nbsp; LLM-specific R Packages – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./02a-general-prompt-information.html" rel="next">
-<link href="./01b-gen-ai-parameters.html" rel="prev">
+<link href="./01-gen-ai-fundamentals.html" rel="next">
+<link href="./00b-R-packages.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-prompt-engineering.html">Prompt Engineering</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00-preparation.html">Set Up</a></li><li class="breadcrumb-item"><a href="./00c-LLM-R-packages.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">LLM-specific R Packages</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -173,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00c-LLM-R-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="./00c-LLM-R-packages.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">LLM-specific R Packages</span></span></a>
   </div>
 </li>
@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./02-prompt-engineering.html" class="sidebar-item-text sidebar-link active">
+            <a href="./02-prompt-engineering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prompt Engineering</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -327,9 +327,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00-preparation.html">Set Up</a></li><li class="breadcrumb-item"><a href="./00c-LLM-R-packages.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">LLM-specific R Packages</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Prompt Engineering</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-r-packages" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">LLM-specific R Packages</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -346,33 +346,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>I have found <a href="https://www.promptingguide.ai/">promptingguide.ai</a> to be a great source of advanced prompting techniques.</p>
-<p>We’ll only cover a sampling of these methods in the workshop today because we’ll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.</p>
-<section id="prompt-engineering-importance" class="level2">
-<h2 class="anchored" data-anchor-id="prompt-engineering-importance">Prompt Engineering Importance</h2>
-<p>Tie in to chapter 1</p>
+<p>A number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we’ll cover some of those in the workshop), whereas other packages include some developer design decisions that don’t work particularly well for my usual workflows.</p>
+<p>Below is a non-exhaustive list of packages that I’ve found to interact with LLMs. This is not meant to be exhaustive or a curated list; it’s only to provide you with information about the packages you’ll be using in the workshop (and others) in the case you find them helpful for your workflow. All package summaries were initially generated with AI. Some summaries have been edited, some have not.</p>
+<section id="ellmer" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="ellmer"><span class="header-section-number">3.1</span> ellmer</h2>
+<p><strong>ellmer</strong> <a href="https://ellmer.tidyverse.org/" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/ellmer/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/ellmer/refman/ellmer.html" target="_blank">Documentation</a></p>
+<p><strong>ellmer</strong> is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.</p>
 </section>
-<section id="madlibs" class="level2">
-<h2 class="anchored" data-anchor-id="madlibs">Madlibs</h2>
+<section id="tidyprompt" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="tidyprompt"><span class="header-section-number">3.2</span> tidyprompt</h2>
+<p><strong>tidyprompt</strong> <a href="https://github.com/KennispuntTwente/tidyprompt" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/tidyprompt/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/tidyprompt/refman/tidyprompt.html" target="_blank">Documentation</a></p>
+<p><strong>tidyprompt</strong> is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g.&nbsp;ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g.&nbsp;via ellmer) to produce more robust, predictable interactions.</p>
 </section>
-<section id="prompt-formulas" class="level2">
-<h2 class="anchored" data-anchor-id="prompt-formulas">Prompt Formulas</h2>
+<section id="tidyllm" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="tidyllm"><span class="header-section-number">3.3</span> tidyllm</h2>
+<p><strong>tidyllm</strong> <a href="https://github.com/edubruell/tidyllm" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/tidyllm/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/tidyllm/refman/tidyllm.html" target="_blank">Documentation</a></p>
+<p><strong>tidyllm</strong> provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g.&nbsp;Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.</p>
 </section>
-<section id="prompt-chaining" class="level2">
-<h2 class="anchored" data-anchor-id="prompt-chaining">Prompt Chaining</h2>
-<section id="chain-of-thought-prompting" class="level3">
-<h3 class="anchored" data-anchor-id="chain-of-thought-prompting">Chain-of-thought Prompting</h3>
-<section id="invisible-instructions" class="level4">
-<h4 class="anchored" data-anchor-id="invisible-instructions">Invisible Instructions</h4>
+<section id="chattr" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="chattr"><span class="header-section-number">3.4</span> chattr</h2>
+<p><strong>chattr</strong> <a href="https://mlverse.github.io/chattr/" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/chattr/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/chattr/refman/chattr.html" target="_blank">Documentation</a></p>
+<p><strong>chattr</strong> is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g.&nbsp;loaded data frames) and integrates with various back-ends (e.g.&nbsp;OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.</p>
 </section>
+<section id="llmagentr" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="llmagentr"><span class="header-section-number">3.5</span> LLMAgentR</h2>
+<p><strong>LLMAgentR</strong> <a href="https://github.com/knowusuboaky/LLMAgentR" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/LLMAgentR/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/LLMAgentR/refman/LLMAgentR.html" target="_blank">Documentation</a></p>
+<p><strong>LLMAgentR</strong> is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g.&nbsp;code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.</p>
 </section>
-<section id="manual-prompt-chaining" class="level3">
-<h3 class="anchored" data-anchor-id="manual-prompt-chaining">Manual Prompt Chaining</h3>
+<section id="packetllm" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="packetllm"><span class="header-section-number">3.6</span> PacketLLM</h2>
+<p><strong>PacketLLM</strong> <a href="https://antoniczolgowski.r-universe.dev/PacketLLM" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/PacketLLM/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/PacketLLM/vignettes/PacketLLM-introduction.html" target="_blank">Documentation</a></p>
+<p><strong>PacketLLM</strong> offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g.&nbsp;GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g.&nbsp;.R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.</p>
 
 
 <!-- -->
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -828,37 +836,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01b-gen-ai-parameters.html" class="pagination-link" aria-label="Model Parameters">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Model Parameters</span></span>
+      <a href="./00b-R-packages.html" class="pagination-link" aria-label="R Packages">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02a-general-prompt-information.html" class="pagination-link" aria-label="General Prompt Engineering">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">General Prompt Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01-gen-ai-fundamentals.html" class="pagination-link" aria-label="Generative AI Fundamentals">
+        <span class="nav-page-text">Generative AI Fundamentals</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Prompt Engineering</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># LLM-specific R Packages {#sec-r-packages}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>I have found <span class="co">[</span><span class="ot">promptingguide.ai</span><span class="co">](https://www.promptingguide.ai/)</span> to be a great source of advanced prompting techniques.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>A number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>We'll only cover a sampling of these methods in the workshop today because we'll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Engineering Importance</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Tie in to chapter 1</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Madlibs</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Below is a non-exhaustive list of packages that I've found to interact with LLMs. </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>This is not meant to be exhaustive or a curated list; it's only to provide you with information about the packages you'll be using in the workshop (and others) in the case you find them helpful for your workflow.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>All package summaries were initially generated with AI.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Some summaries have been edited, some have not.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## ellmer</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>**ellmer** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://ellmer.tidyverse.org/)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/ellmer/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">]( https://cran.r-project.org/web/packages/ellmer/refman/ellmer.html)</span>{target="_blank"}  </span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Formulas</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>**ellmer** is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Chaining</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Chain-of-thought Prompting</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Invisible Instructions</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Manual Prompt Chaining</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## tidyprompt</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>**tidyprompt** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://github.com/KennispuntTwente/tidyprompt)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/tidyprompt/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/tidyprompt/refman/tidyprompt.html)</span>{target="_blank"}  </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>**tidyprompt** is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g. ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g. via ellmer) to produce more robust, predictable interactions.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## tidyllm</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>**tidyllm** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://github.com/edubruell/tidyllm)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/tidyllm/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/tidyllm/refman/tidyllm.html)</span>{target="_blank"}  </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>**tidyllm** provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g. Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.  </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## chattr</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>**chattr** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://mlverse.github.io/chattr/)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/chattr/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/chattr/refman/chattr.html)</span>{target="_blank"}  </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>**chattr** is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g. loaded data frames) and integrates with various back-ends (e.g. OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.  </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## LLMAgentR</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**LLMAgentR** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://github.com/knowusuboaky/LLMAgentR)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/LLMAgentR/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/LLMAgentR/refman/LLMAgentR.html)</span>{target="_blank"}  </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>**LLMAgentR** is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g. code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## PacketLLM</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>**PacketLLM** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://antoniczolgowski.r-universe.dev/PacketLLM)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/PacketLLM/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/PacketLLM/vignettes/PacketLLM-introduction.html)</span>{target="_blank"}  </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**PacketLLM** offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g. GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g. .R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.  </span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

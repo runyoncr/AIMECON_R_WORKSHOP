@@ -67,5 +67,26 @@
   },
   "05b-vibe-coding.qmd": {
     "05b-vibe-coding.html": "ea966325"
+  },
+  "00c-LLM-R-packages.qmd": {
+    "00c-LLM-R-packages.html": "8ea5a2e2"
+  },
+  "01b-gen-ai-parameters.qmd": {
+    "01b-gen-ai-parameters.html": "d65283f4"
+  },
+  "04-integration.qmd": {
+    "04-integration.html": "3d312588"
+  },
+  "04a-single-interactions-via-api.qmd": {
+    "04a-single-interactions-via-api.html": "ed0a51e5"
+  },
+  "04b-conversations-via-api.qmd": {
+    "04b-conversations-via-api.html": "229967f4"
+  },
+  "04c-rag-models.qmd": {
+    "04c-rag-models.html": "c2f980d0"
+  },
+  "07-acknowledgements.qmd": {
+    "07-acknowledgements.html": "a2af0596"
   }
 }

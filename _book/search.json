@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Integrating Generative AI into R Workflows: From APIs to Shiny Apps",
     "section": "",
-    "text": "Welcome\nWelcome to the AIMECON R Workshop! This book contains all the materials for our R programming workshop.\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality",
+    "text": "Welcome\nThis online book was created to be a user-friendly way to present the materials in support of the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at AIMECON in October, 2025. Although created primarily for this purpose, I intend to contiually update these materials as I learn. Changes to the book last made on r format(Sys.time(), '%Y-%m-%d %H:%M:%S')\nThe current time is r Sys.time().\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality",
     "crumbs": [
       "Welcome"
     ]
@@ -52,51 +52,51 @@
   {
     "objectID": "06-reference-materials.html",
     "href": "06-reference-materials.html",
-    "title": "“Reference Materials”",
+    "title": "Reference Materials",
     "section": "",
-    "text": "Background Information on GPTs\nThe 3Blue1Brown YouTube Channel provides several good videos on the some of the technical aspects of large language models.\nAnthropic’s paper On the Biology of a Large Language Model is particularly interesting.\nThis post on lesswrong provides a nice high-level summary for understanding LLMs.",
+    "text": "Background Information on GPTs\nThese materials / links were last checked on October 2, 2025. All apologies for links that no longer work. Please email me at CRunyon@nbme.org if you notice something no longer works so I can change / remove the link.\nThe 3Blue1Brown YouTube Channel provides several good videos on the some of the technical aspects of large language models.\nAnthropic’s paper On the Biology of a Large Language Model is particularly interesting.\nThis post on lesswrong provides a nice high-level summary for understanding LLMs.",
     "crumbs": [
-      "\"Reference Materials\""
+      "Reference Materials"
     ]
   },
   {
     "objectID": "06-reference-materials.html#background-information-on-gpts",
     "href": "06-reference-materials.html#background-information-on-gpts",
-    "title": "“Reference Materials”",
+    "title": "Reference Materials",
     "section": "",
     "text": "The Neural Networks section is particularly informative.",
     "crumbs": [
-      "\"Reference Materials\""
+      "Reference Materials"
     ]
   },
   {
     "objectID": "06-reference-materials.html#reference-guides-and-prompt-engineering",
     "href": "06-reference-materials.html#reference-guides-and-prompt-engineering",
-    "title": "“Reference Materials”",
+    "title": "Reference Materials",
     "section": "Reference Guides (and Prompt Engineering)",
     "text": "Reference Guides (and Prompt Engineering)\nOpenAI Cookbook",
     "crumbs": [
-      "\"Reference Materials\""
+      "Reference Materials"
     ]
   },
   {
     "objectID": "06-reference-materials.html#shiny-related-resources",
     "href": "06-reference-materials.html#shiny-related-resources",
-    "title": "“Reference Materials”",
+    "title": "Reference Materials",
     "section": "Shiny-related Resources",
     "text": "Shiny-related Resources\nPosit has many useful things.\n\nMaterials for the R language start here.\nMaterials for the Python language start here.\n\nnanxstats has nicely organized many Shiny extension packages.",
     "crumbs": [
-      "\"Reference Materials\""
+      "Reference Materials"
     ]
   },
   {
     "objectID": "06-reference-materials.html#legal-considerations",
     "href": "06-reference-materials.html#legal-considerations",
-    "title": "“Reference Materials”",
+    "title": "Reference Materials",
     "section": "Legal Considerations",
     "text": "Legal Considerations\nThe information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.",
     "crumbs": [
-      "\"Reference Materials\""
+      "Reference Materials"
     ]
   },
   {
@@ -146,12 +146,12 @@
   {
     "objectID": "01a-gen-ai-basics.html",
     "href": "01a-gen-ai-basics.html",
-    "title": "3  Learning More about Gen AI",
+    "title": "4  Foundational Principles",
     "section": "",
-    "text": "3.1 Foundational AI Concepts\nPapers and brief Descriptions here",
+    "text": "4.1 Co-occurrence",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Learning More about Gen AI</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Foundational Principles</span>"
     ]
   },
   {
@@ -179,56 +179,56 @@
   {
     "objectID": "02a-general-prompt-information.html",
     "href": "02a-general-prompt-information.html",
-    "title": "5  General Prompt Engineering",
+    "title": "6  General Prompt Engineering",
     "section": "",
-    "text": "5.1 Including Content\nIntegrate AI Fundamentals information in this section.\nLink to promptingguide.ai here",
+    "text": "6.1 Including Context\nIntegrate AI Fundamentals information in this section.\nLink to promptingguide.ai here?",
     "crumbs": [
       "Prompt Engineering",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>General Prompt Engineering</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>General Prompt Engineering</span>"
     ]
   },
   {
     "objectID": "02b-prompt-formulas.html",
     "href": "02b-prompt-formulas.html",
-    "title": "6  Prompt Formulas",
+    "title": "7  Example Prompt Formulas",
     "section": "",
-    "text": "6.1 Prompt Formulas\nLink to examples here",
+    "text": "#Prompt Formulas”\nLink to examples here",
     "crumbs": [
       "Prompt Engineering",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Prompt Formulas</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Example Prompt Formulas</span>"
     ]
   },
   {
     "objectID": "02c-chained-workflows.html",
     "href": "02c-chained-workflows.html",
-    "title": "7  Chained Workflows",
+    "title": "8  Chained Workflows",
     "section": "",
-    "text": "7.1 Workflows\nLink to examples",
+    "text": "8.1 Prompt Chaining\nHistory in chain-of-thought models; evolved to workflows and reasoning models.",
     "crumbs": [
       "Prompt Engineering",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Chained Workflows</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Chained Workflows</span>"
     ]
   },
   {
     "objectID": "03a-api-keys.html",
     "href": "03a-api-keys.html",
-    "title": "8  API Keys",
+    "title": "9  API Keys",
     "section": "",
-    "text": "8.1 What are these?\nShow API keys",
+    "text": "9.1 What are these?",
     "crumbs": [
       "API Implementation",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>API Keys</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>API Keys</span>"
     ]
   },
   {
     "objectID": "03b-prompting-models.html",
     "href": "03b-prompting-models.html",
-    "title": "9  Non-Conversational Models",
+    "title": "10  Prompting LLMs via API",
     "section": "",
-    "text": "9.1 Single interactions with Models\nWhen are these appropriate?",
+    "text": "10.1 Single interactions with Models\nWhen are these appropriate?",
     "crumbs": [
       "API Implementation",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Non-Conversational Models</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Prompting LLMs via API</span>"
     ]
   },
   {
@@ -267,12 +267,12 @@
   {
     "objectID": "05b-vibe-coding.html",
     "href": "05b-vibe-coding.html",
-    "title": "13  Vibe Coding",
+    "title": "15  “Vibe Coding”",
     "section": "",
-    "text": "13.1 Feel the Vibe!\nReduces tedious syntax writing Focus on functionality",
+    "text": "15.1 Feel the Vibe!\nVibe Coding is the recent term of the art for using an LLM to help you write syntax, which includes online applications. The term was coined by Andrej Karpathy in a tweet on February 2, 2025 (ars technica article)\nReduces tedious syntax writing Focus on functionality",
     "crumbs": [
       "Shiny Integration",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Vibe Coding</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>\"Vibe Coding\"</span>"
     ]
   },
   {
@@ -280,7 +280,7 @@
     "href": "01-gen-ai-fundamentals.html",
     "title": "Generative AI Fundamentals",
     "section": "",
-    "text": "What is Generative AI?",
+    "text": "What is Generative AI?\nIt is useful to learn some fundamental aspects about GenAI models prior to their use. I have often found that there are many guides online that tell you how to use these LLMs, but don’t tell you why you should use these LLMs. Although the guidance given by these guides is often useful, when your prompt isn’t resulting in the output you want it’s unclear how to make improvements because you don’t have the foundational knowledge of how the model might be processing your prompt.\nEven though these generative AI models continue to improve without extensive prompt engineering, this foundational knowledge will serve you well in building your own generative AI workflows.\nSo what is a Gen AI model? We often hear the words GPT, generative AI, AI, LLM, and machine learning models used somewhat interchangeably and that isn’t always necessarily the case. Sometimes the speaker may not understand that they’re referring to something they don’t intend to refer to, or sometimes the technical aspects of what exactly they’re referring to doesn’t quite matter.\nIn this diagram, I’ve attempted to show you the relationship between GenAI models and some related fields. I need to note that the scale of the circles in this image is not accurate – instead I’ve only attempted to show the relationships between some of these larger fields.\nIf we’re working from the left-hand side inward, our outermost circle is Artificial Intelligence, or AI. Artificial intelligence is the broad field of computer science focused on creating systems that can perform tasks typically requiring human intelligence, such as problem-solving, reasoning, and understanding language. I’ve heard some people argue that statistical models like regressions can be included in this large circle because you’re learning about relationships in data that are not directly observable, but I’m not sure that I’m convinced of this argument, but it does give you an idea of how broad the field of AI can be construed.\nAs we start to go inward a little more, we have Machine Learning. Machine learning is a subset of AI that involves algorithms that learn patterns from data and improve their performance on tasks over time without being explicitly programmed for every possible scenario. This is different from a regression where you identify all the key predictor variables of interest based on your knowledge of the domain. With machine learning you just need to identify enough of the potentially relevant variables to maximize your predictions. Here is where we start to encounter so-called “black box” models because sometimes interpreting the decision-making processes of the algorithm becomes difficult due to the complex nature of the models.\nGoing further inward, we have Deep Learning, which is a subset of Machine Learning models. These models eliminate the need for identifying variables due to the large amount and variety of data that are supplied to the models. Deep Learning models use very complex algorithms to identify complex patterns in the data, and their results are often more uninterpretable. This is good for things like speech and natural language, where relationships between variables are not easily identified.\nI’ll now jump to the right-hand side and the large field of Natural Language Processing. Broadly speaking, natural language processing is focused on enabling computers to understand and interpret human language, and you can see it’s a very broad field of study in and of itself. There are areas of NLP that don’t necessarily overlap with machine learning or deep learning, such as sentiment analysis or topic modeling which may not use Machine Learning or Deep Learning Models.\nIf we look at the overlap between deep learning models and natural language processing models, we see that Large Language Models – LLMS – live here. LLMs represent a deep learning approach within NLP that leverages vast amounts of text data to generate and understand human-like language. These models go beyond traditional NLP techniques by using statistical learning to predict and produce coherent, context-aware text at scale. Not all LLMs are generative AI models, such as language translation app.\nNow, finally, in the middle we have Generative AI Models (Gen AI). These models that are a specific type of LLM that are designed to generate output that model resemble their training data. The most common model is a generative text model, although models are now being developed that have the capability to generate images, audio, and video.",
     "crumbs": [
       "Generative AI Fundamentals"
     ]
@@ -330,7 +330,7 @@
     "href": "02-prompt-engineering.html",
     "title": "Prompt Engineering",
     "section": "",
-    "text": "Prompt Engineering Importance\nTie in to chapter 1",
+    "text": "Prompt Engineering Importance\nI have found promptingguide.ai to be a great source of advanced prompting techniques.\nWe’ll only cover a sampling of these methods in the workshop today because we’ll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.\nTie in to chapter 1",
     "crumbs": [
       "Prompt Engineering"
     ]
@@ -370,7 +370,7 @@
     "href": "03-api-implementation.html",
     "title": "API Implementation",
     "section": "",
-    "text": "API Keys\nWhat they are. How to get them.",
+    "text": "Choosing a Generative AI Model\nArguably the most popular method for interacting with a generative AI model is a simple chatbot-based interface. These interfaces support a conversational interactions with LLM much like a text conversation or Teams chat (or AOL Instant Messaging). There is a text box, you enter a prompt, the model processes that prompt, and provides a response. And continue.\nThis method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It’s easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.\nHowever, for certain tasks (e.g., repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the n number of times you need to complete a task. In these instances it may be better to interact with a model via an application programming interface (API).\nAn API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you’re programmatically sending requests with specific instructions and receiving structured responses—allowing you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.",
     "crumbs": [
       "API Implementation"
     ]
@@ -463,6 +463,276 @@
     "text": "This section will help you ensure that you are appropriately set up to complete the rest of the workshop.",
     "crumbs": [
       "Set Up"
+    ]
+  },
+  {
+    "objectID": "00c-LLM-R-packages.html",
+    "href": "00c-LLM-R-packages.html",
+    "title": "3  LLM-specific R Packages",
+    "section": "",
+    "text": "3.1 ellmer\nA number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we’ll cover some of those in the workshop), whereas other packages include some developer design decisions that don’t work particularly well for my usual workflows.\nBelow is a non-exhaustive list of packages that I’ve found to interact with LLMs. This is not meant to be exhaustive or a curated list; it’s only to provide you with information about the packages you’ll be using in the workshop (and others) in the case you find them helpful for your workflow. All package summaries were initially generated with AI. Some summaries have been edited, some have not.\nellmer Overview CRAN Documentation\nellmer is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00c-LLM-R-packages.html#tidyprompt",
+    "href": "00c-LLM-R-packages.html#tidyprompt",
+    "title": "3  LLM-specific R Packages",
+    "section": "3.2 tidyprompt",
+    "text": "3.2 tidyprompt\ntidyprompt Overview CRAN Documentation\ntidyprompt is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g. ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g. via ellmer) to produce more robust, predictable interactions.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00c-LLM-R-packages.html#tidyllm",
+    "href": "00c-LLM-R-packages.html#tidyllm",
+    "title": "3  LLM-specific R Packages",
+    "section": "3.3 tidyllm",
+    "text": "3.3 tidyllm\ntidyllm Overview CRAN Documentation\ntidyllm provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g. Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00c-LLM-R-packages.html#chattr",
+    "href": "00c-LLM-R-packages.html#chattr",
+    "title": "3  LLM-specific R Packages",
+    "section": "3.4 chattr",
+    "text": "3.4 chattr\nchattr Overview CRAN Documentation\nchattr is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g. loaded data frames) and integrates with various back-ends (e.g. OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00c-LLM-R-packages.html#llmagentr",
+    "href": "00c-LLM-R-packages.html#llmagentr",
+    "title": "3  LLM-specific R Packages",
+    "section": "3.5 LLMAgentR",
+    "text": "3.5 LLMAgentR\nLLMAgentR Overview CRAN Documentation\nLLMAgentR is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g. code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00c-LLM-R-packages.html#packetllm",
+    "href": "00c-LLM-R-packages.html#packetllm",
+    "title": "3  LLM-specific R Packages",
+    "section": "3.6 PacketLLM",
+    "text": "3.6 PacketLLM\nPacketLLM Overview CRAN Documentation\nPacketLLM offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g. GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g. .R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html#what-is-a-generative-pre-trained-transformer",
+    "href": "01-gen-ai-fundamentals.html#what-is-a-generative-pre-trained-transformer",
+    "title": "Generative AI Fundamentals",
+    "section": "What is a Generative Pre-trained Transformer?",
+    "text": "What is a Generative Pre-trained Transformer?\nGenerative Pre-trained Transformers (GPTs) are a type of generative AI model. While not all generative text models have “GPT” in their name, understanding their underlying structure can be helpful for learning how these models work. Let’s look at each letter in the acronym:\n\nGenerative\nThe G in GPT stands for generative, which refers to the model’s ability to generate new content based on its training data. :Make analogy to regression:\n\n\nPre-trained\nGenerative AI models undergo a vast amount of model pre-training (the P). In a generative text model, this includes a vast corpus of text data. To give you an idea of how large this training data is, when I was first learning about these models, I often heard presenters say some of these models were trained on all the publicly-available text on the internet. Having such a vast amount of data equips the model with a broad “understanding” of language and its nuances. This understanding is a recognition of the patterns of word usage across many contexts.\nIt is important to note that the models are made to generate content and do not have the ability to reflect on the factual accuracy of the information that is provided. If the training data contains extensive information that is related to the input, there’s a higher probability that it will be correct, but there is no guarantee. When using text models, these models are merely predicting the most likely next token in the output. There is no self-reflective step where the model evaluates whether the information being provided is factually accurate. When the model produces information that is not correct in some aspect, this is what is known as a “hallucination”.\n\n\nTransformer\nAnd, finally, T – transformer. This is a technical aspect of the model architecture. : More details and links for this audience. :",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "01a-gen-ai-basics.html#attention",
+    "href": "01a-gen-ai-basics.html#attention",
+    "title": "4  Foundational Principles",
+    "section": "4.2 Attention",
+    "text": "4.2 Attention",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Foundational Principles</span>"
+    ]
+  },
+  {
+    "objectID": "01a-gen-ai-basics.html#embeddings",
+    "href": "01a-gen-ai-basics.html#embeddings",
+    "title": "4  Foundational Principles",
+    "section": "4.3 Embeddings",
+    "text": "4.3 Embeddings",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Foundational Principles</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html",
+    "href": "01b-gen-ai-parameters.html",
+    "title": "5  Model Parameters",
+    "section": "",
+    "text": "5.1 Temperature\nOrganize into classes of parameters?",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#temperature",
+    "href": "01b-gen-ai-parameters.html#temperature",
+    "title": "5  Model Parameters",
+    "section": "",
+    "text": "5.1.1 Generation based?\nChecking if 3 hashtags work",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#top_p",
+    "href": "01b-gen-ai-parameters.html#top_p",
+    "title": "5  Model Parameters",
+    "section": "5.2 top_p",
+    "text": "5.2 top_p",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#top_k",
+    "href": "01b-gen-ai-parameters.html#top_k",
+    "title": "5  Model Parameters",
+    "section": "5.3 top_k",
+    "text": "5.3 top_k",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#max-tokens",
+    "href": "01b-gen-ai-parameters.html#max-tokens",
+    "title": "5  Model Parameters",
+    "section": "5.4 max tokens",
+    "text": "5.4 max tokens",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#frequency-penalty",
+    "href": "01b-gen-ai-parameters.html#frequency-penalty",
+    "title": "5  Model Parameters",
+    "section": "5.5 Frequency Penalty",
+    "text": "5.5 Frequency Penalty\nWhat about other model arguments, such as: ## System Prompt",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#user-prompt",
+    "href": "01b-gen-ai-parameters.html#user-prompt",
+    "title": "5  Model Parameters",
+    "section": "5.6 User Prompt",
+    "text": "5.6 User Prompt\nWhat’s the difference?",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "03-api-implementation.html#choosing-a-generative-ai-model",
+    "href": "03-api-implementation.html#choosing-a-generative-ai-model",
+    "title": "API Implementation",
+    "section": "",
+    "text": "Anthropic\n\n\nOpenAI\n\n\nOther Model Options",
+    "crumbs": [
+      "API Implementation"
+    ]
+  },
+  {
+    "objectID": "03a-api-keys.html#workshop-api-key",
+    "href": "03a-api-keys.html#workshop-api-key",
+    "title": "9  API Keys",
+    "section": "9.2 Workshop API Key",
+    "text": "9.2 Workshop API Key\nI created an API key that you will be able to use for the purposes of the workshop. This API key will only be active during the workshop hours. If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.\nBecause API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. Use costs are relatively low for this type of use and I’m happy to cover the cost and provide an API key for educational purposes.\nI used Anthropic’s Claude model for the majority of",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>API Keys</span>"
+    ]
+  },
+  {
+    "objectID": "03b-prompting-models.html#batch-processing",
+    "href": "03b-prompting-models.html#batch-processing",
+    "title": "10  Prompting LLMs via API",
+    "section": "10.2 Batch Processing",
+    "text": "10.2 Batch Processing",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Prompting LLMs via API</span>"
+    ]
+  },
+  {
+    "objectID": "04-integration.html",
+    "href": "04-integration.html",
+    "title": "Integrating LLMs into R Workflows",
+    "section": "",
+    "text": "First Thing",
+    "crumbs": [
+      "Integrating LLMs into R Workflows"
+    ]
+  },
+  {
+    "objectID": "04-integration.html#second-thing",
+    "href": "04-integration.html#second-thing",
+    "title": "Integrating LLMs into R Workflows",
+    "section": "Second Thing",
+    "text": "Second Thing",
+    "crumbs": [
+      "Integrating LLMs into R Workflows"
+    ]
+  },
+  {
+    "objectID": "04a-single-interactions-via-api.html",
+    "href": "04a-single-interactions-via-api.html",
+    "title": "11  Single Interactions via API",
+    "section": "",
+    "text": "11.1 Continued interactions with models\nWhen are these appropriate?",
+    "crumbs": [
+      "Integrating LLMs into R Workflows",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Single Interactions via API</span>"
+    ]
+  },
+  {
+    "objectID": "04b-conversations-via-api.html",
+    "href": "04b-conversations-via-api.html",
+    "title": "12  API Conversations",
+    "section": "",
+    "text": "12.1 More stuff",
+    "crumbs": [
+      "Integrating LLMs into R Workflows",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>API Conversations</span>"
+    ]
+  },
+  {
+    "objectID": "04c-rag-models.html",
+    "href": "04c-rag-models.html",
+    "title": "13  Retrieval Augmented Generation",
+    "section": "",
+    "text": "13.1 What are RAG models?\nWhen are these appropriate?",
+    "crumbs": [
+      "Integrating LLMs into R Workflows",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Retrieval Augmented Generation</span>"
+    ]
+  },
+  {
+    "objectID": "07-acknowledgements.html",
+    "href": "07-acknowledgements.html",
+    "title": "16  Acknowledgements",
+    "section": "",
+    "text": "Many thanks to those that helped me in creating this guide (whether they knew it or not 😅).\n\nVictoria Yaneva, who really helped me upskill in all things related to NLP and AI.\nHadley Wickham. Aside from being generally inspirational in the quality of their work and open-science attitude, I largely modeled this Quarto book off his immensely helpful “R for Data Science” book. Being able to review the code used to make that book saved me a significant amount of time in learning Quarto and making this book.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Acknowledgements</span>"
     ]
   }
 ]
