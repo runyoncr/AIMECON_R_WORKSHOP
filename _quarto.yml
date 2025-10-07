@@ -64,6 +64,7 @@ book:
 
 execute:
   echo: true  # Show code by default in all chapters
+  eval: true
   
 format:
   html:
