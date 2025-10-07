@@ -4,4 +4,6 @@
 
 ## Attention
 
+The transformer architecture [@vaswani2017attention] revolutionized NLP.
+
 ## Embeddings
