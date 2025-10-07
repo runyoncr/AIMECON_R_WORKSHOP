@@ -1,9 +1,8 @@
 # R Packages {#sec-r-packages}
 
 ```{r}
-library(ggplot2)
-#| echo: false
-# source("_formatting.R")
+#| include: false
+# This chunk activates knitr for inline code
 ```
 
 R's strength lies not just in its statistical capabilities, but in its open-source nature. 
@@ -14,6 +13,9 @@ The R package ecosystem exemplifies this collaborative spirit.
 Community members can develop packages that address specific needs that span many academic domains (see [Task Views](https://cran.r-project.org/web/views/){target="_blank"}). 
 These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.
 
+## Workshop package
+
+## Package details
 
 ```{r, eval=FALSE, echo=TRUE}
 

@@ -1,14 +1,14 @@
 # R Setup {#sec-r-setup}
 
 ```{r}
-#| echo: false
-source("_formatting.R")
+#| include: false
+# This chunk activates knitr for inline code
 ```
 
 ## Installing R
 
 This workshop is based in the [R programming language](https://www.r-project.org/){target="_blank"}. 
-As such, it is necessary to have a recent ($\geq$ R Version 4.4) installed on your computer. 
+As such, it is necessary to have a recent version installed on your computer. I would suggest R Version $\geq$ 4.4. 
 
 These workshop materials were built and tested using R version 4.5.1 (Great Square Root, released 2025-06-13), with all packages updated on or after October 5, 2025.
 
@@ -26,5 +26,3 @@ The packages that are available on [CRAN](https://cran.rstudio.com/){target="_bl
 
 I'm unsure of which packages I've downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.4. 
 (And it's just good to have in case you need it later.)
-
-

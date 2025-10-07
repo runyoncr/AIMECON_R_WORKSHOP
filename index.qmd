@@ -1,14 +1,14 @@
 # Welcome {.unnumbered}
 
 ```{r}
-format(Sys.time(), '%Y-%m-%d %H:%M:%S')
+#| include: false
+# This chunk activates knitr for inline code
 ```
 
 This online book was created to be a user-friendly way to present the materials in support of the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at [AIMECON in October, 2025](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm){target="_blank"}.
 Although created primarily for this purpose, I intend to contiually update these materials as I learn.
 
-Changes to the book last made on: `r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`
-
+Changes to the book last made on: **`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`**
 
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 Learning Objectives

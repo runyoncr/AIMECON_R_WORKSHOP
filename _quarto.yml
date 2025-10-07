@@ -64,6 +64,9 @@ book:
     
     - 07-acknowledgements.qmd
 
+bibliography: references.bib
+csl: american-medical-association.csl
+
 execute:
   echo: true  # Show code by default in all chapters
   eval: true
@@ -78,6 +81,8 @@ format:
     code-tools: true         # Download code button
     code-copy: true          # Copy code button
     code-link: true
+    link-citations: true      # Add this here
+    citation-hover: true 
     
 website:
   site-url: https://runyoncr.github.io/AIMECON_R_WORKSHOP
