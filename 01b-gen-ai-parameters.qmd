@@ -1,24 +1,197 @@
-# Model Parameters
+# Generation Parameters
 
-Organize into classes of parameters?
+When large language models produce text, they do so through a probabilistic process—choosing one word (or token) at a time based on learned likelihoods from vast amounts of training data. 
+Generation parameters govern how that probabilistic process unfolds. 
+Rather than altering what the model “knows,” these parameters control how it expresses that knowledge: how much variability is allowed, how long a response can be, and how the model manages uncertainty while generating language.
 
-## Temperature
+From an educational measurement perspective, generation parameters serve a role analogous to setting conditions for test administration or scoring protocols. 
+They define the boundaries within which the model operates, affecting reliability, reproducibility, and interpretability. 
+Understanding these controls allows researchers and educators to align model behavior with the goals of a particular task—whether that task emphasizes consistency and fairness in scoring or diversity and creativity in content generation.
 
-### Generation based?
+## Sampling Controls
 
-Checking if 3 hashtags work
+These parameters affect the randomness and diversity of the model output.
 
-## top_p
+### Temperature
 
-## top_k
+Temperature controls how much randomness is introduced during text generation. 
+A value near 0 produces deterministic, highly focused responses; higher values (e.g., 0.8–1.0) make the output more varied and creative. 
+Statistically, it scales the logits before sampling, flattening or sharpening the probability distribution over possible next tokens. 
+For reproducible outputs or grading tasks, low temperature is preferred; for brainstorming or ideation, higher values work better.
 
-## max tokens
+### top_p (Nucleus Sampling)
 
-## Frequency Penalty
+`top_p` defines how much of the total probability mass is considered when sampling the next token. 
+The model first sorts possible next tokens by probability and keeps only the smallest set whose cumulative probability exceeds p. 
+For example, top_p = 0.9 means sampling only from the top 90% of the probability mass. 
+This is another way to control diversity — lower values produce more predictable text.
 
-What about other model arguments, such as:
-## System Prompt
+### `top_k`
 
-## User Prompt
+`top_k` restricts the number of candidate tokens the model can choose from at each step. 
+If k = 50, only the 50 most likely next tokens are considered. 
+This parameter is conceptually similar to top_p but framed in terms of count rather than probability. 
+Many APIs use either top_p or top_k, but not both — using one usually provides enough control over randomness.
 
-What's the difference?
+### Seed
+
+The `seed` parameter fixes the random number generator used during sampling, ensuring that the same prompt and parameters produce identical outputs every time. 
+It’s especially valuable for research or assessment contexts where reproducibility matters. 
+Setting a seed makes model behavior more deterministic, which supports fair comparisons across conditions or versions of a prompt.
+
+## Length and Structure Controls
+
+These parameters constrain how much or what kind of text the model can produce.
+
+### Max Tokens
+
+`max_tokens` sets the upper limit for how long the model’s output can be, measured in tokens (roughly pieces of words). 
+If the model reaches this limit, it stops generating even if the thought or sentence isn’t complete. 
+This parameter is useful for keeping outputs concise or fitting within budget constraints, since longer outputs consume more tokens (and thus cost more).
+
+### Stop Sequences
+
+Stop sequences define one or more strings that tell the model when to stop generating text. 
+When the model outputs any of these sequences, generation ends immediately. 
+This helps control response boundaries—useful for cutting off unwanted explanations or ensuring that responses end cleanly at a specific marker, such as “END SCORE” or “###”.
+
+## Bias and Repetition Controls
+
+These parameters discourage certain token patterns.
+
+### Frequency Penalty
+
+`frequency_penalty` discourages the model from repeating the same words or phrases. 
+It adjusts token probabilities based on how often they’ve already appeared in the current response. 
+Higher values push the model to use more varied vocabulary, while lower or zero values allow freer repetition. 
+It’s especially useful for generating longer outputs that shouldn’t sound redundant.
+
+### Presence Penalty
+
+The `presence_penalty` discourages the model from reusing tokens that have already appeared in the text. 
+Unlike the frequency_penalty, which scales with repetition, the presence penalty applies whenever a token has occurred before, even once. 
+Increasing this value nudges the model to introduce new concepts or vocabulary, which can make generated text more diverse and exploratory.
+
+## Prompt Components
+
+### System Prompt
+
+The _system prompt_ sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. 
+For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” 
+This prompt influences style and scope across the entire conversation.
+Most often the default system prompt is set to "Assistant" or "User".
+
+### User Prompt
+
+The _user prompt_ is the immediate question or task you’re asking the model to perform. 
+It represents the actual input or query, such as “Write an R function that calculates bootstrapped confidence intervals.” 
+Together, the system and user prompts define both who the model should be and what it should do—analogous to a function’s global defaults and its current arguments.
+
+### Response Schema
+
+A response schema specifies the structure or format the model should follow when producing its output. 
+For example, you might require responses in JSON with fields like "score" and "rationale". 
+Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.
+
+## Deterministic, Replicable, and Non-Reproducible Sampling
+
+
+```{r}
+
+# --- Helper Functions ------------------------------------------------------
+
+softmax <- function(x) exp(x - max(x)) / sum(exp(x - max(x)))
+
+sample_next_token <- function(logits, temperature = 1, top_p = 1) {
+  # Deterministic path
+  if (isTRUE(all.equal(temperature, 0))) {
+    return(which.max(logits))
+  }
+
+  # Apply temperature and convert to probabilities
+  p <- softmax(logits / temperature)
+
+  # Nucleus (top_p) filtering: keep smallest prefix whose cumulative prob >= top_p
+  ord <- order(p, decreasing = TRUE)
+  p_sorted <- p[ord]
+  cutoff_idx <- which(cumsum(p_sorted) >= top_p)[1]
+  if (is.na(cutoff_idx)) cutoff_idx <- length(p_sorted)
+  keep <- ord[seq_len(cutoff_idx)]
+  p_keep <- p[keep] / sum(p[keep])
+
+  # Sample from truncated distribution
+  sample(keep, size = 1, prob = p_keep)
+}
+
+draw_tokens <- function(logits, n = 12, temperature = 0.7, top_p = 0.9) {
+  ids <- integer(n)
+  for (i in seq_len(n)) {
+    ids[i] <- sample_next_token(logits, temperature = temperature, top_p = top_p)
+  }
+  ids
+}
+
+id2token <- function(id, vocab) vocab[id]
+
+# --- A larger "vocabulary" and fixed base logits (no RNG here) -------------
+vocab <- c(
+  "the","patient","reports","fever","no","cough","today","denies","nausea","vomiting",
+  "chills","sore","throat","pain","abdominal","headache","shortness","breath","since","yesterday"
+)
+
+# Hand-tuned logits (arbitrary but stable). Higher = more likely.
+base_logits <- c(
+  1.20, 0.85, 1.05, 0.15, -0.20, 0.40, -0.10, 0.70, 0.55, 0.25,
+  0.35, -0.05, 0.30, 0.95, 0.10, 0.65, 0.50, 0.45, -0.15, 0.05
+)
+
+# A tiny "model update" nudging logits (deterministic noise)
+set.seed(1234)
+updated_logits <- base_logits + rnorm(length(base_logits), mean = 0, sd = 0.03)
+
+# --- 1) Deterministic (temperature = 0) ------------------------------------
+det_ids <- draw_tokens(base_logits, n = 12, temperature = 0, top_p = 1)
+
+# --- 2) Replicable (same seed + same params) --------------------------------
+set.seed(42)
+repA_ids <- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)
+
+set.seed(42)
+repB_ids <- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)
+
+set.seed(7)
+repC_ids <- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)
+
+# --- 3) Non-Reproducible (same seed/params, different logits) ---------------
+set.seed(42)
+upd_ids <- draw_tokens(updated_logits, n = 12, temperature = 0.7, top_p = 0.9)
+
+# --- Pretty printing --------------------------------------------------------
+cat("**Deterministic (temp = 0):**\n", paste(id2token(det_ids, vocab), collapse = " "), "\n\n")
+cat("**Replicable A (seed = 42):**\n", paste(id2token(repA_ids, vocab), collapse = " "), "\n")
+cat("**Replicable B (seed = 42):**\n", paste(id2token(repB_ids, vocab), collapse = " "), "\n")
+cat("**Different seed (seed = 7):**\n", paste(id2token(repC_ids, vocab), collapse = " "), "\n\n")
+cat("**Updated model (seed = 42, new logits):**\n", paste(id2token(upd_ids, vocab), collapse = " "), "\n\n")
+
+# --- Compact comparison table ----------------------------------------------
+df <- data.frame(
+  pos = rep(1:12, 5),
+  run = rep(c("Deterministic","Replicable_A_s42","Replicable_B_s42","DiffSeed_s7","UpdatedModel_s42"), each = 12),
+  token = c(id2token(det_ids, vocab),
+            id2token(repA_ids, vocab),
+            id2token(repB_ids, vocab),
+            id2token(repC_ids, vocab),
+            id2token(upd_ids, vocab))
+)
+
+# Quick checks: A vs B identical; A vs Updated often differs at multiple positions.
+identical_A_B <- identical(repA_ids, repB_ids)
+matches_A_upd <- sum(repA_ids == upd_ids)
+
+cat(sprintf("Check — A vs B identical: %s\n", ifelse(identical_A_B, "YES", "NO")))
+cat(sprintf("Positions matching A vs Updated: %d of %d\n\n", matches_A_upd, length(repA_ids)))
+
+knitr::kable(df, caption = "Deterministic, Replicable, and Non-Reproducible sequences (12 tokens)")
+```
+
+

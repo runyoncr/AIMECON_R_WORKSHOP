@@ -1,0 +1,99 @@
+# Testing API Connection {#sec-test-connect}
+
+Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in a _little_ more depth later).
+For the purposes of this workshop I've set up an API key through Anthropic for you all to use (see @sec-workshop-key).
+
+The following is a _very_ basic function for you to test that you can connect to [Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"}. 
+As we progress through the workshop we'll use a slightly different function that gives you more control over some of the model generation parameters.
+
+To use this function you must have a .Renviron file in your working directory, as the function pulls the API key from that environment file.
+I will securely distribute this file to workshop participants ([contact me](mailto:CRunyon@nbme.org) if you have not yet received this file).
+If you've just added the .Renviron file to your directory, you'll need to refresh your R session in order for it to be registered in the environment.
+You can do this via the tabs at the top of the R Studio interface: Session --> Restart R.
+
+You can download the following function by clicking the copy button (looks like a clipboard) in the code chunk displayed below.
+Alternatively, you can click the icon below:
+
+<a href="downloads/call_claude.R" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  📥 Download `call_claude`
+</a>
+
+```{r}
+
+# Required packages
+library(httr)
+library(jsonlite)
+
+call_claude <- function(prompt,
+                        model = "claude-sonnet-4-5-20250929") {
+  
+  # Get API key from environment
+  # You will need to change this to your own API key after workshop
+  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+
+  # Convert text prompt to required message format
+  messages <- list(list(role = "user", content = prompt))
+  
+  # Build request body
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = 1024 # Required; will be an argument in other functions
+  )
+  
+  # Set up headers
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    "anthropic-version" = "2023-06-01",
+    "content-type" = "application/json"
+  )
+  
+  # Make the API request
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages",
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  
+  # Check if request was successful
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message, 
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  
+  # Parse response and extract text content
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(as.character(result$content)[2])
+}
+
+```
+
+The only argument that needs to be supplied to the function is the prompt that you want to send to the model. 
+This should be a text string that is enclosed by parentheses: "Tell me a joke about educational measurement."
+
+```{r}
+
+test_joke <- call_claude("Tell me a joke about educational measurement.")
+
+test_joke
+
+```
+
+A few things to note:
+
+1. Generally speaking, the process used by a generative AI model involves predicting the next token to be selected and sampling from a distribution of possible options.
+(We will discuss ways to control this later.)
+A (sometimes, mostly) beautiful implication of this is that responses from generative AI models will often be different, even if the **exact** same prompt is used.
+This is especially the case in the simple function above, as we haven't made an effort to tune the model generation parameters to achieve a deterministic or replicable result.
+Thus, when _you_ call Anthropic and have it generate a joke for you using the same prompt, you will likely get different responses each time.
+In fact, each time that I compile this book on GitHub the result changes!
+
+2. You may notice that escape sequences (`\n`, `\t`, etc.) may be present because the information is returned in the JSON format.
+One way to handle this is to wrap your response in `cat()`.
+We'll revisit this again later in other sections.
+
+```{r}
+
+cat(test_joke)
+
+```

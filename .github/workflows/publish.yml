@@ -8,6 +8,9 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    
     permissions:
       contents: read
       pages: write

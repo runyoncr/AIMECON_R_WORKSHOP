@@ -94,5 +94,20 @@
   },
   "08-ref-start.qmd": {
     "08-ref-start.html": "2ddb16ed"
+  },
+  "08-acknowledgements.qmd": {
+    "08-acknowledgements.html": "b35dc7d0"
+  },
+  "06-references.qmd": {
+    "06-references.html": "de9d1c02"
+  },
+  "07-reference-materials.qmd": {
+    "07-reference-materials.html": "7505c24a"
+  },
+  "00c-test-connect.qmd": {
+    "00c-test-connect.html": "1fb91b99"
+  },
+  "00d-LLM-R-packages.qmd": {
+    "00d-LLM-R-packages.html": "11cdb30e"
   }
 }

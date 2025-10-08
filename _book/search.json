@@ -148,7 +148,7 @@
     "href": "01a-gen-ai-basics.html",
     "title": "5  Foundational Principles",
     "section": "",
-    "text": "5.1 Co-occurrence",
+    "text": "5.1 Tokens",
     "crumbs": [
       "Generative AI Fundamentals",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
@@ -212,12 +212,12 @@
   {
     "objectID": "03a-api-keys.html",
     "href": "03a-api-keys.html",
-    "title": "9  API Keys",
+    "title": "10  API Keys",
     "section": "",
-    "text": "9.1 What are these?",
+    "text": "10.1 What are these?",
     "crumbs": [
       "API Implementation",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>API Keys</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>API Keys</span>"
     ]
   },
   {
@@ -280,7 +280,7 @@
     "href": "01-gen-ai-fundamentals.html",
     "title": "Generative AI Fundamentals",
     "section": "",
-    "text": "What is Generative AI?\nIt is useful to learn some fundamental aspects about GenAI models prior to their use. I have often found that there are many guides online that tell you how to use these LLMs, but don’t tell you why you should use these LLMs. Although the guidance given by these guides is often useful, when your prompt isn’t resulting in the output you want it’s unclear how to make improvements because you don’t have the foundational knowledge of how the model might be processing your prompt.\nEven though these generative AI models continue to improve without extensive prompt engineering, this foundational knowledge will serve you well in building your own generative AI workflows.\nSo what is a Gen AI model? We often hear the words GPT, generative AI, AI, LLM, and machine learning models used somewhat interchangeably and that isn’t always necessarily the case. Sometimes the speaker may not understand that they’re referring to something they don’t intend to refer to, or sometimes the technical aspects of what exactly they’re referring to doesn’t quite matter.\nIn this diagram, I’ve attempted to show you the relationship between GenAI models and some related fields. I need to note that the scale of the circles in this image is not accurate – instead I’ve only attempted to show the relationships between some of these larger fields.\nIf we’re working from the left-hand side inward, our outermost circle is Artificial Intelligence, or AI. Artificial intelligence is the broad field of computer science focused on creating systems that can perform tasks typically requiring human intelligence, such as problem-solving, reasoning, and understanding language. I’ve heard some people argue that statistical models like regressions can be included in this large circle because you’re learning about relationships in data that are not directly observable, but I’m not sure that I’m convinced of this argument, but it does give you an idea of how broad the field of AI can be construed.\nAs we start to go inward a little more, we have Machine Learning. Machine learning is a subset of AI that involves algorithms that learn patterns from data and improve their performance on tasks over time without being explicitly programmed for every possible scenario. This is different from a regression where you identify all the key predictor variables of interest based on your knowledge of the domain. With machine learning you just need to identify enough of the potentially relevant variables to maximize your predictions. Here is where we start to encounter so-called “black box” models because sometimes interpreting the decision-making processes of the algorithm becomes difficult due to the complex nature of the models.\nGoing further inward, we have Deep Learning, which is a subset of Machine Learning models. These models eliminate the need for identifying variables due to the large amount and variety of data that are supplied to the models. Deep Learning models use very complex algorithms to identify complex patterns in the data, and their results are often more uninterpretable. This is good for things like speech and natural language, where relationships between variables are not easily identified.\nI’ll now jump to the right-hand side and the large field of Natural Language Processing. Broadly speaking, natural language processing is focused on enabling computers to understand and interpret human language, and you can see it’s a very broad field of study in and of itself. There are areas of NLP that don’t necessarily overlap with machine learning or deep learning, such as sentiment analysis or topic modeling which may not use Machine Learning or Deep Learning Models.\nIf we look at the overlap between deep learning models and natural language processing models, we see that Large Language Models – LLMS – live here. LLMs represent a deep learning approach within NLP that leverages vast amounts of text data to generate and understand human-like language. These models go beyond traditional NLP techniques by using statistical learning to predict and produce coherent, context-aware text at scale. Not all LLMs are generative AI models, such as language translation app.\nNow, finally, in the middle we have Generative AI Models (Gen AI). These models that are a specific type of LLM that are designed to generate output that model resemble their training data. The most common model is a generative text model, although models are now being developed that have the capability to generate images, audio, and video.",
+    "text": "What is Generative AI?\nIt is useful to learn some fundamental aspects about GenAI models prior to their use. I have often found that there are many guides online that tell you how to use these LLMs, but don’t tell you why you should use these LLMs. Although the guidance given by these guides is often useful, when your prompt isn’t resulting in the output you want it’s unclear how to make improvements because you don’t have the foundational knowledge of how the model might be processing your prompt.\nEven though these generative AI models continue to improve without extensive prompt engineering, this foundational knowledge will serve you well in building your own generative AI workflows.\nSo what is generative artificial intelligence? We often hear the words GPT, generative AI, AI, LLM, and machine learning models used somewhat interchangeably and that isn’t always necessarily the case. Sometimes the speaker may not understand that they’re referring to something they don’t intend to refer to, or sometimes the technical aspects of what exactly they’re referring to doesn’t quite matter.\nIn this diagram, I’ve attempted to show you the relationship between Artificial Intelligence, Natural Language Processing, and related fields, with Generative Artificial Intelligence in the middle. The scale of the circles in this image is not accurate – I’ve only attempted to show the relationships between some of these larger fields.\nWorking from the left-hand side inward, our outermost circle is Artificial Intelligence, or AI. Artificial intelligence is the broad field of computer science focused on creating systems that can perform tasks typically requiring human intelligence, such as problem-solving, reasoning, and understanding language. I’ve heard some people argue that statistical models like regressions can be included in this large circle because you’re learning about relationships in data that are not directly observable, but I’m not sure that I’m convinced of this argument, but it does give you an idea of how broad the field of AI can be construed.\nAs we start to go inward a little more, we have Machine Learning. Machine learning is a subset of AI that involves algorithms that learn patterns from data and improve their performance on tasks over time without being explicitly programmed for every possible scenario. This is different from a regression where you identify all the key predictor variables of interest based on your knowledge of the domain. With machine learning you just need to identify enough of the potentially relevant variables to maximize your predictions. Here is where we start to encounter so-called “black box” models because sometimes interpreting the decision-making processes of the algorithm becomes difficult due to the complex nature of the models.\nGoing further inward, we have Deep Learning, which is a subset of Machine Learning models. These models eliminate the need for identifying variables due to the large amount and variety of data that are supplied to the models. Deep Learning models use very complex algorithms to identify complex patterns in the data, and their results are often more uninterpretable. This is good for things like speech and natural language, where relationships between variables are not easily identified.\nI’ll now jump to the right-hand side and the large field of Natural Language Processing. Broadly speaking, natural language processing is focused on enabling computers to understand and interpret human language, and you can see it’s a very broad field of study in and of itself. There are areas of NLP that don’t necessarily overlap with machine learning or deep learning, such as sentiment analysis or topic modeling which may not use Machine Learning or Deep Learning Models.\nIf we look at the overlap between deep learning models and natural language processing models, we see that Large Language Models – LLMS – live here. LLMs represent a deep learning approach within NLP that leverages vast amounts of text data to generate and understand human-like language. These models go beyond traditional NLP techniques by using statistical learning to predict and produce coherent, context-aware text at scale. Not all LLMs are generative AI models, such as language translation app.\nNow, finally, in the middle we have Generative AI Models (Gen AI). These models that are a specific type of LLM that are designed to generate output that model resemble their training data. The most common model is a generative text model, although models are now being developed that have the capability to generate images, audio, and video.",
     "crumbs": [
       "Generative AI Fundamentals"
     ]
@@ -536,7 +536,7 @@
     "href": "01-gen-ai-fundamentals.html#what-is-a-generative-pre-trained-transformer",
     "title": "Generative AI Fundamentals",
     "section": "What is a Generative Pre-trained Transformer?",
-    "text": "What is a Generative Pre-trained Transformer?\nGenerative Pre-trained Transformers (GPTs) are a type of generative AI model. While not all generative text models have “GPT” in their name, understanding their underlying structure can be helpful for learning how these models work. Let’s look at each letter in the acronym:\n\nGenerative\nThe G in GPT stands for generative, which refers to the model’s ability to generate new content based on its training data. :Make analogy to regression:\n\n\nPre-trained\nGenerative AI models undergo a vast amount of model pre-training (the P). In a generative text model, this includes a vast corpus of text data. To give you an idea of how large this training data is, when I was first learning about these models, I often heard presenters say some of these models were trained on all the publicly-available text on the internet. Having such a vast amount of data equips the model with a broad “understanding” of language and its nuances. This understanding is a recognition of the patterns of word usage across many contexts.\nIt is important to note that the models are made to generate content and do not have the ability to reflect on the factual accuracy of the information that is provided. If the training data contains extensive information that is related to the input, there’s a higher probability that it will be correct, but there is no guarantee. When using text models, these models are merely predicting the most likely next token in the output. There is no self-reflective step where the model evaluates whether the information being provided is factually accurate. When the model produces information that is not correct in some aspect, this is what is known as a “hallucination”.\n\n\nTransformer\nAnd, finally, T – transformer. This is a technical aspect of the model architecture. : More details and links for this audience. :",
+    "text": "What is a Generative Pre-trained Transformer?\nGenerative Pre-trained Transformers (GPTs) are a type of generative AI model. While not all generative text models have “GPT” in their name, understanding their underlying structure can be helpful for learning how these models work. Let’s look at each letter in the acronym:\n\nGenerative\nThe G in GPT stands for generative, which refers to the model’s ability to generate new content based on its training data. :Make analogy to regression:\n\n\nPre-trained\nGenerative AI models undergo a vast amount of model pre-training (the P). In a generative text model, this includes a vast corpus of text data. To give you an idea of how large this training data is, when I was first learning about these models, I often heard presenters say some of these models were trained on all the publicly-available text on the internet. Having such a vast amount of data equips the model with a broad “understanding” of language and its nuances. This understanding is a recognition of the patterns of word usage across many contexts.\nIt is important to note that the models are made to generate content and do not have the ability to reflect on the factual accuracy of the information that is provided. If the training data contains extensive information that is related to the input, there’s a higher probability that it will be correct, but there is no guarantee. When using text models, these models are merely predicting the most likely next token in the output. There is no self-reflective step where the model evaluates whether the information being provided is factually accurate. When the model produces information that is not correct in some aspect, this is what is known as a “hallucination”.\n\n\nTransformer\nAnd, finally, T – transformer. This is a technical aspect of the model architecture. : More details and links for this audience. :\nThis blog post on Financial Times is a great visual explanation of transformers (and related concepts) transformers without being too technical.",
     "crumbs": [
       "Generative AI Fundamentals"
     ]
@@ -545,8 +545,8 @@
     "objectID": "01a-gen-ai-basics.html#attention",
     "href": "01a-gen-ai-basics.html#attention",
     "title": "5  Foundational Principles",
-    "section": "5.2 Attention",
-    "text": "5.2 Attention\nThe transformer architecture1 revolutionized NLP.",
+    "section": "5.3 Attention",
+    "text": "5.3 Attention\nThe transformer architecture1 revolutionized NLP. As of October 7, this paper had 197,775 citations on Google Scholar.",
     "crumbs": [
       "Generative AI Fundamentals",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
@@ -556,8 +556,8 @@
     "objectID": "01a-gen-ai-basics.html#embeddings",
     "href": "01a-gen-ai-basics.html#embeddings",
     "title": "5  Foundational Principles",
-    "section": "5.3 Embeddings",
-    "text": "5.3 Embeddings\n\n\n\n\n\n\n1. Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. Advances in neural information processing systems. 2017;30.",
+    "section": "5.4 Embeddings",
+    "text": "5.4 Embeddings\n\n\n\n\n\n\n1. Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. Advances in neural information processing systems. 2017;30.",
     "crumbs": [
       "Generative AI Fundamentals",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
@@ -566,12 +566,12 @@
   {
     "objectID": "01b-gen-ai-parameters.html",
     "href": "01b-gen-ai-parameters.html",
-    "title": "5  Model Parameters",
+    "title": "\n6  Generation Parameters\n",
     "section": "",
-    "text": "5.1 Temperature\nOrganize into classes of parameters?",
+    "text": "6.1 Sampling Controls\nWhen large language models produce text, they do so through a probabilistic process—choosing one word (or token) at a time based on learned likelihoods from vast amounts of training data. Generation parameters govern how that probabilistic process unfolds. Rather than altering what the model “knows,” these parameters control how it expresses that knowledge: how much variability is allowed, how long a response can be, and how the model manages uncertainty while generating language.\nFrom an educational measurement perspective, generation parameters serve a role analogous to setting conditions for test administration or scoring protocols. They define the boundaries within which the model operates, affecting reliability, reproducibility, and interpretability. Understanding these controls allows researchers and educators to align model behavior with the goals of a particular task—whether that task emphasizes consistency and fairness in scoring or diversity and creativity in content generation.\nThese parameters affect the randomness and diversity of the model output.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Model Parameters</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   },
   {
@@ -764,6 +764,250 @@
     "crumbs": [
       "Set Up",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "08-acknowledgements.html",
+    "href": "08-acknowledgements.html",
+    "title": "Acknowledgements",
+    "section": "",
+    "text": "Many thanks to those that helped me in creating this guide (whether they knew it or not 😅).\n\nVictoria Yaneva, who really helped me upskill in all things related to NLP and AI.\nThe many kind, patient members of the NBME AI and Data Science team, who were always kind enough to help me learn, correct my mistakes, and point me in the direction of new things happening in AI.\n\nYiyun Zhou\nSaed Rezayi\nTazin Afrin\nAndrew Emerson\nKeelan Evanini\n\nHadley Wickham. Aside from being generally inspirational in the quality of their work and open-science attitude, I largely modeled this Quarto book off his immensely helpful “R for Data Science” book. Being able to review the code used to make that book saved me a significant amount of time in learning Quarto and making this book.",
+    "crumbs": [
+      "Acknowledgements"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#sampling-controls",
+    "href": "01b-gen-ai-parameters.html#sampling-controls",
+    "title": "\n6  Generation Parameters\n",
+    "section": "",
+    "text": "6.1.1 Temperature\nTemperature controls how much randomness is introduced during text generation. A value near 0 produces deterministic, highly focused responses; higher values (e.g., 0.8–1.0) make the output more varied and creative. Statistically, it scales the logits before sampling, flattening or sharpening the probability distribution over possible next tokens. For reproducible outputs or grading tasks, low temperature is preferred; for brainstorming or ideation, higher values work better.\n\n6.1.2 top_p (Nucleus Sampling)\ntop_p defines how much of the total probability mass is considered when sampling the next token. The model first sorts possible next tokens by probability and keeps only the smallest set whose cumulative probability exceeds p.  For example, top_p = 0.9 means sampling only from the top 90% of the probability mass. This is another way to control diversity — lower values produce more predictable text.\n\n6.1.3 top_k\n\ntop_k restricts the number of candidate tokens the model can choose from at each step. If k = 50, only the 50 most likely next tokens are considered. This parameter is conceptually similar to top_p but framed in terms of count rather than probability. Many APIs use either top_p or top_k, but not both — using one usually provides enough control over randomness.\n\n6.1.4 Seed\nThe seed parameter fixes the random number generator used during sampling, ensuring that the same prompt and parameters produce identical outputs every time. It’s especially valuable for research or assessment contexts where reproducibility matters. Setting a seed makes model behavior more deterministic, which supports fair comparisons across conditions or versions of a prompt.",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#length-and-structure-controls",
+    "href": "01b-gen-ai-parameters.html#length-and-structure-controls",
+    "title": "\n6  Generation Parameters\n",
+    "section": "\n6.2 Length and Structure Controls",
+    "text": "6.2 Length and Structure Controls\nThese parameters constrain how much or what kind of text the model can produce.\n\n6.2.1 Max Tokens\nmax_tokens sets the upper limit for how long the model’s output can be, measured in tokens (roughly pieces of words). If the model reaches this limit, it stops generating even if the thought or sentence isn’t complete. This parameter is useful for keeping outputs concise or fitting within budget constraints, since longer outputs consume more tokens (and thus cost more).\n\n6.2.2 Stop Sequences\nStop sequences define one or more strings that tell the model when to stop generating text. When the model outputs any of these sequences, generation ends immediately. This helps control response boundaries—useful for cutting off unwanted explanations or ensuring that responses end cleanly at a specific marker, such as “END SCORE” or “###”.",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#bias-and-repetition-controls",
+    "href": "01b-gen-ai-parameters.html#bias-and-repetition-controls",
+    "title": "\n6  Generation Parameters\n",
+    "section": "\n6.3 Bias and Repetition Controls",
+    "text": "6.3 Bias and Repetition Controls\nThese parameters discourage certain token patterns.\n\n6.3.1 Frequency Penalty\nfrequency_penalty discourages the model from repeating the same words or phrases. It adjusts token probabilities based on how often they’ve already appeared in the current response. Higher values push the model to use more varied vocabulary, while lower or zero values allow freer repetition. It’s especially useful for generating longer outputs that shouldn’t sound redundant.\n\n6.3.2 Presence Penalty\nThe presence_penalty discourages the model from reusing tokens that have already appeared in the text. Unlike the frequency_penalty, which scales with repetition, the presence penalty applies whenever a token has occurred before, even once. Increasing this value nudges the model to introduce new concepts or vocabulary, which can make generated text more diverse and exploratory.",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#prompt-components",
+    "href": "01b-gen-ai-parameters.html#prompt-components",
+    "title": "\n6  Generation Parameters\n",
+    "section": "\n6.4 Prompt Components",
+    "text": "6.4 Prompt Components\n\n6.4.1 System Prompt\nThe system prompt sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” This prompt influences style and scope across the entire conversation. Most often the default system prompt is set to “Assistant” or “User”.\n\n6.4.2 User Prompt\nThe user prompt is the immediate question or task you’re asking the model to perform. It represents the actual input or query, such as “Write an R function that calculates bootstrapped confidence intervals.” Together, the system and user prompts define both who the model should be and what it should do—analogous to a function’s global defaults and its current arguments.\n\n6.4.3 Response Schema\nA response schema specifies the structure or format the model should follow when producing its output. For example, you might require responses in JSON with fields like “score” and “rationale”. Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#deterministic-replicable-and-non-reproducible-sampling",
+    "href": "01b-gen-ai-parameters.html#deterministic-replicable-and-non-reproducible-sampling",
+    "title": "\n6  Generation Parameters\n",
+    "section": "\n6.5 Deterministic, Replicable, and Non-Reproducible Sampling",
+    "text": "6.5 Deterministic, Replicable, and Non-Reproducible Sampling\n\nCode# --- Helper Functions ------------------------------------------------------\n\nsoftmax &lt;- function(x) exp(x - max(x)) / sum(exp(x - max(x)))\n\nsample_next_token &lt;- function(logits, temperature = 1, top_p = 1) {\n  # Deterministic path\n  if (isTRUE(all.equal(temperature, 0))) {\n    return(which.max(logits))\n  }\n\n  # Apply temperature and convert to probabilities\n  p &lt;- softmax(logits / temperature)\n\n  # Nucleus (top_p) filtering: keep smallest prefix whose cumulative prob &gt;= top_p\n  ord &lt;- order(p, decreasing = TRUE)\n  p_sorted &lt;- p[ord]\n  cutoff_idx &lt;- which(cumsum(p_sorted) &gt;= top_p)[1]\n  if (is.na(cutoff_idx)) cutoff_idx &lt;- length(p_sorted)\n  keep &lt;- ord[seq_len(cutoff_idx)]\n  p_keep &lt;- p[keep] / sum(p[keep])\n\n  # Sample from truncated distribution\n  sample(keep, size = 1, prob = p_keep)\n}\n\ndraw_tokens &lt;- function(logits, n = 12, temperature = 0.7, top_p = 0.9) {\n  ids &lt;- integer(n)\n  for (i in seq_len(n)) {\n    ids[i] &lt;- sample_next_token(logits, temperature = temperature, top_p = top_p)\n  }\n  ids\n}\n\nid2token &lt;- function(id, vocab) vocab[id]\n\n# --- A larger \"vocabulary\" and fixed base logits (no RNG here) -------------\nvocab &lt;- c(\n  \"the\",\"patient\",\"reports\",\"fever\",\"no\",\"cough\",\"today\",\"denies\",\"nausea\",\"vomiting\",\n  \"chills\",\"sore\",\"throat\",\"pain\",\"abdominal\",\"headache\",\"shortness\",\"breath\",\"since\",\"yesterday\"\n)\n\n# Hand-tuned logits (arbitrary but stable). Higher = more likely.\nbase_logits &lt;- c(\n  1.20, 0.85, 1.05, 0.15, -0.20, 0.40, -0.10, 0.70, 0.55, 0.25,\n  0.35, -0.05, 0.30, 0.95, 0.10, 0.65, 0.50, 0.45, -0.15, 0.05\n)\n\n# A tiny \"model update\" nudging logits (deterministic noise)\nset.seed(1234)\nupdated_logits &lt;- base_logits + rnorm(length(base_logits), mean = 0, sd = 0.03)\n\n# --- 1) Deterministic (temperature = 0) ------------------------------------\ndet_ids &lt;- draw_tokens(base_logits, n = 12, temperature = 0, top_p = 1)\n\n# --- 2) Replicable (same seed + same params) --------------------------------\nset.seed(42)\nrepA_ids &lt;- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)\n\nset.seed(42)\nrepB_ids &lt;- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)\n\nset.seed(7)\nrepC_ids &lt;- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)\n\n# --- 3) Non-Reproducible (same seed/params, different logits) ---------------\nset.seed(42)\nupd_ids &lt;- draw_tokens(updated_logits, n = 12, temperature = 0.7, top_p = 0.9)\n\n# --- Pretty printing --------------------------------------------------------\ncat(\"**Deterministic (temp = 0):**\\n\", paste(id2token(det_ids, vocab), collapse = \" \"), \"\\n\\n\")\n\n**Deterministic (temp = 0):**\n the the the the the the the the the the the the \n\nCodecat(\"**Replicable A (seed = 42):**\\n\", paste(id2token(repA_ids, vocab), collapse = \" \"), \"\\n\")\n\n**Replicable A (seed = 42):**\n fever fever pain chills nausea denies breath the shortness breath denies breath \n\nCodecat(\"**Replicable B (seed = 42):**\\n\", paste(id2token(repB_ids, vocab), collapse = \" \"), \"\\n\")\n\n**Replicable B (seed = 42):**\n fever fever pain chills nausea denies breath the shortness breath denies breath \n\nCodecat(\"**Different seed (seed = 7):**\\n\", paste(id2token(repC_ids, vocab), collapse = \" \"), \"\\n\\n\")\n\n**Different seed (seed = 7):**\n yesterday patient the the reports chills pain abdominal reports denies reports reports \n\nCodecat(\"**Updated model (seed = 42, new logits):**\\n\", paste(id2token(upd_ids, vocab), collapse = \" \"), \"\\n\\n\")\n\n**Updated model (seed = 42, new logits):**\n abdominal abdominal pain chills nausea denies breath the shortness breath denies breath \n\nCode# --- Compact comparison table ----------------------------------------------\ndf &lt;- data.frame(\n  pos = rep(1:12, 5),\n  run = rep(c(\"Deterministic\",\"Replicable_A_s42\",\"Replicable_B_s42\",\"DiffSeed_s7\",\"UpdatedModel_s42\"), each = 12),\n  token = c(id2token(det_ids, vocab),\n            id2token(repA_ids, vocab),\n            id2token(repB_ids, vocab),\n            id2token(repC_ids, vocab),\n            id2token(upd_ids, vocab))\n)\n\n# Quick checks: A vs B identical; A vs Updated often differs at multiple positions.\nidentical_A_B &lt;- identical(repA_ids, repB_ids)\nmatches_A_upd &lt;- sum(repA_ids == upd_ids)\n\ncat(sprintf(\"Check — A vs B identical: %s\\n\", ifelse(identical_A_B, \"YES\", \"NO\")))\n\nCheck — A vs B identical: YES\n\nCodecat(sprintf(\"Positions matching A vs Updated: %d of %d\\n\\n\", matches_A_upd, length(repA_ids)))\n\nPositions matching A vs Updated: 10 of 12\n\nCodeknitr::kable(df, caption = \"Deterministic, Replicable, and Non-Reproducible sequences (12 tokens)\")\n\n\nDeterministic, Replicable, and Non-Reproducible sequences (12 tokens)\n\npos\nrun\ntoken\n\n\n\n1\nDeterministic\nthe\n\n\n2\nDeterministic\nthe\n\n\n3\nDeterministic\nthe\n\n\n4\nDeterministic\nthe\n\n\n5\nDeterministic\nthe\n\n\n6\nDeterministic\nthe\n\n\n7\nDeterministic\nthe\n\n\n8\nDeterministic\nthe\n\n\n9\nDeterministic\nthe\n\n\n10\nDeterministic\nthe\n\n\n11\nDeterministic\nthe\n\n\n12\nDeterministic\nthe\n\n\n1\nReplicable_A_s42\nfever\n\n\n2\nReplicable_A_s42\nfever\n\n\n3\nReplicable_A_s42\npain\n\n\n4\nReplicable_A_s42\nchills\n\n\n5\nReplicable_A_s42\nnausea\n\n\n6\nReplicable_A_s42\ndenies\n\n\n7\nReplicable_A_s42\nbreath\n\n\n8\nReplicable_A_s42\nthe\n\n\n9\nReplicable_A_s42\nshortness\n\n\n10\nReplicable_A_s42\nbreath\n\n\n11\nReplicable_A_s42\ndenies\n\n\n12\nReplicable_A_s42\nbreath\n\n\n1\nReplicable_B_s42\nfever\n\n\n2\nReplicable_B_s42\nfever\n\n\n3\nReplicable_B_s42\npain\n\n\n4\nReplicable_B_s42\nchills\n\n\n5\nReplicable_B_s42\nnausea\n\n\n6\nReplicable_B_s42\ndenies\n\n\n7\nReplicable_B_s42\nbreath\n\n\n8\nReplicable_B_s42\nthe\n\n\n9\nReplicable_B_s42\nshortness\n\n\n10\nReplicable_B_s42\nbreath\n\n\n11\nReplicable_B_s42\ndenies\n\n\n12\nReplicable_B_s42\nbreath\n\n\n1\nDiffSeed_s7\nyesterday\n\n\n2\nDiffSeed_s7\npatient\n\n\n3\nDiffSeed_s7\nthe\n\n\n4\nDiffSeed_s7\nthe\n\n\n5\nDiffSeed_s7\nreports\n\n\n6\nDiffSeed_s7\nchills\n\n\n7\nDiffSeed_s7\npain\n\n\n8\nDiffSeed_s7\nabdominal\n\n\n9\nDiffSeed_s7\nreports\n\n\n10\nDiffSeed_s7\ndenies\n\n\n11\nDiffSeed_s7\nreports\n\n\n12\nDiffSeed_s7\nreports\n\n\n1\nUpdatedModel_s42\nabdominal\n\n\n2\nUpdatedModel_s42\nabdominal\n\n\n3\nUpdatedModel_s42\npain\n\n\n4\nUpdatedModel_s42\nchills\n\n\n5\nUpdatedModel_s42\nnausea\n\n\n6\nUpdatedModel_s42\ndenies\n\n\n7\nUpdatedModel_s42\nbreath\n\n\n8\nUpdatedModel_s42\nthe\n\n\n9\nUpdatedModel_s42\nshortness\n\n\n10\nUpdatedModel_s42\nbreath\n\n\n11\nUpdatedModel_s42\ndenies\n\n\n12\nUpdatedModel_s42\nbreath",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+    ]
+  },
+  {
+    "objectID": "00c-test-connect.html",
+    "href": "00c-test-connect.html",
+    "title": "3  Testing API Connection",
+    "section": "",
+    "text": "Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in a little more depth later). For the purposes of this workshop I’ve set up an API key through Anthropic for you all to use (see Section 10.2).\nThe following is a very basic function for you to test that you can connect to Anthropic’s Claude Sonnet 4.5 model. As we progress through the workshop we’ll use a slightly different function that gives you more control over some of the model generation parameters.\nTo use this function you must have a .Renviron file in your working directory, as the function pulls the API key from that environment file. I will securely distribute this file to workshop participants (contact me if you have not yet received this file). If you’ve just added the .Renviron file to your directory, you’ll need to refresh your R session in order for it to be registered in the environment. You can do this via the tabs at the top of the R Studio interface: Session –&gt; Restart R.\nYou can download the following function by clicking the copy button (looks like a clipboard) in the code chunk displayed below. Alternatively, you can click the icon below:\n 📥 Download call_claude \n\nCode# Required packages\nlibrary(httr)\nlibrary(jsonlite)\n\ncall_claude &lt;- function(prompt,\n                        model = \"claude-sonnet-4-5-20250929\") {\n  \n  # Get API key from environment\n  # You will need to change this to your own API key after workshop\n  api_key &lt;- Sys.getenv(\"ANTHROPIC_API_KEY\")\n\n  # Convert text prompt to required message format\n  messages &lt;- list(list(role = \"user\", content = prompt))\n  \n  # Build request body\n  request_body &lt;- list(\n    model = model,\n    messages = messages,\n    max_tokens = 1024 # Required; will be an argument in other functions\n  )\n  \n  # Set up headers\n  headers &lt;- add_headers(\n    \"x-api-key\" = api_key,\n    \"anthropic-version\" = \"2023-06-01\",\n    \"content-type\" = \"application/json\"\n  )\n  \n  # Make the API request\n  response &lt;- POST(\n    url = \"https://api.anthropic.com/v1/messages\",\n    headers,\n    body = toJSON(request_body, auto_unbox = TRUE)\n  )\n  \n  # Check if request was successful\n  if (http_status(response)$category != \"Success\") {\n    stop(paste(\"API request failed:\", http_status(response)$message, \n               \"\\nDetails:\", content(response, \"text\", encoding = \"UTF-8\")))\n  }\n  \n  # Parse response and extract text content\n  result &lt;- fromJSON(content(response, \"text\", encoding = \"UTF-8\"))\n  return(as.character(result$content)[2])\n}\n\n\nThe only argument that needs to be supplied to the function is the prompt that you want to send to the model. This should be a text string that is enclosed by parentheses: “Tell me a joke about educational measurement.”\n\nCodetest_joke &lt;- call_claude(\"Tell me a joke about educational measurement.\")\n\ntest_joke\n\n[1] \"Why did the test item go to therapy?\\n\\nIt had too many validity issues and couldn't tell if it was really measuring what it was supposed to measure! \\n\\n(And its reliability was so low, it gave a different answer every time someone asked.)\"\n\n\nA few things to note:\n\nGenerally speaking, the process used by a generative AI model involves predicting the next token to be selected and sampling from a distribution of possible options. (We will discuss ways to control this later.) A (sometimes, mostly) beautiful implication of this is that responses from generative AI models will often be different, even if the exact same prompt is used. This is especially the case in the simple function above, as we haven’t made an effort to tune the model generation parameters to achieve a deterministic or replicable result. Thus, when you call Anthropic and have it generate a joke for you using the same prompt, you will likely get different responses each time. In fact, each time that I compile this book on GitHub the result changes!\nYou may notice that escape sequences (\\n, \\t, etc.) may be present because the information is returned in the JSON format. One way to handle this is to wrap your response in cat(). We’ll revisit this again later in other sections.\n\n\nCodecat(test_joke)\n\nWhy did the test item go to therapy?\n\nIt had too many validity issues and couldn't tell if it was really measuring what it was supposed to measure! \n\n(And its reliability was so low, it gave a different answer every time someone asked.)",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Testing API Connection</span>"
+    ]
+  },
+  {
+    "objectID": "00d-LLM-R-packages.html",
+    "href": "00d-LLM-R-packages.html",
+    "title": "4  LLM-specific R Packages",
+    "section": "",
+    "text": "4.1 ellmer\nA number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we’ll cover some of those in the workshop), whereas other packages include some developer design decisions that don’t work particularly well for my usual workflows.\nBelow is a non-exhaustive list of packages that I’ve found to interact with LLMs. This is not meant to be exhaustive or a curated list; it’s only to provide you with information about the packages you’ll be using in the workshop (and others) in the case you find them helpful for your workflow. All package summaries were initially generated with AI. Some summaries have been edited, some have not.\nellmer Overview CRAN Documentation\nellmer is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00d-LLM-R-packages.html#tidyprompt",
+    "href": "00d-LLM-R-packages.html#tidyprompt",
+    "title": "4  LLM-specific R Packages",
+    "section": "4.2 tidyprompt",
+    "text": "4.2 tidyprompt\ntidyprompt Overview CRAN Documentation\ntidyprompt is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g. ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g. via ellmer) to produce more robust, predictable interactions.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00d-LLM-R-packages.html#tidyllm",
+    "href": "00d-LLM-R-packages.html#tidyllm",
+    "title": "4  LLM-specific R Packages",
+    "section": "4.3 tidyllm",
+    "text": "4.3 tidyllm\ntidyllm Overview CRAN Documentation\ntidyllm provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g. Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00d-LLM-R-packages.html#chattr",
+    "href": "00d-LLM-R-packages.html#chattr",
+    "title": "4  LLM-specific R Packages",
+    "section": "4.4 chattr",
+    "text": "4.4 chattr\nchattr Overview CRAN Documentation\nchattr is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g. loaded data frames) and integrates with various back-ends (e.g. OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00d-LLM-R-packages.html#llmagentr",
+    "href": "00d-LLM-R-packages.html#llmagentr",
+    "title": "4  LLM-specific R Packages",
+    "section": "4.5 LLMAgentR",
+    "text": "4.5 LLMAgentR\nLLMAgentR Overview CRAN Documentation\nLLMAgentR is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g. code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "00d-LLM-R-packages.html#packetllm",
+    "href": "00d-LLM-R-packages.html#packetllm",
+    "title": "4  LLM-specific R Packages",
+    "section": "4.6 PacketLLM",
+    "text": "4.6 PacketLLM\nPacketLLM Overview CRAN Documentation\nPacketLLM offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g. GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g. .R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.",
+    "crumbs": [
+      "Set Up",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>LLM-specific R Packages</span>"
+    ]
+  },
+  {
+    "objectID": "01-gen-ai-fundamentals.html#what-is-generative-ai",
+    "href": "01-gen-ai-fundamentals.html#what-is-generative-ai",
+    "title": "Generative AI Fundamentals",
+    "section": "",
+    "text": "Comparison of AI and NLP",
+    "crumbs": [
+      "Generative AI Fundamentals"
+    ]
+  },
+  {
+    "objectID": "01a-gen-ai-basics.html#co-occurrence",
+    "href": "01a-gen-ai-basics.html#co-occurrence",
+    "title": "5  Foundational Principles",
+    "section": "5.2 Co-occurrence",
+    "text": "5.2 Co-occurrence",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Foundational Principles</span>"
+    ]
+  },
+  {
+    "objectID": "03a-api-keys.html#sec-workshop-key",
+    "href": "03a-api-keys.html#sec-workshop-key",
+    "title": "10  API Keys",
+    "section": "10.2 Workshop API Key",
+    "text": "10.2 Workshop API Key\nI created an API key that you will be able to use for the purposes of the workshop. This API key will only be active during the workshop hours. If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.\nBecause API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. Use costs are relatively low for this type of use and I’m happy to cover the cost and provide an API key for educational purposes.\nI used Anthropic’s Claude model for the majority of",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>API Keys</span>"
+    ]
+  },
+  {
+    "objectID": "06-references.html",
+    "href": "06-references.html",
+    "title": "References",
+    "section": "",
+    "text": "1. Vaswani A, Shazeer N, Parmar N, et al.\nAttention is all you need. Advances in neural information processing\nsystems. 2017;30.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html",
+    "href": "07-reference-materials.html",
+    "title": "Reference Materials",
+    "section": "",
+    "text": "Background Information on GPTs\nThese materials / links were last checked on October 2, 2025. All apologies for links that no longer work. Please email me at CRunyon@nbme.org if you notice something no longer works so I can change / remove the link.\nThe 3Blue1Brown YouTube Channel provides several good videos on the some of the technical aspects of large language models.\nAnthropic’s paper On the Biology of a Large Language Model is particularly interesting.\nThis post on lesswrong provides a nice high-level summary for understanding LLMs.",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#background-information-on-gpts",
+    "href": "07-reference-materials.html#background-information-on-gpts",
+    "title": "Reference Materials",
+    "section": "",
+    "text": "The Neural Networks section is particularly informative.",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#reference-guides-and-prompt-engineering",
+    "href": "07-reference-materials.html#reference-guides-and-prompt-engineering",
+    "title": "Reference Materials",
+    "section": "Reference Guides (and Prompt Engineering)",
+    "text": "Reference Guides (and Prompt Engineering)\nOpenAI Cookbook",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#shiny-related-resources",
+    "href": "07-reference-materials.html#shiny-related-resources",
+    "title": "Reference Materials",
+    "section": "Shiny-related Resources",
+    "text": "Shiny-related Resources\nPosit has many useful things.\n\nMaterials for the R language start here.\nMaterials for the Python language start here.\n\nnanxstats has nicely organized many Shiny extension packages.",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#resources-for-continuing-development",
+    "href": "07-reference-materials.html#resources-for-continuing-development",
+    "title": "Reference Materials",
+    "section": "Resources for Continuing Development",
+    "text": "Resources for Continuing Development\nThe following list of books / blogs / newsletters / training is a compilation of resources that have either I found useful or have been recommended by colleagues.\n\nNewsletters\n\n\nBooks\n\n\nBlogs\n\n\nTraining",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#legal-considerations",
+    "href": "07-reference-materials.html#legal-considerations",
+    "title": "Reference Materials",
+    "section": "Legal Considerations",
+    "text": "Legal Considerations\nThe information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.",
+    "crumbs": [
+      "Reference Materials"
     ]
   }
 ]
