@@ -12,7 +12,7 @@ Anthropic's paper [On the Biology of a Large Language Model](https://transformer
 
 This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic){target="_blank"} provides a nice high-level summary for understanding LLMs.
 
-## Reference Guides (and Prompt Engineering)
+## Reference Guides
 
 [OpenAI Cookbook](https://cookbook.openai.com/){target="_blank"}
 
@@ -32,6 +32,12 @@ The following list of books / blogs / newsletters / training is a compilation of
 ### Newsletters
 
 ### Books
+
+[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/){target="_blank"} by Chip Huyen is a slightly more advanced read for those interested in building AI products.
+
+[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering.
+
+[Brave New Words](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/) by Sal Khan (of [Khan Academy](https://www.khanacademy.org/) fame) is an interesting perspective on how AI will change education.
 
 ### Blogs
 

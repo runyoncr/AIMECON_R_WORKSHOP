@@ -2,6 +2,7 @@ Package: GenAIWorkshopBook
 Title: Integrating GenAI Models into R Workflows
 Version: 0.1.0
 Imports:
+    httr,
     httr2,
     jsonlite,
     dplyr,

@@ -1,6 +1,5 @@
 # Prompt Engineering
 
-I have found [promptingguide.ai](https://www.promptingguide.ai/) to be a great source of advanced prompting techniques.
 
 We'll only cover a sampling of these methods in the workshop today because we'll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.
 
@@ -19,3 +18,9 @@ Tie in to chapter 1
 #### Invisible Instructions
 
 ### Manual Prompt Chaining
+
+## Resources
+
+[promptingguide.ai](https://www.promptingguide.ai/){target="_blank"} is a great resources for learning more about prompt engineering techniques.
+
+[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. 

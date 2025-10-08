@@ -330,7 +330,7 @@
     "href": "02-prompt-engineering.html",
     "title": "Prompt Engineering",
     "section": "",
-    "text": "Prompt Engineering Importance\nI have found promptingguide.ai to be a great source of advanced prompting techniques.\nWe’ll only cover a sampling of these methods in the workshop today because we’ll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.\nTie in to chapter 1",
+    "text": "Prompt Engineering Importance\nWe’ll only cover a sampling of these methods in the workshop today because we’ll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.\nTie in to chapter 1",
     "crumbs": [
       "Prompt Engineering"
     ]
@@ -1008,6 +1008,16 @@
     "text": "Legal Considerations\nThe information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.",
     "crumbs": [
       "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "02-prompt-engineering.html#resources",
+    "href": "02-prompt-engineering.html#resources",
+    "title": "Prompt Engineering",
+    "section": "Resources",
+    "text": "Resources\npromptingguide.ai is a great resources for learning more about prompt engineering techniques.\nPrompt Engineering for Generative AI : Future-Proof Inputs for Reliable AI Outputs by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering.",
+    "crumbs": [
+      "Prompt Engineering"
     ]
   }
 ]

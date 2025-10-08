@@ -20,10 +20,139 @@ Understanding how to manage this key responsibly is a foundational step in incor
 ## Workshop API Key {#sec-workshop-key}
 
 I created an API key that you will be able to use for the purposes of the workshop.
+I have chosen to use Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"} for this workshop.
 This API key will only be active during the workshop hours.
 If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
 
 Because API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. 
 Use costs are relatively low for this type of use and I'm happy to cover the cost and provide an API key for educational purposes.
+Outside of the workshop you'll need to create an account with a model provider and register for an API key to track your model use.
 
-I used Anthropic's Claude model for the majority of
+### Calling the Model via API
+
+A very simple function to call the Anthropic Claude Sonnet 4.5 model is here: @sec-call-claude.
+Below I've made a stripped-down version of the model function, indicating what information needs to be changed if you want to use another model.
+
+```{r}
+
+# Required packages
+library(httr)
+library(jsonlite)
+
+# MODEL_NAME needs to be specified - can be found on the provider's API documentation page
+
+call_claude <- function(prompt,
+                        model = "MODEL_NAME") {
+  
+  # Get API key from environment
+  # You will need to change this to your own API key after workshop
+  api_key <- Sys.getenv("") # Need have the API key in your .Renviron file
+
+  # Convert text prompt to required message format
+  messages <- list(list(role = "user", content = prompt))
+  
+  # Build request body
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = 1024 # Required; will be an argument in other functions
+  )
+  
+  # Set up headers
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    # "anthropic-version" = "2023-06-01", # This line will need to be changed
+    "content-type" = "application/json"
+  )
+  
+  # Make the API request
+  response <- POST(
+    # url = "https://api.anthropic.com/v1/messages", # This line will need to be changed
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  
+  # Check if request was successful
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message, 
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  
+  # Parse response and extract text content
+  # This section may also need to be modified depending on how the provider returns model output.
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(as.character(result$content)[2])
+}
+
+```
+
+### OpenAI ChatGPT5 example
+
+Here is a version of a function you can use to call OpenAI's ChatGPT5.
+Note that calling this model has two generation parameters: `verbosity` and `reasoning_effort`, which you can read more about [here (cookbook.openai.com)](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools){target="_blank"} and [here (latest model page the OpenAI Platform; will change when new model is released.)](https://platform.openai.com/docs/guides/latest-model){target="_blank"} 
+
+```{r}
+
+library(httr)
+library(jsonlite)
+
+call_gpt5 <- function(prompt,
+                      model = "gpt-5",
+                      verbosity = NULL,           # "low", "medium", "high"
+                      reasoning_effort = NULL) {  # "minimal", "low", "medium", "high"
+
+  api_key <- Sys.getenv("OPENAI_API_KEY")
+  if (api_key == "") {
+    stop("OpenAI API key is not set. Please set OPENAI_API_KEY in your environment.")
+  }
+  
+  messages <- list(list(role = "user", content = prompt))
+  
+  body_list <- list(
+    model = model,
+    messages = messages,
+    max_tokens = 1024,
+  )
+  
+  # Add GPT-5 specific parameters only if non-NULL
+  params <- list()
+
+  headers <- add_headers(
+    Authorization = paste("Bearer", api_key),
+    `Content-Type` = "application/json"
+  )
+  
+  resp <- POST(
+    url = "https://api.openai.com/v1/chat/completions",
+    headers,
+    body = toJSON(body_list, auto_unbox = TRUE)
+  )
+  
+  if (http_status(resp)$category != "Success") {
+    stop(paste0("API request failed (", http_status(resp)$message, "): ",
+                content(resp, "text", encoding = "UTF-8")))
+  }
+  
+  res <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = TRUE)
+  
+  # Extract the assistant content
+  return(res$choices[[1]]$message$content)
+}
+
+# Example usages:
+# 1. Default call (default verbosity & reasoning, both = "medium")
+# result <- call_gpt5("Explain item response theory in simple terms.")
+
+# 2. With lowest verbosity and reasoning settings:
+# result2 <- call_gpt5("Explain item response theory in simple terms.",
+#                      verbosity = "low",
+#                      reasoning_effort = "minimal")
+# cat(result2)
+
+# 3. With highest verbosity and reasoning settings:
+# result2 <- call_gpt5("Explain item response theory in simple terms.",
+#                      verbosity = "high",
+#                      reasoning_effort = "high")
+# cat(result2)
+
+```
