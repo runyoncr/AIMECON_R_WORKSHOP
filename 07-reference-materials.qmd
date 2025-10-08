@@ -25,6 +25,18 @@ Posit has [many useful things](https://shiny.posit.co/){target="_blank"}.
 
 [nanxstats has nicely organized many Shiny extension packages.](https://github.com/nanxstats/awesome-shiny-extensions){target="_blank"}
 
+## Resources for Continuing Development
+
+The following list of books / blogs / newsletters / training is a compilation of resources that have either I found useful or have been recommended by colleagues.
+
+### Newsletters
+
+### Books
+
+### Blogs
+
+### Training
+
 ## Legal Considerations
 
 The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.

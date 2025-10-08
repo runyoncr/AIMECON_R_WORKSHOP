@@ -19,8 +19,6 @@ book:
   chapters:
     - index.qmd
     
-    - test.qmd
-    
     - part: 00-preparation.qmd
       chapters:
         - 00a-R-setup.qmd
