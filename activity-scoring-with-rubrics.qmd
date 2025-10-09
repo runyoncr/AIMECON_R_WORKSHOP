@@ -1,0 +1,9 @@
+# Activity: Scoring with Rubrics
+
+## Analytic v Holistic Rubrics
+
+### Using LLMs to Apply Analytic Rubrics
+
+### Using LLMs to Apply Holistic Rubrics
+
+### Rubric Scoring at Scale

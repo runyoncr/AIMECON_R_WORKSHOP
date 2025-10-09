@@ -1,6 +1,5 @@
 # Prompt Engineering
 
-
 We'll only cover a sampling of these methods in the workshop today because we'll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.
 
 ## Prompt Engineering Importance

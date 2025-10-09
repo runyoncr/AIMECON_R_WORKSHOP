@@ -1,14 +1,9 @@
 # API Keys {#sec-api-keys}
-  
-## What are these?
 
 An API key is a unique identifier that allows software programs to communicate securely with external services, such as a large language model hosted by a provider. 
-The key acts like a digital credential: it tells the system who you are, verifies that you have permission to use the service, and tracks how much you use it for billing and security purposes. 
-In practice, it’s a long string of letters and numbers that you include in your code whenever you send a request to the model.
-
-I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
-They generall look like this: `sk-3vT9aP1LQ2Rz4w7Xe8Kj9Nh2yTfBc5Ud6VgW1xZq`.
-The actual prefixes and length of random alphanumeric characters will usually vary by provider.
+The key acts like a digital credential: it tells the system who you are, verifies that you have permission to use the service, and tracks how much you use it for billing and security purposes.
+Unfortunately, if you have a subscription to an LLM provider (e.g., Anthropic, OpenAI, etc.), this does not automatically come with an API key.
+You will have to set up the API separately.
 
 For users integrating LLMs into R or other analytic workflows, the API key serves as the bridge between your local environment and the remote model. 
 When your script makes an API call, the key authenticates that request and returns the model’s response. 
@@ -16,6 +11,17 @@ Because API keys grant direct access to paid and potentially sensitive resources
 
 In essence, the API key is what allows researchers to treat a model as a callable function, enabling controlled, programmatic access to a complex system running on remote infrastructure. 
 Understanding how to manage this key responsibly is a foundational step in incorporating LLMs into reproducible research and educational applications.
+
+In practice, an API key is a long string of letters and numbers that you include in your code whenever you send a request to the model.
+I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
+They generally look like this: `sk-3vT9aP1LQ2Rz4w7Xe8Kj9Nh2yTfBc5Ud6VgW1xZq`.
+The actual prefixes and length of random alphanumeric characters will usually vary by provider.
+
+Links to documentation for API keys:
+
+- Anthropic
+- OpenAI
+- Google Gemini
 
 ## Workshop API Key {#sec-workshop-key}
 

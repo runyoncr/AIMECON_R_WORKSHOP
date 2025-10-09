@@ -26,10 +26,17 @@ book:
         - 00c-test-connect.qmd
         - 00d-LLM-R-packages.qmd
     
+    - part: 03-api-implementation.qmd
+      chapters: 
+        - 03a-api-keys.qmd
+        - 03b-prompting-models.qmd
+    
     - part: 01-gen-ai-fundamentals.qmd  
       chapters:
         - 01a-gen-ai-basics.qmd
         - 01b-gen-ai-parameters.qmd
+        
+    - activity-parameter-testing.qmd
     
     - part: 02-prompt-engineering.qmd
       chapters: 
@@ -37,21 +44,24 @@ book:
         - 02b-prompt-formulas.qmd
         - 02c-chained-workflows.qmd
     
-    - part: 03-api-implementation.qmd
-      chapters: 
-        - 03a-api-keys.qmd
-        - 03b-prompting-models.qmd
+    - activity-prompt-engineering.qmd
     
     - part: 04-integration.qmd
       chapters:
         - 04a-single-interactions-via-api.qmd
         - 04b-conversations-via-api.qmd
         - 04c-rag-models.qmd
+        
+    - activity-content-development-revision.qmd
+    
+    - activity-scoring-with-rubrics.qmd
     
     - part: 05-shiny-integration.qmd
       chapters: 
         - 05a-shiny.qmd
         - 05b-vibe-coding.qmd
+        
+    - activity-shiny-app-development.qmd
         
     - 06-references.qmd
     
