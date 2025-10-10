@@ -1,4 +1,4 @@
-# Set Up {#sec-preparation .unnumbered}
+# Set Up {#sec-preparation}
 
 ```{r}
 #| echo: false

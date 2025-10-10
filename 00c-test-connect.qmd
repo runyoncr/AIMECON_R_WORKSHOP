@@ -1,4 +1,4 @@
-# Testing API Connection {#sec-test-connect}
+## Testing API Connection {#sec-test-connect}
 
 Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in a _little_ more depth later).
 For the purposes of this workshop I've set up an API key through Anthropic for you all to use (see @sec-workshop-key).
@@ -20,7 +20,7 @@ Alternatively, you can click the icon below:
   📥 Download `call_claude`
 </a>
 
-```{r}
+```{r call_claude}
 
 # Required packages
 library(httr)

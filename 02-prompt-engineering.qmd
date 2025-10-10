@@ -20,6 +20,22 @@ Tie in to chapter 1
 
 ## Resources
 
+[Anthropic's Prompt Engineering Guide](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview){target="_blank"}
+
+---
+
+[OpenAI's Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering){target="_blank"}
+
+---
+
+[Google Gemini's Prompt Engineering Guide](https://ai.google.dev/gemini-api/docs/prompting-strategies){target="_blank"}
+
+- Includes directions on [uploading a file via API](https://ai.google.dev/gemini-api/docs/files#prompt-guide){target="_blank"} as part of a prompt.
+
+---
+
 [promptingguide.ai](https://www.promptingguide.ai/){target="_blank"} is a great resources for learning more about prompt engineering techniques.
 
-[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. 
+---
+
+<!-- [Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is a standard resource. Many good practice examples.  -->

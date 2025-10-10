@@ -109,5 +109,23 @@
   },
   "00d-LLM-R-packages.qmd": {
     "00d-LLM-R-packages.html": "11cdb30e"
+  },
+  "activity-parameter-testing.qmd": {
+    "activity-parameter-testing.html": "d9bec2c9"
+  },
+  "activity-prompt-engineering.qmd": {
+    "activity-prompt-engineering.html": "a10f0c8c"
+  },
+  "04d-batch-processing.qmd": {
+    "04d-batch-processing.html": "be95dc32"
+  },
+  "activity-content-development-revision.qmd": {
+    "activity-content-development-revision.html": "4ed3baa6"
+  },
+  "activity-scoring-with-rubrics.qmd": {
+    "activity-scoring-with-rubrics.html": "fefc5509"
+  },
+  "activity-shiny-app-development.qmd": {
+    "activity-shiny-app-development.html": "2a29dc3b"
   }
 }

@@ -1,4 +1,4 @@
-# Activity: Scoring with Rubrics
+# Activity: Scoring with Rubrics {#sec-act-rubric .unnumbered}
 
 ## Analytic v Holistic Rubrics
 
