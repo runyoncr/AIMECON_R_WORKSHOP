@@ -1,1 +1,3 @@
-# Activity: Prompt Engineering {#sec-act-prompting .unnumbered}
+# Activity: Prompt Engineering {#sec-act-prompting}
+
+It's time to practice prompt engineering!

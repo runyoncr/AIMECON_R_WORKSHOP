@@ -24,7 +24,6 @@ book:
         - 00a-R-setup.qmd
         - 00b-R-packages.qmd
         - 00c-test-connect.qmd
-
     - part: 03-api-implementation.qmd
       chapters: 
         - 03a-api-keys.qmd
@@ -66,16 +65,11 @@ book:
     - 06-references.qmd
     
     - 07-reference-materials.qmd
-    # - part: 06-reference-materials.qmd
-    #   chapters: 
-    #     - 07a-basic-refs.qmd
-    #     - 07b-ref-guides.qmd
-    #     - 07c-shiny-resources.qmd
-    #     - 07d-legal-info.qmd
     
     - 08-acknowledgements.qmd
-    
-    number-offset: -1
+  
+  number-offset: -1
+  number-depth: 3
 
 bibliography: references.bib
 csl: american-medical-association.csl
