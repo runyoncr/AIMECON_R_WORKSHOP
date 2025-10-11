@@ -1,3 +1,34 @@
-# API Conversations
+# Chat Conversations via API
 
-## More stuff
+So far I've focused on just interacting with generative models in one-off interactions, where the chat history isn't preserved.
+This functionality significantly differs from the normal chatbot interface user experience.
+This may not be helpful, depending on what you want out of your interaction with the generative model.
+
+The [`ellmer` package](https://ellmer.tidyverse.org/){target="_blank"}, developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models.
+In this section we'll go over some of the basics for using this functionality.
+We'll continue to use our Anthropic API key, although `ellmer` supports interactions with a variety of model providers: OpenAI, Google Gemini, Mistal, Hugging Face, perplexity.ai, etc.
+What follows can _mostly_ be generalized to working with other models, with some slight differences (which I'll point out below).
+
+## Quick Start
+
+The easiest way to start a conversation is just to use the default settings for a model.
+
+
+```{r ellmer quick}
+
+library(ellmer)
+
+# Gets the API from the .Renviron file
+api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+
+chat <- chat_anthropic()
+chat$chat("Tell me about the history of the exploration of the moon")
+chat$chat("What are the most important non-USA exploration missions?")
+
+```
+
+
+
+
+
+

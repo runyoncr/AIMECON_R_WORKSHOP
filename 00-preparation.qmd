@@ -1,3 +1,7 @@
+---
+number: 0
+---
+
 # Set Up {#sec-preparation}
 
 ```{r}

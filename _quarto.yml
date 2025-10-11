@@ -67,9 +67,6 @@ book:
     - 07-reference-materials.qmd
     
     - 08-acknowledgements.qmd
-  
-  number-offset: -1
-  number-depth: 3
 
 bibliography: references.bib
 csl: american-medical-association.csl
@@ -84,6 +81,7 @@ format:
     theme: spacelab
     toc: false
     toc-depth: 3
+    number-depth: 3
     css: style.css
     code-fold: show
     code-tools: true
