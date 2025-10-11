@@ -9,6 +9,6 @@ Focus on functionality
 
 ## `shinychat`
 
-Unsurprisingly, Posit has created an interface to help you add an AI chatbot to a Shiny app.
+Unsurprisingly (again), Posit has created an interface to help you add an AI chatbot to a Shiny app.
 That package is called [`shinychat`.](https://posit-dev.github.io/shinychat/){target="_blank"}
 I haven't extensively worked with this, but wanted to suggest it for those ambitious workshop participants that might want to integrate an AI chatbot in their Shiny app.

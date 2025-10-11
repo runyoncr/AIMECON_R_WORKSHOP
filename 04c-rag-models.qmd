@@ -1,19 +1,28 @@
 # Retrieval Augmented Generation
 
-Retrieval-Augmented Generation (RAG) is an approach that enhances large language models by connecting them to external knowledge sources. Instead of relying solely on the information encoded in the model during training, 
+![](images/under-construction-data.png){fig-align="center" width=50%}
+
+Retrieval-Augmented Generation (RAG) is an approach that enhances large language models by connecting them to external knowledge sources. 
+Instead of relying solely on the information encoded in the model during training, 
 RAG systems first search through a database or document collection to find relevant information, then use that retrieved content to generate more accurate and grounded responses. 
 Think of it like an open-book exam versus a closed-book exam: the model can "look up" information from trusted sources rather than depending entirely on memorized knowledge.
+
+When you submit a query to a RAG system, it first converts your question into a mathematical representation called an embedding (see @sec-embeddings). 
+The documents in the RAG database have been pre-processed the same way - each document or chunk of text has been converted into its own embedding. 
+The system then performs a similarity search to find which document embeddings are most similar to your query embedding, retrieving the most relevant passages.
+
+Those retrieved passages are then inserted directly into the prompt that gets sent to the LLM. 
+So the model receives something like: "Here are some relevant documents: [retrieved passage 1], [retrieved passage 2], [retrieved passage 3]. Now answer this question: [your original query]." 
+The LLM reads both the retrieved context and your question together, then generates a response based on that combined information. 
+The database itself doesn't generate anything - it just stores and retrieves text. 
+The LLM does all the language understanding and generation, but it's working with an enriched prompt that includes relevant background information it didn't have in its training data.
+This is why RAG is sometimes described as giving the model a "working memory" or "external knowledge base"—you're dynamically providing it with relevant information to reference while generating its response.
 
 For educational measurement professionals, RAG has promising applications in areas like automated item generation, where the system could retrieve examples from existing item banks before generating new assessment items, or in providing feedback to students by pulling from curriculum materials and scoring rubrics. 
 The key advantage is that RAG systems can work with your organization's specific content—test specifications, standards documents, or assessment frameworks—without requiring expensive retraining of the underlying model. 
 This makes the technology more practical and trustworthy for high-stakes applications, since you can update the knowledge base as standards evolve and trace the model's responses back to specific source documents.
 
-More cool details from Claude:
+## `ragnar`
 
-When you submit a query to a RAG system, it first converts your question into a mathematical representation called an embedding (essentially a long list of numbers that captures the semantic meaning). The documents in the RAG database have been pre-processed the same way—each document or chunk of text has been converted into its own embedding. The system then performs a similarity search to find which document embeddings are most similar to your query embedding, retrieving the most relevant passages.
-Here's the key part: those retrieved passages are then inserted directly into the prompt that gets sent to the LLM. So the model receives something like: "Here are some relevant documents: [retrieved passage 1], [retrieved passage 2], [retrieved passage 3]. Now answer this question: [your original query]." The LLM reads both the retrieved context and your question together, then generates a response based on that combined information. The database itself doesn't generate anything—it just stores and retrieves text. The LLM does all the language understanding and generation, but it's working with an enriched prompt that includes relevant background information it didn't have in its training data.
-This is why RAG is sometimes described as giving the model a "working memory" or "external knowledge base"—you're dynamically providing it with relevant information to reference while generating its response.
+Unsuprisingly (again), Posit has created an app called [`ragnar`](https://ragnar.tidyverse.org/){target="_blank"} that is part of their [`tidyverse`](https://www.tidyverse.org/){target="_blank"} suite of packages.
 
-## What are RAG models?
-
-When are these appropriate?

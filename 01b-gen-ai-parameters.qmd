@@ -74,7 +74,7 @@ Increasing this value nudges the model to introduce new concepts or vocabulary, 
 
 ## Prompt Components
 
-### System Prompt {.sec-system-prompt}
+### System Prompt {#sec-system-prompt}
 
 The _system prompt_ sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. 
 For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” 
