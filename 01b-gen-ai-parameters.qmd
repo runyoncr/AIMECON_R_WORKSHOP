@@ -74,12 +74,12 @@ Increasing this value nudges the model to introduce new concepts or vocabulary, 
 
 ## Prompt Components
 
-### System Prompt
+### System Prompt {.sec-system-prompt}
 
 The _system prompt_ sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. 
 For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” 
 This prompt influences style and scope across the entire conversation.
-Most often the default system prompt is set to "Assistant" or "User".
+Most often the default system prompt is set to "User".
 
 ### User Prompt
 

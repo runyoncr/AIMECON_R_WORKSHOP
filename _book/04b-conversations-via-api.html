@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>12&nbsp; API Conversations – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>15&nbsp; Chat Conversations via API – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -77,8 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-23878c111f7dac4fb735463ab16209b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-23878c111f7dac4fb735463ab16209b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -104,35 +99,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
-<link rel="stylesheet" href="style.css">
+}</script><link rel="stylesheet" href="style.css">
 </head>
-
 <body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-integration.html">Integrating LLMs into R Workflows</a></li><li class="breadcrumb-item"><a href="./04b-conversations-via-api.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">API Conversations</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-integration.html">Integrating LLMs into R Workflows</a></li><li class="breadcrumb-item"><a href="./04b-conversations-via-api.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Integrating Generative AI into R Workflows: From APIs to Shiny Apps</a> 
     </div>
@@ -144,41 +129,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Set Up</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00a-R-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00b-R-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00c-test-connect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./00-preparation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Set Up</span></a>
+            <a href="./03-api-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API Implementation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00a-R-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
+  <a href="./03a-api-keys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00b-R-packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./00c-LLM-R-packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">LLM-specific R Packages</span></span></a>
+  <a href="./03b-prompting-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Prompting LLMs via API</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./01-gen-ai-fundamentals.html" class="sidebar-item-text sidebar-link">
@@ -187,21 +190,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01a-gen-ai-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01b-gen-ai-parameters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Model Parameters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generation Parameters</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-parameter-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Activity: Generation Parameter Testing</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./02-prompt-engineering.html" class="sidebar-item-text sidebar-link">
@@ -210,126 +219,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02a-general-prompt-information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">General Prompt Engineering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">General Prompt Engineering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02b-prompt-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02c-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./03-api-implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">API Implementation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+</li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03a-api-keys.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
+  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03b-prompting-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Prompting LLMs via API</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./04-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Integrating LLMs into R Workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04a-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04b-conversations-via-api.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">API Conversations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04c-rag-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04d-batch-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-content-development-revision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity: Content Development and Revision</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity: Scoring with Rubrics</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./05-shiny-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Shiny Integration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05a-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Shiny</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05b-vibe-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-reference-materials.html" class="sidebar-item-text sidebar-link">
+  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity: Shiny App Development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-reference-materials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reference Materials</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Acknowledgements</span></span></a>
+  <a href="./08-acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acknowledgements</span></a>
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-integration.html">Integrating LLMs into R Workflows</a></li><li class="breadcrumb-item"><a href="./04b-conversations-via-api.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">API Conversations</span></a></li></ol></nav>
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">API Conversations</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-integration.html">Integrating LLMs into R Workflows</a></li><li class="breadcrumb-item"><a href="./04b-conversations-via-api.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -343,19 +363,381 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
+</header><p>So far I’ve focused on just interacting with generative models in one-off interactions, where the chat history isn’t preserved. This functionality significantly differs from the normal chatbot interface user experience. This may not be helpful, depending on what you want out of your interaction with the generative model.</p>
+<p>The <a href="https://ellmer.tidyverse.org/" target="_blank"><code>ellmer</code> package</a>, developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models. In this section we’ll go over some of the basics for using this functionality. We’ll continue to use our Anthropic API key, although <code>ellmer</code> supports interactions with a variety of model providers: OpenAI, Google Gemini, Mistal, Hugging Face, perplexity.ai, etc. What follows can <em>mostly</em> be generalized to working with other models, with some slight differences (which I’ll point out below).</p>
+<section id="quick-start" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="quick-start">
+<span class="header-section-number">15.1</span> Quick Start</h2>
+<p>The easiest way to start a conversation is just to use the default settings for a model. You’ll see (as of October 10) that the model is using Claude Sonnet 4 by default. This may change in the future. You can see what Anthropic models are available with the following:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellmer.tidyverse.org">ellmer</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">models_anthropic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>                           id              name created_at cached_input input
+NA claude-sonnet-4-5-20250929 Claude Sonnet 4.5 2025-09-29           NA    NA
+14   claude-opus-4-1-20250805   Claude Opus 4.1 2025-08-05         1.50 15.00
+15     claude-opus-4-20250514     Claude Opus 4 2025-05-22         1.50 15.00
+16   claude-sonnet-4-20250514   Claude Sonnet 4 2025-05-22         0.30  3.00
+6  claude-3-7-sonnet-20250219 Claude Sonnet 3.7 2025-02-24         0.30  3.00
+1   claude-3-5-haiku-20241022  Claude Haiku 3.5 2024-10-22         0.08  0.80
+8     claude-3-haiku-20240307    Claude Haiku 3 2024-03-07         0.03  0.25
+   output
+NA     NA
+14  75.00
+15  75.00
+16  15.00
+6   15.00
+1    4.00
+8    1.25</code></pre>
+</div>
+</div>
+<p>The “input” column is the cost per million tokens of model input (the prompts). The “output” column is the cost per million tokens of the model response. For some context, Shakespeare’s <em>Romeo and Juliet</em> is about 25,000 words, which roughly translates to 40,000 tokens (depends on the tokenization method of the model).</p>
+<p>For the purposes of demonstration in our workshop, there’s no need to change it, although I’ll show you how you can do this below.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Gets the API from the .Renviron file</span></span>
+<span><span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"ANTHROPIC_API_KEY"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># You'll see a Claude Sonnet 4 is being used by default.</span></span>
+<span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Using model = "claude-sonnet-4-20250514".</code></pre>
+</div>
+</div>
+<p>Now let’s look at the conversational functionality. Below I’ve prompted the model via <code>chat$chat("prompt")</code>, and then immediately used the same syntax again (with a different prompt). I’ve hidden the output because it’s so long; you’ll need to click to see the prompt and model response.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to see first prompt and response
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me about the history of the exploration of the moon"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># The History of Lunar Exploration
 
+The exploration of the Moon represents one of humanity's greatest achievements,
+spanning from ancient observations to modern robotic missions.
 
-<section id="more-stuff" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="more-stuff"><span class="header-section-number">12.1</span> More stuff</h2>
+## Ancient and Early Modern Observations
+- **Ancient civilizations** tracked lunar phases and eclipses, creating some of
+the first astronomical records
+- **1609**: Galileo Galilei used his telescope to make the first detailed 
+observations of the Moon's surface, discovering mountains and craters
+- **17th-19th centuries**: Astronomers mapped the Moon and named its features
+
+## Early Space Age (1950s-1960s)
+### Soviet Achievements
+- **Luna 1 (1959)**: First spacecraft to reach the vicinity of the Moon
+- **Luna 2 (1959)**: First human-made object to reach the Moon's surface
+- **Luna 3 (1959)**: First images of the Moon's far side
+- **Luna 9 (1966)**: First successful soft landing
+
+### U.S. Programs
+- **Ranger program**: Crash-landed probes that sent back images during descent
+- **Surveyor program**: Soft-landing missions to test lunar surface conditions
+- **Lunar Orbiter program**: Mapped the Moon to select Apollo landing sites
+
+## The Apollo Era (1961-1972)
+- **Apollo 8 (1968)**: First crewed mission to orbit the Moon
+- **Apollo 11 (July 20, 1969)**: Neil Armstrong and Buzz Aldrin became the 
+first humans to walk on the Moon
+- **Six successful landings**: Apollo 11, 12, 14, 15, 16, and 17
+- **Scientific achievements**: Collected 842 pounds of lunar samples, conducted
+experiments, and deployed scientific instruments
+
+## Post-Apollo Period (1970s-1990s)
+- **Soviet Luna program continued**: Luna 16, 20, and 24 returned samples 
+robotically
+- **Lunokhod rovers**: First successful robotic rovers on another celestial 
+body
+- **Long hiatus**: Limited lunar activity during the 1980s and early 1990s
+
+## Modern Lunar Renaissance (1990s-Present)
+### Major Missions
+- **Clementine (1994)**: First evidence of water ice at lunar poles
+- **Lunar Prospector (1998)**: Confirmed water ice evidence
+- **SMART-1 (2003)**: European Space Agency's first lunar mission
+- **Chang'e program**: China's successful lunar exploration series, including 
+sample returns
+- **Chandrayaan missions**: India's lunar exploration program
+- **Artemis program**: NASA's current plan to return humans to the Moon
+
+### Recent Achievements
+- **2019**: China's Chang'e 4 achieved the first soft landing on the far side
+- **2020**: China's Chang'e 5 returned fresh lunar samples
+- **Ongoing**: Multiple nations and private companies planning lunar missions
+
+## Scientific Impact
+Lunar exploration has revealed that the Moon likely formed from a giant impact,
+helped us understand planetary formation, and provided insights into early 
+Earth history. The Moon continues to be a target for scientific research and a 
+stepping stone for deeper space exploration.
+
+The story of lunar exploration reflects humanity's drive to explore and 
+understand our cosmic neighborhood, involving international collaboration and 
+competition that has advanced our technological capabilities immensely.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to see follow-up prompt and response
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"What are the most important non-USA exploration missions?"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># Most Important Non-USA Lunar Exploration Missions
+
+## Soviet Union/Russia - The Pioneers
+
+### Luna Program Breakthroughs
+- **Luna 2 (1959)**: First human-made object to reach the Moon
+- **Luna 3 (1959)**: Provided first images of the Moon's far side, 
+revolutionizing our understanding
+- **Luna 9 (1966)**: First successful soft landing, proving the surface could 
+support spacecraft
+- **Luna 16 (1970)**: First robotic sample return mission, bringing back 101 
+grams of lunar soil
+- **Luna 17/Lunokhod 1 (1970)**: First successful planetary rover, operated for
+11 months
+- **Lunokhod 2 (1973)**: More advanced rover that traveled 39 km and returned 
+over 80,000 images
+
+**Impact**: The Soviet missions achieved most of the major "firsts" in lunar 
+exploration and proved that robotic missions could accomplish complex 
+scientific tasks.
+
+## China - The Modern Leader
+
+### Chang'e Program
+- **Chang'e 1 &amp; 2**: Successful orbital missions that mapped the Moon
+- **Chang'e 3/Yutu (2013)**: First soft landing since 1976, deployed the Yutu 
+rover
+- **Chang'e 4/Yutu-2 (2019)**: **Historic first soft landing on the far side** 
+of the Moon, using a relay satellite for communication
+- **Chang'e 5 (2020)**: First sample return mission in 44 years, brought back 
+1.7 kg of fresh samples from a previously unexplored region
+
+**Impact**: Revitalized global lunar exploration and demonstrated China's 
+advanced space capabilities.
+
+## European Space Agency
+
+### SMART-1 (2003-2006)
+- First European lunar mission
+- Used revolutionary ion propulsion
+- Discovered new details about lunar composition and the theory of Moon 
+formation
+- **Impact**: Proved Europe's deep space capabilities and advanced propulsion 
+technology
+
+## India
+
+### Chandrayaan Program
+- **Chandrayaan-1 (2008)**: Made crucial discovery of water molecules across 
+the lunar surface using NASA's Moon Mineralogy Mapper
+- **Chandrayaan-2 (2019)**: Though the lander crashed, the orbiter continues 
+successful operations
+- **Chandrayaan-3 (2023)**: Successfully soft-landed near the lunar south pole
+
+**Impact**: Major scientific discoveries about lunar water and demonstrated 
+India's cost-effective space exploration approach.
+
+## Japan
+
+### SELENE/Kaguya (2007-2009)
+- Most comprehensive lunar observation mission since Apollo
+- Created detailed gravitational and topographical maps
+- Provided stunning high-definition video of Earth-rise from lunar orbit
+- **Impact**: Advanced our understanding of lunar internal structure and 
+evolution
+
+## Israel (Private/International)
+
+### Beresheet (2019)
+- First privately funded lunar mission
+- Though it crashed during landing, it demonstrated that smaller nations and 
+private entities could attempt lunar exploration
+- **Impact**: Opened new models for lunar exploration beyond major space 
+agencies
+
+## Most Scientifically Significant Contributions
+
+1. **Luna 3's far side images** - Revealed the Moon's asymmetry
+2. **Chang'e 4's far side landing** - Enabled study of the Moon's most ancient 
+terrain
+3. **Chandrayaan-1's water discovery** - Fundamentally changed our 
+understanding of the Moon
+4. **Chang'e 5's sample return** - Provided new insights into lunar geological 
+timeline
+5. **Soviet robotic sample returns** - Proved automated exploration 
+capabilities
+
+## Current Global Lunar Landscape
+
+Today, lunar exploration is truly international, with active programs from:
+- **China**: Most active current program
+- **India**: Cost-effective missions with major discoveries
+- **Russia**: Planning Luna-25 and future missions
+- **Japan, South Korea, UAE**: All have current lunar programs
+- **Private companies**: SpaceX, Intuitive Machines, and others
+
+These non-USA missions have been crucial in maintaining momentum in lunar 
+science, making fundamental discoveries, and ensuring that lunar exploration 
+remains a global endeavor rather than the achievement of a single nation.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>As you can see, the second response from the model takes into context the first prompt - it’s still talking about the moon! This conversational functionality is useful when you’re doing iterative development or planning, and the previous calls to the model are important for providing content and building upon previous prompts and model responses.</p>
+</section><section id="chat_anthropic-details" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="chat_anthropic-details">
+<span class="header-section-number">15.2</span> <code>chat_anthropic</code> Details</h2>
+<p>Let’s look at the details of <code>chat_anthropic</code> (from <a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html" target="_blank">this page of the <code>ellmer</code> package reference.</a>)</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span></span>
+<span>  system_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  params <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_tokens <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  api_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  base_url <span class="op">=</span> <span class="st">"https://api.anthropic.com/v1"</span>,</span>
+<span>  beta_headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  api_key <span class="op">=</span> <span class="fu">anthropic_key</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  api_headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  echo <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>It’s important to note the <code>params</code> argument, which allows you to set a variety of model parameters when chatting with the model. This is a <a href="https://ellmer.tidyverse.org/reference/params.html" target="_blank">general argument</a> in the <code>ellmer</code> package. You’ll need to ensure that your model input allows a specific generation parameter before including it in your call.</p>
+<p>This is one place where having a conversation with a model via API instead of via a chatbot interface is different - it’s not always easy (and sometimes impossible) to change these parameters in the normal chat interface.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ellmer.tidyverse.org/reference/params.html">params</a></span><span class="op">(</span></span>
+<span>  temperature <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  top_p <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  top_k <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  frequency_penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  presence_penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_tokens <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  log_probs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stop_sequences <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="options-for-clearing-the-chat" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="options-for-clearing-the-chat">
+<span class="header-section-number">15.3</span> Options for Clearing the Chat</h2>
+<p>There are two methods to reset the chat history. This is useful when you want to start a conversation about another topic.</p>
+<section id="clearing-while-maintaining-chat-configuration" class="level3" data-number="15.3.1"><h3 data-number="15.3.1" class="anchored" data-anchor-id="clearing-while-maintaining-chat-configuration">
+<span class="header-section-number">15.3.1</span> Clearing While Maintaining Chat Configuration</h3>
+<p>The following syntax simply clears the turns but maintains the other aspects of the chat configuration (which I’ll discuss momentarily in <span class="quarto-unresolved-ref">?sec-chat-config</span>). In the background the <code>ellmer</code> package is saving a history of your prompts and model responses, and it sending this history as part of the prompt when you send a new prompt. This is also happens when having a conversation with a chatbot, but it’s even less obvious.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">set_turns</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="clearing-all-chat-settings" class="level3" data-number="15.3.2"><h3 data-number="15.3.2" class="anchored" data-anchor-id="clearing-all-chat-settings">
+<span class="header-section-number">15.3.2</span> Clearing All Chat Settings</h3>
+<p>This starts an entirely new chat with the Anthropic model, and removes any settings you’ve made (system prompt, parameters). You can also include this in your argument - the important part is that using <code><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">chat_anthropic()</a></code> again resets any previously-specified chat configuration.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="va">chat_anthoropic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section></section><section id="system-prompt" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="system-prompt">
+<span class="header-section-number">15.4</span> System Prompt</h2>
+<p>We briefly discussed system prompts in the section about generative parameters (see <span class="quarto-unresolved-ref">?sec-system-prompt</span>). The system prompt is an instruction to the model that is maintained throughout all of your interactions with the model. I don’t generally use system prompts when calling models via API, but I probably should. 😅 Nonetheless, let’s see how changing the system prompt can change the model output.</p>
+<p>First, with no setting of the system prompt:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Using model = "claude-sonnet-4-20250514".</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Briefly tell me the point of using a Rasch model."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>The main point of using a Rasch model is to create **linear, interval-level 
+measurements** from ordinal data (like test scores or survey responses).
+
+Key benefits:
+- **Person-item separation**: Measures both person ability and item difficulty 
+on the same scale
+- **Invariant measurement**: Person ability estimates don't depend on which 
+specific items were used
+- **Missing data handling**: Can estimate scores even with incomplete responses
+- **Quality control**: Identifies misfitting items or response patterns that 
+don't follow the expected pattern
+
+It's particularly valuable in educational testing, psychological assessments, 
+and surveys where you want to convert raw scores into meaningful, comparable 
+measurements that behave like true interval scales (equal differences between 
+scale points).</code></pre>
+</div>
+</div>
+<p>Now using a playful system prompt:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span></span>
+<span>  system_prompt <span class="op">=</span> <span class="st">"You are an assistant that likes to respond in rhymes."</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Using model = "claude-sonnet-4-20250514".</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Briefly tell me the point of using a Rasch model."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>The Rasch model's aim is quite neat,
+To make measurement fair and complete!
+It separates trait from task difficulty,
+Ensuring responses show true ability.
+
+With invariant measures it does provide,
+Person and item parameters reside
+On the same scale with equal intervals true,
+Making comparisons meaningful too!
+
+In short, it's designed to be:
+A tool for measurement consistency!</code></pre>
+</div>
+</div>
+<p>Some more helpful examples of good system prompts are:</p>
+<ul>
+<li>
+<em>specifying output structure</em>
+<ul>
+<li>“Always respond in JSON format with keys: ‘answer’, ‘confidence’, ‘sources’. Never include any text outside the JSON object.”</li>
+</ul>
+</li>
+<li>
+<em>ensuring constraints</em>
+<ul>
+<li>“You are a medical information assistant. Always:</li>
+</ul>
+<ol type="1">
+<li>Emphasize you’re not a doctor</li>
+<li>Recommend consulting healthcare professionals</li>
+<li>Cite medical sources when possible</li>
+<li>Never diagnose conditions”</li>
+</ol>
+</li>
+</ul>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -804,26 +1186,203 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./04a-single-interactions-via-api.html" class="pagination-link" aria-label="Single Interactions via API">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./04c-rag-models.html" class="pagination-link" aria-label="Retrieval Augmented Generation">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Conversations</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## More stuff</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Chat Conversations via API</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>So far I've focused on just interacting with generative models in one-off interactions, where the chat history isn't preserved.</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>This functionality significantly differs from the normal chatbot interface user experience.</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>This may not be helpful, depending on what you want out of your interaction with the generative model.</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`ellmer` package</span><span class="co">](https://ellmer.tidyverse.org/)</span>{target="_blank"}, developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models.</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>In this section we'll go over some of the basics for using this functionality.</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>We'll continue to use our Anthropic API key, although <span class="in">`ellmer`</span> supports interactions with a variety of model providers: OpenAI, Google Gemini, Mistal, Hugging Face, perplexity.ai, etc.</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>What follows can _mostly_ be generalized to working with other models, with some slight differences (which I'll point out below).</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quick Start</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>The easiest way to start a conversation is just to use the default settings for a model.</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>You'll see (as of October 10) that the model is using Claude Sonnet 4 by default.</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>This may change in the future. </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>You can see what Anthropic models are available with the following:</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r anthropic available}</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="fu">models_anthropic</span>()</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>The "input" column is the cost per million tokens of model input (the prompts).</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>The "output" column is the cost per million tokens of the model response.</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>For some context, Shakespeare's _Romeo and Juliet_ is about 25,000 words, which roughly translates to 40,000 tokens (depends on the tokenization method of the model).</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>For the purposes of demonstration in our workshop, there's no need to change it, although I'll show you how you can do this below.</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ellmer quick}</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Gets the API from the .Renviron file</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>api_key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>)</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="co"># You'll see a Claude Sonnet 4 is being used by default.</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>()</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>Now let's look at the conversational functionality.</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>Below I've prompted the model via <span class="in">`chat$chat("prompt")`</span>, and then immediately used the same syntax again (with a different prompt).</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>I've hidden the output because it's so long; you'll need to click to see the prompt and model response.</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Click to see first prompt and response</span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eq 1}</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Tell me about the history of the exploration of the moon"</span>)</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Click to see follow-up prompt and response</span></span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eq 2}</span></span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"What are the most important non-USA exploration missions?"</span>)</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>As you can see, the second response from the model takes into context the first prompt - it's still talking about the moon!</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>This conversational functionality is useful when you're doing iterative development or planning, and the previous calls to the model are important for providing content and building upon previous prompts and model responses.</span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## `chat_anthropic` Details</span></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a>Let's look at the details of <span class="in">`chat_anthropic`</span> (from <span class="co">[</span><span class="ot">this page of the `ellmer` package reference.</span><span class="co">](https://ellmer.tidyverse.org/reference/chat_anthropic.html)</span>{target="_blank"})</span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a><span class="fu">chat_anthropic</span>(</span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_tokens =</span> <span class="fu">deprecated</span>(),</span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_args =</span> <span class="fu">list</span>(),</span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a>  <span class="at">base_url =</span> <span class="st">"https://api.anthropic.com/v1"</span>,</span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta_headers =</span> <span class="fu">character</span>(),</span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">anthropic_key</span>(),</span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_headers =</span> <span class="fu">character</span>(),</span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">NULL</span></span>
+<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a>It's important to note the <span class="in">`params`</span> argument, which allows you to set a variety of model parameters when chatting with the model.</span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a>This is a <span class="co">[</span><span class="ot">general argument</span><span class="co">](https://ellmer.tidyverse.org/reference/params.html)</span>{target="_blank"} in the <span class="in">`ellmer`</span> package. </span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a>You'll need to ensure that your model input allows a specific generation parameter before including it in your call.</span>
+<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a>This is one place where having a conversation with a model via API instead of via a chatbot interface is different - it's not always easy (and sometimes impossible) to change these parameters in the normal chat interface.</span>
+<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span>(</span>
+<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">top_p =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">top_k =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">frequency_penalty =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a>  <span class="at">presence_penalty =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_tokens =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_probs =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a>  <span class="at">stop_sequences =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Options for Clearing the Chat</span></span>
+<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a>There are two methods to reset the chat history.</span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a>This is useful when you want to start a conversation about another topic.</span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clearing While Maintaining Chat Configuration</span></span>
+<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>The following syntax simply clears the turns but maintains the other aspects of the chat configuration (which I'll discuss momentarily in @sec-chat-config). </span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>In the background the <span class="in">`ellmer`</span> package is saving a history of your prompts and model responses, and it sending this history as part of the prompt when you send a new prompt.</span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a>This is also happens when having a conversation with a chatbot, but it's even less obvious.</span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">set_turns</span>(<span class="fu">list</span>())</span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clearing All Chat Settings</span></span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>This starts an entirely new chat with the Anthropic model, and removes any settings you've made (system prompt, parameters).</span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>You can also include this in your argument - the important part is that using <span class="in">`chat_anthropic()`</span> again resets any previously-specified chat configuration.</span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthoropic</span>()</span>
+<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## System Prompt</span></span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>We briefly discussed system prompts in the section about generative parameters (see @sec-system-prompt).</span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>The system prompt is an instruction to the model that is maintained throughout all of your interactions with the model.</span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a>I don't generally use system prompts when calling models via API, but I probably should.</span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a>😅</span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a>Nonetheless, let's see how changing the system prompt can change the model output.</span>
+<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a>First, with no setting of the system prompt:</span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{r no system prompt}</span></span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>()</span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Briefly tell me the point of using a Rasch model."</span>)</span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a>Now using a playful system prompt:</span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r playful system prompt}</span></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>(</span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"You are an assistant that likes to respond in rhymes."</span></span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Briefly tell me the point of using a Rasch model."</span>)</span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a>Some more helpful examples of good system prompts are:</span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*specifying output structure*</span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>"Always respond in JSON format with keys: 'answer', 'confidence', 'sources'. </span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a>  Never include any text outside the JSON object."</span>
+<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*ensuring constraints*</span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>"You are a medical information assistant. Always:</span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a><span class="ss">  1. </span>Emphasize you're not a doctor</span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a><span class="ss">  2. </span>Recommend consulting healthcare professionals</span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a><span class="ss">  3. </span>Cite medical sources when possible</span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a><span class="ss">  4. </span>Never diagnose conditions"</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>This workshop was developed by Christopher Runyon.</p>
 </div>   
@@ -835,8 +1394,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

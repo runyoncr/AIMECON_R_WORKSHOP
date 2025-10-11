@@ -19,11 +19,11 @@ book:
   chapters:
     - index.qmd
     
-    - part: 00-preparation.qmd
-      chapters:
-        - 00a-R-setup.qmd
-        - 00b-R-packages.qmd
-        - 00c-test-connect.qmd
+    - 00-preparation.qmd
+    - 00a-R-setup.qmd
+    - 00b-R-packages.qmd
+    - 00c-test-connect.qmd
+    
     - part: 03-api-implementation.qmd
       chapters: 
         - 03a-api-keys.qmd
