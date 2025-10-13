@@ -157,7 +157,7 @@ chat <- chat_anthropic()
 
 chat$chat("Briefly tell me the point of using a Rasch model.")
 
-rano <- as.character(rasch_normal)
+## rano <- as.character(rasch_normal)
 
 
 
