@@ -25,12 +25,13 @@ claude_plus <- function(prompt,
                         model = "claude-sonnet-4-5-20250929",
                         temperature = NULL,
                         top_p = NULL,
+                        top_k = NULL,
                         max_tokens = 1024) {
   
   # Check if both temperature and top_p are supplied
-  if (!is.null(temperature) && !is.null(top_p)) {
-    warning("Both temperature and top_p arguments are supplied. The Anthropic API does not support using both simultaneously. Only temperature will be used.")
-  }
+  # if (!is.null(temperature) && !is.null(top_p)) {
+  #   warning("Both temperature and top_p arguments are supplied. The Anthropic API does not support using both simultaneously. Only temperature will be used.")
+  # }
   
   # Get API key from environment
   # You will need to change this to your own API key after workshop
@@ -46,11 +47,16 @@ claude_plus <- function(prompt,
   )
   
   # Add temperature if provided (takes precedence over top_p)
-  if (!is.null(temperature)) {
-    request_body$temperature <- temperature
-  } else if (!is.null(top_p)) {
-    # Only add top_p if temperature is not provided
-    request_body$top_p <- top_p
+  # if (!is.null(temperature)) {
+     request_body$temperature <- temperature
+  # } else if (!is.null(top_p)) {
+  #   # Only add top_p if temperature is not provided
+     request_body$top_p <- top_p
+  # }
+  # 
+  # Add top_k if provided
+  if (!is.null(top_k)) {
+    request_body$top_k <- top_k
   }
   
   # Set up headers
@@ -172,14 +178,14 @@ For each of the following tasks, you're welcome to use my prompt or update the s
 high_pizza <- claude_param_test("In 15 words or fewer, tell me why pizza is so good.",
                                 temperature = 1,
                                 n_reps = 10)
-save(high_pizza, file = "./data/high_pizza.R")
+save(high_pizza, file = "./data/high_pizza.Rdata")
 
 ```
-```{r high temp result}
+```{r high temp result, message = FALSE, warning = FALSE}
 
 library(knitr)
-load("data/high_pizza.R")
-  kable(high_pizza)
+load("data/high_pizza.Rdata")
+kable(high_pizza)
 
 ```
 
@@ -190,12 +196,12 @@ load("data/high_pizza.R")
 low_pizza <- claude_param_test("In 15 words or fewer, tell me why pizza is so good.",
                                 temperature = 0,
                                 n_reps = 10)
-save(low_pizza, file = "./data/low_pizza.R")
+save(low_pizza, file = "./data/low_pizza.Rdata")
 
 ```
 ```{r low temp result}
 
-load("data/low_pizza.R")
+load("data/low_pizza.Rdata")
 kable(low_pizza)
 
 ```
@@ -213,21 +219,31 @@ edmeasure_low <- claude_param_test("Write a short essay about the importance of 
                                    temperature = 0,
                                    n_reps = 20,
                                    max_tokens = 2048)
-save(edmeasure_low, file = "./data/edmeasure_low.R")
+save(edmeasure_low, file = "./data/edmeasure_low.Rdata")
 
 ```
 ```{r low edm result}
 
-load("data/edmeasure_low.R")
+load("data/edmeasure_low.Rdata")
 
 ```
 
 ```{r, echo=FALSE}
 essay1 <- gsub("## ", "", edmeasure_low$output[1])
+essay1 <- gsub("# ", "", essay1)
+
 essay2 <- gsub("## ", "", edmeasure_low$output[2])
+essay2 <- gsub("# ", "", essay2)
+
 essay3 <- gsub("## ", "", edmeasure_low$output[3])
+essay3 <- gsub("# ", "", essay3)
+
 essay4 <- gsub("## ", "", edmeasure_low$output[4])
+essay4 <- gsub("# ", "", essay4)
+
 essay5 <- gsub("## ", "", edmeasure_low$output[5])
+essay5 <- gsub("# ", "", essay5)
+
 ```
 
 ::: {.panel-tabset}
@@ -266,12 +282,12 @@ cat(essay5)
 highp_pizza <- claude_param_test("In 15 words or fewer, tell me why pizza is so good.",
                                  top_p = .90,
                                  n_reps = 10)
-save(highp_pizza, file = "./data/highp_pizza.R")
+save(highp_pizza, file = "./data/highp_pizza.Rdata")
 
 ```
 ```{r high p result}
 
-load("data/highp_pizza.R")
+load("data/highp_pizza.Rdata")
 kable(highp_pizza)
 
 ```
@@ -284,12 +300,12 @@ kable(highp_pizza)
 lowp_pizza <- claude_param_test("In 15 words or fewer, tell me why pizza is so good.",
                                 top_p = .10,
                                 n_reps = 10)
-save(lowp_pizza, file = "./data/lowp_pizza.R")
+save(lowp_pizza, file = "./data/lowp_pizza.Rdata")
 
 ```
 ```{r low p result}
 
-load("data/lowp_pizza.R")
+load("data/lowp_pizza.Rdata")
 kable(lowp_pizza)
 
 ```

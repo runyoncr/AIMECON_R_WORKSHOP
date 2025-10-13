@@ -37,6 +37,7 @@ For the purposes of demonstration in our workshop, there's no need to change it,
 api_key <- Sys.getenv("ANTHROPIC_API_KEY")
 
 # You'll see a Claude Sonnet 4 is being used by default.
+# I've included a system prompt, which we'll discuss below.
 chat <- chat_anthropic("You explain things concisely, focusing on only the most significant parts of the response.")
 
 ```
@@ -124,7 +125,7 @@ The following syntax simply clears the turns but maintains the other aspects of 
 In the background the `ellmer` package is saving a history of your prompts and model responses, and it sending this history as part of the prompt when you send a new prompt.
 This is also happens when having a conversation with a chatbot, but it's even less obvious.
 
-```{r}
+```{r, eval = FALSE}
 
 chat$set_turns(list())
 
@@ -140,6 +141,38 @@ You can also include this in your argument - the important part is that using `c
 chat <- chat_anthoropic()
 
 ```
+
+## Retaining Output
+
+As you interact with a generative AI model through `ellmer`, a record of your prompts and model responses are stored in `chat$get_turns()`.
+When you examine this list object, each odd-numbered entry (starting with 1) are your prompts, and each even-numbered entry is the model response.
+
+::: {.callout-note collapse="true"}
+
+## Click to see an example conversation.
+
+```{r chat hist, eval = FALSE}
+
+chat <- chat_anthropic()
+chat$chat("Give me a 5-sentence history of educational measurement.")
+chat$chat("Give me a 5-sentence summary of educational measurement breakthroughs since 2000.")
+
+ed_meas_chat <- chat$get_turns()
+save(ed_meas_chat, file = "./data/ed_meas_chat.Rdata")
+
+```
+```{r view chat hist}
+
+load("data/ed_meas_chat.Rdata")
+ed_meas_chat[1]
+ed_meas_chat[2]
+ed_meas_chat[3]
+ed_meas_chat[4]
+
+```
+
+:::
+---
 
 ## System Prompt
 
@@ -191,5 +224,12 @@ Some more helpful examples of good system prompts are:
   3. Cite medical sources when possible
   4. Never diagnose conditions"
 
+The system prompt is also retained in the chat history, and can be accessed by specifying `chat$get_turns(include_system_prompt = TRUE)`.
+The list object now has the system prompt as the first object, meaning that your prompts are now every even-numbered object, and the system responses are every odd-numbered object, started at 3.
 
-## retaining output
+```{r chat hist w system}
+
+
+
+
+```
