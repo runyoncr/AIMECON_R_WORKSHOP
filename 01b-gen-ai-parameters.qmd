@@ -93,105 +93,22 @@ A response schema specifies the structure or format the model should follow when
 For example, you might require responses in JSON with fields like "score" and "rationale". 
 Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.
 
-## Deterministic, Replicable, and Non-Reproducible Sampling
 
+## OpenAI's ChatGPT5
 
-```{r}
+Because nothing can be easy, OpenAI's [ChatGPT5](https://openai.com/index/introducing-gpt-5/){target="_blank"} - a reasoning model - doesn't have the above parameters available via API.
+Instead, it introduces two parameters that capture the intent of many of the above parameters: `reasoning.effort` and `verbosity`.
 
-# --- Helper Functions ------------------------------------------------------
+The options for `verbosity` are `low`, `medium`, and `high`. The OpenAI Cookbook says verbosity "lets you hint the model to be more or less expansive in its replies. Keep prompts stable and use the parameter instead of re-writing."
+`low` is for terse UX, minimal prose. 
+`medium` (default) is for balanced detail.
+`high` is verbose, great for audits, teaching, or hand-offs. (descriptions [taken from here](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools){target="_blank"})
 
-softmax <- function(x) exp(x - max(x)) / sum(exp(x - max(x)))
+The options for `reasoning_effort` are `minimal`, `low`, `medium`, and `high`.
+`minimal` setting produces very few reasoning tokens for cases where you need the fastest possible time-to-first-token.
+It performs especially well in coding and instruction following scenarios, adhering closely to given directions. However, it may require prompting to act more proactively. To improve the model's reasoning quality, even at minimal effort, encourage it to “think” or outline its steps before answering. ([taken from here](https://platform.openai.com/docs/guides/latest-model#minimal-reasoning-effort){target="_blank"})
+`low` favors speed and economical token usage.
+`medium` (default) is a balance between speed and reasoning accuracy.
+`high` favors more complete reasoning. (low, medium, and high descriptions [taken from here](https://platform.openai.com/docs/guides/reasoning){target="_blank"})
 
-sample_next_token <- function(logits, temperature = 1, top_p = 1) {
-  # Deterministic path
-  if (isTRUE(all.equal(temperature, 0))) {
-    return(which.max(logits))
-  }
-
-  # Apply temperature and convert to probabilities
-  p <- softmax(logits / temperature)
-
-  # Nucleus (top_p) filtering: keep smallest prefix whose cumulative prob >= top_p
-  ord <- order(p, decreasing = TRUE)
-  p_sorted <- p[ord]
-  cutoff_idx <- which(cumsum(p_sorted) >= top_p)[1]
-  if (is.na(cutoff_idx)) cutoff_idx <- length(p_sorted)
-  keep <- ord[seq_len(cutoff_idx)]
-  p_keep <- p[keep] / sum(p[keep])
-
-  # Sample from truncated distribution
-  sample(keep, size = 1, prob = p_keep)
-}
-
-draw_tokens <- function(logits, n = 12, temperature = 0.7, top_p = 0.9) {
-  ids <- integer(n)
-  for (i in seq_len(n)) {
-    ids[i] <- sample_next_token(logits, temperature = temperature, top_p = top_p)
-  }
-  ids
-}
-
-id2token <- function(id, vocab) vocab[id]
-
-# --- A larger "vocabulary" and fixed base logits (no RNG here) -------------
-vocab <- c(
-  "the","patient","reports","fever","no","cough","today","denies","nausea","vomiting",
-  "chills","sore","throat","pain","abdominal","headache","shortness","breath","since","yesterday"
-)
-
-# Hand-tuned logits (arbitrary but stable). Higher = more likely.
-base_logits <- c(
-  1.20, 0.85, 1.05, 0.15, -0.20, 0.40, -0.10, 0.70, 0.55, 0.25,
-  0.35, -0.05, 0.30, 0.95, 0.10, 0.65, 0.50, 0.45, -0.15, 0.05
-)
-
-# A tiny "model update" nudging logits (deterministic noise)
-set.seed(1234)
-updated_logits <- base_logits + rnorm(length(base_logits), mean = 0, sd = 0.03)
-
-# --- 1) Deterministic (temperature = 0) ------------------------------------
-det_ids <- draw_tokens(base_logits, n = 12, temperature = 0, top_p = 1)
-
-# --- 2) Replicable (same seed + same params) --------------------------------
-set.seed(42)
-repA_ids <- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)
-
-set.seed(42)
-repB_ids <- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)
-
-set.seed(7)
-repC_ids <- draw_tokens(base_logits, n = 12, temperature = 0.7, top_p = 0.9)
-
-# --- 3) Non-Reproducible (same seed/params, different logits) ---------------
-set.seed(42)
-upd_ids <- draw_tokens(updated_logits, n = 12, temperature = 0.7, top_p = 0.9)
-
-# --- Pretty printing --------------------------------------------------------
-cat("**Deterministic (temp = 0):**\n", paste(id2token(det_ids, vocab), collapse = " "), "\n\n")
-cat("**Replicable A (seed = 42):**\n", paste(id2token(repA_ids, vocab), collapse = " "), "\n")
-cat("**Replicable B (seed = 42):**\n", paste(id2token(repB_ids, vocab), collapse = " "), "\n")
-cat("**Different seed (seed = 7):**\n", paste(id2token(repC_ids, vocab), collapse = " "), "\n\n")
-cat("**Updated model (seed = 42, new logits):**\n", paste(id2token(upd_ids, vocab), collapse = " "), "\n\n")
-
-# --- Compact comparison table ----------------------------------------------
-df <- data.frame(
-  pos = rep(1:12, 5),
-  run = rep(c("Deterministic","Replicable_A_s42","Replicable_B_s42","DiffSeed_s7","UpdatedModel_s42"), each = 12),
-  token = c(id2token(det_ids, vocab),
-            id2token(repA_ids, vocab),
-            id2token(repB_ids, vocab),
-            id2token(repC_ids, vocab),
-            id2token(upd_ids, vocab))
-)
-
-# Quick checks: A vs B identical; A vs Updated often differs at multiple positions.
-identical_A_B <- identical(repA_ids, repB_ids)
-matches_A_upd <- sum(repA_ids == upd_ids)
-
-cat(sprintf("Check — A vs B identical: %s\n", ifelse(identical_A_B, "YES", "NO")))
-cat(sprintf("Positions matching A vs Updated: %d of %d\n\n", matches_A_upd, length(repA_ids)))
-
-knitr::kable(df, caption = "Deterministic, Replicable, and Non-Reproducible sequences (12 tokens)")
-```
-
-
+The suggestion to get output that most resembles non-reasoning models is to have `reasoning_effort = 'minimal'` and `verbosity = 'low'`.

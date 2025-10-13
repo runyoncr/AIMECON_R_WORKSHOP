@@ -566,12 +566,12 @@
   {
     "objectID": "01b-gen-ai-parameters.html",
     "href": "01b-gen-ai-parameters.html",
-    "title": "\n6  Generation Parameters\n",
+    "title": "8  Generation Parameters",
     "section": "",
-    "text": "6.1 Sampling Controls\nWhen large language models produce text, they do so through a probabilistic process—choosing one word (or token) at a time based on learned likelihoods from vast amounts of training data. Generation parameters govern how that probabilistic process unfolds. Rather than altering what the model “knows,” these parameters control how it expresses that knowledge: how much variability is allowed, how long a response can be, and how the model manages uncertainty while generating language.\nFrom an educational measurement perspective, generation parameters serve a role analogous to setting conditions for test administration or scoring protocols. They define the boundaries within which the model operates, affecting reliability, reproducibility, and interpretability. Understanding these controls allows researchers and educators to align model behavior with the goals of a particular task—whether that task emphasizes consistency and fairness in scoring or diversity and creativity in content generation.\nThese parameters affect the randomness and diversity of the model output.",
+    "text": "8.1 Sampling Controls\nWhen large language models produce text, they do so through a probabilistic process—choosing one word (or token) at a time based on learned likelihoods from vast amounts of training data. Generation parameters govern how that probabilistic process unfolds. Rather than altering what the model “knows,” these parameters control how it expresses that knowledge: how much variability is allowed, how long a response can be, and how the model manages uncertainty while generating language.\nFrom an educational measurement perspective, generation parameters serve a role analogous to setting conditions for test administration or scoring protocols. They define the boundaries within which the model operates, affecting reliability, reproducibility, and interpretability. Understanding these controls allows researchers and educators to align model behavior with the goals of a particular task—whether that task emphasizes consistency and fairness in scoring or diversity and creativity in content generation.\nThese parameters affect the randomness and diversity of the model output.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   },
   {
@@ -779,45 +779,45 @@
   {
     "objectID": "01b-gen-ai-parameters.html#sampling-controls",
     "href": "01b-gen-ai-parameters.html#sampling-controls",
-    "title": "\n6  Generation Parameters\n",
+    "title": "8  Generation Parameters",
     "section": "",
-    "text": "6.1.1 Temperature\nTemperature controls how much randomness is introduced during text generation. A value near 0 produces deterministic, highly focused responses; higher values (e.g., 0.8–1.0) make the output more varied and creative. Statistically, it scales the logits before sampling, flattening or sharpening the probability distribution over possible next tokens. For reproducible outputs or grading tasks, low temperature is preferred; for brainstorming or ideation, higher values work better.\n\n6.1.2 top_p (Nucleus Sampling)\ntop_p defines how much of the total probability mass is considered when sampling the next token. The model first sorts possible next tokens by probability and keeps only the smallest set whose cumulative probability exceeds p.  For example, top_p = 0.9 means sampling only from the top 90% of the probability mass. This is another way to control diversity — lower values produce more predictable text.\n\n6.1.3 top_k\n\ntop_k restricts the number of candidate tokens the model can choose from at each step. If k = 50, only the 50 most likely next tokens are considered. This parameter is conceptually similar to top_p but framed in terms of count rather than probability. Many APIs use either top_p or top_k, but not both — using one usually provides enough control over randomness.\n\n6.1.4 Seed\nThe seed parameter fixes the random number generator used during sampling, ensuring that the same prompt and parameters produce identical outputs every time. It’s especially valuable for research or assessment contexts where reproducibility matters. Setting a seed makes model behavior more deterministic, which supports fair comparisons across conditions or versions of a prompt.",
+    "text": "8.1.1 Temperature\nTemperature controls how much randomness is introduced during text generation. A value near 0 produces deterministic, highly focused responses; higher values (e.g., 0.8–1.0) make the output more varied and creative. Statistically, it scales the logits before sampling, flattening or sharpening the probability distribution over possible next tokens. For reproducible outputs or grading tasks, low temperature is preferred; for brainstorming or ideation, higher values work better.\n\n\n8.1.2 top_p (Nucleus Sampling)\ntop_p defines how much of the total probability mass is considered when sampling the next token. The model first sorts possible next tokens by probability and keeps only the smallest set whose cumulative probability exceeds p.  For example, top_p = 0.9 means sampling only from the top 90% of the probability mass. This is another way to control diversity — lower values produce more predictable text.\n\n\n8.1.3 top_k\ntop_k restricts the number of candidate tokens the model can choose from at each step. If k = 50, only the 50 most likely next tokens are considered. This parameter is conceptually similar to top_p but framed in terms of count rather than probability. Many APIs use either top_p or top_k, but not both — using one usually provides enough control over randomness.\n\n\n8.1.4 Seed\nThe seed parameter fixes the random number generator used during sampling, ensuring that the same prompt and parameters produce identical outputs every time. It’s especially valuable for research or assessment contexts where reproducibility matters. Setting a seed makes model behavior more deterministic, which supports fair comparisons across conditions or versions of a prompt.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   },
   {
     "objectID": "01b-gen-ai-parameters.html#length-and-structure-controls",
     "href": "01b-gen-ai-parameters.html#length-and-structure-controls",
-    "title": "\n6  Generation Parameters\n",
-    "section": "\n6.2 Length and Structure Controls",
-    "text": "6.2 Length and Structure Controls\nThese parameters constrain how much or what kind of text the model can produce.\n\n6.2.1 Max Tokens\nmax_tokens sets the upper limit for how long the model’s output can be, measured in tokens (roughly pieces of words). If the model reaches this limit, it stops generating even if the thought or sentence isn’t complete. This parameter is useful for keeping outputs concise or fitting within budget constraints, since longer outputs consume more tokens (and thus cost more).\n\n6.2.2 Stop Sequences\nStop sequences define one or more strings that tell the model when to stop generating text. When the model outputs any of these sequences, generation ends immediately. This helps control response boundaries—useful for cutting off unwanted explanations or ensuring that responses end cleanly at a specific marker, such as “END SCORE” or “###”.",
+    "title": "8  Generation Parameters",
+    "section": "8.2 Length and Structure Controls",
+    "text": "8.2 Length and Structure Controls\nThese parameters constrain how much or what kind of text the model can produce.\n\n8.2.1 Max Tokens\nmax_tokens sets the upper limit for how long the model’s output can be, measured in tokens (roughly pieces of words). If the model reaches this limit, it stops generating even if the thought or sentence isn’t complete. This parameter is useful for keeping outputs concise or fitting within budget constraints, since longer outputs consume more tokens (and thus cost more).\n\n\n8.2.2 Stop Sequences\nStop sequences define one or more strings that tell the model when to stop generating text. When the model outputs any of these sequences, generation ends immediately. This helps control response boundaries—useful for cutting off unwanted explanations or ensuring that responses end cleanly at a specific marker, such as “END SCORE” or “###”.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   },
   {
     "objectID": "01b-gen-ai-parameters.html#bias-and-repetition-controls",
     "href": "01b-gen-ai-parameters.html#bias-and-repetition-controls",
-    "title": "\n6  Generation Parameters\n",
-    "section": "\n6.3 Bias and Repetition Controls",
-    "text": "6.3 Bias and Repetition Controls\nThese parameters discourage certain token patterns.\n\n6.3.1 Frequency Penalty\nfrequency_penalty discourages the model from repeating the same words or phrases. It adjusts token probabilities based on how often they’ve already appeared in the current response. Higher values push the model to use more varied vocabulary, while lower or zero values allow freer repetition. It’s especially useful for generating longer outputs that shouldn’t sound redundant.\n\n6.3.2 Presence Penalty\nThe presence_penalty discourages the model from reusing tokens that have already appeared in the text. Unlike the frequency_penalty, which scales with repetition, the presence penalty applies whenever a token has occurred before, even once. Increasing this value nudges the model to introduce new concepts or vocabulary, which can make generated text more diverse and exploratory.",
+    "title": "8  Generation Parameters",
+    "section": "8.3 Bias and Repetition Controls",
+    "text": "8.3 Bias and Repetition Controls\nThese parameters discourage certain token patterns.\n\n8.3.1 Frequency Penalty\nfrequency_penalty discourages the model from repeating the same words or phrases. It adjusts token probabilities based on how often they’ve already appeared in the current response. Higher values push the model to use more varied vocabulary, while lower or zero values allow freer repetition. It’s especially useful for generating longer outputs that shouldn’t sound redundant.\n\n\n8.3.2 Presence Penalty\nThe presence_penalty discourages the model from reusing tokens that have already appeared in the text. Unlike the frequency_penalty, which scales with repetition, the presence penalty applies whenever a token has occurred before, even once. Increasing this value nudges the model to introduce new concepts or vocabulary, which can make generated text more diverse and exploratory.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   },
   {
     "objectID": "01b-gen-ai-parameters.html#prompt-components",
     "href": "01b-gen-ai-parameters.html#prompt-components",
-    "title": "\n6  Generation Parameters\n",
-    "section": "\n6.4 Prompt Components",
-    "text": "6.4 Prompt Components\n\n6.4.1 System Prompt\nThe system prompt sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” This prompt influences style and scope across the entire conversation. Most often the default system prompt is set to “Assistant” or “User”.\n\n6.4.2 User Prompt\nThe user prompt is the immediate question or task you’re asking the model to perform. It represents the actual input or query, such as “Write an R function that calculates bootstrapped confidence intervals.” Together, the system and user prompts define both who the model should be and what it should do—analogous to a function’s global defaults and its current arguments.\n\n6.4.3 Response Schema\nA response schema specifies the structure or format the model should follow when producing its output. For example, you might require responses in JSON with fields like “score” and “rationale”. Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.",
+    "title": "8  Generation Parameters",
+    "section": "8.4 Prompt Components",
+    "text": "8.4 Prompt Components\n\n8.4.1 System Prompt\nThe system prompt sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” This prompt influences style and scope across the entire conversation. Most often the default system prompt is set to “User”.\n\n\n8.4.2 User Prompt\nThe user prompt is the immediate question or task you’re asking the model to perform. It represents the actual input or query, such as “Write an R function that calculates bootstrapped confidence intervals.” Together, the system and user prompts define both who the model should be and what it should do—analogous to a function’s global defaults and its current arguments.\n\n\n8.4.3 Response Schema\nA response schema specifies the structure or format the model should follow when producing its output. For example, you might require responses in JSON with fields like “score” and “rationale”. Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.",
     "crumbs": [
       "Generative AI Fundamentals",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Generation Parameters</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   },
   {
@@ -1222,6 +1222,17 @@
     "text": "Task 3\nChoose another point from the model’s original response in Task 1. This time, suggest to the model that it might be mistaken or misinformed. You can use a prompt like:\n“I’m not sure that [insert point here] is actually a strong argument. Can you explain why you think this is true?”\n“I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?”\nAfter the model responds, reflect on the following: Did it revise its position or double down on the original point? Did it provide additional evidence or just rephrase the same idea? How convincing was its explanation? This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. They’re just predicting what’s likely to come next based on patterns in their training data. That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.\nBy questioning the model’s output, you’re practicing a key skill: critical engagement. This helps ensure you’re not just passively accepting what the model says but actively evaluating its reasoning.",
     "crumbs": [
       "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "01b-gen-ai-parameters.html#openais-chatgpt5",
+    "href": "01b-gen-ai-parameters.html#openais-chatgpt5",
+    "title": "8  Generation Parameters",
+    "section": "8.5 OpenAI’s ChatGPT5",
+    "text": "8.5 OpenAI’s ChatGPT5\nBecause nothing can be easy, OpenAI’s ChatGPT5 - a reasoning model - doesn’t have the above parameters available via API. Instead, it introduces two parameters that capture the intent of many of the above parameters: reasoning.effort and verbosity.\nThe options for verbosity are low, medium, and high. The OpenAI Cookbook says verbosity “lets you hint the model to be more or less expansive in its replies. Keep prompts stable and use the parameter instead of re-writing.” low is for terse UX, minimal prose. medium (default) is for balanced detail. high is verbose, great for audits, teaching, or hand-offs. (descriptions taken from here)\nThe options for reasoning_effort are minimal, low, medium, and high. minimal setting produces very few reasoning tokens for cases where you need the fastest possible time-to-first-token. It performs especially well in coding and instruction following scenarios, adhering closely to given directions. However, it may require prompting to act more proactively. To improve the model’s reasoning quality, even at minimal effort, encourage it to “think” or outline its steps before answering. (taken from here) low favors speed and economical token usage. medium (default) is a balance between speed and reasoning accuracy. high favors more complete reasoning. (low, medium, and high descriptions taken from here)\nThe suggestion to get output that most resembles non-reasoning models is to have reasoning_effort = 'minimal' and verbosity = 'low'.",
+    "crumbs": [
+      "Generative AI Fundamentals",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generation Parameters</span>"
     ]
   }
 ]

@@ -154,8 +154,10 @@ _"I’m not sure that [insert point here] is actually a strong argument. Can you
 
 _"I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?"_
 
-After the model responds, reflect on the following: Did it revise its position or double down on the original point? 
-Did it provide additional evidence or just rephrase the same idea? How convincing was its explanation?
+After the model responds, reflect on the following: 
+Did it revise its position or double down on the original point? 
+Did it provide additional evidence or just rephrase the same idea? 
+How convincing was its explanation?
 This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. 
 They’re just predicting what’s likely to come next based on patterns in their training data. 
 That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.

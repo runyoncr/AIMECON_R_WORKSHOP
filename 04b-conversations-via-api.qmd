@@ -6,7 +6,7 @@ This may not be helpful, depending on what you want out of your interaction with
 
 The [`ellmer` package](https://ellmer.tidyverse.org/){target="_blank"}, developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models.
 In this section we'll go over some of the basics for using this functionality.
-We'll continue to use our Anthropic API key, although `ellmer` supports interactions with a variety of model providers: OpenAI, Google Gemini, Mistal, Hugging Face, perplexity.ai, etc.
+We'll continue to use our Anthropic API key, although `ellmer` supports interactions with a variety of model providers: OpenAI, Google Gemini, DeepSeek, Mistral, Hugging Face, perplexity.ai, etc.
 What follows can _mostly_ be generalized to working with other models, with some slight differences (which I'll point out below).
 
 ## Quick Start
@@ -142,14 +142,14 @@ chat <- chat_anthoropic()
 
 ```
 
-## Retaining Output
+## Retaining the Chat History
 
 As you interact with a generative AI model through `ellmer`, a record of your prompts and model responses are stored in `chat$get_turns()`.
 When you examine this list object, each odd-numbered entry (starting with 1) are your prompts, and each even-numbered entry is the model response.
 
 ::: {.callout-note collapse="true"}
 
-## Click to see an example conversation.
+## Click to see an example of saving the chat history.
 
 ```{r chat hist, eval = FALSE}
 
@@ -174,7 +174,7 @@ ed_meas_chat[4]
 :::
 ---
 
-## System Prompt
+## System Prompts
 
 We briefly discussed system prompts in the section about generative parameters (see @sec-system-prompt).
 The system prompt is an instruction to the model that is maintained throughout all of your interactions with the model.
@@ -223,13 +223,36 @@ Some more helpful examples of good system prompts are:
   2. Recommend consulting healthcare professionals
   3. Cite medical sources when possible
   4. Never diagnose conditions"
+  
+### Retaining the Chat History with the System Prompt
 
 The system prompt is also retained in the chat history, and can be accessed by specifying `chat$get_turns(include_system_prompt = TRUE)`.
 The list object now has the system prompt as the first object, meaning that your prompts are now every even-numbered object, and the system responses are every odd-numbered object, started at 3.
 
-```{r chat hist w system}
+::: {.callout-note collapse="true"}
 
+## Click to see an example of saving the chat history with the system prompt.
 
+```{r chat hist w system, eval = FALSE}
 
+chat <- chat_anthropic("You respond only with the 5 most important sentences about a topic.")
+chat$chat("Give me a summary of the history of educational measurement.")
+chat$chat("Give me a summary of educational measurement breakthroughs since 2000.")
+
+ed_meas_chat_wsp <- chat$get_turns(include_system_prompt = TRUE)
+save(ed_meas_chat_wsp, file = "./data/ed_meas_chat_wsp.Rdata")
 
 ```
+```{r view chat hist}
+
+load("data/ed_meas_chat_wsp.Rdata")
+ed_meas_chat_wsp[1]
+ed_meas_chat_wsp[2]
+ed_meas_chat_wsp[3]
+ed_meas_chat_wsp[4]
+ed_meas_chat_wsp[5]
+
+```
+
+:::
+
