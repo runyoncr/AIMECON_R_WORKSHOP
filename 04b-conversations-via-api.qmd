@@ -37,7 +37,7 @@ For the purposes of demonstration in our workshop, there's no need to change it,
 api_key <- Sys.getenv("ANTHROPIC_API_KEY")
 
 # You'll see a Claude Sonnet 4 is being used by default.
-chat <- chat_anthropic()
+chat <- chat_anthropic("You explain things concisely, focusing on only the most significant parts of the response.")
 
 ```
 
@@ -157,6 +157,10 @@ chat <- chat_anthropic()
 
 chat$chat("Briefly tell me the point of using a Rasch model.")
 
+rano <- as.character(rasch_normal)
+
+
+
 ```
 
 ---
@@ -187,3 +191,5 @@ Some more helpful examples of good system prompts are:
   3. Cite medical sources when possible
   4. Never diagnose conditions"
 
+
+## retaining output

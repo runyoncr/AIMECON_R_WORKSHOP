@@ -1,1 +1,164 @@
 # Activity: Content Development and Revision {#sec-act-content .unnumbered}
+
+## Task 1: Pros and Cons
+
+Choose a topic and ask the model to generate a list of pros and cons for each side. 
+You can use one of the suggestions below or pick your own:
+
+- Bayesian vs Frequentist Statistics
+- Classical Test Theory vs Item Response Theory
+- Unidimensional / Rasch Modeling vs Multidimensional IRT Models
+- Argument-Based Validity (Kane) vs Traditional Validity Frameworks (Messick)
+- Performance Assessments vs Selected-Response Items
+- Statistical Significance vs Practical Significance in DIF Detection
+
+**Suggested prompt:** _"What are the pros and cons of {topic}? For each point, include a brief explanation."_
+
+Review the suggested pros and cons. Which points seem most accurate or well-supported? Are any based on weaker reasoning or questionable information?
+
+```{r, eval = FALSE}
+
+library(ellmer)
+
+chat <- chat_anthropic()
+
+chat$chat("What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation.")
+
+```
+
+::: {.callout-note collapse="true"}
+
+## Bayesian vs Frequentist Statistics: Pros and Cons
+
+# Bayesian vs Frequentist Statistics: Pros and Cons
+
+## **Bayesian Statistics**
+
+### **Pros:**
+
+**1. Incorporates Prior Knowledge**
+- Can integrate existing information, expert opinion, or historical data into 
+analysis
+- Particularly valuable when data is limited or expensive to collect
+
+**2. Intuitive Probability Interpretation**
+- Treats parameters as random variables with probability distributions
+- Results directly answer questions like "What's the probability this 
+hypothesis is true?"
+
+**3. Natural Uncertainty Quantification**
+- Credible intervals represent actual probability ranges for parameters
+- Provides full posterior distributions, not just point estimates
+
+**4. Flexible Model Building**
+- Hierarchical models handle complex data structures naturally
+- Can easily incorporate missing data and measurement error
+
+**5. Sequential Learning**
+- Today's posterior becomes tomorrow's prior
+- Naturally updates beliefs as new data arrives
+
+### **Cons:**
+
+**1. Subjective Prior Selection**
+- Choice of prior can influence results, especially with small datasets
+- Different analysts may choose different priors, leading to different 
+conclusions
+
+**2. Computational Complexity**
+- Often requires sophisticated algorithms (MCMC, variational inference)
+- Can be computationally intensive for complex models
+
+**3. Interpretation Challenges**
+- Results depend on the specific prior chosen
+- May be harder to communicate to audiences unfamiliar with Bayesian thinking
+
+---
+
+## **Frequentist Statistics**
+
+### **Pros:**
+
+**1. Objective and Standardized**
+- Doesn't require subjective prior assumptions
+- Provides consistent, reproducible results across analysts
+
+**2. Well-Established Theory**
+- Extensive theoretical foundation with known properties
+- Widely taught and understood in scientific communities
+
+**3. Computational Efficiency**
+- Many procedures have closed-form solutions or simple algorithms
+- Generally faster to compute, especially for standard tests
+
+**4. Regulatory Acceptance**
+- Standard approach in clinical trials, quality control, and regulatory science
+- Well-established guidelines and practices
+
+**5. Long-Run Frequency Guarantees**
+- Confidence intervals and p-values have clear frequentist interpretations
+- Error rates are controlled over repeated sampling
+
+### **Cons:**
+
+**1. Limited Use of Available Information**
+- Cannot formally incorporate prior knowledge or expert opinion
+- May ignore relevant historical data
+
+**2. Counter-Intuitive Interpretations**
+- P-values and confidence intervals are often misinterpreted
+- Doesn't directly answer "What's the probability my hypothesis is true?"
+
+**3. Multiple Testing Issues**
+- Requires corrections for multiple comparisons
+- Can lead to conservative results when many tests are performed
+
+**4. Fixed Sample Size Limitations**
+- Hypothesis tests assume predetermined sample sizes
+- Optional stopping can invalidate frequentist procedures
+
+**5. Model Inflexibility**
+- Less natural handling of hierarchical structures and missing data
+- Difficulty incorporating complex uncertainty structures
+
+---
+
+## **Bottom Line**
+The choice between Bayesian and Frequentist approaches often depends on the 
+specific problem, available computational resources, domain expertise, and the 
+intended audience. Many modern statisticians advocate for a pragmatic approach,
+using the method best suited to the particular research question and context.
+
+:::
+
+## Task 2
+
+Pick the weakest part of the model’s response from Task 1. 
+Then, ask the model to elaborate on why that point might actually be the strongest argument. You can use a prompt like:
+
+_"Yes, I completely agree. [insert weak argument here] is a great reason for [topic]. Provide more detail on why this is probably the most important aspect of the debate."_
+
+After reviewing the model’s response, consider the following: Did the model agree with your statement? Did it offer meaningful counterpoints or just reinforce your position?
+
+For topics without a clear factual basis, many models will simply agree with whatever you present as important. 
+That’s because they’re not critically evaluating the content – these models are just predicting what comes next based on patterns in their training data. 
+This is why it’s important to **actively seek out alternative viewpoints.** Otherwise, you may just end up reinforcing your own assumptions.
+
+
+## Task 3
+
+Choose another point from the model’s original response in Task 1. 
+This time, suggest to the model that it might be mistaken or misinformed. You can use a prompt like:
+
+_"I’m not sure that [insert point here] is actually a strong argument. Can you explain why you think this is true?"_
+
+_"I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?"_
+
+After the model responds, reflect on the following: Did it revise its position or double down on the original point? 
+Did it provide additional evidence or just rephrase the same idea? How convincing was its explanation?
+This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. 
+They’re just predicting what’s likely to come next based on patterns in their training data. 
+That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.
+
+By questioning the model’s output, you’re practicing a key skill: **critical engagement.** 
+This helps ensure you’re not just passively accepting what the model says but actively evaluating its reasoning.

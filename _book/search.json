@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Integrating Generative AI into R Workflows: From APIs to Shiny Apps",
     "section": "",
-    "text": "Welcome\nThis online book was created to be a user-friendly way to present the materials in support of the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at AIMECON in October, 2025. Although created primarily for this purpose, I intend to contiually update these materials as I learn.\nChanges to the book last made on: 2025-10-07 10:09:32\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality",
+    "text": "Welcome\nThis online book was created to be a user-friendly way to present the materials in support of the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at AIMECON in October, 2025. Although created primarily for this purpose, I intend to contiually update these materials as I learn.\nChanges to the book last made on: 2025-10-12 21:06:27\n\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nApply prompt engineering principles to achieve consistent, reliable outputs in R workflows\nImplement both single-use and conversational API interactions with LLMs from R\nDesign and deploy simple multi-agentic systems for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality\n\n\n\n⚠️ Privacy Reminder\n\nPlease don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.",
     "crumbs": [
       "Welcome"
     ]
@@ -1142,6 +1142,86 @@
     "crumbs": [
       "Integrating LLMs into R Workflows",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Chat Conversations via API</span>"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html",
+    "href": "activity-content-development-revision.html",
+    "title": "Activity: Content Development and Revision",
+    "section": "",
+    "text": "Task 1: Pros and Cons\nChoose a topic and ask the model to generate a list of pros and cons for each side. You can use one of the suggestions below or pick your own:\nSuggested prompt: “What are the pros and cons of {topic}? For each point, include a brief explanation.”\nReview the suggested pros and cons. Which points seem most accurate or well-supported? Are any based on weaker reasoning or questionable information?\nCodelibrary(ellmer)\n\nchat &lt;- chat_anthropic()\n\nchat$chat(\"What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation.\")",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#pros-and-cons",
+    "href": "activity-content-development-revision.html#pros-and-cons",
+    "title": "Activity: Content Development and Revision",
+    "section": "Bayesian Statistics",
+    "text": "Bayesian vs Frequentist Statistics\nClassical Test Theory vs Item Response Theory\nUnidimensional / Rasch Modeling vs Multidimensional IRT Models\nArgument-Based Validity (Kane) vs Traditional Validity Frameworks (Messick)\nPerformance Assessments vs Selected-Response Items\nStatistical Significance vs Practical Significance in DIF Detection\n\n\n\n\n\n\n\n\n\n\nBayesian vs Frequentist Statistics: Pros and Cons\n\n\n\n\nBayesian vs Frequentist Statistics: Pros and Cons\nBayesian Statistics\nPros:\n1. Incorporates Prior Knowledge - Can integrate existing information, expert opinion, or historical data into analysis - Particularly valuable when data is limited or expensive to collect\n2. Intuitive Probability Interpretation - Treats parameters as random variables with probability distributions - Results directly answer questions like “What’s the probability this hypothesis is true?”\n3. Natural Uncertainty Quantification - Credible intervals represent actual probability ranges for parameters - Provides full posterior distributions, not just point estimates\n4. Flexible Model Building - Hierarchical models handle complex data structures naturally - Can easily incorporate missing data and measurement error\n5. Sequential Learning - Today’s posterior becomes tomorrow’s prior - Naturally updates beliefs as new data arrives\nCons:\n1. Subjective Prior Selection - Choice of prior can influence results, especially with small datasets - Different analysts may choose different priors, leading to different conclusions\n2. Computational Complexity - Often requires sophisticated algorithms (MCMC, variational inference) - Can be computationally intensive for complex models\n3. Interpretation Challenges - Results depend on the specific prior chosen - May be harder to communicate to audiences unfamiliar with Bayesian thinking\nFrequentist Statistics\nPros:\n1. Objective and Standardized - Doesn’t require subjective prior assumptions - Provides consistent, reproducible results across analysts\n2. Well-Established Theory - Extensive theoretical foundation with known properties - Widely taught and understood in scientific communities\n3. Computational Efficiency - Many procedures have closed-form solutions or simple algorithms - Generally faster to compute, especially for standard tests\n4. Regulatory Acceptance - Standard approach in clinical trials, quality control, and regulatory science - Well-established guidelines and practices\n5. Long-Run Frequency Guarantees - Confidence intervals and p-values have clear frequentist interpretations - Error rates are controlled over repeated sampling\nCons:\n1. Limited Use of Available Information - Cannot formally incorporate prior knowledge or expert opinion - May ignore relevant historical data\n2. Counter-Intuitive Interpretations - P-values and confidence intervals are often misinterpreted - Doesn’t directly answer “What’s the probability my hypothesis is true?”\n3. Multiple Testing Issues - Requires corrections for multiple comparisons - Can lead to conservative results when many tests are performed\n4. Fixed Sample Size Limitations - Hypothesis tests assume predetermined sample sizes - Optional stopping can invalidate frequentist procedures\n5. Model Inflexibility - Less natural handling of hierarchical structures and missing data - Difficulty incorporating complex uncertainty structures\nBottom Line\nThe choice between Bayesian and Frequentist approaches often depends on the specific problem, available computational resources, domain expertise, and the intended audience. Many modern statisticians advocate for a pragmatic approach, using the method best suited to the particular research question and context.",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#bayesian-statistics",
+    "href": "activity-content-development-revision.html#bayesian-statistics",
+    "title": "Activity: Content Development and Revision",
+    "section": "",
+    "text": "Pros:\n1. Incorporates Prior Knowledge - Can integrate existing information, expert opinion, or historical data into analysis - Particularly valuable when data is limited or expensive to collect\n2. Intuitive Probability Interpretation - Treats parameters as random variables with probability distributions - Results directly answer questions like “What’s the probability this hypothesis is true?”\n3. Natural Uncertainty Quantification - Credible intervals represent actual probability ranges for parameters - Provides full posterior distributions, not just point estimates\n4. Flexible Model Building - Hierarchical models handle complex data structures naturally - Can easily incorporate missing data and measurement error\n5. Sequential Learning - Today’s posterior becomes tomorrow’s prior - Naturally updates beliefs as new data arrives\nCons:\n1. Subjective Prior Selection - Choice of prior can influence results, especially with small datasets - Different analysts may choose different priors, leading to different conclusions\n2. Computational Complexity - Often requires sophisticated algorithms (MCMC, variational inference) - Can be computationally intensive for complex models\n3. Interpretation Challenges - Results depend on the specific prior chosen - May be harder to communicate to audiences unfamiliar with Bayesian thinking",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#frequentist-statistics",
+    "href": "activity-content-development-revision.html#frequentist-statistics",
+    "title": "Activity: Content Development and Revision",
+    "section": "Frequentist Statistics",
+    "text": "Frequentist Statistics\nPros:\n1. Objective and Standardized - Doesn’t require subjective prior assumptions - Provides consistent, reproducible results across analysts\n2. Well-Established Theory - Extensive theoretical foundation with known properties - Widely taught and understood in scientific communities\n3. Computational Efficiency - Many procedures have closed-form solutions or simple algorithms - Generally faster to compute, especially for standard tests\n4. Regulatory Acceptance - Standard approach in clinical trials, quality control, and regulatory science - Well-established guidelines and practices\n5. Long-Run Frequency Guarantees - Confidence intervals and p-values have clear frequentist interpretations - Error rates are controlled over repeated sampling\nCons:\n1. Limited Use of Available Information - Cannot formally incorporate prior knowledge or expert opinion - May ignore relevant historical data\n2. Counter-Intuitive Interpretations - P-values and confidence intervals are often misinterpreted - Doesn’t directly answer “What’s the probability my hypothesis is true?”\n3. Multiple Testing Issues - Requires corrections for multiple comparisons - Can lead to conservative results when many tests are performed\n4. Fixed Sample Size Limitations - Hypothesis tests assume predetermined sample sizes - Optional stopping can invalidate frequentist procedures\n5. Model Inflexibility - Less natural handling of hierarchical structures and missing data - Difficulty incorporating complex uncertainty structures",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#bottom-line",
+    "href": "activity-content-development-revision.html#bottom-line",
+    "title": "Activity: Content Development and Revision",
+    "section": "Bottom Line",
+    "text": "Bottom Line\nThe choice between Bayesian and Frequentist approaches often depends on the specific problem, available computational resources, domain expertise, and the intended audience. Many modern statisticians advocate for a pragmatic approach, using the method best suited to the particular research question and context.",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#task-1-pros-and-cons",
+    "href": "activity-content-development-revision.html#task-1-pros-and-cons",
+    "title": "Activity: Content Development and Revision",
+    "section": "Bayesian Statistics",
+    "text": "Bayesian vs Frequentist Statistics\nClassical Test Theory vs Item Response Theory\nUnidimensional / Rasch Modeling vs Multidimensional IRT Models\nArgument-Based Validity (Kane) vs Traditional Validity Frameworks (Messick)\nPerformance Assessments vs Selected-Response Items\nStatistical Significance vs Practical Significance in DIF Detection\n\n\n\n\n\n\n\n\n\n\nBayesian vs Frequentist Statistics: Pros and Cons\n\n\n\n\nBayesian vs Frequentist Statistics: Pros and Cons\nBayesian Statistics\nPros:\n1. Incorporates Prior Knowledge - Can integrate existing information, expert opinion, or historical data into analysis - Particularly valuable when data is limited or expensive to collect\n2. Intuitive Probability Interpretation - Treats parameters as random variables with probability distributions - Results directly answer questions like “What’s the probability this hypothesis is true?”\n3. Natural Uncertainty Quantification - Credible intervals represent actual probability ranges for parameters - Provides full posterior distributions, not just point estimates\n4. Flexible Model Building - Hierarchical models handle complex data structures naturally - Can easily incorporate missing data and measurement error\n5. Sequential Learning - Today’s posterior becomes tomorrow’s prior - Naturally updates beliefs as new data arrives\nCons:\n1. Subjective Prior Selection - Choice of prior can influence results, especially with small datasets - Different analysts may choose different priors, leading to different conclusions\n2. Computational Complexity - Often requires sophisticated algorithms (MCMC, variational inference) - Can be computationally intensive for complex models\n3. Interpretation Challenges - Results depend on the specific prior chosen - May be harder to communicate to audiences unfamiliar with Bayesian thinking\nFrequentist Statistics\nPros:\n1. Objective and Standardized - Doesn’t require subjective prior assumptions - Provides consistent, reproducible results across analysts\n2. Well-Established Theory - Extensive theoretical foundation with known properties - Widely taught and understood in scientific communities\n3. Computational Efficiency - Many procedures have closed-form solutions or simple algorithms - Generally faster to compute, especially for standard tests\n4. Regulatory Acceptance - Standard approach in clinical trials, quality control, and regulatory science - Well-established guidelines and practices\n5. Long-Run Frequency Guarantees - Confidence intervals and p-values have clear frequentist interpretations - Error rates are controlled over repeated sampling\nCons:\n1. Limited Use of Available Information - Cannot formally incorporate prior knowledge or expert opinion - May ignore relevant historical data\n2. Counter-Intuitive Interpretations - P-values and confidence intervals are often misinterpreted - Doesn’t directly answer “What’s the probability my hypothesis is true?”\n3. Multiple Testing Issues - Requires corrections for multiple comparisons - Can lead to conservative results when many tests are performed\n4. Fixed Sample Size Limitations - Hypothesis tests assume predetermined sample sizes - Optional stopping can invalidate frequentist procedures\n5. Model Inflexibility - Less natural handling of hierarchical structures and missing data - Difficulty incorporating complex uncertainty structures\nBottom Line\nThe choice between Bayesian and Frequentist approaches often depends on the specific problem, available computational resources, domain expertise, and the intended audience. Many modern statisticians advocate for a pragmatic approach, using the method best suited to the particular research question and context.",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#task-2",
+    "href": "activity-content-development-revision.html#task-2",
+    "title": "Activity: Content Development and Revision",
+    "section": "Task 2",
+    "text": "Task 2\nPick the weakest part of the model’s response from Task 1. Then, ask the model to elaborate on why that point might actually be the strongest argument. You can use a prompt like:\n“Yes, I completely agree. [insert weak argument here] is a great reason for [topic]. Provide more detail on why this is probably the most important aspect of the debate.”\nAfter reviewing the model’s response, consider the following: Did the model agree with your statement? Did it offer meaningful counterpoints or just reinforce your position?\nFor topics without a clear factual basis, many models will simply agree with whatever you present as important. That’s because they’re not critically evaluating the content – these models are just predicting what comes next based on patterns in their training data. This is why it’s important to actively seek out alternative viewpoints. Otherwise, you may just end up reinforcing your own assumptions.",
+    "crumbs": [
+      "Activity: Content Development and Revision"
+    ]
+  },
+  {
+    "objectID": "activity-content-development-revision.html#task-3",
+    "href": "activity-content-development-revision.html#task-3",
+    "title": "Activity: Content Development and Revision",
+    "section": "Task 3",
+    "text": "Task 3\nChoose another point from the model’s original response in Task 1. This time, suggest to the model that it might be mistaken or misinformed. You can use a prompt like:\n“I’m not sure that [insert point here] is actually a strong argument. Can you explain why you think this is true?”\n“I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?”\nAfter the model responds, reflect on the following: Did it revise its position or double down on the original point? Did it provide additional evidence or just rephrase the same idea? How convincing was its explanation? This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. They’re just predicting what’s likely to come next based on patterns in their training data. That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.\nBy questioning the model’s output, you’re practicing a key skill: critical engagement. This helps ensure you’re not just passively accepting what the model says but actively evaluating its reasoning.",
+    "crumbs": [
+      "Activity: Content Development and Revision"
     ]
   }
 ]

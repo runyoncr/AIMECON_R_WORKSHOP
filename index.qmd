@@ -10,6 +10,8 @@ Although created primarily for this purpose, I intend to contiually update these
 
 Changes to the book last made on: **`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`**
 
+---
+
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 Learning Objectives
 </div>
@@ -22,3 +24,10 @@ Learning Objectives
 -	Design and deploy simple multi-agentic systems for complex tasks
 -	Build interactive Shiny applications that leverage LLM capabilities for end-user functionality
 
+---
+
+<div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
+⚠️ Privacy Reminder
+</div>
+
+Please don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.
