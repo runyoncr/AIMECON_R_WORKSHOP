@@ -243,7 +243,7 @@ ed_meas_chat_wsp <- chat$get_turns(include_system_prompt = TRUE)
 save(ed_meas_chat_wsp, file = "./data/ed_meas_chat_wsp.Rdata")
 
 ```
-```{r view chat hist}
+```{r view chat hist w system}
 
 load("data/ed_meas_chat_wsp.Rdata")
 ed_meas_chat_wsp[1]

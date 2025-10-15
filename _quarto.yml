@@ -19,7 +19,6 @@ book:
   chapters:
     - index.qmd
     
-    - 00-preparation.qmd
     - 00a-R-setup.qmd
     - 00b-R-packages.qmd
     - 00c-test-connect.qmd
