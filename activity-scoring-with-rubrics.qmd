@@ -45,6 +45,10 @@ These are more general in nature and typically consist of several high-level ele
 Here’s a strong example of a holistic rubric: the Assessment of Reasoning Tool (ART), developed by the Society to Improve Diagnosis in Medicine. 
 It’s one of the more complete and thoughtfully designed holistic rubrics available, making it especially useful for our discussion.
 
+![](images/SIDM_ART){fig-align="center" width=50%}
+
+[Thammasitboon S, Rencic JJ, Trowbridge RL, Olson APJ, Sur M, Dhaliwal G. The Assessment of Reasoning Tool (ART): structuring the conversation between teachers and learners. Diagnosis (Berl). 2018;5(4):197-203.](https://www.degruyterbrill.com/document/doi/10.1515/dx-2018-0052/html){target="_blank"}
+
 Let’s use the top row of the rubric to explore how holistic rubrics work. 
 This section asks: “Did the learner collect/report history and examination data in a hypothesis-directed manner?”
 
