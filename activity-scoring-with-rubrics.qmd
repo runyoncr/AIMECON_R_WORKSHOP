@@ -45,7 +45,7 @@ These are more general in nature and typically consist of several high-level ele
 Here’s a strong example of a holistic rubric: the Assessment of Reasoning Tool (ART), developed by the Society to Improve Diagnosis in Medicine. 
 It’s one of the more complete and thoughtfully designed holistic rubrics available, making it especially useful for our discussion.
 
-![](images/SIDM_ART){fig-align="center" width=50%}
+![](images/SIDM_ART){fig-align="center"}
 
 [Thammasitboon S, Rencic JJ, Trowbridge RL, Olson APJ, Sur M, Dhaliwal G. The Assessment of Reasoning Tool (ART): structuring the conversation between teachers and learners. Diagnosis (Berl). 2018;5(4):197-203.](https://www.degruyterbrill.com/document/doi/10.1515/dx-2018-0052/html){target="_blank"}
 
@@ -85,12 +85,12 @@ Each is appropriate depending on the context and goals of the assessment.
 
 So what does all this mean when using a GPT model to apply a rubric?
 
-If you recall the concept of co-occurrence from Module 1 - the idea that words frequently used in similar contexts tend to have related meanings - GPTs are well-suited to produce and identify lexical variants. 
+If you recall the concept of co-occurrence - the idea that words frequently used in similar contexts tend to have related meanings - GPTs are well-suited to produce and identify lexical variants. 
 For example, if your rubric includes the phrase “nocturnal cough,” the model can easily identify that “wakes up at night coughing” conveys a similar meaning.
 
-Thinking back to model attention, GPTs may struggle with long rubrics. 
+Thinking back to model attention, GPTs may struggle with long rubrics (although newer reasoning models are better at this). 
 Their performance tends to drop when asked to process and apply lengthy criteria all at once. 
-A simple workaround is to break the rubric into smaller, more manageable sections and then combine the results into a complete evaluation.
+A simple workaround is to break the rubric into smaller, more manageable sections and then combine the results into a complete evaluation (part of what a reasoning model does behind the scenes, which is why it does better with longer rubrics).
 
 Also, while this issue has improved in newer models, earlier GPTs had difficulty tracking scores when applying analytic rubrics. 
 Remember, these are _language_ models - their strength is _literacy_, not _numeracy_. 

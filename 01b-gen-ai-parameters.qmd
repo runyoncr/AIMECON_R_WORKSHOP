@@ -112,3 +112,12 @@ It performs especially well in coding and instruction following scenarios, adher
 `high` favors more complete reasoning. (low, medium, and high descriptions [taken from here](https://platform.openai.com/docs/guides/reasoning){target="_blank"})
 
 The suggestion to get output that most resembles non-reasoning models is to have `reasoning_effort = 'minimal'` and `verbosity = 'low'`.
+
+Below is example syntax that you can use to call OpenAI's ChatGPT5 model.
+Note that you'll need to get your own OpenAI API key for this code to work.
+
+```{r}
+
+# Example function call 
+
+```
