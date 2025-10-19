@@ -52,7 +52,9 @@ book:
         
     - activity-content-development-revision.qmd
     
-    - activity-scoring-with-rubrics.qmd
+    - activity-scoring-with-rubrics-intro.qmd
+    
+    - activity-scoring-with-rubrics-tasks.qmd
     
     - part: 05-shiny-integration.qmd
       chapters: 
@@ -88,6 +90,7 @@ format:
     code-link: true
     link-citations: true
     citation-hover: true
+    link-external-newwindow: true
     
 website:
   site-url: https://runyoncr.github.io/AIMECON_R_WORKSHOP

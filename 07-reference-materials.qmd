@@ -18,6 +18,11 @@ This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/under
 
 ## LLM-specific R Packages {#sec-r-packages}
 
+A number of packages have been developed to more easily facilitate interacting with LLMs via R. 
+Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. 
+I've also found that some packages aren't often updated / maintained. 
+The syntax to interact with API models can change as new models are released (e.g., [ChatGPT5](@sec-gpt5)), which can render some of the package functionality obsolete.
+
 Below is a non-exhaustive list of packages that I've found to interact with LLMs. 
 This is not meant to be exhaustive or a curated list; it's only to provide you with information about the packages you'll be using in the workshop (and others) in the case you find them helpful for your workflow.
 All package summaries were initially generated with AI.

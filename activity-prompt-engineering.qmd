@@ -1,3 +1,102 @@
 # Activity: Prompt Engineering {#sec-act-prompting}
 
 It's time to practice prompt engineering!
+
+
+###################
+Most important for non-conversational interactions with models.
+
+In conversational interactions you can provide feedback.
+###################
+
+## Task X : Prompt Improvement
+
+- Step 1: Write your own prompt - whatever topic you'd like, or re-use one that we've already used today. Don't submit the prompt to the model yet.
+
+- Step 2: Using the prompt below to ask the model for help with your prompt.
+
+I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.
+Specifically:
+•	Identify any missing context or details that would help generate better results
+•	Point out areas where the prompt might be vague or ambiguous
+•	Suggest how to better structure the request
+•	Recommend any information I should add about my goals, audience, or desired format
+Here is my prompt: {paste your prompt here}
+
+```{r, eval = FALSE}
+
+chat <- chat_anthropic()
+
+chat$chat("I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.
+
+Specifically:
+•	Identify any missing context or details that would help generate better results
+•	Point out areas where the prompt might be vague or ambiguous
+•	Suggest how to better structure the request
+•	Recommend any information I should add about my goals, audience, or desired format
+
+Here is my prompt:
+
+What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation.")
+
+```
+
+::: {.callout-note collapse="true"}
+
+## Bayesian v Frequentist Statistics Prompt Revision
+
+Your prompt is a good start, but here are several ways to make it clearer and more effective:
+
+## Current Issues:
+
+**Vague/Ambiguous Areas:**
+- "Brief explanation" is subjective - what length do you consider brief?
+- No specification of technical depth or mathematical complexity
+- Unclear what aspects of the comparison matter most to you
+- No guidance on format or structure preferences
+
+**Missing Context:**
+- Your background/expertise level in statistics
+- Intended audience for this information
+- Specific use case or application context
+- Whether you want practical examples or theoretical focus
+
+## Improved Prompt Structure:
+
+"I need a comparison of Bayesian vs Frequentist statistical approaches for [**YOUR CONTEXT** - e.g., "a graduate-level 
+biostatistics course" or "business decision-making presentation"].
+
+**Background:** [YOUR EXPERIENCE LEVEL - e.g., "I have basic statistical knowledge but am new to these philosophical 
+differences"]
+
+**Format requested:**
+- 4-6 key pros and cons for each approach
+- Each point explained in 2-3 sentences
+- [Include/exclude mathematical notation]
+- Include 1-2 practical examples where each approach excels
+
+**Focus areas I'm most interested in:**
+- [e.g., Practical implementation, philosophical differences, computational requirements, interpretation of results]
+
+**Audience:** [e.g., "Non-statisticians who need to understand methodology choices" or "Statistics students preparing 
+for exams"]"
+
+## Recommended Additions:
+
+1. **Specify your goal** - Are you choosing between methods, teaching others, or writing a paper?
+2. **Define scope** - Do you want to cover computational aspects, philosophical foundations, or practical 
+applications?
+3. **Set constraints** - Word count, technical level, specific statistical contexts (hypothesis testing, parameter 
+estimation, etc.)
+
+Would you like to revise your prompt with some of these suggestions?
+
+:::
+
+What improvements did the model suggest? 
+Did it identify anything you hadn’t considered? 
+Was the feedback helpful or too generic? 
+How would you revise your prompt based on the suggestions? 
+If you used the prompt before, did you get a better result using the revised prompt suggested by AI?
+
+

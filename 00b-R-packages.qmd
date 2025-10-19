@@ -23,5 +23,5 @@ install.packages(c("tidyverse", "curl", "ragnar", "duckdb", "shiny", "shinyjs"))
 
 ```
 
-A number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. You can find some information about those packages @sec-r-packages.
+A number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. You can find some [information about those packages in this section](@sec-r-packages).
 

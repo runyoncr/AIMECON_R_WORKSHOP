@@ -1,7 +1,11 @@
 # Activity: Scoring with Rubrics {#sec-act-rubric .unnumbered}
 
-Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric. 
-I’ll use post-encounter notes from an OSCE as the motivating example, since I’ve done some work in this area, but the same principles apply to any assessment where a rubric is used to evaluate student responses.
+Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric.
+I work in medical education, and one useful performance assessment that is used is the Objective Structured Clinical Examination (OSCE){target="_blank"}.
+In short, an OSCE is a simulated patient interaction where the person being assessed must integrate several important aspects of clinical reasoning to provide effective care.
+These assessments typically require a summary note to be written after the encounter, which serves as documentation of the visit.
+I'll use post-encounter notes from an OSCE as the motivating example for the following discussion because I've done some work in this area. 
+However, the same principles apply to any assessment where a written rubric is used to evaluate student responses.
 
 We begin by considering why rubrics are valuable when grading student assessments. 
 Rubrics promote consistency, ensuring that all students are evaluated using the same criteria. 
@@ -9,12 +13,20 @@ They also help streamline grading and feedback, while reinforcing alignment betw
 
 ## Analytic Rubrics
 
-There are at least two main styles of rubrics. The first is the _analytic rubric_, sometimes referred to as a “checklist” rubric. These are based on a list of specific elements that should be included in the student’s response, allowing for a more structured and detailed evaluation.
+There are at least two main styles of rubrics. The first is the _analytic rubric_, sometimes referred to as a “checklist” rubric. 
+These are based on a list of specific elements that should be included in the student’s response, allowing for a more structured and detailed evaluation.
 
 Here’s an example of an analytic rubric I developed while learning how to use AI to score OSCE notes. 
 It’s important to note that I created this rubric independently, without any direct physician input. 
 Even though this rubric may not be ideal for evaluating notes about a patient with plantar fasciitis, that wasn’t critical for my task. 
 I simply needed a rubric for GPT to apply when evaluating a student’s post-encounter note.
+
+::: {#fig-rubric}
+
+![](images/osce-analytic-rubric-example.png){fig-align="center" }
+Figure: Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" [@runyon2025using].
+
+:::
 
 The structure of the rubric is what matters here. 
 It outlines specific clinical concepts that should appear in the note based on the patient’s presentation. 

@@ -19,6 +19,8 @@ This is my preferred IDE for R, although you may choose others if you like. I wi
 
 I am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.
 
+**Note:** I just learned about [Positron](https://positron.posit.co/){target="_blank"}, the new IDE developed by Posit. I haven't used it yet, but I am excited about the AI coding assistant that's built in.
+
 ### Installing R Tools
 
 [RTools](https://cran.r-project.org/bin/windows/Rtools/){target="_blank"} is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. 

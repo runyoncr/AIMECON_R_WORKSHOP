@@ -6,8 +6,11 @@
 ```
 
 This online book was created to be a user-friendly way to present the materials in support of the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at [AIMECON in October, 2025](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm){target="_blank"}.
-Although created primarily for this purpose, I intend to continually update these materials as I learn. 
-However this reminds me of the quote "The only constant is change" (usually [and maybe wrongly](https://euppublishingblog.com/2021/07/19/misunderstanding-of-heraclitus/){target="_blank"} attributed to [Heraclitus](https://en.wikipedia.org/wiki/Heraclitus){target="_blank"}).
+Although created primarily for this purpose, I intend to continually update these materials as I learn and as the models continue to evolve.
+(Although I learn slower than these models evolve, so some information might be out of date.)
+
+
+<!-- This endeavor reminds me of the quote "The only constant is change", usually attributed to [Heraclitus](https://en.wikipedia.org/wiki/Heraclitus){target="_blank"} ([maybe wrongly](https://euppublishingblog.com/2021/07/19/misunderstanding-of-heraclitus/){target="_blank"}). -->
 
 Changes to the book last made on: **`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`**
 

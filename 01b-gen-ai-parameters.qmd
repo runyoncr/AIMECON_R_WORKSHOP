@@ -94,7 +94,7 @@ For example, you might require responses in JSON with fields like "score" and "r
 Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.
 
 
-## OpenAI's ChatGPT5
+## OpenAI's ChatGPT5 {#sec-gpt5}
 
 Because nothing can be easy, OpenAI's [ChatGPT5](https://openai.com/index/introducing-gpt-5/){target="_blank"} - a reasoning model - doesn't have the above parameters available via API.
 Instead, it introduces two parameters that capture the intent of many of the above parameters: `reasoning.effort` and `verbosity`.
