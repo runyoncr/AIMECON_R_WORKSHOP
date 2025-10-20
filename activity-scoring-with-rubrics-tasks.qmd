@@ -26,6 +26,8 @@ One of the prompts in the data is: "Do you think that smartphones have destroyed
 
 To ensure that I'm compliant with the consent form agreement, I will be using synthetic responses generated (using Claude Sonnet 4.5) based observed student responses. We'll also be using the [`claude_plus` function we used in the parameter testing activity](@sec-claude-plus).
 
+### First Model Call 
+
 Let's start by asking the model to apply the rubric to an essay. We'll use the default parameters for this first
 
 ```{r, eval = FALSE}
@@ -88,6 +90,9 @@ The writing demonstrates good control of grammar and vocabulary with no signific
 **Total: 10/15**
 
 As noted in the previously (in WHAT section), part of the beauty of generative AI model is the variability in output. Great for creative tasks, but not optimal for things like the present task of applying a scoring rubric to a student response.
+
+### Repeating Score Task 
+
 Let's repeat the above process 20 times, extracting the scores after each model response.
 
 ```{r, eval = FALSE}
@@ -260,6 +265,8 @@ score_summary
 
 Pretty good! There is only .5 variation in scores for `Content` and `Organization`, and no variation in `Language` scores.
 
+### Repeating Score Task (`Temp = 0`)
+
 Let's now repeat the task, but turn the temperature down and see how this affects score variability.
 
 ```{r, eval = FALSE}
@@ -299,6 +306,8 @@ Interestingly, when I asked Anthropic for help in developing a scoring rubric fo
 The prompt below shows how the model decided to describe each of the score categories.
 Obviously these descriptions should be developed and reviewed by subject matter experts, but for the purposes of the workshop we'll just use what Claude generated.
 In your process you also want to check that your generative AI model is utilizing the rubric correctly - supplying a detailed rubric and obtaining consistent results alone isn't sufficient.
+
+### Scoring with Detailed Rubric 
 
 ```{r, eval = FALSE}
 
@@ -383,13 +392,15 @@ When I used Claude to help generate synthetic student responses, I asked it have
 It'll be useful to repeat the same experiment on all 10 essays to see if the scoring variability is consistent across the score range.
 (There's a strong possibility that it will be - I asked Claude to generate the essays and now I'm asking it to score essays it generated.)
 
+### Batch Scoring
+
 Now that we're repeating the same task across a batch of essays, it's a great time to introduce batch scoring!
 This generally works as you'd think - you submit multiple tasks at once to the API to complete in parallel - with the one wrinkle that Anthropic requires that the requests be in the JSONL format.
 In addition to being able to submit multiple requests at once, it's also cheaper to use than single-call API interactions.
 As of this writing (Oct 19, 2025), you save 50% with batch pricing. 
 This drops input costs from \$3 per 1M tokens to \$1.50 per 1M token, and output costs from \$15 per 1M tokens to \$7.50 per 1M tokens.
 
-### Task: Batch Scoring with Rubrics
+#### Creating Batch Requests
 
 ```{r, eval = FALSE}
 
@@ -432,7 +443,11 @@ create_batch_requests <- function(essays_df, n_repetitions = 20){
 
 essay_batch_requests <- create_batch_requests(student_essays)
 
-###
+```
+
+#### Writing Requests to JSONL
+
+```{r, eval = FALSE}
 
 # Step 2: Write requests to JSONL file
 write_batch_file <- function(batch_requests, output_file = "batch_requests.jsonl"){
@@ -446,6 +461,12 @@ write_batch_file <- function(batch_requests, output_file = "batch_requests.jsonl
 }
 
 essay_batch_jsonl <- write_batch_file(essay_batch_requests)
+
+```
+
+#### Submitting Batch Request
+
+```{r, eval = FALSE}
 
 # Step 3: Submit batch job to Anthropic
 submit_batch <- function(jsonl_file){
@@ -487,6 +508,12 @@ essay_batch_info <- submit_batch(essay_batch_jsonl)
 # Batch submitted successfully!
 # Batch ID: msgbatch_018m5hGS9Lm3Gi28UorfsVTS
 
+```
+
+#### Checking Batch Status
+
+```{r, eval = FALSE}
+
 # Step 4: Check batch status
 check_batch_status <- function(batch_id){
   response <- GET(
@@ -515,7 +542,11 @@ batch_run_time <- as.numeric(batch_stop_time - batch_start_time)
 # Time difference of 1.644671 mins
 # Less than 2 minutes to score 200 essays!
 
-###
+```
+
+#### Saving Batch Results
+
+```{r, eval = FALSE}
 
 get_batch_results <- function(batch_id){
   response <- GET(
@@ -540,6 +571,12 @@ get_batch_results <- function(batch_id){
 
 essay_batch_results <- get_batch_results(essay_batch_info$id)
 save(essay_batch_results, file = "data/essay_batch_results.Rdata")
+
+```
+
+#### Extracting Score from Results
+
+```{r, eval = FALSE}
 
 # Step 6: Extract scores from batch results
 extract_batch_scores <- function(results_list, debug = FALSE){
@@ -700,7 +737,11 @@ datatable(essay_summary_detailed,
 
 ```
 
-So we did see some variation, but I also used the default temperature. Let's redo the batch call with `temperature = 0`. 
+So we did see some variation, but I also used the default temperature. 
+
+### Batch Scoring (`Temp = 0`)
+
+Let's redo the batch call with `temperature = 0`. 
 
 ```{r, eval = FALSE}
 
@@ -746,6 +787,12 @@ lowtemp_batch_jsonl <- write_batch_file(lowtemp_batch_requests)
 lowtemp_batch_info <- submit_batch(lowtemp_batch_jsonl)
 # Batch submitted successfully!
 # Batch ID: msgbatch_0184nJ7Kui9v6WVVh47939mn 
+
+lowtemp_status <- check_batch_status(lowtemp_batch_info$id)
+lowtemp_start_time <- ymd_hms(lowtemp_status$created_at)
+lowtemp_stop_time <- ymd_hms(lowtemp_status$ended_at)
+lowtemp_run_time <- as.numeric(lowtemp_stop_time - lowtemp_start_time)
+# Time difference of 1.473892 mins
 
 lowtemp_batch_results <- get_batch_results(lowtemp_batch_info$id)
 save(lowtemp_batch_results, file = "data/lowtemp_batch_results.Rdata")
@@ -794,10 +841,10 @@ datatable(lowtemp_summary_detailed,
 
 ```
 
-Now we're seeing more consistent scores!
+Now we're seeing more consistent scores, and it took less than 90 seconds to process all 200 requests.
 
 
-### Batch Processing
+### Batch Processing Notes
 More notes on batch processing ([via the Anthropic page about batching](https://docs.claude.com/en/docs/build-with-claude/batch-processing); each provider will likely have different functionality):
 
 - This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.

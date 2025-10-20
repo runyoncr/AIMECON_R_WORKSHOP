@@ -4,6 +4,22 @@
 
 Info here.
 
+I asked ChatGPT5 to make a table describing the differences between the two:
+
+| Feature               | Prompt chaining                                                        | Multi-agent system                                               |
+| --------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Primary pattern       | Sequential prompts where each step consumes the previous step’s output | Multiple specialized agents coordinated by an orchestrator       |
+| Orchestration         | You (or your code) dictate the next step explicitly                    | Orchestrator/agents decide routing, handoffs, and tool calls     |
+| Modularity            | Lower; steps are prompts in a linear pipeline                          | Higher; agents have clear roles and can be reused                |
+| Autonomy              | Low; flow is mostly hard-coded                                         | Higher; agents can make decisions and call other agents/tools    |
+| Parallelism/branching | Usually linear; branching is manual                                    | Supports branching and parallel subtasks                         |
+| Tool integration      | Possible but usually wired per step                                    | First-class; agents can use tools, APIs, and call other agents   |
+| State & memory        | Minimal, often passed manually between steps                           | Agent/flow state maintained across handoffs                      |
+| Error handling        | Failures often break the chain                                         | Supervisory/validation agents can retry or route around failures |
+| Best for              | Simple, deterministic multi-step workflows                             | Complex, dynamic workflows with distinct sub-skills              |
+| Cost/complexity       | Lower to build/maintain for small tasks                                | Higher initial setup; scales better for complex use cases        |
+
+
 ## Prompt Chaining
 
 History in chain-of-thought models; evolved to workflows and reasoning models.

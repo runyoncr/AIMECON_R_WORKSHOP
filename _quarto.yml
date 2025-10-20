@@ -81,8 +81,8 @@ format:
   html:
     theme: spacelab
     toc: false
-    toc-depth: 3
-    number-depth: 3
+    toc-depth: 4
+    number-depth: 4
     css: style.css
     code-fold: show
     code-tools: true
