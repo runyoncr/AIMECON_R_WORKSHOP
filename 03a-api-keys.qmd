@@ -24,7 +24,7 @@ Links to documentation for API keys:
 - [OpenAI API keys can be obtained through the OpenAI Platform](https://platform.openai.com/api-keys)
   - [OpenAI API pricing](https://openai.com/api/pricing/)
 - [Google Gemini API keys can obtained through the Google AI Studio](https://aistudio.google.com/welcome)
-  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing)
+  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing) (you get $300 in free credits to use in the first 90 days when making an account)
   - [Gemini API quickstart guide](https://ai.google.dev/gemini-api/docs/quickstart)
 
 ## Workshop API Key {#sec-workshop-key}

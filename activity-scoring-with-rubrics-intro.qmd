@@ -1,4 +1,4 @@
-# Activity: Scoring with Rubrics {#sec-act-rubric .unnumbered}
+# Introduction: Scoring with Rubrics {#sec-act-rubric-intro .unnumbered}
 
 Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric.
 I work in medical education, and one useful performance assessment that is used is the Objective Structured Clinical Examination (OSCE){target="_blank"}.
@@ -21,30 +21,30 @@ It’s important to note that I created this rubric independently, without any d
 Even though this rubric may not be ideal for evaluating notes about a patient with plantar fasciitis, that wasn’t critical for my task. 
 I simply needed a rubric for GPT to apply when evaluating a student’s post-encounter note.
 
-::: {#fig-rubric}
+::: {.content-visible when-format="html" style="margin-top: 1.5em; margin-bottom: 1.5em"}
 
 ![](images/osce-analytic-rubric-example.png){fig-align="center" }
-Figure: Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" [@runyon2025using].
+Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" [@runyon2025using].
 
 :::
 
 The structure of the rubric is what matters here. 
-It outlines specific clinical concepts that should appear in the note based on the patient’s presentation. 
+It outlines specific concepts that should appear in the note based on the patient’s presentation. 
 Each concept is assigned a point value, and some entries include qualifiers for partial credit. 
 
-At the bottom I added an extra instruction for GPT: if the note describes a different clinical condition than the one specified in the rubric, it should not receive a score. 
-This was designed to test how well GPTs could detect mismatched cases, such as when a student submits the same note across multiple cases to gain credit for generic elements like “normal vital signs” or “unremarkable family or social history.”
+At the bottom I added an extra instruction for GenAI model: if the note describes a different clinical condition than the one specified in the rubric, it should not receive a score. 
+This was designed to test how well GenAI models could detect mismatched cases, such as when a candidate submits the same note across multiple cases to gain credit for generic elements like “normal vital signs” or “unremarkable family or social history.”
 
 One advantage of analytic rubrics is their level of detail. 
-They identify very specific concepts that should be included in a student’s response. 
-Typically, each element is scored independently, meaning a student can earn credit for one element regardless of whether they included others.
+They identify very specific concepts that should be included in a response. 
+Typically, each element is scored independently, meaning a candidate can earn credit for one element regardless of whether they included others.
 
 However, applying analytic rubrics can be time-consuming. 
-Imagine using the rubric above to score 100 student notes by hand.
+Imagine using the rubric above to score 100 OSCE notes by hand.
 Even with practice, it would still take a considerable amount of time, and it’s easy to accidentally miss elements when reviewing so many responses.
 
 There’s also a valid critique that analytic rubrics don’t always reflect the underlying construct you’re trying to measure. 
-For example, it’s hard to make strong claims about a student’s clinical reasoning ability based solely on which discrete elements appear in their note.
+For example, it’s hard to make strong claims about a candidates’s clinical reasoning ability based solely on which discrete elements appear in their note.
 
 Finally, analytic rubrics can be helpful for feedback - but this is a bit of a double-edged sword. 
 While you can point out which elements were missing, documenting that feedback for each student can also be labor-intensive.

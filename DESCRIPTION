@@ -15,4 +15,7 @@ Imports:
     shinyjs,
     stringr,
     knitr,
-    ellmer
+    ellmer,
+    glue,
+    lubridate,
+    DT

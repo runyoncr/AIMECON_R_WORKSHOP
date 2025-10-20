@@ -1,6 +1,17 @@
 # Chained Workflows
 
-  
+## Prompt Chaining vs Multi-Agentic Systems
+
+Info here.
+
 ## Prompt Chaining
 
 History in chain-of-thought models; evolved to workflows and reasoning models.
+
+## Building Multi-Agentic Systems
+
+OpenAI now offers [AgentKit](https://openai.com/index/introducing-agentkit/), a set of tools for "building, deploying, and optimizing agents."
+
+Here's a guide to an [agent builder.](https://platform.openai.com/docs/guides/agent-builder)
+
+Here's [ChatKit](https://platform.openai.com/docs/guides/chatkit).
