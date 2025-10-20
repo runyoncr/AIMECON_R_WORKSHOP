@@ -702,7 +702,7 @@ datatable(essay_summary_detailed,
 
 So we did see some variation, but I also used the default temperature. Let's redo the batch call with `temperature = 0`. 
 
-```{r}
+```{r, eval = FALSE}
 
 create_lowtemp_requests <- function(essays_df, n_repetitions = 20){
 
