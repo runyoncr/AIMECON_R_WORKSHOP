@@ -49,7 +49,8 @@ book:
         - 04a-single-interactions-via-api.qmd
         - 04b-conversations-via-api.qmd
         - 04c-rag-models.qmd
-        - 04d-batch-processing.qmd
+        # - 04d-batch-processing.qmd
+        - 04e-mitigating-variability.qmd
         
     - activity-content-development-revision.qmd
     

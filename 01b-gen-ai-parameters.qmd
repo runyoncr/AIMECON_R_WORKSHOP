@@ -1,4 +1,4 @@
-# Generation Parameters
+# Generation Parameters {#sec-gen-params}
 
 When large language models produce text, they do so through a probabilistic process—choosing one word (or token) at a time based on learned likelihoods from vast amounts of training data. 
 Generation parameters govern how that probabilistic process unfolds. 
