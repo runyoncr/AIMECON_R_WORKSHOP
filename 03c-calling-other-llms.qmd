@@ -51,6 +51,7 @@ fillmask_result <- fill_mask("The capitol of France is [MASK].")
 save(fillmask_result, file = 'data/fillmask_result.Rdata')
 ```
 ```{r}
+load('data/fillmask_result.Rdata')
 print(fillmask_result)
 ```
 

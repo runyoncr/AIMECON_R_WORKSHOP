@@ -1,11 +1,26 @@
 # "Vibe Coding"
 
-_Vibe Coding_ is the recent term of the art for using an LLM to help you write syntax, which includes online applications. The term was coined by Andrej Karpathy in a tweet on February 2, 2025 [(ars technica article)](https://arstechnica.com/ai/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/){target="_blank"}
-  
-## Feel the Vibe!
+![](images/vibecoding.png){fig-align="center" width=50%}
+Image created with ChatGPT5.
 
-Reduces tedious syntax writing
-Focus on functionality
+_Vibe Coding_ is the recent term of the art for using an LLM to help you write syntax, which includes online applications. The term was coined by Andrej Karpathy in a tweet on February 2, 2025 [(ars technica article)](https://arstechnica.com/ai/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/){target="_blank"}, and is increasingly increasingly used to describe a style of working with generative AI models to build code collaboratively.
+Rather than prompting for one-off answers, vibe coding is iterative, conversational, and adaptive. 
+The goal isn’t to have the AI generate a complete script for you, but to engage in a process of co-development—exploring options, refining syntax, and solving problems together. 
+For R users, this means moving beyond “write me an app” to something more like “help me build a Shiny app that allows users to visualize item difficulty by grade level.”
+
+In this framework, the AI functions as a thought partner and syntax generator, helping translate your intent (“vibe”) into working R code. 
+You might start with a broad goal (“I want users to upload a CSV and filter items by domain”) and then ask the model to scaffold the basic UI layout. 
+As you test and refine, you can return to the model for troubleshooting (“I’m getting a reactive context error—how do I fix it?”) or optimization (“How can I make this app load faster?”). The iterative nature of vibe coding encourages exploration and experimentation—key skills for both creative developers and educational measurement professionals who often need to prototype analytic tools quickly.
+
+Vibe coding also helps lower the barrier to entry for complex frameworks like Shiny. 
+Because reactivity and UI design can feel conceptually distant from typical R scripting, working with an AI assistant can make the process more approachable. 
+The model can explain why certain elements belong in the server versus ui sections, or how to use reactive() and observeEvent() correctly. 
+Over time, you develop a sense of how Shiny feels—its rhythms, its syntax, its underlying logic—by co-creating with an AI partner that provides just-in-time feedback and examples.
+
+No specific AI model is required for vibe coding. 
+While Claude has shown strength in R-specific support, many others (ChatGPT, Gemini, Copilot) can perform well depending on your workflow. 
+The key is to maintain the vibe—a rhythm of asking, testing, refining, and learning. 
+This approach not only accelerates development but also deepens understanding, helping you bridge the gap between concept and implementation in a way that feels intuitive and creative.
 
 ## `shinychat`
 
