@@ -1,4 +1,4 @@
-# Reference Materials {#sec-ref-mats .unnumbered}
+# Reference Materials {#sec-ref-mats}
 
 These materials / links were last checked on October 2, 2025. All apologies for links that no longer work. Please email me at [CRunyon@nbme.org](mailto:CRunyon@nbme.org) if you notice something no longer works so I can change / remove the link.
   
@@ -12,9 +12,53 @@ Anthropic's paper [On the Biology of a Large Language Model](https://transformer
 
 This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic){target="_blank"} provides a nice high-level summary for understanding LLMs.
 
+---
+
 ## Reference Guides
 
 [OpenAI Cookbook](https://cookbook.openai.com/){target="_blank"}
+
+---
+
+## Newsletters
+
+### TL:DR
+
+### Superhuman
+
+### The Neuron
+
+### Gary Marcus Substack
+
+### Jack Anthropic Substack (The Signal?)
+
+### Michael Jabbour Substack
+
+### One Useful Thing
+
+---
+
+## Books
+
+[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/){target="_blank"} by Chip Huyen is a slightly more advanced read for those interested in building AI products.
+
+[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.
+
+[Brave New Words](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/) by Sal Khan (of [Khan Academy](https://www.khanacademy.org/) fame) is an interesting perspective on how AI will change education.
+
+---
+
+## Blogs
+
+Are there any?
+
+---
+
+## Training
+
+### DataCamp
+
+---
 
 ## LLM-specific R Packages {#sec-r-packages}
 
@@ -58,6 +102,8 @@ Some summaries have been edited, some have not.
 
 **PacketLLM** offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g. GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g. .R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.
 
+---
+
 ## Shiny-related Resources
 
 Posit has [many useful things](https://shiny.posit.co/){target="_blank"}.
@@ -67,23 +113,7 @@ Posit has [many useful things](https://shiny.posit.co/){target="_blank"}.
 
 [nanxstats has nicely organized many Shiny extension packages.](https://github.com/nanxstats/awesome-shiny-extensions){target="_blank"}
 
-## Resources for Continuing Development
-
-The following list of books / blogs / newsletters / training is a compilation of resources that have either I found useful or have been recommended by colleagues.
-
-### Newsletters
-
-### Books
-
-[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/){target="_blank"} by Chip Huyen is a slightly more advanced read for those interested in building AI products.
-
-[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering.
-
-[Brave New Words](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/) by Sal Khan (of [Khan Academy](https://www.khanacademy.org/) fame) is an interesting perspective on how AI will change education.
-
-### Blogs
-
-### Training
+---
 
 ## Legal Considerations
 

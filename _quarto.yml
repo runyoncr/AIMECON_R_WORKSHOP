@@ -27,6 +27,7 @@ book:
       chapters: 
         - 03a-api-keys.qmd
         - 03b-prompting-models.qmd
+        - 03c-calling-other-llms.qmd
     
     - part: 01-gen-ai-fundamentals.qmd  
       chapters:

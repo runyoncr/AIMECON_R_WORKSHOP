@@ -25,6 +25,7 @@ chaining_v_multiagentic.docx
 smartphone.csv
 student_essays.txt
 batch_requests.jsonl
+sample_hugging_face.R
 
 # Example code in package build process
 *-Ex.R

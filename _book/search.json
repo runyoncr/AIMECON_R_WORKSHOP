@@ -1464,5 +1464,65 @@
     "crumbs": [
       "Activity: Scoring with Rubrics"
     ]
+  },
+  {
+    "objectID": "07-reference-materials.html#reference-guides",
+    "href": "07-reference-materials.html#reference-guides",
+    "title": "Reference Materials",
+    "section": "Reference Guides",
+    "text": "Reference Guides\nOpenAI Cookbook",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#newsletters",
+    "href": "07-reference-materials.html#newsletters",
+    "title": "Reference Materials",
+    "section": "Newsletters",
+    "text": "Newsletters\n\nTL:DR\n\n\nSuperhuman\n\n\nThe Neuron\n\n\nGary Marcus Substack\n\n\nJack Anthropic Substack (The Signal?)\n\n\nMichael Jabbour Substack\n\n\nOne Useful Thing",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#books",
+    "href": "07-reference-materials.html#books",
+    "title": "Reference Materials",
+    "section": "Books",
+    "text": "Books\nAI Engineering by Chip Huyen is a slightly more advanced read for those interested in building AI products.\nPrompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.\nBrave New Words by Sal Khan (of Khan Academy fame) is an interesting perspective on how AI will change education.",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#blogs",
+    "href": "07-reference-materials.html#blogs",
+    "title": "Reference Materials",
+    "section": "Blogs",
+    "text": "Blogs\nAre there any?",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#training",
+    "href": "07-reference-materials.html#training",
+    "title": "Reference Materials",
+    "section": "Training",
+    "text": "Training\n\nDataCamp",
+    "crumbs": [
+      "Reference Materials"
+    ]
+  },
+  {
+    "objectID": "07-reference-materials.html#sec-r-packages",
+    "href": "07-reference-materials.html#sec-r-packages",
+    "title": "Reference Materials",
+    "section": "LLM-specific R Packages",
+    "text": "LLM-specific R Packages\nA number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we’ll cover some of those in the workshop), whereas other packages include some developer design decisions that don’t work particularly well for my usual workflows. I’ve also found that some packages aren’t often updated / maintained. The syntax to interact with API models can change as new models are released (e.g., ChatGPT5), which can render some of the package functionality obsolete.\nBelow is a non-exhaustive list of packages that I’ve found to interact with LLMs. This is not meant to be exhaustive or a curated list; it’s only to provide you with information about the packages you’ll be using in the workshop (and others) in the case you find them helpful for your workflow. All package summaries were initially generated with AI. Some summaries have been edited, some have not.\n\nellmer\nellmer Overview CRAN Documentation\nellmer is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.\n\n\ntidyprompt\ntidyprompt Overview CRAN Documentation\ntidyprompt is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g. ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g. via ellmer) to produce more robust, predictable interactions.\n\n\ntidyllm\ntidyllm Overview CRAN Documentation\ntidyllm provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g. Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.\n\n\nchattr\nchattr Overview CRAN Documentation\nchattr is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g. loaded data frames) and integrates with various back-ends (e.g. OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.\n\n\nLLMAgentR\nLLMAgentR Overview CRAN Documentation\nLLMAgentR is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g. code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.\n\n\nPacketLLM\nPacketLLM Overview CRAN Documentation\nPacketLLM offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g. GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g. .R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.",
+    "crumbs": [
+      "Reference Materials"
+    ]
   }
 ]

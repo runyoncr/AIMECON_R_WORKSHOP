@@ -30,7 +30,7 @@ Links to documentation for API keys:
 ## Workshop API Key {#sec-workshop-key}
 
 I created an API key that you will be able to use for the purposes of the workshop.
-I have chosen to use Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5) for this workshop.
+I have chosen to use Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"} for this workshop.
 This API key will only be active during the workshop hours.
 If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
 

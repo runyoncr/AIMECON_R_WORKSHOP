@@ -133,5 +133,8 @@
   },
   "activity-scoring-with-rubrics-tasks.qmd": {
     "activity-scoring-with-rubrics-tasks.html": "3d1c2818"
+  },
+  "03c-calling-other-llms.qmd": {
+    "03c-calling-other-llms.html": "e34db18f"
   }
 }

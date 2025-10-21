@@ -1,8 +1,59 @@
 # Call other (non-Gen AI) LLMs
 
-Although not the focus of our workshop, many use cases when a different LLM model might be useful, such as [DeBERTa](https://huggingface.co/docs/transformers/en/model_doc/deberta), a strong non-generative LLM that has improvements over the BERT and RoBERTa models (original paper by He, Liu, Gao, and Chen (2020) that introduces the model is [here](https://arxiv.org/abs/2006.03654); see this ['towards data science' article for a higher-level overview](https://towardsdatascience.com/large-language-models-deberta-decoding-enhanced-bert-with-disentangled-attention-90016668db4b/)) . [Here's the full list of models available though Hugging Face.](https://huggingface.co/models)
+Although not the focus of our workshop, there are many use cases in educational measurement when a different LLM model might be useful.
+See, for example, [DeBERTa](https://huggingface.co/docs/transformers/en/model_doc/deberta), a strong non-generative LLM that has improvements over the BERT and RoBERTa models (original paper by He, Liu, Gao, and Chen (2020) that introduces the model is [here](https://arxiv.org/abs/2006.03654); see this ['towards data science' article for a higher-level overview](https://towardsdatascience.com/large-language-models-deberta-decoding-enhanced-bert-with-disentangled-attention-90016668db4b/)).
 
+As per ChatGPT5: "DeBERTa (Decoding-enhanced BERT with Disentangled Attention) is useful in educational research because it offers **high representational accuracy for text understanding tasks**—such as rubric-based scoring, feedback classification, or analyzing written responses—without requiring generative capabilities. 
+Its **disentangled attention mechanism** separates word content and position information, improving sensitivity to subtle linguistic and contextual cues (e.g., reasoning quality, coherence, stance). 
+Combined with **enhanced pretraining (including next-sentence prediction and span masking)**, DeBERTa often outperforms earlier encoder models like BERT and RoBERTa on natural language understanding benchmarks, making it a strong choice for **reliable, fine-grained analysis of student writing or assessment data.**"
+
+DeBERTa and many other LLMs are available through [Hugging Face (huggingface.co)](https://huggingface.co/).
 Many of these models are open-source and can be downloaded and run locally. 
-If you're like me and don't have the technical expertise required to implement such a workflow, the good news is that you can call many of these models through an API at [Hugging Face (huggingface.co)](https://huggingface.co/) using similiar syntax as to what we'll be using today.
+If you're like me and don't have the technical expertise required to implement such a workflow, the good news is that you can call many of these models through a Hugging Face API using similiar syntax as to what we'll be using today.
+You'll have to sign up for an account, and the free account provides you[^1] with a fair amount of capabilities: 100GB private storage limit, 1000 API calls (per 5-minute window), 5,000 resolvers(per 5-minute window; delayed API calls), and 200 pages.
 
-You'll have to sign up for an account, and the free account provides you with a fair amount of capabilities: 100GB private storage limit, 1000 API calls (per 5-minute window), 5,000 resolvers(per 5-minute window; delayed API calls), and 200 pages.
+[Here's the a list of other models available though Hugging Face.](https://huggingface.co/models)
+
+Here's an example of a simple `fill-mask` task calling the BERT model through the Hugging Face API.
+
+```{r, eval = FALSE}
+
+library(httr)
+library(jsonlite)
+
+fill_mask <- function(text, model_id = "google-bert/bert-base-uncased") {
+  token <- Sys.getenv("HF_TOKEN") # Need to obtain a Hugging Face API token
+  if (token == "") stop("Please set HF_TOKEN environment variable")
+  
+  # Construct URL with router endpoint
+  url <- paste0("https://router.huggingface.co/hf-inference/models/", model_id)
+  
+  # Make API call
+  response <- POST(
+    url = url,
+    add_headers(
+      Authorization = paste("Bearer", token),
+      `Content-Type` = "application/json"
+    ),
+    body = toJSON(list(inputs = text), auto_unbox = TRUE),
+    encode = "raw"
+  )
+  
+  # Parse response
+  response_text <- content(response, "text", encoding = "UTF-8")
+  result <- fromJSON(response_text)
+  
+  return(result)
+}
+
+# Test it
+fillmask_result <- fill_mask("The capitol of France is [MASK].")
+save(fillmask_result, file = 'data/fillmask_result.Rdata')
+```
+```{r}
+print(fillmask_result)
+```
+
+
+
+[^1]: As of this writing (October 21, 2025).

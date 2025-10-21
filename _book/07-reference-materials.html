@@ -150,10 +150,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00a-R-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00b-R-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00c-test-connect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./00-preparation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Set Up</span></a>
+            <a href="./03-api-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API Implementation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -161,26 +179,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00a-R-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
+  <a href="./03a-api-keys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00b-R-packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  <a href="./03b-prompting-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Prompting LLMs via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00c-test-connect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./00d-LLM-R-packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">LLM-specific R Packages</span></span></a>
+  <a href="./03c-calling-other-llms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
   </div>
 </li>
       </ul>
@@ -197,17 +209,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01a-gen-ai-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01b-gen-ai-parameters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Generation Parameters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generation Parameters</span></span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-parameter-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Activity: Generation Parameter Testing</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./02-prompt-engineering.html" class="sidebar-item-text sidebar-link">
@@ -220,27 +238,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02a-general-prompt-information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">General Prompt Engineering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">General Prompt Engineering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02b-prompt-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02c-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./03-api-implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">API Implementation</span></a>
+            <a href="./04-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integrating LLMs into R Workflows</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -248,22 +272,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03a-api-keys.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
+  <a href="./04a-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03b-prompting-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Prompting LLMs via API</span></span></a>
+  <a href="./04b-conversations-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04c-rag-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04d-batch-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-content-development-revision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity: Content Development and Revision</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-scoring-with-rubrics-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction: Scoring with Rubrics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-scoring-with-rubrics-tasks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity: Scoring with Rubrics</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./04-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Integrating LLMs into R Workflows</span></a>
+            <a href="./05-shiny-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny Integration</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -271,47 +325,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04a-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04b-conversations-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">API Conversations</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04c-rag-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./05-shiny-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Shiny Integration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./05a-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Shiny</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05b-vibe-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity: Shiny App Development</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-references.html" class="sidebar-item-text sidebar-link">
@@ -367,10 +398,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Anthropic’s paper <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html" target="_blank">On the Biology of a Large Language Model</a> is particularly interesting.</p>
 <p>This <a href="https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic" target="_blank">post on lesswrong</a> provides a nice high-level summary for understanding LLMs.</p>
+<hr>
 </section>
-<section id="reference-guides-and-prompt-engineering" class="level2">
-<h2 class="anchored" data-anchor-id="reference-guides-and-prompt-engineering">Reference Guides (and Prompt Engineering)</h2>
+<section id="reference-guides" class="level2">
+<h2 class="anchored" data-anchor-id="reference-guides">Reference Guides</h2>
 <p><a href="https://cookbook.openai.com/" target="_blank">OpenAI Cookbook</a></p>
+<hr>
+</section>
+<section id="newsletters" class="level2">
+<h2 class="anchored" data-anchor-id="newsletters">Newsletters</h2>
+<section id="tldr" class="level3">
+<h3 class="anchored" data-anchor-id="tldr">TL:DR</h3>
+</section>
+<section id="superhuman" class="level3">
+<h3 class="anchored" data-anchor-id="superhuman">Superhuman</h3>
+</section>
+<section id="the-neuron" class="level3">
+<h3 class="anchored" data-anchor-id="the-neuron">The Neuron</h3>
+</section>
+<section id="gary-marcus-substack" class="level3">
+<h3 class="anchored" data-anchor-id="gary-marcus-substack">Gary Marcus Substack</h3>
+</section>
+<section id="jack-anthropic-substack-the-signal" class="level3">
+<h3 class="anchored" data-anchor-id="jack-anthropic-substack-the-signal">Jack Anthropic Substack (The Signal?)</h3>
+</section>
+<section id="michael-jabbour-substack" class="level3">
+<h3 class="anchored" data-anchor-id="michael-jabbour-substack">Michael Jabbour Substack</h3>
+</section>
+<section id="one-useful-thing" class="level3">
+<h3 class="anchored" data-anchor-id="one-useful-thing">One Useful Thing</h3>
+<hr>
+</section>
+</section>
+<section id="books" class="level2">
+<h2 class="anchored" data-anchor-id="books">Books</h2>
+<p><a href="https://www.oreilly.com/library/view/ai-engineering/9781098166298/" target="_blank">AI Engineering</a> by Chip Huyen is a slightly more advanced read for those interested in building AI products.</p>
+<p><a href="https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/" target="_blank">Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs</a> by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.</p>
+<p><a href="https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/">Brave New Words</a> by Sal Khan (of <a href="https://www.khanacademy.org/">Khan Academy</a> fame) is an interesting perspective on how AI will change education.</p>
+<hr>
+</section>
+<section id="blogs" class="level2">
+<h2 class="anchored" data-anchor-id="blogs">Blogs</h2>
+<p>Are there any?</p>
+<hr>
+</section>
+<section id="training" class="level2">
+<h2 class="anchored" data-anchor-id="training">Training</h2>
+<section id="datacamp" class="level3">
+<h3 class="anchored" data-anchor-id="datacamp">DataCamp</h3>
+<hr>
+</section>
+</section>
+<section id="sec-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="sec-r-packages">LLM-specific R Packages</h2>
+<p>A number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we’ll cover some of those in the workshop), whereas other packages include some developer design decisions that don’t work particularly well for my usual workflows. I’ve also found that some packages aren’t often updated / maintained. The syntax to interact with API models can change as new models are released (e.g., <a href="@sec-gpt5">ChatGPT5</a>), which can render some of the package functionality obsolete.</p>
+<p>Below is a non-exhaustive list of packages that I’ve found to interact with LLMs. This is not meant to be exhaustive or a curated list; it’s only to provide you with information about the packages you’ll be using in the workshop (and others) in the case you find them helpful for your workflow. All package summaries were initially generated with AI. Some summaries have been edited, some have not.</p>
+<section id="ellmer" class="level3">
+<h3 class="anchored" data-anchor-id="ellmer">ellmer</h3>
+<p><strong>ellmer</strong> <a href="https://ellmer.tidyverse.org/" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/ellmer/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/ellmer/refman/ellmer.html" target="_blank">Documentation</a></p>
+<p><strong>ellmer</strong> is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.</p>
+</section>
+<section id="tidyprompt" class="level3">
+<h3 class="anchored" data-anchor-id="tidyprompt">tidyprompt</h3>
+<p><strong>tidyprompt</strong> <a href="https://github.com/KennispuntTwente/tidyprompt" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/tidyprompt/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/tidyprompt/refman/tidyprompt.html" target="_blank">Documentation</a></p>
+<p><strong>tidyprompt</strong> is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g.&nbsp;ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g.&nbsp;via ellmer) to produce more robust, predictable interactions.</p>
+</section>
+<section id="tidyllm" class="level3">
+<h3 class="anchored" data-anchor-id="tidyllm">tidyllm</h3>
+<p><strong>tidyllm</strong> <a href="https://github.com/edubruell/tidyllm" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/tidyllm/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/tidyllm/refman/tidyllm.html" target="_blank">Documentation</a></p>
+<p><strong>tidyllm</strong> provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g.&nbsp;Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.</p>
+</section>
+<section id="chattr" class="level3">
+<h3 class="anchored" data-anchor-id="chattr">chattr</h3>
+<p><strong>chattr</strong> <a href="https://mlverse.github.io/chattr/" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/chattr/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/chattr/refman/chattr.html" target="_blank">Documentation</a></p>
+<p><strong>chattr</strong> is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g.&nbsp;loaded data frames) and integrates with various back-ends (e.g.&nbsp;OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.</p>
+</section>
+<section id="llmagentr" class="level3">
+<h3 class="anchored" data-anchor-id="llmagentr">LLMAgentR</h3>
+<p><strong>LLMAgentR</strong> <a href="https://github.com/knowusuboaky/LLMAgentR" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/LLMAgentR/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/LLMAgentR/refman/LLMAgentR.html" target="_blank">Documentation</a></p>
+<p><strong>LLMAgentR</strong> is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g.&nbsp;code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.</p>
+</section>
+<section id="packetllm" class="level3">
+<h3 class="anchored" data-anchor-id="packetllm">PacketLLM</h3>
+<p><strong>PacketLLM</strong> <a href="https://antoniczolgowski.r-universe.dev/PacketLLM" target="_blank">Overview</a> <a href="https://cran.r-project.org/web/packages/PacketLLM/index.html" target="_blank">CRAN</a> <a href="https://cran.r-project.org/web/packages/PacketLLM/vignettes/PacketLLM-introduction.html" target="_blank">Documentation</a></p>
+<p><strong>PacketLLM</strong> offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g.&nbsp;GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g.&nbsp;.R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.</p>
+<hr>
+</section>
 </section>
 <section id="shiny-related-resources" class="level2">
 <h2 class="anchored" data-anchor-id="shiny-related-resources">Shiny-related Resources</h2>
@@ -380,22 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://shiny.posit.co/py/" target="_blank">Materials for the Python language start here</a>.</li>
 </ul>
 <p><a href="https://github.com/nanxstats/awesome-shiny-extensions" target="_blank">nanxstats has nicely organized many Shiny extension packages.</a></p>
-</section>
-<section id="resources-for-continuing-development" class="level2">
-<h2 class="anchored" data-anchor-id="resources-for-continuing-development">Resources for Continuing Development</h2>
-<p>The following list of books / blogs / newsletters / training is a compilation of resources that have either I found useful or have been recommended by colleagues.</p>
-<section id="newsletters" class="level3">
-<h3 class="anchored" data-anchor-id="newsletters">Newsletters</h3>
-</section>
-<section id="books" class="level3">
-<h3 class="anchored" data-anchor-id="books">Books</h3>
-</section>
-<section id="blogs" class="level3">
-<h3 class="anchored" data-anchor-id="blogs">Blogs</h3>
-</section>
-<section id="training" class="level3">
-<h3 class="anchored" data-anchor-id="training">Training</h3>
-</section>
+<hr>
 </section>
 <section id="legal-considerations" class="level2">
 <h2 class="anchored" data-anchor-id="legal-considerations">Legal Considerations</h2>
@@ -544,6 +642,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -883,34 +986,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>This <span class="co">[</span><span class="ot">post on lesswrong</span><span class="co">](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic)</span>{target="_blank"} provides a nice high-level summary for understanding LLMs.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reference Guides (and Prompt Engineering)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">OpenAI Cookbook</span><span class="co">](https://cookbook.openai.com/)</span>{target="_blank"}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reference Guides</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shiny-related Resources</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">OpenAI Cookbook</span><span class="co">](https://cookbook.openai.com/)</span>{target="_blank"}</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Posit has <span class="co">[</span><span class="ot">many useful things</span><span class="co">](https://shiny.posit.co/)</span>{target="_blank"}.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Materials for the R language start here</span><span class="co">](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/)</span>{target="_blank"}.</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Materials for the Python language start here</span><span class="co">](https://shiny.posit.co/py/)</span>{target="_blank"}.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">nanxstats has nicely organized many Shiny extension packages.</span><span class="co">](https://github.com/nanxstats/awesome-shiny-extensions)</span>{target="_blank"}</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources for Continuing Development</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>The following list of books / blogs / newsletters / training is a compilation of resources that have either I found useful or have been recommended by colleagues.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Newsletters</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">### Books</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Blogs</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legal Considerations</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Newsletters</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### TL:DR</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### Superhuman</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Neuron</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### Gary Marcus Substack</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### Jack Anthropic Substack (The Signal?)</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Michael Jabbour Substack</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### One Useful Thing</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Books</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">AI Engineering</span><span class="co">](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)</span>{target="_blank"} by Chip Huyen is a slightly more advanced read for those interested in building AI products.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs</span><span class="co">](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/)</span>{target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Brave New Words</span><span class="co">](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/)</span> by Sal Khan (of <span class="co">[</span><span class="ot">Khan Academy</span><span class="co">](https://www.khanacademy.org/)</span> fame) is an interesting perspective on how AI will change education.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Blogs</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>Are there any?</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Training</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### DataCamp</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## LLM-specific R Packages {#sec-r-packages}</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>A number of packages have been developed to more easily facilitate interacting with LLMs via R. </span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. </span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>I've also found that some packages aren't often updated / maintained. </span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>The syntax to interact with API models can change as new models are released (e.g., <span class="co">[</span><span class="ot">ChatGPT5</span><span class="co">](@sec-gpt5)</span>), which can render some of the package functionality obsolete.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>Below is a non-exhaustive list of packages that I've found to interact with LLMs. </span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>This is not meant to be exhaustive or a curated list; it's only to provide you with information about the packages you'll be using in the workshop (and others) in the case you find them helpful for your workflow.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>All package summaries were initially generated with AI.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>Some summaries have been edited, some have not.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### ellmer</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**ellmer** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://ellmer.tidyverse.org/)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/ellmer/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">]( https://cran.r-project.org/web/packages/ellmer/refman/ellmer.html)</span>{target="_blank"}  </span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>**ellmer** is an R package that provides a unified interface for interacting with large language models from over 17 providers including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports advanced features like streaming outputs, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### tidyprompt</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>**tidyprompt** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://github.com/KennispuntTwente/tidyprompt)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/tidyprompt/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/tidyprompt/refman/tidyprompt.html)</span>{target="_blank"}  </span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>**tidyprompt** is an R package that provides a compositional framework (“prompt wraps”) for building prompts enriched with logic, validation, and extraction functions when interacting with LLMs. It supports structured output, retry/feedback loops, reasoning strategies (e.g. ReAct or chain-of-thought), and even autonomous R code or function calling as part of an LLM dialogue. The package is provider-agnostic, meaning its features can layer on top of any chat completion API (e.g. via ellmer) to produce more robust, predictable interactions.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### tidyllm</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>**tidyllm** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://github.com/edubruell/tidyllm)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/tidyllm/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/tidyllm/refman/tidyllm.html)</span>{target="_blank"}  </span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>**tidyllm** provides a tidy, pipeline-friendly interface for interacting with multiple LLM APIs (e.g. Claude, OpenAI, Gemini, Mistral) and local models via Ollama. It supports multimodal inputs (text, images, PDFs), maintains conversational history, handles batching and rate limits, and allows structured schema-based extraction of responses. The design emphasizes composability and integration into typical R data workflows.  </span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### chattr</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>**chattr** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://mlverse.github.io/chattr/)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/chattr/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/chattr/refman/chattr.html)</span>{target="_blank"}  </span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>**chattr** is an R package that enables interactive communication with large language models directly within RStudio using a Shiny gadget or from the console. It enriches prompts with contextual information (e.g. loaded data frames) and integrates with various back-ends (e.g. OpenAI, Copilot, local LlamaGPT) via the ellmer interface. The package is geared toward exploratory workflows and rapid prototyping of LLM-assisted analysis.  </span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### LLMAgentR</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>**LLMAgentR** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://github.com/knowusuboaky/LLMAgentR)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/LLMAgentR/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/LLMAgentR/refman/LLMAgentR.html)</span>{target="_blank"}  </span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>**LLMAgentR** is an R package for constructing language model “agents” using a modular, graph-based execution framework inspired by LangChain/LangGraph architectures. It offers a suite of agent types (e.g. code generation, data wrangling, SQL agents, document summarization) that iteratively reason, generate R code, execute, debug, and explain results. The package aims to support reproducible AI workflows for analysis, research, and automation by integrating LLM reasoning and domain logic.</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">### PacketLLM</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>**PacketLLM** <span class="co">[</span><span class="ot">Overview</span><span class="co">](https://antoniczolgowski.r-universe.dev/PacketLLM)</span>{target="_blank"} <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/PacketLLM/index.html)</span>{target="_blank"} <span class="co">[</span><span class="ot">Documentation</span><span class="co">](https://cran.r-project.org/web/packages/PacketLLM/vignettes/PacketLLM-introduction.html)</span>{target="_blank"}  </span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>**PacketLLM** offers an interactive RStudio gadget interface for chatting with OpenAI LLMs (e.g. GPT-5 and variants) directly within the R environment. It supports multiple simultaneous conversation tabs, file upload (e.g. .R, PDF, DOCX) as contextual input, and per-conversation system message configuration. API calls are handled asynchronously (via promises + future) to avoid blocking the R console during model interactions.</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shiny-related Resources</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>Posit has <span class="co">[</span><span class="ot">many useful things</span><span class="co">](https://shiny.posit.co/)</span>{target="_blank"}.</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Materials for the R language start here</span><span class="co">](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/)</span>{target="_blank"}.</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Materials for the Python language start here</span><span class="co">](https://shiny.posit.co/py/)</span>{target="_blank"}.</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">nanxstats has nicely organized many Shiny extension packages.</span><span class="co">](https://github.com/nanxstats/awesome-shiny-extensions)</span>{target="_blank"}</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legal Considerations</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
