@@ -136,5 +136,8 @@
   },
   "03c-calling-other-llms.qmd": {
     "03c-calling-other-llms.html": "e34db18f"
+  },
+  "04e-mitigating-variability.qmd": {
+    "04e-mitigating-variability.html": "c5b19ad1"
   }
 }

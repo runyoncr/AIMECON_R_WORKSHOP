@@ -1524,5 +1524,27 @@
     "crumbs": [
       "Reference Materials"
     ]
+  },
+  {
+    "objectID": "03c-calling-other-llms.html",
+    "href": "03c-calling-other-llms.html",
+    "title": "\n6  Call other (non-Gen AI) LLMs\n",
+    "section": "",
+    "text": "Although not the focus of our workshop, there are many use cases in educational measurement when a different LLM model might be useful. See, for example, DeBERTa, a strong non-generative LLM that has improvements over the BERT and RoBERTa models (original paper by He, Liu, Gao, and Chen (2020) that introduces the model is here; see this ‘towards data science’ article for a higher-level overview).\nAs per ChatGPT5: “DeBERTa (Decoding-enhanced BERT with Disentangled Attention) is useful in educational research because it offers high representational accuracy for text understanding tasks—such as rubric-based scoring, feedback classification, or analyzing written responses—without requiring generative capabilities. Its disentangled attention mechanism separates word content and position information, improving sensitivity to subtle linguistic and contextual cues (e.g., reasoning quality, coherence, stance). Combined with enhanced pretraining (including next-sentence prediction and span masking), DeBERTa often outperforms earlier encoder models like BERT and RoBERTa on natural language understanding benchmarks, making it a strong choice for reliable, fine-grained analysis of student writing or assessment data.”\nDeBERTa and many other LLMs are available through Hugging Face (huggingface.co). Many of these models are open-source and can be downloaded and run locally. If you’re like me and don’t have the technical expertise required to implement such a workflow, the good news is that you can call many of these models through a Hugging Face API using similiar syntax as to what we’ll be using today. You’ll have to sign up for an account, and the free account provides you1 with a fair amount of capabilities: 100GB private storage limit, 1000 API calls (per 5-minute window), 5,000 resolvers(per 5-minute window; delayed API calls), and 200 pages.\nHere’s the a list of other models available though Hugging Face.\nHere’s an example of a simple fill-mask task calling the BERT model through the Hugging Face API.",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Call other (non-Gen AI) LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "03c-calling-other-llms.html#footnotes",
+    "href": "03c-calling-other-llms.html#footnotes",
+    "title": "\n6  Call other (non-Gen AI) LLMs\n",
+    "section": "",
+    "text": "As of this writing (October 21, 2025).↩︎",
+    "crumbs": [
+      "API Implementation",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Call other (non-Gen AI) LLMs</span>"
+    ]
   }
 ]
