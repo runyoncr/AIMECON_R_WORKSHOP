@@ -58,10 +58,11 @@ book:
     
     - activity-scoring-with-rubrics-tasks.qmd
     
-    - part: 05-shiny-integration.qmd
+    - part: 05a-shiny.qmd
       chapters: 
-        - 05a-shiny.qmd
         - 05b-vibe-coding.qmd
+        - 05c-shiny-integration.qmd
+        - 05d-saving-shiny-data.qmd
         
     - activity-shiny-app-development.qmd
         

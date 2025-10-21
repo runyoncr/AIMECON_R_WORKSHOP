@@ -53,5 +53,5 @@ I found the model applied the rubric in 3 different ways (paraphrasing model rat
 
 This can easily be corrected by changing the rubric to include guidance for this edge case: "Tenderness to deep palpation on the right medial heel : 1 point - it is not necessary for the learner to include the word 'medial'".
 
----
+***
 [^1]: I liberally use the "usually" qualifier because as models improve, these factors influence variability may become less of an issue.

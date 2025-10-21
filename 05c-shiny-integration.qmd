@@ -19,3 +19,13 @@ Ultimately, integrating vibe coding into Shiny development reframes programming 
 Instead of coding alone in isolation, you’re working with a model that mirrors your thought process, helping you move from vague intent to concrete implementation. 
 This approach doesn’t replace technical learning—it enhances it. 
 By externalizing your reasoning and iteratively refining your code with feedback from an AI partner, you develop a deeper, more intuitive grasp of both Shiny and R as expressive tools for educational measurement.
+
+Although no Shiny training is needed to vibe code a Shiny app, being able to use certain terminology or provide webpages to the model can help you more quickly achieve your goals. Below are some quick Shiny references that can be helpful:
+
+- [R Shiny Layouts](https://shiny.posit.co/r/layouts/) : Offical layouts supported by Posit
+  - If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. This is especially helpful when you have a sophisticated app layout with multiple steps - having a Navbar, Sidebar, or using a [Dashboard](https://rstudio.github.io/shinydashboard/) layout may be helpful.
+
+- [R Shiny Components](https://shiny.posit.co/r/components/) : Offical widgets supported by Posit
+  - These are a subset of possible tasks that could be included in your Shiny app. Think of them like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey, although you can develop your own novel tasks by combining these widgets or installing an R package that can extend Shiny's functionality (see below).
+
+- [Awesome Shiny Extensions](https://github.com/nanxstats/awesome-shiny-extensions) : Curated GitHub page with links to _many_ more packages that extend the R Shiny functionality. One we often use is [shinyjs](https://deanattali.com/shinyjs/). This isn't an exhuastive list - nor it is the list of _best_ packages that extend Shiny functionality - but it's a good start. I always recommend Google for searching for new / specific packages (or just ask the LLM!).

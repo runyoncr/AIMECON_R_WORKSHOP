@@ -1,1 +1,221 @@
 # Activity: Shiny App Development {#sec-act-shiny .unnumbered}
+
+Now it's time to make an app! 
+When building an app via vibe coding, I've found that it's best to ask the model to add features to the app in chunks.
+Providing a long list of "must-haves" to the model in a single prompt can overwhelm the model, and it can be difficult to make tweaks to small parts of the app.
+
+For my process, I usually outline the basic functionality of what I want the app to do in the first prompt, knowing that there will be additional functionality that I want to build out later. 
+I will sometimes write out a list of the functionality that I want to be integrated into the app.
+I then review the list and see if there is a logical structure to order that I want the components built - do any features depend on having other functionality in place.
+From there I then start the process of iterating with the model to develop the code that I want.
+
+**Note: Working with a model to vibe code can use a lot of tokens quickly.** 
+I have the lowest-tier plans with both Anthropic and ChatGPT, and the only time I've been told that I need to wait to submit another prompt is when I've been engaged in extensive vibe-coding sessions.
+
+Below I've
+
+
+## Data Visualization with Existing Data
+
+
+## Integrating LLM Calls in an App
+
+Now let's pull together a few of the things you learned today and build an app that integrates calling an LLM! This purpose of this simple app is to help educators / test developers generate items given certain parameters - student grade level and school subject.
+
+When developing a prompt for vibe coding, I often ask a model to help me improve my first prompt.
+
+::: {.callout-note collapse="true"}
+
+## Initial Prompt that I wrote:
+
+Prompt:
+
+I want to make an R Shiny app to facilitate making multiple-choice questions for a variety of grade levels for a variety of subjects. 
+
+On the left is a drop-down menu is has two selectable options: grade level (1st, 3rd, 5th, 7th) and topic (geography, science, social studies). 
+This will serve to an input for a function that will call a generative AI model to generate a multiple-choice item based on the selected topic that is appropriate for the selected grade level. 
+The generative AI model will return a question [question], 5 answer options [option A : option E], and the repeat the correct answer option [correct answer : ]. Here is an example:
+
+[Question : What is the main source of energy for the water cycle?]\n[Option A : The Moon]\n[Option B : The Sun]\n[Option C : The Wind]\n[Option D : The Earth's Core]\n[Option E : Ocean Currents]\n[Correct Answer : Option B : The Sun]
+
+In the second column: Those responses will each populate in a different text box column that corresponds to the LLM output (question, option A, option B, option C, option D, option E, correct answer) with instructions to the user to "change the item as desired". 
+The user can then makes changes if they would like, and then re-submit the item. 
+Alternatively, if the user does not want to make changes or is happy with the submitted changes, the user can select "submit item" which will then save the item to a certain location on the computer.
+
+I want the user to ask the app to re-generate parts of an MCQ question. So the user can "save" or "lock" aspects of the LLM response (such as the item stem or some of the responses). I also want the user to be able to provide instructions to the LLM when asking for the item to be re-generated. So if the item is on volcanos and the LLM make an item about their location, the user can say "focus the question on lava" and the LLM will take this information and re-generate the item.
+
+There should be two user input option buttons after finishing the task. "Update item" where the submitted information becomes the pre-populated item info, or "Save Item" when the information is satisfactory and should be saved.
+
+Once the user selects "Save Item" when the item is finished, I would like this information saved to a list in R. 
+So whatever is in the "Question" text box is written to a list entry called question, whatever is in the "Option A" text box is written to a list called optionA, and so on.
+
+Write that syntax.
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## The prompt to the LLM to improve the prompt
+
+Here's a prompt to ask an LLM to build an app that I'd like to include as an example for my workshop. Your task is to review the prompt and make improvements to it's organization, language, and structure so it's more appropriate to serve as an LLM prompt. Please ask clarifying questions after reviewing the prompt if it will help you in your refinement. The prompt:
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## Final LLM-assisted Prompt
+
+You are an expert R Shiny developer.
+Build a complete, runnable single-file R Shiny app (app.R) that helps users generate, edit, and save multiple-choice questions (MCQs) by grade level and subject.
+
+🎯 Goals
+
+Let users select a Grade Level and Subject.
+
+Call a generative AI helper function to produce a question and five answer options (A–E), plus the correct answer.
+
+Display the generated text in editable text boxes so users can make changes.
+
+Provide two buttons:
+
+“Update item” – commits edited text to the current item.
+
+“Save item” – appends the finalized item to a persistent list stored in the app’s working directory.
+
+Store all items (including Grade and Subject metadata) in an .rds file named saved_items.rds.
+
+⚙️ App Specifications
+UI
+
+Left sidebar:
+
+selectInput("grade", "Grade Level", choices = c("1st", "3rd", "5th", "7th"))
+
+selectInput("subject", "Subject", choices = c("Geography", "Science", "Social Studies"))
+
+actionButton("generate", "Generate Item")
+
+Main panel:
+
+Editable text boxes for:
+
+Question
+
+Option A
+
+Option B
+
+Option C
+
+Option D
+
+Option E
+
+Correct Answer
+(Each labeled clearly with a hint: “Change the item as desired.”)
+
+Action buttons:
+
+actionButton("update_item", "Update Item")
+
+actionButton("save_item", "Save Item")
+
+Display area showing:
+
+A message or notification confirming updates/saves
+
+A summary table (renderTable) listing saved items (Grade, Subject, Question stem, Timestamp)
+
+Server Logic
+
+Maintain a reactiveValues() object named current_item containing:
+
+grade, subject, question, optionA, optionB, optionC, optionD, optionE, correctAnswer, and timestamp.
+
+Generate Item
+
+Use observeEvent(input$generate, ...) to call a helper function generate_item_via_ai(grade, subject).
+
+The helper function returns a named list of 7 fields based on the AI output format below.
+
+Populate each text input area with the returned values.
+
+AI Output Format
+The model should return text formatted exactly as:
+
+Question: <text>
+Option A: <text>
+Option B: <text>
+Option C: <text>
+Option D: <text>
+Option E: <text>
+Correct Answer: Option <A|B|C|D|E>: <repeat the correct option text verbatim>
+
+
+Example:
+
+Question: What is the main source of energy for the water cycle?
+Option A: The Moon
+Option B: The Sun
+Option C: The Wind
+Option D: The Earth's Core
+Option E: Ocean Currents
+Correct Answer: Option B: The Sun
+
+
+Helper Function
+
+Implement generate_item_via_ai() with two modes:
+
+Mock mode (default): Returns a plausible hard-coded or randomized item.
+
+Real mode (commented example): Show how to call a live model API (e.g., openai or httr2).
+
+Update Item
+
+When “Update Item” is clicked, read all text inputs and overwrite the current_item values.
+
+Validate that all fields are filled and that exactly five options (A–E) exist.
+
+Save Item
+
+Validate fields again before saving.
+
+Append current_item to a reactive list saved_items() (using reactiveVal).
+
+Include metadata fields: Grade, Subject, and Timestamp.
+
+Save the entire list as an .rds file (saveRDS(saved_items(), "saved_items.rds")) in the working directory.
+
+On app startup, if "saved_items.rds" exists, load it with readRDS().
+
+Feedback
+
+Use showNotification() for user feedback (e.g., “Item saved successfully!” or “Missing correct answer.”).
+
+Display a summary table of all saved items.
+
+🧩 Implementation Details
+
+Use base shiny and bslib (optional for theming).
+
+Keep code in one self-contained file (app.R).
+
+Comment each section clearly to support learning (especially reactivity).
+
+Enforce exactly five options (A–E) at all times.
+
+Save items to the working directory only—no external path handling.
+
+Maintain minimal accessibility (no additional ARIA labeling for this demo).
+
+✅ Deliverable
+
+Output only a fully runnable app.R file in one code block.
+The app should work immediately when run with shiny::runApp().
+
+:::
+
+## Build your own app!
+
+Now it's time for _you_ to build a Shiny app!
