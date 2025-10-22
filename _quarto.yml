@@ -33,7 +33,7 @@ book:
         - 06-gen-ai-fundamentals.qmd
         - 07-gen-ai-basics.qmd
         - 08-gen-ai-parameters.qmd
-        - activity-parameter-testing
+        - activity-parameter-testing.qmd
          
     - part: "Conversational Interactions"
       chapters: 
