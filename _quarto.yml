@@ -61,7 +61,7 @@ book:
         - 25-shiny.qmd
         - 26-vibe-coding.qmd
         - 27-shiny-integration.qmd
-        - 05d-saving-shiny-data.qmd
+        - activity-shiny-app-development.qmd
         - 29-saving-shiny-data.qmd
         
     - part: "Resources"
