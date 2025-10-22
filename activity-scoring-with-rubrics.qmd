@@ -1,0 +1,855 @@
+# Activity: Scoring with Rubrics {#sec-act-rubric-task .unnumbered}
+
+
+## Task: Med Ed: Using LLMs to Apply Analytic Rubrics
+
+## Task: Med Ed: Using LLMs to Apply Holistic Rubrics
+
+## Task: Using LLMs to Apply Holistic Rubrics
+
+Many attending AIME-CON are working in non-medical educational settings, so I wanted to develop a different example that may be more applicable to the work that you're doing.
+For this example I'm going to use the rubric that was part of the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/).
+This rubric was based on scoring essays from English as a foreign language (EFL) learners.
+The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5.
+The full dataset is available after filling out a [consent form](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform).
+
+The rubric has 3 components:
+
+| **Criteria** | **Description**                                                                                                                                                                                                                                         |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Content      | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.                                                                                                                                                   |
+| Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. |
+| Language     | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.                                   |
+
+
+One of the prompts in the data is: "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion."
+
+To ensure that I'm compliant with the consent form agreement, I will be using synthetic responses generated (using Claude Sonnet 4.5) based observed student responses. We'll also be using the [`claude_plus` function we used in the parameter testing activity](@sec-claude-plus).
+
+### First Model Call 
+
+Let's start by asking the model to apply the rubric to an essay. We'll use the default parameters for this first
+
+```{r, eval = FALSE}
+
+source('downloads/claude_plus.R')
+load('data/student_essays.Rdata')
+
+focal_student <- subset(student_essays, id == 2002)
+focal_prompt <- focal_student$prompt
+focal_essay <- focal_student$essay
+
+# Building a function to generate the prompt.
+
+all_rubric_prompt <- function(prompt, essay){
+  glue::glue("
+You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5 (e.g., 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5).
+
+RUBRIC:
+
+**Content (1-5):**
+Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.
+
+**Organization (1-5):**
+The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.
+ 
+**Language (1-5):**
+The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.
+
+PROMPT: {prompt}
+
+ESSAY: {essay}
+
+Please provide scores for each criterion and calculate the total score. Format your response as follows:
+Content: [score]
+Organization: [score]
+Language: [score]
+Total: [sum of three scores]
+
+Provide a brief justification (1-2 sentences) for each score.
+")
+}
+
+one_rep_essay <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay))
+save(one_rep_essay, file = 'data/one_rep_essay.Rdata')
+
+```
+Claude's essay evaluation:
+
+Essay Evaluation
+
+**Content: 3/5**
+The essay presents a balanced view with relevant examples (grandmother video calls, phone distraction), but the development is superficial. The argument lacks depth, multiple examples, and detailed elaboration that would make it well-developed and strongly supported.
+
+**Organization: 3.5/5**
+The essay follows a clear structure (introducing both sides, personal example, counterpoint, conclusion) and is easy to follow. However, it's quite brief and would benefit from additional paragraphs to fully develop each main idea separately rather than condensing everything into one paragraph.
+
+**Language: 3.5/5**
+The writing demonstrates good control of grammar and vocabulary with no significant errors (\"on one hand/on the other hand,\" \"responsibly\"). However, the vocabulary range is relatively basic and lacks the sophistication and variety expected for a top score.
+
+**Total: 10/15**
+
+As noted in the previously (in WHAT section), part of the beauty of generative AI model is the variability in output. Great for creative tasks, but not optimal for things like the present task of applying a scoring rubric to a student response.
+
+### Repeating Score Task 
+
+Let's repeat the above process 20 times, extracting the scores after each model response.
+
+```{r, eval = FALSE}
+
+# Function to extract scores
+
+library(httr)
+library(jsonlite)
+library(glue)
+library(dplyr)
+
+# Set your Anthropic API key
+ANTHROPIC_API_KEY <- Sys.getenv("ANTHROPIC_API_KEY")
+
+# Load the prompt function (from previous artifact)
+all_rubric_prompt <- function(prompt, essay){
+  glue::glue("
+You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5.
+
+RUBRIC:
+
+**Content (1-5):**
+- 5: Exceptionally well-developed and highly relevant, with strong reasons and compelling examples.
+- 4: Well-developed and relevant, with clear reasons and good examples.
+- 3: Adequately developed with acceptable reasons and examples.
+- 2: Underdeveloped with weak or insufficient reasons and examples.
+- 1: Poorly developed and largely irrelevant.
+
+**Organization (1-5):**
+- 5: Exceptionally well-structured, very easy to follow, expert use of coherence devices.
+- 4: Effectively structured, easy to follow, good use of coherence devices.
+- 3: Adequate structure, generally followable.
+- 2: Weak structure, sometimes difficult to follow.
+- 1: Lacks clear structure, confusing.
+
+**Language (1-5):**
+- 5: Sophisticated vocabulary, grammar and spelling correct throughout.
+- 4: Good vocabulary control, generally correct with minor errors.
+- 3: Adequate vocabulary, acceptable with some errors.
+- 2: Limited vocabulary, frequent errors that sometimes impede understanding.
+- 1: Very limited vocabulary, numerous errors.
+
+PROMPT: {prompt}
+
+ESSAY: {essay}
+
+Format your response as:
+Content: [score]
+Organization: [score]
+Language: [score]
+Total: [sum of three scores]
+")
+}
+
+# Score extraction function with debug capability
+extract_scores <- function(gpt_output, debug = FALSE){
+  if(debug){
+    cat("=== DEBUG: Extracting scores ===\n")
+    cat("Input text (first 300 chars):\n")
+    cat(substr(gpt_output, 1, 300), "\n\n")
+  }
+  
+  # Extract Content score - try multiple patterns
+  content_match <- stringr::str_match(gpt_output, "Content:?\\s*([0-9.]+)")
+  if(is.na(content_match[1, 2])){
+    # Try alternate pattern
+    content_match <- stringr::str_match(gpt_output, "\\*\\*Content:?\\*\\*[^0-9]*([0-9.]+)")
+  }
+  content <- as.numeric(content_match[1, 2])
+  
+  # Extract Organization score
+  org_match <- stringr::str_match(gpt_output, "Organization:?\\s*([0-9.]+)")
+  if(is.na(org_match[1, 2])){
+    org_match <- stringr::str_match(gpt_output, "\\*\\*Organization:?\\*\\*[^0-9]*([0-9.]+)")
+  }
+  organization <- as.numeric(org_match[1, 2])
+  
+  # Extract Language score
+  lang_match <- stringr::str_match(gpt_output, "Language:?\\s*([0-9.]+)")
+  if(is.na(lang_match[1, 2])){
+    lang_match <- stringr::str_match(gpt_output, "\\*\\*Language:?\\*\\*[^0-9]*([0-9.]+)")
+  }
+  language <- as.numeric(lang_match[1, 2])
+  
+  # Extract Total score
+  total_match <- stringr::str_match(gpt_output, "Total:?\\s*([0-9.]+)")
+  if(is.na(total_match[1, 2])){
+    total_match <- stringr::str_match(gpt_output, "\\*\\*Total:?\\*\\*[^0-9]*([0-9.]+)")
+  }
+  total <- as.numeric(total_match[1, 2])
+  
+  if(debug){
+    cat("Extracted values:\n")
+    cat("Content:", content, "\n")
+    cat("Organization:", organization, "\n")
+    cat("Language:", language, "\n")
+    cat("Total:", total, "\n\n")
+  }
+  
+  # Return as a named vector
+  c(content = content, 
+    organization = organization, 
+    language = language, 
+    total = total)
+}
+
+
+# Returns a data frame (useful for binding multiple results)
+extract_scores_df <- function(gpt_output){
+  scores <- extract_scores(gpt_output)
+  data.frame(
+    content = scores["content"],
+    organization = scores["organization"],
+    language = scores["language"],
+    total = scores["total"]
+  )
+}
+
+essay_score_df <- extract_scores_df(one_rep_essay)
+
+for(i in 1:18){
+  
+  essay_score_again <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay))
+  essay_score_one <- extract_scores_df(essay_score_again)
+  essay_score_df <- rbind(essay_score_df, essay_score_one)
+
+}
+
+rownames(essay_score_df) <- NULL
+save(essay_score_df, file = "data/essay_score_df.Rdata")
+
+```
+
+Let's now see how consistently the model applied the scores to the essay:
+
+```{r}
+
+# Function to get summary statistics for multiple scored essays
+summarize_scores <- function(score_df){
+ 
+  # Calculate summary statistics
+  summary_stats <- data.frame(
+    criterion = c("Content", "Organization", "Language", "Total"),
+    mean = c(mean(score_df$content, na.rm = TRUE),
+             mean(score_df$organization, na.rm = TRUE),
+             mean(score_df$language, na.rm = TRUE),
+             mean(score_df$total, na.rm = TRUE)),
+    sd = c(sd(score_df$content, na.rm = TRUE),
+           sd(score_df$organization, na.rm = TRUE),
+           sd(score_df$language, na.rm = TRUE),
+           sd(score_df$total, na.rm = TRUE)),
+    min = c(min(score_df$content, na.rm = TRUE),
+            min(score_df$organization, na.rm = TRUE),
+            min(score_df$language, na.rm = TRUE),
+            min(score_df$total, na.rm = TRUE)),
+    max = c(max(score_df$content, na.rm = TRUE),
+            max(score_df$organization, na.rm = TRUE),
+            max(score_df$language, na.rm = TRUE),
+            max(score_df$total, na.rm = TRUE))
+  )
+  
+  return(summary_stats)
+}
+
+load("data/essay_score_df.Rdata")
+score_summary <- summarize_scores(essay_score_df)
+score_summary
+
+```
+
+Pretty good! There is only .5 variation in scores for `Content` and `Organization`, and no variation in `Language` scores.
+
+### Repeating Score Task (`Temp = 0`)
+
+Let's now repeat the task, but turn the temperature down and see how this affects score variability.
+
+```{r, eval = FALSE}
+
+
+low_temp_essay <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay),
+                              temperature = 0)
+low_temp_df <- extract_scores_df(low_temp_essay)
+
+for(i in 1:19){
+  
+  low_temp_score_again <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay),
+                                      temperature = 0)
+  low_temp_score_one <- extract_scores_df(low_temp_score_again)
+  low_temp_df <- rbind(low_temp_df, low_temp_score_one)
+
+}
+
+rownames(low_temp_df) <- NULL
+save(low_temp_df, file = "data/low_temp_df.Rdata")
+
+```
+```{r}
+
+load("data/low_temp_df.Rdata")
+low_temp_summary <- summarize_scores(low_temp_df)
+low_temp_summary
+
+```
+
+Nice! 
+The eliminated all of the score variability. However, given the vague nature of the rubric, we still don't know if these scores are _accurate_ - we may be consistently missing the mark on what the true score should be.
+The rubric criteria are broad and it's unclear how one should apply the rubric.
+What constitutes each score level for the individual criteria?
+
+Interestingly, when I asked Anthropic for help in developing a scoring rubric for the essays, it recognized that having clear descriptions of the different scoring categories was important, so it made them up!
+The prompt below shows how the model decided to describe each of the score categories.
+Obviously these descriptions should be developed and reviewed by subject matter experts, but for the purposes of the workshop we'll just use what Claude generated.
+In your process you also want to check that your generative AI model is utilizing the rubric correctly - supplying a detailed rubric and obtaining consistent results alone isn't sufficient.
+
+### Scoring with Detailed Rubric 
+
+```{r, eval = FALSE}
+
+claude_all_rubric_prompt <- function(prompt, essay){
+  glue::glue("
+You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5 (e.g., 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5).
+
+RUBRIC:
+
+**Content (1-5):**
+- 5: Paragraph is exceptionally well-developed and highly relevant to the argument, supported with strong, specific reasons and compelling examples.
+- 4: Paragraph is well-developed and relevant to the argument, supported with clear reasons and good examples.
+- 3: Paragraph is adequately developed with some relevance to the argument, supported with acceptable reasons and examples.
+- 2: Paragraph is underdeveloped or somewhat irrelevant to the argument, with weak or insufficient reasons and examples.
+- 1: Paragraph is poorly developed and largely irrelevant to the argument, lacking meaningful reasons and examples.
+
+**Organization (1-5):**
+- 5: The argument is exceptionally well-structured and developed, making it very easy for the reader to follow ideas and understand how the argument is built. Paragraphs use coherence devices expertly while maintaining clear focus on main ideas.
+- 4: The argument is effectively structured and developed, making it easy for the reader to follow ideas. Paragraphs use coherence devices well and focus on main ideas.
+- 3: The argument has adequate structure and development. The reader can follow most ideas. Paragraphs use some coherence devices and generally focus on main ideas.
+- 2: The argument has weak structure and development. Ideas are sometimes difficult to follow. Paragraphs use few coherence devices and may lose focus.
+- 1: The argument lacks clear structure and development. Ideas are confusing and hard to follow. Paragraphs lack coherence devices and focus.
+
+**Language (1-5):**
+- 5: The writing displays sophisticated control of a wide range of vocabulary and collocations. Grammar and usage are correct throughout. Spelling and punctuation are correct throughout.
+- 4: The writing displays good control of vocabulary and collocations. Grammar and usage are generally correct with only minor errors. Spelling and punctuation are generally correct.
+- 3: The writing displays adequate vocabulary with some variety. Grammar and usage are acceptable with some errors that do not impede understanding. Spelling and punctuation are mostly correct.
+- 2: The writing displays limited vocabulary with little variety. Grammar and usage contain frequent errors that sometimes impede understanding. Spelling and punctuation errors are noticeable.
+- 1: The writing displays very limited vocabulary. Grammar and usage contain numerous errors that significantly impede understanding. Spelling and punctuation errors are frequent.
+
+PROMPT: {prompt}
+
+ESSAY: {essay}
+
+Please provide scores for each criterion and calculate the total score. Format your response as follows:
+Content: [score]
+Organization: [score]
+Language: [score]
+Total: [sum of three scores]
+
+Provide a brief justification (1-2 sentences) for each score.
+")
+}
+
+```
+
+Let's now apply this rubric to the example essay and see how it might impact model-generated scores.
+
+```{r, eval = FALSE}
+
+
+claude_rubric_score <- claude_plus(prompt = claude_all_rubric_prompt(focal_prompt, focal_essay),
+                                   temperature = 0)
+claude_rubric_df <- extract_scores_df(claude_rubric_score)
+
+for(i in 1:19){
+  
+  claude_rubric_score_again <- claude_plus(prompt = claude_all_rubric_prompt(focal_prompt, focal_essay),
+                                           temperature = 0)
+  claude_rubric_one <- extract_scores_df(claude_rubric_score_again)
+  claude_rubric_df <- rbind(claude_rubric_df, claude_rubric_one)
+
+}
+
+rownames(claude_rubric_df) <- NULL
+save(claude_rubric_df, file = "data/claude_rubric_df.Rdata")
+
+```
+```{r}
+
+load("data/claude_rubric_df.Rdata")
+claude_rubric_summary <- summarize_scores(claude_rubric_df)
+claude_rubric_summary
+
+```
+
+Whoa! These are the exact same scores as when we didn't provide detailed rubric explanation in our prompt.
+This suggests to me that the model is generating a similar rubric each time through [invisible instructions](@sec-invisble), but I can't know this for sure.
+
+It has also been empirically demonstrated (find the citations, Chris) that these models don't apply rubrics well at the extremes - the lowest and highest scores. 
+When I used Claude to help generate synthetic student responses, I asked it have a range of score values represented in the 10 generated essays.
+It'll be useful to repeat the same experiment on all 10 essays to see if the scoring variability is consistent across the score range.
+(There's a strong possibility that it will be - I asked Claude to generate the essays and now I'm asking it to score essays it generated.)
+
+### Batch Scoring
+
+Now that we're repeating the same task across a batch of essays, it's a great time to introduce batch scoring!
+This generally works as you'd think - you submit multiple tasks at once to the API to complete in parallel - with the one wrinkle that Anthropic requires that the requests be in the JSONL format.
+In addition to being able to submit multiple requests at once, it's also cheaper to use than single-call API interactions.
+As of this writing (Oct 19, 2025), you save 50% with batch pricing. 
+This drops input costs from \$3 per 1M tokens to \$1.50 per 1M token, and output costs from \$15 per 1M tokens to \$7.50 per 1M tokens.
+
+#### Creating Batch Requests
+
+```{r, eval = FALSE}
+
+# Step 1: Read essays and create batch requests
+create_batch_requests <- function(essays_df, n_repetitions = 20){
+
+  # Create a list to store batch requests
+  batch_requests <- list()
+  request_counter <- 1
+  
+  # Create n_repetitions requests for each essay (grouped by essay)
+  for(i in 1:nrow(essays_df)){
+    essay_prompt <- claude_all_rubric_prompt(essays_df$prompt[i], essays_df$essay[i])
+    
+    # Create 20 requests for this essay
+    for(rep in 1:n_repetitions){
+      request <- list(
+        custom_id = paste0("essay_", essays_df$id[i], "_rep_", rep),
+        params = list(
+          model = "claude-sonnet-4-20250514",
+          max_tokens = 1024,
+          messages = list(
+            list(
+              role = "user",
+              content = essay_prompt
+            )
+          )
+        )
+      )
+      
+      batch_requests[[request_counter]] <- request
+      request_counter <- request_counter + 1
+    }
+  }
+  
+  cat("Created", length(batch_requests), "batch requests for", nrow(essays_df), "essays\n")
+  
+  return(batch_requests)
+}
+
+essay_batch_requests <- create_batch_requests(student_essays)
+
+```
+
+#### Writing Requests to JSONL
+
+```{r, eval = FALSE}
+
+# Step 2: Write requests to JSONL file
+write_batch_file <- function(batch_requests, output_file = "batch_requests.jsonl"){
+  # Write each request as a JSON line
+  jsonl_lines <- sapply(batch_requests, function(req){
+    toJSON(req, auto_unbox = TRUE)
+  })
+  
+  writeLines(jsonl_lines, output_file)
+  return(output_file)
+}
+
+essay_batch_jsonl <- write_batch_file(essay_batch_requests)
+
+```
+
+#### Submitting Batch Request
+
+```{r, eval = FALSE}
+
+# Step 3: Submit batch job to Anthropic
+submit_batch <- function(jsonl_file){
+  # Read and parse each line of the JSONL file
+  jsonl_lines <- readLines(jsonl_file)
+  
+  # Parse each JSON line into a list
+  requests_list <- lapply(jsonl_lines, function(line){
+    fromJSON(line, simplifyVector = FALSE)
+  })
+  
+  # Create batch
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages/batches",
+    add_headers(
+      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
+      "anthropic-version" = "2023-06-01",
+      "content-type" = "application/json"
+    ),
+    body = toJSON(list(
+      requests = requests_list
+    ), auto_unbox = TRUE),
+    encode = "json"
+  )
+  
+  if(status_code(response) != 200){
+    stop("Error submitting batch: ", content(response, "text"))
+  }
+  
+  result <- content(response, "parsed")
+  cat("Batch submitted successfully!\n")
+  cat("Batch ID:", result$id, "\n")
+  
+  return(result)
+}
+
+essay_batch_info <- submit_batch(essay_batch_jsonl)
+
+# Batch submitted successfully!
+# Batch ID: msgbatch_018m5hGS9Lm3Gi28UorfsVTS
+
+```
+
+#### Checking Batch Status
+
+```{r, eval = FALSE}
+
+# Step 4: Check batch status
+check_batch_status <- function(batch_id){
+  response <- GET(
+    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id),
+    add_headers(
+      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
+      "anthropic-version" = "2023-06-01"
+    )
+  )
+  
+  if(status_code(response) != 200){
+    stop("Error checking batch status: ", content(response, "text"))
+  }
+  
+  result <- content(response, "parsed")
+  return(result)
+}
+
+essay_status <- check_batch_status(essay_batch_info$id)
+# Finished!
+
+library(lubridate)
+batch_start_time <- ymd_hms(essay_status$created_at)
+batch_stop_time <- ymd_hms(essay_status$ended_at)
+batch_run_time <- as.numeric(batch_stop_time - batch_start_time)
+# Time difference of 1.644671 mins
+# Less than 2 minutes to score 200 essays!
+
+```
+
+#### Saving Batch Results
+
+```{r, eval = FALSE}
+
+get_batch_results <- function(batch_id){
+  response <- GET(
+    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id, "/results"),
+    add_headers(
+      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
+      "anthropic-version" = "2023-06-01"
+    )
+  )
+  
+  if(status_code(response) != 200){
+    stop("Error retrieving results: ", content(response, "text"))
+  }
+  
+  # Parse JSONL results
+  results_text <- content(response, "text", encoding = "UTF-8")
+  results_lines <- strsplit(results_text, "\n")[[1]]
+  results_list <- lapply(results_lines[results_lines != ""], fromJSON)
+  
+  return(results_list)
+}
+
+essay_batch_results <- get_batch_results(essay_batch_info$id)
+save(essay_batch_results, file = "data/essay_batch_results.Rdata")
+
+```
+
+#### Extracting Score from Results
+
+```{r, eval = FALSE}
+
+# Step 6: Extract scores from batch results
+extract_batch_scores <- function(results_list, debug = FALSE){
+  scores_df <- data.frame(
+    essay_id = character(),
+    repetition = integer(),
+    content = numeric(),
+    organization = numeric(),
+    language = numeric(),
+    total = numeric(),
+    stringsAsFactors = FALSE
+  )
+  
+  for(i in seq_along(results_list)){
+    result <- results_list[[i]]
+    
+    if(result$result$type == "succeeded"){
+      # Extract the response text - handle different possible structures
+      message_content <- result$result$message$content
+      
+      # Debug: Print structure if requested
+      if(debug && i == 1){
+        cat("=== DEBUG: First result structure ===\n")
+        cat("Content class:", class(message_content), "\n")
+        cat("Content length:", length(message_content), "\n")
+        if(is.list(message_content) && length(message_content) > 0){
+          cat("First element class:", class(message_content[[1]]), "\n")
+          print(str(message_content[[1]]))
+        }
+      }
+      
+      # Extract text from various possible structures
+      response_text <- NULL
+      
+      if(is.data.frame(message_content)){
+        # If it's a data frame, look for a 'text' column
+        if("text" %in% names(message_content)){
+          response_text <- message_content$text[1]
+        }
+      } else if(is.list(message_content) && length(message_content) > 0){
+        first_elem <- message_content[[1]]
+        
+        if(is.list(first_elem)){
+          # Check for $text field
+          if(!is.null(first_elem$text)){
+            response_text <- first_elem$text
+          } else if(!is.null(first_elem$type) && first_elem$type == "text" && !is.null(first_elem$text)){
+            response_text <- first_elem$text
+          }
+        } else if(is.character(first_elem)){
+          response_text <- first_elem
+        }
+      } else if(is.character(message_content)){
+        response_text <- message_content
+      }
+      
+      # If we still don't have text, try to extract it more aggressively
+      if(is.null(response_text) || length(response_text) == 0){
+        # Try to find any 'text' field in the structure
+        if(is.list(message_content)){
+          text_fields <- unlist(lapply(message_content, function(x) {
+            if(is.list(x) && "text" %in% names(x)) x$text else NULL
+          }))
+          if(length(text_fields) > 0) response_text <- text_fields[1]
+        }
+      }
+      
+      if(is.null(response_text) || length(response_text) == 0){
+        warning("Could not extract text for ", result$custom_id)
+        if(debug){
+          cat("=== Full structure for ", result$custom_id, " ===\n")
+          print(str(message_content))
+        }
+        next
+      }
+      
+      # Debug: Print first response text
+      if(debug && i == 1){
+        cat("\n=== First response text (first 500 chars) ===\n")
+        cat(substr(response_text, 1, 500), "\n\n")
+      }
+      
+      # Extract scores using our previous function
+      scores <- extract_scores(response_text, debug = debug && i == 1)
+      
+      # Debug: Check if scores were extracted
+      if(debug && i == 1){
+        cat("=== Extracted scores ===\n")
+        print(scores)
+      }
+      
+      # Parse custom_id to extract essay_id and repetition
+      # Format: essay_2001_rep_1
+      custom_id_parts <- strsplit(result$custom_id, "_")[[1]]
+      essay_id <- custom_id_parts[2]
+      repetition <- as.integer(custom_id_parts[4])
+      
+      scores_df <- rbind(scores_df, data.frame(
+        essay_id = essay_id,
+        repetition = repetition,
+        content = scores["content"],
+        organization = scores["organization"],
+        language = scores["language"],
+        total = scores["total"]
+      ))
+    } else {
+      warning("Request ", result$custom_id, " failed: ", result$result$error$message)
+    }
+  }
+  
+  return(scores_df)
+}
+
+
+essay_batch_df <- extract_batch_scores(essay_batch_results, debug = TRUE)
+save(essay_batch_df, file = 'data/essay_batch_df.Rdata')
+
+```
+```{r}
+library(dplyr)
+library(DT)
+load('data/essay_batch_df.Rdata')
+
+essay_summary_detailed <- essay_batch_df %>%
+  group_by(essay_id) %>%
+  summarise(
+    n = n(),
+    # Content
+    content_mean = mean(content, na.rm = TRUE),
+    content_sd = sd(content, na.rm = TRUE),
+    content_min = min(content, na.rm = TRUE),
+    content_max = max(content, na.rm = TRUE),
+    # Organization
+    org_mean = mean(organization, na.rm = TRUE),
+    org_sd = sd(organization, na.rm = TRUE),
+    org_min = min(organization, na.rm = TRUE),
+    org_max = max(organization, na.rm = TRUE),
+    # Language
+    lang_mean = mean(language, na.rm = TRUE),
+    lang_sd = sd(language, na.rm = TRUE),
+    lang_min = min(language, na.rm = TRUE),
+    lang_max = max(language, na.rm = TRUE),
+    # Total
+    total_mean = mean(total, na.rm = TRUE),
+    total_sd = sd(total, na.rm = TRUE),
+    total_min = min(total, na.rm = TRUE),
+    total_max = max(total, na.rm = TRUE),
+  ) %>%
+  arrange(total_mean)
+
+essay_summary_detailed <- essay_summary_detailed %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+datatable(essay_summary_detailed, 
+          options = list(pageLength = 10, scrollX = TRUE),
+          caption = "Summary Statistics by Essay (20 repetitions each)")
+
+
+```
+
+So we did see some variation, but I also used the default temperature. 
+
+### Batch Scoring (`Temp = 0`)
+
+Let's redo the batch call with `temperature = 0`. 
+
+```{r, eval = FALSE}
+
+create_lowtemp_requests <- function(essays_df, n_repetitions = 20){
+
+  # Create a list to store batch requests
+  batch_requests <- list()
+  request_counter <- 1
+  
+  # Create n_repetitions requests for each essay (grouped by essay)
+  for(i in 1:nrow(essays_df)){
+    essay_prompt <- claude_all_rubric_prompt(essays_df$prompt[i], essays_df$essay[i])
+    
+    # Create 20 requests for this essay
+    for(rep in 1:n_repetitions){
+      request <- list(
+        custom_id = paste0("essay_", essays_df$id[i], "_rep_", rep),
+        params = list(
+          model = "claude-sonnet-4-20250514",
+          max_tokens = 1024,
+          temperature = 0, # added low temp
+          messages = list(
+            list(
+              role = "user",
+              content = essay_prompt
+            )
+          )
+        )
+      )
+      
+      batch_requests[[request_counter]] <- request
+      request_counter <- request_counter + 1
+    }
+  }
+  
+  cat("Created", length(batch_requests), "batch requests for", nrow(essays_df), "essays\n")
+  
+  return(batch_requests)
+}
+
+lowtemp_batch_requests <- create_lowtemp_requests(student_essays)
+lowtemp_batch_jsonl <- write_batch_file(lowtemp_batch_requests)
+lowtemp_batch_info <- submit_batch(lowtemp_batch_jsonl)
+# Batch submitted successfully!
+# Batch ID: msgbatch_0184nJ7Kui9v6WVVh47939mn 
+
+lowtemp_status <- check_batch_status(lowtemp_batch_info$id)
+lowtemp_start_time <- ymd_hms(lowtemp_status$created_at)
+lowtemp_stop_time <- ymd_hms(lowtemp_status$ended_at)
+lowtemp_run_time <- as.numeric(lowtemp_stop_time - lowtemp_start_time)
+# Time difference of 1.473892 mins
+
+lowtemp_batch_results <- get_batch_results(lowtemp_batch_info$id)
+save(lowtemp_batch_results, file = "data/lowtemp_batch_results.Rdata")
+
+lowtemp_batch_df <- extract_batch_scores(lowtemp_batch_results)
+save(lowtemp_batch_df, file = 'data/lowtemp_batch_df.Rdata')
+
+```
+```{r}
+
+load('data/lowtemp_batch_df.Rdata')
+
+lowtemp_summary_detailed <- lowtemp_batch_df %>%
+  group_by(essay_id) %>%
+  summarise(
+    n = n(),
+    # Content
+    content_mean = mean(content, na.rm = TRUE),
+    content_sd = sd(content, na.rm = TRUE),
+    content_min = min(content, na.rm = TRUE),
+    content_max = max(content, na.rm = TRUE),
+    # Organization
+    org_mean = mean(organization, na.rm = TRUE),
+    org_sd = sd(organization, na.rm = TRUE),
+    org_min = min(organization, na.rm = TRUE),
+    org_max = max(organization, na.rm = TRUE),
+    # Language
+    lang_mean = mean(language, na.rm = TRUE),
+    lang_sd = sd(language, na.rm = TRUE),
+    lang_min = min(language, na.rm = TRUE),
+    lang_max = max(language, na.rm = TRUE),
+    # Total
+    total_mean = mean(total, na.rm = TRUE),
+    total_sd = sd(total, na.rm = TRUE),
+    total_min = min(total, na.rm = TRUE),
+    total_max = max(total, na.rm = TRUE),
+  ) %>%
+  arrange(total_mean)
+
+lowtemp_summary_detailed <- lowtemp_summary_detailed %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+datatable(lowtemp_summary_detailed, 
+          options = list(pageLength = 10, scrollX = TRUE),
+          caption = "Summary Statistics by Essay (20 repetitions each) - Temperature = 0")
+
+```
+
+Now we're seeing more consistent scores, and it took less than 90 seconds to process all 200 requests.
+
+
+### Batch Processing Notes
+More notes on batch processing ([via the Anthropic page about batching](https://docs.claude.com/en/docs/build-with-claude/batch-processing); each provider will likely have different functionality):
+
+- This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.
+- A Message Batch is limited to either 100,000 Message requests or 256 MB in size, whichever is reached first.
+- We process each batch as fast as possible, with most batches completing within 1 hour. You will be able to access batch results when all messages have completed or after 24 hours, whichever comes first. Batches will expire if processing does not complete within 24 hours.
+- Batch results are available for 29 days after creation. After that, you may still view the Batch, but its results will no longer be available for download.
+- Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. [See Message Batches API rate limits.](https://docs.claude.com/en/api/rate-limits#message-batches-api) Additionally, we may slow down processing based on current demand and your request volume. In that case, you may see more requests expiring after 24 hours.
+

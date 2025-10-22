@@ -1,0 +1,258 @@
+# Chat Conversations via API
+
+So far I've focused on just interacting with generative models in one-off interactions, where the chat history isn't preserved.
+This functionality significantly differs from the normal chatbot interface user experience.
+This may not be helpful, depending on what you want out of your interaction with the generative model.
+
+The [`ellmer` package](https://ellmer.tidyverse.org/){target="_blank"}, developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models.
+In this section we'll go over some of the basics for using this functionality.
+We'll continue to use our Anthropic API key, although `ellmer` supports interactions with a variety of model providers: OpenAI, Google Gemini, DeepSeek, Mistral, Hugging Face, perplexity.ai, etc.
+What follows can _mostly_ be generalized to working with other models, with some slight differences (which I'll point out below).
+
+## Quick Start
+
+The easiest way to start a conversation is just to use the default settings for a model.
+You'll see (as of October 10) that the model is using Claude Sonnet 4 by default.
+This may change in the future. 
+You can see what Anthropic models are available with the following:
+
+```{r anthropic available}
+
+library(ellmer)
+
+models_anthropic()
+
+```
+
+
+The "input" column is the cost per million tokens of model input (the prompts).
+The "output" column is the cost per million tokens of the model response.
+For some context, Shakespeare's _Romeo and Juliet_ is about 25,000 words, which roughly translates to 40,000 tokens (depends on the tokenization method of the model).
+
+For the purposes of demonstration in our workshop, there's no need to change it, although I'll show you how you can do this below.
+
+```{r ellmer quick}
+
+# Gets the API from the .Renviron file
+api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+
+# You'll see a Claude Sonnet 4 is being used by default.
+# I've included a system prompt, which we'll discuss below.
+chat <- chat_anthropic("You explain things concisely, focusing on only the most significant parts of the response.")
+
+```
+
+Now let's look at the conversational functionality.
+Below I've prompted the model via `chat$chat("prompt")`, and then immediately used the same syntax again (with a different prompt).
+I've hidden the output because it's so long; you'll need to click to see the prompt and model response.
+
+::: {.callout-note collapse="true"}
+
+## Click to see first prompt and response
+
+```{r eq 1}
+chat$chat("Tell me about the history of the exploration of the moon")
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+
+## Click to see follow-up prompt and response
+
+
+```{r eq 2}
+chat$chat("What are the most important non-USA exploration missions?")
+```
+
+:::
+
+As you can see, the second response from the model takes into context the first prompt - it's still talking about the moon!
+This conversational functionality is useful when you're doing iterative development or planning, and the previous calls to the model are important for providing content and building upon previous prompts and model responses.
+
+## `chat_anthropic` Details
+
+Let's look at the details of `chat_anthropic` (from [this page of the `ellmer` package reference.](https://ellmer.tidyverse.org/reference/chat_anthropic.html){target="_blank"})
+
+```{r, eval = FALSE}
+
+chat_anthropic(
+  system_prompt = NULL,
+  params = NULL,
+  max_tokens = deprecated(),
+  model = NULL,
+  api_args = list(),
+  base_url = "https://api.anthropic.com/v1",
+  beta_headers = character(),
+  api_key = anthropic_key(),
+  api_headers = character(),
+  echo = NULL
+)
+
+```
+
+It's important to note the `params` argument, which allows you to set a variety of model parameters when chatting with the model.
+This is a [general argument](https://ellmer.tidyverse.org/reference/params.html){target="_blank"} in the `ellmer` package. 
+You'll need to ensure that your model input allows a specific generation parameter before including it in your call.
+
+This is one place where having a conversation with a model via API instead of via a chatbot interface is different - it's not always easy (and sometimes impossible) to change these parameters in the normal chat interface.
+
+```{r, eval = FALSE}
+
+params(
+  temperature = NULL,
+  top_p = NULL,
+  top_k = NULL,
+  frequency_penalty = NULL,
+  presence_penalty = NULL,
+  seed = NULL,
+  max_tokens = NULL,
+  log_probs = NULL,
+  stop_sequences = NULL,
+  ...
+)
+
+```
+
+## Options for Clearing the Chat
+
+There are two methods to reset the chat history.
+This is useful when you want to start a conversation about another topic.
+
+### Clearing While Maintaining Chat Configuration
+
+The following syntax simply clears the turns but maintains the other aspects of the chat configuration (which I'll discuss momentarily in @sec-chat-config). 
+In the background the `ellmer` package is saving a history of your prompts and model responses, and it sending this history as part of the prompt when you send a new prompt.
+This is also happens when having a conversation with a chatbot, but it's even less obvious.
+
+```{r, eval = FALSE}
+
+chat$set_turns(list())
+
+```
+
+### Clearing All Chat Settings
+
+This starts an entirely new chat with the Anthropic model, and removes any settings you've made (system prompt, parameters).
+You can also include this in your argument - the important part is that using `chat_anthropic()` again resets any previously-specified chat configuration.
+
+```{r, eval = FALSE}
+
+chat <- chat_anthoropic()
+
+```
+
+## Retaining the Chat History
+
+As you interact with a generative AI model through `ellmer`, a record of your prompts and model responses are stored in `chat$get_turns()`.
+When you examine this list object, each odd-numbered entry (starting with 1) are your prompts, and each even-numbered entry is the model response.
+
+::: {.callout-note collapse="true"}
+
+## Click to see an example of saving the chat history.
+
+```{r chat hist, eval = FALSE}
+
+chat <- chat_anthropic()
+chat$chat("Give me a 5-sentence history of educational measurement.")
+chat$chat("Give me a 5-sentence summary of educational measurement breakthroughs since 2000.")
+
+ed_meas_chat <- chat$get_turns()
+save(ed_meas_chat, file = "./data/ed_meas_chat.Rdata")
+
+```
+```{r view chat hist}
+
+load("data/ed_meas_chat.Rdata")
+ed_meas_chat[1]
+ed_meas_chat[2]
+ed_meas_chat[3]
+ed_meas_chat[4]
+
+```
+
+:::
+---
+
+## System Prompts
+
+We briefly discussed system prompts in the section about generative parameters (see @sec-system-prompt).
+The system prompt is an instruction to the model that is maintained throughout all of your interactions with the model.
+I don't generally use system prompts when calling models via API, but I probably should.
+😅
+Nonetheless, let's see how changing the system prompt can change the model output.
+
+First, with no setting of the system prompt:
+
+```{r no system prompt}
+
+chat <- chat_anthropic()
+
+chat$chat("Briefly tell me the point of using a Rasch model.")
+
+## rano <- as.character(rasch_normal)
+
+
+
+```
+
+---
+
+Now using a playful system prompt:
+
+```{r playful system prompt}
+
+chat <- chat_anthropic(
+  system_prompt = "You are an assistant that likes to respond in rhymes."
+)
+
+chat$chat("Briefly tell me the point of using a Rasch model.")
+
+```
+
+---
+
+Some more helpful examples of good system prompts are:
+
+- **Specifying Output Structure**
+  - "Always respond in JSON format with keys: 'answer', 'confidence', 'sources'. 
+  Never include any text outside the JSON object."
+- **Setting Constraints**
+  - "You are a medical information assistant. Always:
+  1. Emphasize you're not a doctor
+  2. Recommend consulting healthcare professionals
+  3. Cite medical sources when possible
+  4. Never diagnose conditions"
+  
+### Retaining the Chat History with the System Prompt
+
+The system prompt is also retained in the chat history, and can be accessed by specifying `chat$get_turns(include_system_prompt = TRUE)`.
+The list object now has the system prompt as the first object, meaning that your prompts are now every even-numbered object, and the system responses are every odd-numbered object, started at 3.
+
+::: {.callout-note collapse="true"}
+
+## Click to see an example of saving the chat history with the system prompt.
+
+```{r chat hist w system, eval = FALSE}
+
+chat <- chat_anthropic("You respond only with the 5 most important sentences about a topic.")
+chat$chat("Give me a summary of the history of educational measurement.")
+chat$chat("Give me a summary of educational measurement breakthroughs since 2000.")
+
+ed_meas_chat_wsp <- chat$get_turns(include_system_prompt = TRUE)
+save(ed_meas_chat_wsp, file = "./data/ed_meas_chat_wsp.Rdata")
+
+```
+```{r view chat hist w system}
+
+load("data/ed_meas_chat_wsp.Rdata")
+ed_meas_chat_wsp[1]
+ed_meas_chat_wsp[2]
+ed_meas_chat_wsp[3]
+ed_meas_chat_wsp[4]
+ed_meas_chat_wsp[5]
+
+```
+
+:::
+

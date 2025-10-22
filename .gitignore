@@ -31,6 +31,13 @@ activity-scoring-with-rubrics-intro_files/
 AIME-CON Workshop Setup.Rmd
 AIME-CON-Workshop-Setup.html
 WorkshopReorderHelp.docx
+_quarto_updatingwork.yml
+cut-02a-general-promot-information.qmd
+cut-03b-prompting-models.qmd
+cut-07a-basic-refs.qmd
+cut-07b-ref-guides.qmd
+cut-07c-shiny-resources.qmd
+cut-07d-legal-info.qmd
 
 # Example code in package build process
 *-Ex.R

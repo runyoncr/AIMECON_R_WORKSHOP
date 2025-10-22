@@ -1,0 +1,15 @@
+# Acknowledgements {#sec-acknowledgements .unnumbered}
+
+Many thanks to those that helped me in creating this guide (whether they knew it or not 😅).
+
+- [Victoria Yaneva](https://scholar.google.com/citations?user=WAA5-vwAAAAJ&hl=en){target="_blank"}, who was instrucmental in helping me upskill in all things related to NLP and AI.
+
+- The many kind, patient members of the NBME AI and Data Science team, who were always kind enough to help me learn, correct my mistakes, and point me in the direction of new things happening in AI.
+  - [Yiyun Zhou](https://scholar.google.com/citations?user=wD63QRQAAAAJ&hl=zh-CN){target="_blank"}
+  - [Saed Rezayi](https://saedr.github.io/){target="_blank"}
+  - [Tazin Afrin](https://scholar.google.com/citations?user=oYdlOTwAAAAJ&hl=en){target="_blank"}
+  - [Andrew Emerson](https://scholar.google.com/citations?user=_9-nadYAAAAJ&hl=en){target="_blank"}
+  - [Keelan Evanini](https://scholar.google.com/citations?user=IoQW4SsAAAAJ&hl=en){target="_blank"}
+
+
+- [Hadley Wickham](https://hadley.nz/){target="_blank"}. Aside from being generally inspirational in the quality of their work and open-science attitude, I largely modeled this Quarto book off his immensely helpful ["R for Data Science"](https://r4ds.hadley.nz/){target="_blank"} book. Being able to review the [code](https://github.com/hadley/r4ds/){target="_blank"} used to make that book saved me a significant amount of time.

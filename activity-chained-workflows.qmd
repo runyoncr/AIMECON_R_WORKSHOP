@@ -1,0 +1,3 @@
+# Activity: Chained Workflows {#sec-act-prompting}
+
+Simple example - rubric - feedback - report for the instructor?

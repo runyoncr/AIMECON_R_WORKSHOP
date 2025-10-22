@@ -1,0 +1,170 @@
+# API Keys {#sec-api-keys}
+
+An API key is a unique identifier that allows software programs to communicate securely with external services, such as a large language model hosted by a provider. 
+The key acts like a digital credential: it tells the system who you are, verifies that you have permission to use the service, and tracks how much you use it for billing and security purposes.
+Unfortunately, if you have a subscription to an LLM provider (e.g., Anthropic, OpenAI, etc.), this does not automatically come with an API key.
+You will have to set up the API separately.
+
+For users integrating LLMs into R or other analytic workflows, the API key serves as the bridge between your local environment and the remote model. 
+When your script makes an API call, the key authenticates that request and returns the model’s response. 
+Because API keys grant direct access to paid and potentially sensitive resources, they should be stored securely—never shared publicly, committed to version control, or embedded directly in reproducible code examples.
+
+In essence, the API key is what allows researchers to treat a model as a callable function, enabling controlled, programmatic access to a complex system running on remote infrastructure. 
+Understanding how to manage this key responsibly is a foundational step in incorporating LLMs into reproducible research and educational applications.
+
+In practice, an API key is a long string of letters and numbers that you include in your code whenever you send a request to the model.
+I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
+They generally look like this: `sk-1234567890abcdefGHIJKLMNOPQRSTUVWXYZ1234`.
+The actual prefixes and length of random alphanumeric characters will usually vary by provider.
+
+Links to documentation for API keys:
+
+- [Anthropic API keys can be obtained through Claude Console](https://console.anthropic.com/)
+  - [Anthropic API pricing](https://www.claude.com/pricing#api)
+- [OpenAI API keys can be obtained through the OpenAI Platform](https://platform.openai.com/api-keys)
+  - [OpenAI API pricing](https://openai.com/api/pricing/)
+- [Google Gemini API keys can obtained through the Google AI Studio](https://aistudio.google.com/welcome)
+  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing) (you get $300 in free credits to use in the first 90 days when making an account)
+  - [Gemini API quickstart guide](https://ai.google.dev/gemini-api/docs/quickstart)
+
+## Workshop API Key {#sec-workshop-key}
+
+I created an API key that you will be able to use for the purposes of the workshop.
+I have chosen to use Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"} for this workshop.
+This API key will only be active during the workshop hours.
+If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
+
+Because API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. 
+Use costs are relatively low for this type of use and I'm happy to cover the cost and provide an API key for educational purposes.
+Outside of the workshop you'll need to create an account with a model provider and register for an API key to track your model use.
+
+### Calling the Model via API
+
+A very simple function to call the Anthropic Claude Sonnet 4.5 model is here: @sec-call-claude.
+I've repeated it below for those that want to review it without leaving this section. 
+I've also provided more comments in this version about what needs changed to call another Anthropic model, include additional parameters, etc.
+
+```{r, eval = FALSE}
+
+# Required packages
+library(httr)
+library(jsonlite)
+
+# MODEL_NAME needs to be specified - can be found on the provider's API documentation page
+
+call_claude <- function(prompt,
+                        model = "MODEL_NAME") {
+  
+  # Get API key from environment
+  # You will need to change this to your own API key after workshop
+  api_key <- Sys.getenv("") # Need have the API key in your .Renviron file
+
+  # Convert text prompt to required message format
+  messages <- list(list(role = "user", content = prompt))
+  
+  # Build request body
+  ## Can add in MANY more parameters here besides max_tokens
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = 1024 # Required; will be an argument in other functions
+  )
+  
+  # Set up headers
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    # "anthropic-version" = "2023-06-01", # This line will need to be changed
+    "content-type" = "application/json"
+  )
+  
+  # Make the API request
+  response <- POST(
+    # url = "https://api.anthropic.com/v1/messages", # This line will need to be changed
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  
+  # Check if request was successful
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message, 
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  
+  # Parse response and extract text content
+  # This section may also need to be modified depending on how the provider returns model output.
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(as.character(result$content)[2])
+}
+
+```
+
+### OpenAI ChatGPT5 example
+
+Here is a version of a function you can use to call OpenAI's ChatGPT5.
+Note that calling this model has two generation parameters: `verbosity` and `reasoning_effort`, which you can read more about [here (cookbook.openai.com)](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools){target="_blank"} and [here (latest model page the OpenAI Platform; will change when new model is released.)](https://platform.openai.com/docs/guides/latest-model){target="_blank"} 
+
+```{r, eval = FALSE}
+
+library(httr)
+library(jsonlite)
+
+call_gpt5 <- function(prompt,
+                      model = "gpt-5",
+                      verbosity = NULL,           # "low", "medium", "high"
+                      reasoning_effort = NULL) {  # "minimal", "low", "medium", "high"
+
+  api_key <- Sys.getenv("OPENAI_API_KEY")
+  if (api_key == "") {
+    stop("OpenAI API key is not set. Please set OPENAI_API_KEY in your environment.")
+  }
+  
+  messages <- list(list(role = "user", content = prompt))
+  
+  body_list <- list(
+    model = model,
+    messages = messages,
+    max_tokens = 1024,
+  )
+  
+  # Add GPT-5 specific parameters only if non-NULL
+  params <- list()
+
+  headers <- add_headers(
+    Authorization = paste("Bearer", api_key),
+    `Content-Type` = "application/json"
+  )
+  
+  resp <- POST(
+    url = "https://api.openai.com/v1/chat/completions",
+    headers,
+    body = toJSON(body_list, auto_unbox = TRUE)
+  )
+  
+  if (http_status(resp)$category != "Success") {
+    stop(paste0("API request failed (", http_status(resp)$message, "): ",
+                content(resp, "text", encoding = "UTF-8")))
+  }
+  
+  res <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = TRUE)
+  
+  # Extract the assistant content
+  return(res$choices[[1]]$message$content)
+}
+
+# Example usages:
+# 1. Default call (default verbosity & reasoning, both = "medium")
+# result <- call_gpt5("Explain item response theory in simple terms.")
+
+# 2. With lowest verbosity and reasoning settings:
+# result2 <- call_gpt5("Explain item response theory in simple terms.",
+#                      verbosity = "low",
+#                      reasoning_effort = "minimal")
+# cat(result2)
+
+# 3. With highest verbosity and reasoning settings:
+# result2 <- call_gpt5("Explain item response theory in simple terms.",
+#                      verbosity = "high",
+#                      reasoning_effort = "high")
+# cat(result2)
+
+```

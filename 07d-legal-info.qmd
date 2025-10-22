@@ -1,5 +1,0 @@
----
-  title: "Legal Considerations"
----
-  
-The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.

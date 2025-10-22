@@ -1,6 +1,0 @@
-# Integrating LLMs into R Workflows
-  
-
-## First Thing
-
-## Second Thing
