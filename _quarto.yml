@@ -58,8 +58,9 @@ book:
     
     - activity-scoring-with-rubrics-tasks.qmd
     
-    - part: 05a-shiny.qmd
+    - part: "Vibe Coding with Shiny"
       chapters: 
+        - 05a-shiny.qmd
         - 05b-vibe-coding.qmd
         - 05c-shiny-integration.qmd
         - 05d-saving-shiny-data.qmd
