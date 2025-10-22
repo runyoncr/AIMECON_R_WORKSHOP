@@ -3,5 +3,3 @@
 ## Single interactions with Models
 
 When are these appropriate?
-
-## Batch Processing

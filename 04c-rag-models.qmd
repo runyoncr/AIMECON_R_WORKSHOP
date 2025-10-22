@@ -24,4 +24,4 @@ This makes the technology more practical and trustworthy for high-stakes applica
 
 ## `ragnar`
 
-Unsuprisingly (again), Posit has created an app called [`ragnar`](https://ragnar.tidyverse.org/){target="_blank"} that is part of their [`tidyverse`](https://www.tidyverse.org/){target="_blank"} suite of packages.
+Unsuprisingly (again), Posit has created an app called [`ragnar`](https://ragnar.tidyverse.org/){target="_blank"} that is part of their [`tidyverse`](https://www.tidyverse.org/){target="_blank"} suite of packages to incorporate RAG into workflows.

@@ -41,9 +41,10 @@ Outside of the workshop you'll need to create an account with a model provider a
 ### Calling the Model via API
 
 A very simple function to call the Anthropic Claude Sonnet 4.5 model is here: @sec-call-claude.
-Below I've made a stripped-down version of the model function, indicating what information needs to be changed if you want to use another model.
+I've repeated it below for those that want to review it without leaving this section. 
+I've also provided more comments in this version about what needs changed to call another Anthropic model, include additional parameters, etc.
 
-```{r}
+```{r, eval = FALSE}
 
 # Required packages
 library(httr)
@@ -62,6 +63,7 @@ call_claude <- function(prompt,
   messages <- list(list(role = "user", content = prompt))
   
   # Build request body
+  ## Can add in MANY more parameters here besides max_tokens
   request_body <- list(
     model = model,
     messages = messages,
@@ -101,7 +103,7 @@ call_claude <- function(prompt,
 Here is a version of a function you can use to call OpenAI's ChatGPT5.
 Note that calling this model has two generation parameters: `verbosity` and `reasoning_effort`, which you can read more about [here (cookbook.openai.com)](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools){target="_blank"} and [here (latest model page the OpenAI Platform; will change when new model is released.)](https://platform.openai.com/docs/guides/latest-model){target="_blank"} 
 
-```{r}
+```{r, eval = FALSE}
 
 library(httr)
 library(jsonlite)

@@ -139,5 +139,11 @@
   },
   "04e-mitigating-variability.qmd": {
     "04e-mitigating-variability.html": "c5b19ad1"
+  },
+  "05c-shiny-integration.qmd": {
+    "05c-shiny-integration.html": "28a75994"
+  },
+  "05d-saving-shiny-data.qmd": {
+    "05d-saving-shiny-data.html": "3e949877"
   }
 }

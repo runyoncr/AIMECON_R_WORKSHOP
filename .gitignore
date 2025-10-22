@@ -28,6 +28,9 @@ batch_requests.jsonl
 sample_hugging_face.R
 activity-scoring-with-rubrics-intro_files/
 03c-calling-other-llms_files/
+AIME-CON Workshop Setup.Rmd
+AIME-CON-Workshop-Setup.html
+WorkshopReorderHelp.docx
 
 # Example code in package build process
 *-Ex.R
