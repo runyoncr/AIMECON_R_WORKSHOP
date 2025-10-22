@@ -1,4 +1,4 @@
-# Saving R Shiny Data
+## Saving R Shiny Data
 
 Although Shiny is built around reactivity—inputs changing, outputs updating—you can absolutely treat it like a front end for data collection. 
 Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. 

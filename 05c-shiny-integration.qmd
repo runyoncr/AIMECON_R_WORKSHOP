@@ -1,4 +1,4 @@
-# Vibe Coding R Shiny Apps
+## Vibe Coding R Shiny Apps
   
 R Shiny and vibe coding naturally complement each other. 
 Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. 
