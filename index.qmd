@@ -35,3 +35,8 @@ Learning Objectives
 </div>
 
 Please don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.
+
+<div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
+⚖️ Legal Disclaimer
+</div>
+The information provided in this workshop is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.

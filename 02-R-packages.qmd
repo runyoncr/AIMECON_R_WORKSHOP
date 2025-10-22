@@ -1,4 +1,4 @@
-## R Packages {#sec-r-packages}
+# R Packages {#sec-r-packages}
 
 ```{r}
 #| include: false
@@ -13,9 +13,9 @@ The R package ecosystem exemplifies this collaborative spirit.
 Community members can develop packages that address specific needs that span many academic domains (see [Task Views](https://cran.r-project.org/web/views/){target="_blank"}). 
 These packages allow you to utilize and build on classic and new analytical methods, advancing science and, thereby, public good.
 
-### Workshop package
+## Workshop package
 
-### Package details
+## Package details
 
 ```{r, eval=FALSE, echo=TRUE}
 

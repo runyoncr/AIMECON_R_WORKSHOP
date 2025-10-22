@@ -1,15 +1,72 @@
 # Foundational Principles
 
-## Tokens
+## Tokens {#sec-tokens}
 
-## Co-occurrence
+At the foundation of large language models (LLMs) is a simple idea: text must first be represented numerically. 
+Generative AI models don’t process words - they process tokens. 
+A token is a fragment of text, often a word, word piece, or even punctuation mark, depending on the model’s underlying vocabulary. 
+The process of dividing text into these fragments is called tokenization. 
+_For example, the sentence “Educational measurement is evolving quickly.” might be split into tokens like [Educational] [ measurement] [ is] [ evolving] [ quickly] [.]._
 
-## Attention
+Tokenization serves two purposes. 
+First, it provides a manageable set of discrete units that can be mapped to numbers. Second, it allows the model to handle nearly any text by breaking them into smaller familiar parts, which aslo allows them to account for new words (those not in the training data) or typos. 
+Models typically use a method called Byte Pair Encoding (BPE) or one of its descendants [@sennrich2015neural] [@radford2019language], which balances efficiency (smaller vocabularies) and linguistic flexibility (ability to represent rare or compound words).
 
-The transformer architecture [@vaswani2017attention] revolutionized NLP.
-As of October 7, this paper had **_197,775_** citations on [Google Scholar](https://scholar.google.com/scholar?cluster=2960712678066186980&hl=en&as_sdt=0,33){target="_blank"}.
+For practical use, especially in prompting or educational research, it helps to remember that models process and generate text one token at a time, predicting what comes next based on prior tokens. 
+This is where “token count” matters in API costs: it determines both model cost and how much text fits within a prompt.
+Understanding tokenization helps demystify why AI models occasionally truncate responses or miscount words—they’re counting in tokens, not characters or words.
+
+## Co-occurrence {#sec-co-occurrence}
+
+Before the transformer era, much of computational linguistics revolved around co-occurrence — the idea that words that appear near one another in text tend to share meaning (also sometimes called [distributional semantics](https://en.wikipedia.org/wiki/Distributional_semantics)). The phrase “You shall know a word by the company it keeps,” from linguist J.R. Firth (1957) [@firth1957synopsis], captures the essence. Counting how often “teacher” appears near “classroom” or “student” reveals something about the word’s semantics, even without understanding syntax or context.
+
+Modern models build on this intuition at massive scale. Early approaches like Word2Vec [@mikolov2013efficient] and GloVe [@pennington2014glove] trained models to detect statistical relationships between words across billions of co-occurrences, learning that “doctor” and “nurse” are more related than “doctor” and “chair.” These representations became the foundation for modern embeddings—dense, numeric representations of meaning.
+
+Co-occurrence is still the conceptual glue behind transformers: even though generative AI models don’t explicitly count word pairs, their attention mechanisms continually estimate which tokens “co-occur” in ways that are predictive of one another.
+Thinking in terms of co-occurrence helps educators grasp why language models are so effective at analogy, inference, and association—they are, at their core, systems that learn which ideas tend to appear together.
+
+## Attention {#sec-attention}
+
+The transformer architecture, introduced by Vaswani et al. (2017 - almost [200,000 citations](https://scholar.google.com/scholar?cluster=2960712678066186980&hl=en&as_sdt=0,33) as of this writing!) [@vaswani2017attention], revolutionized how models handle context through a mechanism called attention. 
+Attention allows the model to determine, for each token it processes, which other tokens in the sequence are most relevant to predicting the next one. 
+Rather than processing words in strict order like an RNN, a transformer builds a weighted map of relationships—essentially asking, “How much should I pay attention to each other word when interpreting this one?”
+
+In practical terms, attention is what lets a model understand that “it” in “The test was long, but it was fair” refers to “test,” not “long.” 
+Each layer of the model computes attention scores that help the model maintain coherence across long spans of text, enabling it to handle everything from sentence-level grammar to cross-paragraph reasoning.
+
+For those in educational measurement, attention can be understood as a dynamic weighting function, much like how students allocate attention differently to key versus peripheral information when reading. 
+In the same way, a transformer’s self-attention layers learn to emphasize informative relationships and de-emphasize noise.
 
 ## Embeddings {#sec-embeddings}
 
+Embeddings are the numeric heart of language models—the vector representations that capture meaning, context, and relationships between tokens. 
+Each token, phrase, or sentence is represented as a point in a high-dimensional space (often 768, 1024, or more dimensions).
+The geometry of this space encodes meaning: similar words lie close together, while unrelated words are far apart.
+
+An embedding model learns these relationships by training on massive text corpora, adjusting the position of each token’s vector so that words that co-occur in similar contexts have similar representations [@mikolov2013efficient]. 
+The result is a continuous, mathematical map of semantic relationships, where analogies can even be expressed through vector arithmetic—famously, vector("king") – vector("man") + vector("woman") ≈ vector("queen").
+
+**IMAGE FROM ARTICLE HERE**
+
+Later approaches, such as contextual embeddings, extended this concept so that the same word can take on different meanings depending on its surrounding text [@ethayarajh2019contextual]. 
+Sentence-level embedding models further expanded this idea by learning representations for entire sentences or paragraphs that preserve semantic similarity [@reimers2019sentence].
+
+Embeddings are central to applied AI in education: they allow models to cluster student responses by similarity, detect themes in open-ended feedback, or match rubrics to constructed answers. In Shiny apps or research pipelines, embedding models can help visualize semantic relationships, powering dashboards that display clusters of ideas or reasoning strategies.
+
 
 ## Invisible Instructions {#sec-invisible}
+
+When users interact with GPT-style models, much of what the model does is guided not by the visible prompt but by invisible instructions, unseen system-level instructions and internal reasoning heuristics that steer responses. 
+These hidden layers of guidance are part of what distinguishes newer “reasoning models” (like GPT5 and others) from earlier generations.
+
+Invisible instructions are system prompts or “pre-prompts” that define personality, role, tone, safety constraints, and reasoning behavior. 
+For example, even if you don’t specify “Explain step-by-step,” the model may internally follow instructions like “Reason carefully before responding” or “List all relevant considerations.” 
+(This is a deviation from early prompt engineering strategies, which found models improved their responses when the prompt included the phrase "think through this step-by-step".)
+These directives are embedded in the model’s architecture and alignment fine-tuning [@ouyang2022training], making it possible for the model to exhibit apparent deliberation without explicitly showing its intermediate thought process.
+
+Understanding invisible instructions helps demystify why models sometimes refuse certain requests, produce surprisingly structured answers, or appear to “think ahead.” 
+They reflect the tuning process known as Reinforcement Learning from Human Feedback ([RLHF](https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback)), in which human evaluators reward responses that are thoughtful, safe, and helpful. 
+In reasoning models, invisible instructions have evolved into more nuanced meta-policies that guide how reasoning is performed—sometimes through internal “scratchpad” computations or multi-pass reflection before producing output.
+
+For educators, recognizing the presence of invisible instructions is critical when evaluating AI reasoning: what looks like reasoning is partly the model executing invisible patterns of alignment and style. 
+Understanding that helps us use these systems more effectively, prompting them in ways that harmonize with their built-in guidance rather than fight against it.

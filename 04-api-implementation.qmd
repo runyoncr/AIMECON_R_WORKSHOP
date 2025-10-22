@@ -13,10 +13,3 @@ An API is a structured way for one piece of software to communicate with another
 When you use a generative AI model through its API, you're programmatically sending requests with specific instructions and receiving structured responses—allowing you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. 
 Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.
 
-## Choosing a Generative AI Model
-
-### Anthropic
-
-### OpenAI
-
-### Other Model Options

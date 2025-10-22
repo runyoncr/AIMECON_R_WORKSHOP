@@ -1,4 +1,4 @@
-## Testing API Connection {#sec-test-connect}
+# Testing API Connection {#sec-test-connect}
 
 Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in a _little_ more depth later).
 For the purposes of this workshop I've set up an API key through Anthropic for you all to use (see @sec-workshop-key).
@@ -11,7 +11,7 @@ I will securely distribute this file to workshop participants ([contact me](mail
 If you've just added the .Renviron file to your directory, you'll need to refresh your R session in order for it to be registered in the environment.
 You can do this via the tabs at the top of the R Studio interface: Session --> Restart R.
 
-### `call_claude` function {#sec-call-claude}
+## `call_claude` function {#sec-call-claude}
 
 You can download the following function by clicking the copy button (looks like a clipboard) in the code chunk displayed below.
 Alternatively, you can click the icon below:

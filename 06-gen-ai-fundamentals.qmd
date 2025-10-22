@@ -1,4 +1,4 @@
-# Generative AI Fundamentals {#sec-preparation .unnumbered}
+# Generative AI Fundamentals {#sec-gen-ai-fundamentals}
 
 It is useful to learn some fundamental aspects about GenAI models prior to their use. I have often found that there are many guides online that tell you _how_ to use these LLMs, but don't tell you _why_ you should use these LLMs. Although the guidance given by these guides is often useful, when your prompt isn't resulting in the output you want it's unclear how to make improvements because you don't have the foundational knowledge of how the model might be processing your prompt.
 
