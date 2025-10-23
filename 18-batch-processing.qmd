@@ -1,6 +1,34 @@
-# Batch Processing
+# Batch Processing {#sec-batch-processing}
 
-  
-## What is it?
+Once a workflow has been validated for accuracy and reliability, the next natural step is batch processing—running that workflow automatically across a large set of inputs. 
+In educational measurement, batch processing is what makes an LLM truly operational: instead of scoring or summarizing one response at a time, you can apply the same structured prompt, rubric, or analytic chain across hundreds or thousands of records.
 
-When are these appropriate?
+In an R context, batch processing is straightforward because data manipulation and iteration are already native to the language.
+A vectorized or mapped approach (using purrr::map, lapply, or dplyr::rowwise) lets you loop over responses, items, or datasets, calling the model once per record and collecting outputs into tables. 
+When combined with proper logging, this setup produces complete audit trails of prompts, model versions, and responses, all elements that are important for for ensuring reproducibility and fairness in large-scale scoring or evaluation systems.
+
+The primary advantages of batch processing are efficiency, consistency, and traceability. 
+It eliminates manual repetition, enforces the same decision rules across all cases, and enables performance metrics (e.g., agreement rates, latency, cost per call) to be calculated directly from logs. 
+For teams managing ongoing assessments, item review pipelines, or feedback generation, batch processing transforms LLM integration from a proof-of-concept into a dependable analytic service which can fit seamlessly within the structured, data-driven workflows familiar to educational measurement professionals.
+
+Not only does batch processing enable you to complete many similar tasks at once, it also lowers your API costs.
+Many providers offer discounts when submitting jobs to be done in batches (e.g., Anthropic currently reduces prices by 50\%!).
+
+A few extra steps need to be taken to submit your batch processing call, but it's not difficult to implement.
+Additionally, batch calls aren't necessarily processed immediately.
+Depending on the capacity and queue of the model you're using, it may be delayed until it has the right capacity.
+Nonetheless, it's still _much_ faster and cheaper than doing hundreds of calls by hand or in a loop!
+
+**I've included a simple batch call in our next activity to give you practice and experience in practicing this valuable skill!**
+
+***
+
+Some additional information about batch processing ([can be found on this Anthropic page about batching](https://docs.claude.com/en/docs/build-with-claude/batch-processing); each provider will likely have different functionality):
+
+[Some selected information from the Anthropic page:]{.underline}
+
+- This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.
+- A Message Batch is limited to either 100,000 Message requests or 256 MB in size, whichever is reached first.
+- We process each batch as fast as possible, with most batches completing within 1 hour. You will be able to access batch results when all messages have completed or after 24 hours, whichever comes first. Batches will expire if processing does not complete within 24 hours.
+- Batch results are available for 29 days after creation. After that, you may still view the Batch, but its results will no longer be available for download.
+- Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. [See Message Batches API rate limits.](https://docs.claude.com/en/api/rate-limits#message-batches-api) Additionally, we may slow down processing based on current demand and your request volume. In that case, you may see more requests expiring after 24 hours.

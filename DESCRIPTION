@@ -2,18 +2,14 @@ Package: GenAIWorkshopBook
 Title: Integrating GenAI Models into R Workflows
 Version: 0.1.0
 Imports:
+    tidyr,
+    tidyverse,
     httr,
     httr2,
     jsonlite,
-    dplyr,
-    ggplot2,
-    tidyr,
-    purrr,
-    tidyverse,
     curl,
     shiny,
     shinyjs,
-    stringr,
     knitr,
     ellmer,
     glue,

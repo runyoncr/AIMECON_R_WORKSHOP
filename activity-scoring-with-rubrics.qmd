@@ -1,9 +1,176 @@
-# Activity: Scoring with Rubrics {#sec-act-rubric-task .unnumbered}
+# Activity: Scoring with Rubrics {#sec-act-rubric-task}
 
 
-## Task: Med Ed: Using LLMs to Apply Analytic Rubrics
+## Task: **Med Ed:** Using LLMs to Apply Analytic Rubrics
+
+```{r, eval = FALSE}
+
+source('downloads/claude_plus.R')
+
+osce_note <- "45-year-old male presents with Chest pain. Reports pressure-like chest discomfort that started this morning while walking up stairs. Some SOB. Recalls previous less severe episodes. H/O high blood pressure (takes atorvastatin). Current vitals positive for hypertension and tachycardia; other vitals unremarkable. Symptoms suggest possible angina; anxiety or GERD could also be considered."
+
+analytic_rubric <- "For each of the following criteria, determine whether the element is Included or Not Included in the response.
+
+1. Chief concern of chest pain
+2. Episodic pattern of symptoms
+3. Poorly controlled history of hypertension
+4. Vitals indicate hypertension
+5. Pain radiates to the back
+6. Likely diagnosis of acute coronary syndrome (ACS), NSTEMI, or STEMI"
+
+osce_analytic <- function(student_note, rubric){
+  glue::glue("
+  Using the rubric provided below, score the following OSCE post-encounter note. 
+  For each criterion, indicate whether it was met and provide brief justification for your scoring decision. 
+    
+  Here is the student note:{student_note}
+    
+  Here is the rubric:{rubric}
+    
+  Return a completed rubric, indicating which criteria are met or not met and justifications for each component.
+  ")
+}
+
+analytic_prompt <- osce_analytic(osce_note, analytic_rubric)
+
+analytic_response <- claude_plus(analytic_prompt,
+                                 temperature = 0)
+
+```
+```{r, eval = FALSE, echo = FALSE}
+save(analytic_response, file = "data/analytic_response.Rdata")
+```
+
+::: {.callout-note collapse="true"}
+
+## View model application of Med Ed _Analytic_ Rubric
+```{r, echo = FALSE}
+load("data/analytic_response.Rdata")
+```
+```{r}
+library(stringr)
+library(knitr)
+
+# Some cleaning for the quarto output; not strictly necessary
+analytic_response <- str_replace_all(analytic_response, "#", "*")
+
+analytic_response <- str_replace_all(analytic_response, 
+                                      "(?m)^(\\*+)\\s+", 
+                                      "\\1")
+
+analytic_response <- str_replace_all(analytic_response, 
+                                      "(?m)^(\\*+)(.*?)(?<!\\*)(\\n)", 
+                                      "\\1\\2\\1\\3")
+
+analytic_response <- str_replace_all(analytic_response,
+                                      "\\*\\*(\\n)\\*\\*",
+                                      "**\\1\\1**")
+knitr::asis_output(analytic_response)
+```
+
+:::
+
+What do you think about the model’s application of the analytic rubric? 
+How might you have scored the note differently? 
+Are there any places where the AI’s application of the rubric was too strict or too lenient? 
+Did the AI appropriately recognize when the student phrased elements of the rubric in different words (lexical variants)?
+
+This activity also highlights another important possible use case using AI: seeing how a rubric might be interpreted and identifying places on the rubric for improvement / increased specificity. 
 
 ## Task: Med Ed: Using LLMs to Apply Holistic Rubrics
+
+```{r, eval = FALSE}
+
+source('downloads/claude_plus.R')
+
+holistic_rubric <- "Each criterion should be rated as Insufficient (0 points), Developing (1 point), or Proficient (2 points) based on the quality of the response.
+
+Chief complaint is clearly documented
+- Insufficient: Missing or unclear
+- Developing: Present but vague
+- Proficient: Clear and specific
+
+Relevant history is included
+- Insufficient: Minimal or missing key details
+- Developing: Some relevant information
+- Proficient: Comprehensive and pertinent
+
+Physical exam findings are documented
+- Insufficient: Absent or incomplete
+- Developing: Basic findings noted
+- Proficient: Thorough and organized
+
+Assessment includes appropriate differential diagnoses
+- Insufficient: Missing or inappropriate
+- Developing: Limited differential
+- Proficient: Well-developed differential
+
+Plan is reasonable and addresses the patient’s concerns
+- Insufficient: Inadequate or missing
+- Developing: Partially addresses concerns
+- Proficient: Complete and appropriate
+
+Documentation is organized
+- Insufficient: Disorganized or difficult to follow
+- Developing: Somewhat structured
+- Proficient: Logical and clear structure"
+
+osce_holistic <- function(student_note, rubric){
+  glue::glue("
+  Using the rubric provided below, score the following OSCE post-encounter note. 
+
+  Here is the student note: {student_note}
+    
+  Here is the rubric: {rubric}
+    
+  Return a completed rubric, indicating justifications for each component.
+  ")
+}
+
+holistic_prompt <- osce_holistic(osce_note, holistic_rubric)
+
+holistic_response <- claude_plus(holistic_prompt,
+                                 temperature = 0)
+
+```
+```{r, eval = FALSE, echo=FALSE}
+save(holistic_response, file = "data/holistic_response.Rdata")
+```
+
+::: {.callout-note collapse="true"}
+
+## View model application of Med Ed _Holistic_ Rubric
+
+```{r, echo = FALSE}
+load("data/holistic_response.Rdata")
+```
+```{r}
+# Some cleaning for the quarto output; not strictly necessary
+holistic_response <- str_replace_all(holistic_response, "#", "*")
+
+holistic_response <- str_replace_all(holistic_response, 
+                                      "(?m)^(\\*+)\\s+", 
+                                      "\\1")
+
+holistic_response <- str_replace_all(holistic_response, 
+                                      "(?m)^(\\*+)(.*?)(?<!\\*)(\\n)", 
+                                      "\\1\\2\\1\\3")
+
+holistic_response <- str_replace_all(holistic_response,
+                                      "\\*\\*(\\n)\\*\\*",
+                                      "**\\1\\1**")
+knitr::asis_output(holistic_response)
+```
+
+:::
+
+What do you think about the model’s application of the holistic rubric? 
+How might you have scored the note differently? 
+What did the model do well (either in scoring or its justification), and where do you think it could have improved?
+
+As you can see, applying a holistic rubric is generally more difficult for an AI model because it lacks the context of the clinical encounter. 
+Some methods to improve the model performance in these instances would be to submit each rubric element individually and provide examples of each scoring level, and then empirically verify that the model is applying the rubric as intended. 
+In general, using generative AI to apply holistic rubrics may take more work than having the model apply an analytic rubric. 
 
 ## Task: Using LLMs to Apply Holistic Rubrics
 
@@ -93,7 +260,7 @@ As noted in the previously (in WHAT section), part of the beauty of generative A
 
 ### Repeating Score Task 
 
-Let's repeat the above process 20 times, extracting the scores after each model response.
+Let's repeat the above process 20 times in a loop, extracting the scores after each model response.
 
 ```{r, eval = FALSE}
 
@@ -841,15 +1008,5 @@ datatable(lowtemp_summary_detailed,
 
 ```
 
-Now we're seeing more consistent scores, and it took less than 90 seconds to process all 200 requests.
-
-
-### Batch Processing Notes
-More notes on batch processing ([via the Anthropic page about batching](https://docs.claude.com/en/docs/build-with-claude/batch-processing); each provider will likely have different functionality):
-
-- This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.
-- A Message Batch is limited to either 100,000 Message requests or 256 MB in size, whichever is reached first.
-- We process each batch as fast as possible, with most batches completing within 1 hour. You will be able to access batch results when all messages have completed or after 24 hours, whichever comes first. Batches will expire if processing does not complete within 24 hours.
-- Batch results are available for 29 days after creation. After that, you may still view the Batch, but its results will no longer be available for download.
-- Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. [See Message Batches API rate limits.](https://docs.claude.com/en/api/rate-limits#message-batches-api) Additionally, we may slow down processing based on current demand and your request volume. In that case, you may see more requests expiring after 24 hours.
+Now we're seeing more consistent scores, and it took _less than 90 seconds_ to process all 200 requests.
 

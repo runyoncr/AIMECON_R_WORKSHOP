@@ -145,5 +145,86 @@
   },
   "05d-saving-shiny-data.qmd": {
     "05d-saving-shiny-data.html": "3e949877"
+  },
+  "01-R-setup.qmd": {
+    "01-R-setup.html": "8b574335"
+  },
+  "02-R-packages.qmd": {
+    "02-R-packages.html": "f54ed45b"
+  },
+  "03-test-connect.qmd": {
+    "03-test-connect.html": "5634b920"
+  },
+  "04-api-implementation.qmd": {
+    "04-api-implementation.html": "f901cac1"
+  },
+  "05-api-keys.qmd": {
+    "05-api-keys.html": "26980891"
+  },
+  "06-gen-ai-fundamentals.qmd": {
+    "06-gen-ai-fundamentals.html": "41349203"
+  },
+  "07-gen-ai-basics.qmd": {
+    "07-gen-ai-basics.html": "ea50cf0b"
+  },
+  "08-gen-ai-parameters.qmd": {
+    "08-gen-ai-parameters.html": "76c52764"
+  },
+  "10-integration.qmd": {
+    "10-integration.html": "1008e9f6"
+  },
+  "11-conversations-via-api.qmd": {
+    "11-conversations-via-api.html": "98b93d9a"
+  },
+  "13-single-interactions-via-api.qmd": {
+    "13-single-interactions-via-api.html": "cb324b20"
+  },
+  "14-prompt-engineering.qmd": {
+    "14-prompt-engineering.html": "2888f93c"
+  },
+  "15-prompt-formulas.qmd": {
+    "15-prompt-formulas.html": "b3288382"
+  },
+  "17-mitigating-variability.qmd": {
+    "17-mitigating-variability.html": "2c7ea806"
+  },
+  "18-batch-processing.qmd": {
+    "18-batch-processing.html": "2dd55ffa"
+  },
+  "19-rubric-scoring.qmd": {
+    "19-rubric-scoring.html": "5725eb93"
+  },
+  "21-chained-workflows.qmd": {
+    "21-chained-workflows.html": "3c0a4afd"
+  },
+  "activity-chained-workflows.qmd": {
+    "activity-chained-workflows.html": "5b836227"
+  },
+  "23-calling-other-llms.qmd": {
+    "23-calling-other-llms.html": "748cbf20"
+  },
+  "24-rag-models.qmd": {
+    "24-rag-models.html": "a51e0d32"
+  },
+  "25-shiny.qmd": {
+    "25-shiny.html": "ca3ab3a8"
+  },
+  "26-vibe-coding.qmd": {
+    "26-vibe-coding.html": "1c712a5d"
+  },
+  "27-shiny-integration.qmd": {
+    "27-shiny-integration.html": "1369ed8a"
+  },
+  "29-saving-shiny-data.qmd": {
+    "29-saving-shiny-data.html": "2e5de61d"
+  },
+  "30-reference-materials.qmd": {
+    "30-reference-materials.html": "fec73393"
+  },
+  "31-acknowledgements.qmd": {
+    "31-acknowledgements.html": "1a0a4b04"
+  },
+  "32-references.qmd": {
+    "32-references.html": "4341f50f"
   }
 }

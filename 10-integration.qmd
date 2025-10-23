@@ -1,6 +1,41 @@
 # Integrating LLMs into R Workflows
-  
 
-## First Thing
+For R users, integrating large language models (LLMs) into analysis and visualization workflows represents the next step in data-enabled reasoning. 
+Rather than replacing traditional statistical tools, LLMs can act as assistive layers - augmenting interpretation, automating text-based tasks, and generating structured insights from unstructured data. 
+At their simplest, they help summarize qualitative data or generate written explanations of quantitative results; at their most advanced, they form part of a larger workflow that completes many tasks at scale.
 
-## Second Thing
+In R, integration can occur at multiple levels of complexity. Many educators begin by experimenting in interactive notebooks, using the openai, httr2, or ellmer packages to send text to a model and capture structured responses (JSON, text, or Markdown). From there, model outputs can be piped into tidyverse workflows, Shiny apps, or RMarkdown/Quarto reports. This allows the same environment that handles psychometric scoring or test analysis to also perform tasks such as response summarization, rubric application, or item classification—all reproducibly and scriptable like any other R process.
+
+This approach has clear benefits for transparency and reproducibility—two pillars of educational measurement. By embedding LLM calls inside R scripts, each step of the process (from data cleaning to model prompting to scoring output) is documented and version-controlled. LLMs become not mysterious external tools but integrated analytic functions, participating in the same workflow logic that governs simulation studies, regression modeling, or IRT analyses.
+
+## Conversational Interactions
+
+Conversational interfaces—where the user and model exchange a series of messages—are best suited to iterative, exploratory, and interpretive tasks. 
+In R, packages like `ellmer` allow users to hold a back-and-forth “dialogue” with an LLM directly in the console, enabling refinement of prompts, queries, or outputs without leaving the analytic environment. 
+This style of interaction mirrors the process of reasoning aloud with a collaborator: clarifying goals, checking understanding, and progressively honing a solution.
+
+Conversational modes shine in early stages of workflow design or qualitative exploration. 
+For example, when an educator is developing new analytic rubrics, they can ask the model to propose initial criteria, critique them, and rephrase descriptors until the language aligns with learning objectives. 
+Similarly, conversational prompting supports sensemaking—using LLMs to interpret latent structures in student responses or to suggest categories in open-text survey data before formal coding begins.
+
+From a pedagogical standpoint, conversational interfaces are valuable because they externalize reasoning. 
+They make the model’s interpretive process visible, allowing human users to intervene, question, and adjust. 
+This transparency aligns with how researchers prototype new measures or refine construct definitions (iteratively and reflectively). 
+Thus, conversational workflows are ideal when the task involves discovery, refinement, or negotiation of meaning rather than high-volume execution.
+
+## Transactional Interactions
+
+While conversational workflows are interactive, transactional interactions are task-oriented and repeatable.
+This makes them more appropriate for structured, scalable applications where the logic is already well-defined. 
+In R, this means calling an LLM once (or in a controlled loop or via [batch processing](@sec-batch-processing)) to perform a fixed function, such as applying a rubric, classifying text, generating distractors for test items, or summarizing response sets. Once the prompt template is validated, the workflow can be automated across hundreds or thousands of responses, with little or no human intervention per transaction.
+
+Transactional use cases align closely with measurement and scoring pipelines. For example, an R script might use a model to:
+
+- Apply analytic rubrics to open-ended responses (producing scores or rationales).
+- Generate consistent item summaries or metadata for item banks.
+- Convert qualitative comments into quantitative sentiment or topic labels.
+- Produce structured reports summarizing scoring trends or item performance.
+
+In essence, conversational LLM use is exploratory, while transactional use is executive. 
+The former helps you think with the model; the latter helps you scale your thinking once the process is validated. 
+Both belong in an R-based ecosystem for educational measurement: one for building understanding, the other for operationalizing it.

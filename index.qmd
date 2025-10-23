@@ -30,6 +30,14 @@ Learning Objectives
 
 ---
 
+This book is a living document. Here's what I plan on covering next:
+
+| **Criteria** | **Description**                                                                                                                                                                                                                                         |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Content      | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.                                                                                                                                                   |
+| Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. |
+| Language     | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.                                   |
+
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 ⚠️ Privacy Reminder
 </div>

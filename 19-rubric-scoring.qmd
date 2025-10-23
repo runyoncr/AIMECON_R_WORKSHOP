@@ -1,4 +1,4 @@
-# Introduction: Scoring with Rubrics {#sec-act-rubric-intro .unnumbered}
+# Scoring with Rubrics {#sec-rubric-scoring}
 
 Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric.
 I work in medical education, and one useful performance assessment that is used is the Objective Structured Clinical Examination (OSCE){target="_blank"}.

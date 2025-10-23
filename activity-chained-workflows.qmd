@@ -1,3 +1,168 @@
 # Activity: Chained Workflows {#sec-act-prompting}
 
-Simple example - rubric - feedback - report for the instructor?
+Now let's work through an example of how you might implement a chained workflow.
+We'll start with the work we did in a previous section where we [applied analytic rubrics to an OSCE note](@sec-act-rubric-task).
+What can one do with that note?
+Many things!
+Below is an image demonstrating how one could build a chained workflow for a comprehensive approach to evaluating student performances on these assessments.
+
+
+
+We won't complete all of these tasks.
+Just working through a few steps will be sufficient to give you a sense of how a chained workflow might work in practice.
+
+## Task: Generate Feedback Report
+
+We have a report that we obtained by applying an analytic rubric to the student's OSCE note, but that report is not sufficient to provide the student with helpful feedback on their performance. Yes, it does provide a score and an indication of what information was present or not in their note, but this doesn't translate to actionable feedback.
+We can now craft a prompt that incudes this report and ask for something that would be more appropriate to provide to the student, such as through a learning management system.
+
+```{r, eval=FALSE}
+
+load("data/analytic_response.Rdata")
+
+build_feedback_prompt <- function(completed_rubric){
+  glue::glue(
+    "“Using the following completed rubric as a guide, provide constructive feedback to the student about their clinical case documentation. 
+    
+    The feedback should consist of two well-developed paragraphs:
+    The first paragraph should offer a balanced assessment of the student's documentation. 
+    Begin by acknowledging elements that were documented well (if any), then identify the most critical missing or inadequately addressed components based on the rubric. 
+    Be specific about what was missing and, where applicable, note the quality or completeness of what was documented.
+    
+    The second paragraph should provide educational context by explaining why the missing or inadequate elements are clinically important for evaluating and managing a patient presenting with this specific chief concern. 
+    Connect these documentation gaps to potential impacts on patient care, differential diagnosis, treatment planning, or patient safety. 
+    Use this as a teaching opportunity to help the student understand the clinical reasoning behind thorough documentation.
+    
+    Here is the complete rubric on the student's performance: {completed_rubric}
+    ")
+}
+
+feedback_prompt <- build_feedback_prompt(analytic_rubric)
+feedback_response <- claude_plus(feedback_prompt,
+                                 temperature = 0)
+
+```
+```{r, eval = FALSE, echo = FALSE}
+save(feedback_response, file = "data/feedback_response.Rdata")
+```
+
+::: {.callout-note collapse="true"}
+
+## View Feedback Response
+```{r, echo = FALSE}
+load("data/feedback_response.Rdata")
+```
+```{r}
+library(stringr)
+library(knitr)
+
+# Some cleaning for the quarto output; not strictly necessary
+feedback_response <- str_replace_all(feedback_response, "#", "*")
+
+feedback_response <- str_replace_all(feedback_response, 
+                                      "(?m)^(\\*+)\\s+", 
+                                      "\\1")
+
+feedback_response <- str_replace_all(feedback_response, 
+                                      "(?m)^(\\*+)(.*?)(?<!\\*)(\\n)", 
+                                      "\\1\\2\\1\\3")
+
+feedback_response <- str_replace_all(feedback_response,
+                                      "\\*\\*(\\n)\\*\\*",
+                                      "**\\1\\1**")
+knitr::asis_output(feedback_response)
+```
+
+:::
+
+## Task: Generate Instructor Report
+
+Now that we have student feedback, let's use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.
+
+```{r, eval=FALSE}
+
+build_remediation_prompt <- function(feedback_output){
+  glue::glue("
+  You will analyze feedback that has been provided to a student about their performance. 
+  Your task is to identify any potential gaps in the course materials or instruction that could be improved to further help the learning. 
+  Based on the documentation deficiencies and missing clinical elements identified in the student feedback:
+  
+  1. Pattern Analysis: Determine whether these gaps likely reflect:
+  •	Individual student oversight or understanding issues
+  •	Systematic instructional gaps that may affect multiple students
+  •	Unclear expectations in the assignment or rubric
+  
+  2. Curricular Recommendations: If the gaps suggest instructional needs, provide 2-3 specific, actionable recommendations for strengthening the course materials. 
+  For each recommendation, specify:
+  •	Which course component to enhance (e.g., lecture content, practice cases, rubric clarity, pre-assignment resources)
+  •	What specific content or skill should be emphasized
+  •	Why this would address the observed documentation gap
+  
+  3. Context Considerations: Note whether the missing elements are:
+  •	Foundational knowledge that should have been covered previously
+  •	Advanced concepts that may need more instructional time
+  •	Clinical reasoning skills requiring additional practice opportunities
+
+  Format your response as a brief analysis followed by concrete action items that an instructor can implement.
+  
+  Complete this task using this feedback: {feedback_output}
+  ")
+}
+
+remediation_prompt <- build_remediation_prompt(feedback_response)
+remediation_response <- claude_plus(remediation_prompt,
+                                    temperature = 0)
+
+```
+```{r, eval = FALSE, echo = FALSE}
+save(remediation_response, file = "data/remediation_response.Rdata")
+```
+
+::: {.callout-note collapse="true"}
+
+## View Feedback Response
+```{r, echo = FALSE}
+load("data/remediation_response.Rdata")
+```
+```{r}
+remediation_response <- str_replace_all(remediation_response, "#", "*")
+
+remediation_response <- str_replace_all(remediation_response, 
+                                      "(?m)^(\\*+)\\s+", 
+                                      "\\1")
+
+remediation_response <- str_replace_all(remediation_response, 
+                                      "(?m)^(\\*+)(.*?)(?<!\\*)(\\n)", 
+                                      "\\1\\2\\1\\3")
+
+remediation_response <- str_replace_all(remediation_response,
+                                      "\\*\\*(\\n)\\*\\*",
+                                      "**\\1\\1**")
+knitr::asis_output(remediation_response)
+```
+
+:::
+
+## Task: All 3 Steps
+
+Let's put this all together in a single workflow. Although I'm keeping `temperature = 0`, we know that some deviations in the response may be different than what was observed earlier.
+
+I've also saved the functions that we used earlier so we can easily load them and pay more attention to the chained workflow and not be distracted by the lengthy prompt text. 
+Doing so (saving the individual prompts as functions) is also a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow.
+
+```{r}
+
+
+
+```
+
+
+
+## Task: Brainstorm a Chained Workflow
+
+Now it's time for you to think about how you can incorporate a chained workflow into some of your processes at your organization / institution!
+What sophisticated tasks / workflows could you use a generative AI chained workflow to automate?
+In what steps does the model output flow directly into another model call?
+Are there places where you'd like to have human review before the model completes additional steps?
+
+For this activity, identify **at least 3 steps** where a generative AI model could be useful in your workflow.

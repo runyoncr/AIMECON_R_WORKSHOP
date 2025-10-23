@@ -1,10 +1,36 @@
 # Chained Workflows
 
+Generative AI models aren't just powerful in isolation - they become transformative when woven throughout your workflow.
+Instead of using the model as a thought partner or a colleague to help with some task, you can link together tasks to make automate _entire processes_, effectively creating your own team of AI agents.
+
+Chaining also makes debugging and refinement easier. 
+If an error appears in the final result, you can isolate which link in the chain failed or didn't work as expected (remember the `medial heel` example?), and then you can iterate on that step until it's working as expected. 
+This modularity mirrors good measurement practice: test and validate each subcomponent of a process before interpreting the final results.
+It's similar to having an error in your data cleaning that leads to an erroneous statistical conclusion.
+
+If you've heard of "Multi-Agentic Systems" before, you may be wondering if chained workflows are examples of these systems. The answer is _it depends_.
+(Unsatifying, I know.)
+In general, the purpose of both processes is the same - breaking down a sophisticated process into discrete tasks - but the implementation of this process varies a bit when comparing chained workflows and multi-agentic systems.
+
+Chained workflows can be thought of as single-agent systems with structured memory and sequence. 
+Each step is still executed by one model instance (or “agent”), but the outputs are fed forward as inputs for subsequent steps. 
+Multi-agentic systems extend this concept further: instead of one model handling multiple roles, different agents — each specifically designed for a specialized task — interact or coordinate with one another (e.g., one generates items, another reviews for fairness, a third formats the output).
+
+Although implementing properly multi-agent systems requires more engineering than most educational researchers need, understanding the connection is useful. 
+Chaining is the conceptual and methodological bridge to multi-agent workflows. 
+The same logic (task decomposition, model-to-model communication, and iteration) underpins both. 
+By designing your LLM tasks as transparent, stepwise processes now, you build a foundation that can later evolve into more automated and collaborative systems when institutional infrastructure or tooling catches up.
+
+OpenAI now offers [AgentKit](https://openai.com/index/introducing-agentkit/), a set of tools for "building, deploying, and optimizing agents." 
+A quick overview can be found in [this YouTube video](https://youtu.be/44eFf-tRiSg?si=F7xcH1YwleoC9-Ux).
+Here's a guide to an [agent builder](https://platform.openai.com/docs/guides/agent-builder), which is part of the AgentKit. 
+In these sections they often talk about [ChatKit](https://platform.openai.com/docs/guides/chatkit).
+
+I'm being a bit hand-wavy here because this is still new to me (was introduced at the [OpenAI Dev Day](https://openai.com/devday/) on October 6, 2025), but I expect to dive into this designing multi-agentic systems in the next few months. Check back later if you're interested to see what I learn! 
+
 ## Prompt Chaining vs Multi-Agentic Systems
 
-Info here.
-
-I asked ChatGPT5 to make a table describing the differences between the two:
+I asked ChatGPT5 to make a table describing the differences between the two. I'm not completely sold on some of the distinctions made below, but here is the table nonetheless:
 
 | Feature               | Prompt chaining                                                        | Multi-agent system                                               |
 | --------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
@@ -19,15 +45,3 @@ I asked ChatGPT5 to make a table describing the differences between the two:
 | Best for              | Simple, deterministic multi-step workflows                             | Complex, dynamic workflows with distinct sub-skills              |
 | Cost/complexity       | Lower to build/maintain for small tasks                                | Higher initial setup; scales better for complex use cases        |
 
-
-## Prompt Chaining
-
-History in chain-of-thought models; evolved to workflows and reasoning models.
-
-## Building Multi-Agentic Systems
-
-OpenAI now offers [AgentKit](https://openai.com/index/introducing-agentkit/), a set of tools for "building, deploying, and optimizing agents."
-
-Here's a guide to an [agent builder.](https://platform.openai.com/docs/guides/agent-builder)
-
-Here's [ChatKit](https://platform.openai.com/docs/guides/chatkit).

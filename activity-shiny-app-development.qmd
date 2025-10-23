@@ -1,4 +1,4 @@
-# Activity: Shiny App Development {#sec-act-shiny .unnumbered}
+# Activity: Shiny App Development {#sec-act-shiny}
 
 Now it's time to make an app! 
 When building an app via vibe coding, I've found that it's best to ask the model to add features to the app in chunks.
