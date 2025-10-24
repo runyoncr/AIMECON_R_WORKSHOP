@@ -8,34 +8,160 @@ Tie in to chapter 1
 
 ## Madlibs
 
+I think it's helpful to think of building a prompt like filling in missing blanks in [Mad Libs](https://en.wikipedia.org/wiki/Mad_Libs).
+
+![](images/madlibs.png){fig-align="center"}
+
+[snippet taken from here](https://madlibs.com/wp-content/uploads/2024/06/VacationFun_ML_2009_pg15.pdf)
+
+A well-crafted prompt includes instructions that touch upon all the most important blanks to be filled in.
+Any detail that you don't explicity specify in a prompt will be inferred by the model when generating its response - usually picking the most common token to fill in that blank.
+
+An obvious example can be helpful here.
+
+```{r}
+
+library(knitr)
+source('downloads/claude_plus.R')
+source('downloads/format_for_qmd.R')
+
+silly_test <- claude_plus("Generate an assessment question for science test.")
+
+```
+```{r, eval = FALSE, echo = FALSE}
+save(silly_test, file = 'data/silly_test.Rdata')
+```
+```{r, echo = FALSE}
+load('data/silly_test.Rdata')
+```
+```{r}
+
+silly_test <- format_for_qmd(silly_test)
+knitr::asis_output(silly_test)
+
+```
+
+
+As you can see, the model had to make some choices (via probability sampling) about the assessment item that we didn't specify:
+
+- Grade Level: Middle School (6-8 grade)
+- Topic: States of Matter
+- Assessment format: Multi-part free response, with 3 parts
+  - Surprised it wasn't an MCQ to be honest
+- Point Values for Each Part
+- Correct Responses for Each Part
+- ... an so on
+
+Although this example was extreme, it demonstrates the point well.
+We didn't precisely tell the model what we wanted, so what did we expect?
+If we had different expections for the output than what the model provided, we need to make that clear in our prompt.
+
+Vague prompts aren't inherently bad.
+They're quite useful when you're brainstorming and want ideas about a topic that are different than ideas you've already considered.
+Even asking the model to develop novel solutions can be helpful in these instances; when a model needs to predict the next token and they don't have the appropriate content, they usually predict the next token that is most common in the training data given similar contexts.
+
 ## Prompt Formulas
+
+In my experience, most posts online about effectively using AI models give examples of wording or a way to structure your prompt that helps decrease the number of madlib blanks that need to be filled in.
+The latter are _prompt formulas_, which provide a template that helps you fill in key details, essentially reducing the ambiguity in your prompt and guiding the model toward the kind of output you want.
+
+Here’s what a prompt formula looks like — it’s a high-level structure that helps you think through key components when writing a prompt. 
+
+![](images/promptformula.png){fig-align="center" style="border: 1px solid black;"}
+
+This common formula is Role–Task–Goal. 
+
+I’ve broken down a sample prompt using this structure:
+
+- **Role:** You assign a role to the model — either by specifying who you are or by asking the model to take on a specific background. In this example, the role is someone in their mid-40s who wants to learn about film.
+- **Task:** The task is to identify movies that blend romance and science fiction.
+- **Goal:** The goal is a list of 10 movies that fit this criterion, each with a short explanation of why it’s worth watching.
+
+[(Example inspired by this awesome Criterion Collection list on Interdimensional Romance)](https://letterboxd.com/criterion/list/interdimensional-romance-criterion-channel/)
+
+
+The second example follows the same structure but focuses on planning icebreaker activities for a conference. An alternative phrasing might be:
+
+_“You are an expert in developing interactive icebreaker sessions for conferences. Generate a session for 30-, 60-, and 90-minute formats, including timing and materials needed for each.”_ [^1]
+
+As you can see, many details are still left out—like whether materials should be required, the topic of the conference, or the types of attendees. But by using a prompt formula, you’re reminded to include these kinds of details to get more targeted and useful output.
+
+Here's another example:
+
+![](images/formula_w_example.png){fig-align="center" style="border: 1px solid black;"}
+
+Like the previous one, it includes context, action, and result, but with a powerful addition: you provide the LLM with an example of the output you want.
+In this case, the context is medical education, the action is to develop sample patient charts, and the desired result is a set of charts with similar structure but different diagnoses. 
+By including a sample chart, you’re giving the model a clear template to follow. 
+It’s essentially being asked to “fill in the blanks” based on the example and the other information you’ve provided.
+This approach gives the model more guidance for the desired output, especially when the structure or format of the output is important.
+
+Providing a completed example is extremely powerful for two key reasons:
+
+1.	It guides the structure of the output, helping ensure the format aligns with what you’re looking for.
+2.	It influences the content, not just the format. GPT doesn’t simply mimic the layout—it also interprets the relationships between the elements in your example. That means it uses the example as secondary instructions, shaping how it generates new content based on the patterns and connections it sees.
+
+This double duty of providing guidance on both structure and substance is what makes examples such a valuable part of prompt engineering.
+
+
+## Prompt Structuring
+
+It can be helpful to explicitly structure your prompts within the prompt formula you're using. 
+Using punctuation or formatting to separate the components can make each part clearer to the model.
+
+![](images/structured_prompt.png){fig-align="center" style="border: 1px solid black;"}
+<center>(Content generated by ChatGPT5)</center>
+
+While you could write the prompt above as paragraph, doing so requires the model to spend some of its attention deciphering how the sentences relate to one another and what it should be doing. 
+By using a more structured format you allow the model to focus more on the content and the output, rather than on parsing the prompt itself.
+This kind of formatting acts as a signal, helping the model better understand your intent and produce more accurate results.
 
 ## Prompt Chaining
 
-### Chain-of-thought Prompting
+Prompt chaining is the process of sequencing prompts together to complete more complex tasks.
+Prompt chaining is effective because it mirrors how humans tackle complex reasoning—by breaking problems into smaller, sequential steps that build on one another. 
+Early generations of language models required explicit guidance to do this well. 
+Users learned to include instructions like “think through this step-by-step” or “show your reasoning before answering” to encourage a structured, multi-stage thought process known as chain-of-thought prompting. 
+This approach improved accuracy because it forced the model to generate a longer sequence of tokens that adhered to what an explanation would look like instead of just predicting the final output.
+Even with newer models this approach - asking for rationales or other details in addition to your desired output - has been shown to be beneficial.
 
-#### Invisible Instructions
+Newer reasoning models and research modes have internalized much of this behavior through invisible instructions.  
+These are system prompts or additional instructions that aren’t shown to the user but are built into the system to help guide the model’s behavior and improve the quality of its responses.
 
-### Manual Prompt Chaining
+These instructions are always present in some form. 
+Before generating a response, the model applies internal rules to review your input and shape its output. 
+For example, it reviews inputs and output to check for content that might infringe on intellectual property, is plagiarized, or includes harmful or illegal material. 
+(While companies have heavily invested in these safeguards, they’re not guaranteed. It’s still your responsibility to verify that the output is appropriate and doesn’t violate any guidelines.)
 
-## Resources
+Invisible instructions also influence the style and personality of the model’s responses. 
+You might have noticed that a model may suggest next steps or follow-up actions, even if you didn’t explicitly ask for them. 
+That’s part of the invisible instructions, designed to extend your engagement with the chatbot.
 
-[Anthropic's Prompt Engineering Guide](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview){target="_blank"}
+Let's look at a sophisticated example from [Anthropic's "Research" mode:](https://www.anthropic.com/engineering/built-multi-agent-research-system)
 
----
+![](images/anthropic_research.png){fig-align="center"}
 
-[OpenAI's Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering){target="_blank"}
+While this also touches on [multi-agentic systems, which we'll briefly discuss later](@sec-chained-workflows), the main point is that there are a _lot_ of other instructions that happen behinds the scenes that are invisible to the user. 
+In Anthropic's research mode, the user submits a prompt. 
+Through hidden instructions, a “lead researcher” prompt is generated. 
+This agent then creates and directs additional prompts. 
+These prompts spawn sub-agents, each focused on a narrow aspect of the research topic. 
+The number of sub-agents is determined by the output of the lead researcher prompt. 
+Each sub-agent investigates its assigned topic and may also search the web for supporting information. 
+The sources accessed are saved in an index. 
+Once all sub-agents complete their tasks, another agent reviews and synthesizes the information into a coherent narrative, including citations where appropriate. 
+After all these steps, the final output is returned to the user.
 
----
+## Chained Workflows
 
-[Google Gemini's Prompt Engineering Guide](https://ai.google.dev/gemini-api/docs/prompting-strategies){target="_blank"}
+You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate.
+One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step.
+I won't go into much detail here because [we'll cover this in more depth later (including an activity)](sec-chained-workflows), but I want to mention it here for completeness while discussing effective prompt engineering strategies.
 
-- Includes directions on [uploading a file via API](https://ai.google.dev/gemini-api/docs/files#prompt-guide){target="_blank"} as part of a prompt.
+In summary, chaining makes the reasoning process visible and, in a sense, auditable.[^2]
+It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.
 
----
+***
+[^1] Many people have pointed out that a 90-minute ice breaker session would be _terrifying._
 
-[promptingguide.ai](https://www.promptingguide.ai/){target="_blank"} is a great resources for learning more about prompt engineering techniques.
-
----
-
-<!-- [Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is a standard resource. Many good practice examples.  -->
+[^2] I would argue that the process of generating the response isn't really "thinking" in the sense that you and I know the word. Anthropic has published [research showing that models don't always say what they're actually thinking](https://www.anthropic.com/research/reasoning-models-dont-say-think) when providing a response that "shows" their reasoning.

@@ -217,12 +217,15 @@ I repeated the above task, but increased `max_token = 2048` and use the prompt o
 
 edmeasure_low <- claude_param_test("Write a short essay about the importance of educational measurement.",
                                    temperature = 0,
-                                   n_reps = 20,
+                                   n_reps = 5,
                                    max_tokens = 2048)
+
+```
+```{r, eval = FALSE, echo = FALSE}
 save(edmeasure_low, file = "./data/edmeasure_low.Rdata")
 
 ```
-```{r low edm result}
+```{r low edm result, echo = FALSE}
 
 load("data/edmeasure_low.Rdata")
 

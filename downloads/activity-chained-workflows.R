@@ -1,24 +1,9 @@
-# Activity: Chained Workflows {#sec-act-prompting}
+# Syntax for "Activity: Chained Workflows"
 
-Now let's work through an example of how you might implement a chained workflow.
-We'll start with the work we did in a previous section where we [applied analytic rubrics to an OSCE note](@sec-act-rubric-task).
-What can one do with that note?
-Many things!
-Below is an image demonstrating how one could build a chained workflow for a comprehensive approach to evaluating student notes from OSCE assessments.
 
-![](images/promptchaining.png){fig-align="center" style="border: 1.5px solid black;"}
-
-We won't complete all of these tasks.
-Just working through a few steps will be sufficient to give you a sense of how a chained workflow might work in practice.
-
-## Task: Generate Feedback Report
-
-We have a report that we obtained by [applying an analytic rubric to the student's OSCE note](@sec-act-rubric-task), but that report is not sufficient to provide the student with helpful feedback on their performance. Yes, it does provide a score and an indication of what information was present or not in their note, but this doesn't translate to actionable feedback.
-We can now craft a prompt that uses this generated report as the basis for a prompt to generate feedback that would be more appropriate to provide to the student.
-
-```{r, eval=FALSE}
-
+### Using Scored Rubric to Generate Feedback
 load("data/analytic_response.Rdata")
+api_key <- Sys.getenv("ANTHROPIC_API_KEY")
 
 build_feedback_prompt <- function(completed_rubric){
   glue::glue(
@@ -41,19 +26,7 @@ feedback_prompt <- build_feedback_prompt(analytic_rubric)
 feedback_response <- claude_plus(feedback_prompt,
                                  temperature = 0)
 
-```
-```{r, eval = FALSE, echo = FALSE}
-save(feedback_response, file = "data/feedback_response.Rdata")
-```
-
-::: {.callout-note collapse="true"}
-
-## View Feedback Response
-```{r, echo = FALSE}
-load("data/feedback_response.Rdata")
-```
-```{r}
-library(stringr)
+ibrary(stringr)
 library(knitr)
 
 # Some cleaning for the quarto output; not strictly necessary
@@ -62,15 +35,10 @@ source('downloads/format_for_qmd.R')
 feedback_response <- format_for_qmd(feedback_response)
 
 knitr::asis_output(feedback_response)
-```
 
-:::
 
-## Task: Generate Instructor Report
 
-Now that we have student feedback, let's use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.
-
-```{r, eval=FALSE}
+### Task: Generate Instructor Report
 
 build_remediation_prompt <- function(feedback_output){
   glue::glue("
@@ -104,39 +72,22 @@ remediation_prompt <- build_remediation_prompt(feedback_response)
 remediation_response <- claude_plus(remediation_prompt,
                                     temperature = 0)
 
-```
-```{r, eval = FALSE, echo = FALSE}
-save(remediation_response, file = "data/remediation_response.Rdata")
-```
-
-::: {.callout-note collapse="true"}
-
-## View Feedback Response
-```{r, echo = FALSE}
-load("data/remediation_response.Rdata")
-```
-```{r}
 remediation_response <- format_for_qmd(remediation_response)
 
 knitr::asis_output(remediation_response)
-```
 
-:::
 
-## Task: All 3 Steps at Once!
 
-Let's put this all together in a single workflow. I've written a different simulated OSCE note so we can see the variation in what the model produces given a different basis for the workflow.
+## All 3 steps at one with a new student response
 
-I saved the functions that we used earlier so we can easily load them.
-This allows us to pay more attention to the chained workflow and not get caught up in the details of the lengthy prompt text. 
-Saving the individual prompts as files to be loaded by `source()` later is a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow.
-I also saved `analytic_rubric` in the `build_osce_analytic_prompt` file instead of repeating it here. 
+analytic_rubric <- "For each of the following criteria, determine whether the element is Included or Not Included in the response.
 
-```{r, eval = FALSE}
-
-source('downloads/build_osce_analytic_prompt.R')
-source('downloads/build_feedback_prompt.R')
-source('downloads/build_remediation_prompt.R')
+1. Chief concern of chest pain
+2. Episodic pattern of symptoms
+3. Poorly controlled history of hypertension
+4. Vitals indicate hypertension
+5. Pain radiates to the back
+6. Likely diagnosis of acute coronary syndrome (ACS), NSTEMI, or STEMI"
 
 osce_note_2 <- "
 45yo m presents with shortness of breath due to intermittent chest pain.
@@ -144,21 +95,24 @@ Reports that the pain more noticable on exertion this morning (walking up stairs
 Hypertensive, although on medication, suggesting it is poorly controlled.
 Diagnostic testing to rule out ACS should be completed first."
 
-
+# Scoring with Rubric
 analytic_response_2 <- claude_plus(
   build_osce_analytic_prompt(osce_note_2, analytic_rubric),
   temperature = 0)
-save(analytic_response_2, file = 'data/analytic_response_2.Rdata')
-  
+# Good to build in steps to save along the way for error tracing
+# save(analytic_response_2, file = 'data/analytic_response_2.Rdata')
+
+# Generating Feedback
 feedback_response_2 <- claude_plus(
   build_feedback_prompt(analytic_response_2),
   temperature = 0)
-save(feedback_response_2, file = 'data/feedback_response_2.Rdata')
+# save(feedback_response_2, file = 'data/feedback_response_2.Rdata')
 
+# Generating Instructor Report
 remediation_response_2 <- claude_plus(
   build_remediation_prompt(feedback_response_2),
   temperature = 0)
-save(remediation_response_2, file = 'data/remediation_response_2.Rdata')
+# save(remediation_response_2, file = 'data/remediation_response_2.Rdata')
 
 full_report <- paste(analytic_response_2,
                      feedback_response_2,
@@ -166,34 +120,4 @@ full_report <- paste(analytic_response_2,
                      collapse = "\n\n  ***  \n\n")
 
 full_report <- format_for_qmd(full_report)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(full_report, file = 'data/full_report.Rdata')
-
-```
-
-::: {.callout-note collapse="true"}
-
-## View Workflow Output
-
-```{r, echo = FALSE}
-load('data/full_report.Rdata')
-```
-```{r}
 knitr::asis_output(full_report)
-```
-
-:::
-
-## Task: Brainstorm a Chained Workflow
-
-Now it's time for _you_ to think about how you can utilize a chained workflow!
-
-What sophisticated tasks / workflows could benefit from integrating a generative AI chained workflow?
-What processes could you automate?
-
-In what steps does the model output flow directly into another model call?
-Are there places where you'd like to have human review before the model completes additional steps?
-
-For this activity, identify **at least 3 steps** where a generative AI model could be useful in your workflow.
-

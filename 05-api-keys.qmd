@@ -44,7 +44,7 @@ Links to documentation for API keys:
 ## Workshop API Key {#sec-workshop-key}
 
 I created an API key that you will be able to use for the purposes of the workshop.
-I have chosen to use Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"} for this workshop.
+I have chosen to use Anthropic's [Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"} for this workshop.
 This API key will only be active during the workshop hours.
 If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
 
@@ -54,9 +54,9 @@ Outside of the workshop you'll need to create an account with a model provider a
 
 ### Calling the Model via API
 
-A very simple function to call the Anthropic Claude Sonnet 4.5 model is here: @sec-call-claude.
+We used a very simple function to call the Anthropic Claude Sonnet 4.5 model [earlier](@sec-call-claude).
 I've repeated it below for those that want to review it without leaving this section. 
-I've also provided more comments in this version about what needs changed to call another Anthropic model, include additional parameters, etc.
+I've provided more comments in this version about what needs changed to call another Anthropic model, include additional parameters, etc.
 
 ```{r, eval = FALSE}
 

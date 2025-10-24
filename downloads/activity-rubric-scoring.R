@@ -1,13 +1,9 @@
-# Activity: Scoring with Rubrics {#sec-act-rubric-task}
+# Syntax for "Activity: Scoring with Rubrics"
 
 
-## Task: **Med Ed:** Using LLMs to Apply Analytic Rubrics
-
-```{r, eval = FALSE}
-
-source('downloads/claude_plus.R')
-
-# Set your Anthropic API key
+## Med Ed: Applying Analytic Rubric
+source('claude_plus.R')
+source('format_for_qmd.R')
 ANTHROPIC_API_KEY <- Sys.getenv("ANTHROPIC_API_KEY")
 
 osce_note <- "45-year-old male presents with Chest pain. Reports pressure-like chest discomfort that started this morning while walking up stairs. Some SOB. Recalls previous less severe episodes. H/O high blood pressure (takes atorvastatin). Current vitals positive for hypertension and tachycardia; other vitals unremarkable. Symptoms suggest possible angina; anxiety or GERD could also be considered."
@@ -39,43 +35,12 @@ analytic_prompt <- build_osce_analytic_prompt(osce_note, analytic_rubric)
 analytic_response <- claude_plus(analytic_prompt,
                                  temperature = 0)
 
-```
-```{r, eval = FALSE, echo = FALSE}
-save(analytic_response, file = "data/analytic_response.Rdata")
-```
-
-::: {.callout-note collapse="true"}
-
-## View model application of Med Ed _Analytic_ Rubric
-```{r, echo = FALSE}
-load("data/analytic_response.Rdata")
-```
-```{r}
-library(stringr)
-library(knitr)
-source('downloads/format_for_qmd.R')
-
-# Some cleaning for the quarto output; not strictly necessary
 analytic_response <- format_for_qmd(analytic_response)
 knitr::asis_output(analytic_response)
 
-```
 
-:::
 
-What do you think about the model’s application of the analytic rubric? 
-How might you have scored the note differently? 
-Are there any places where the AI’s application of the rubric was too strict or too lenient? 
-Did the AI appropriately recognize when the student phrased elements of the rubric in different words (lexical variants)?
-
-This activity also highlights another important possible use case using AI: seeing how a rubric might be interpreted and identifying places on the rubric for improvement / increased specificity. 
-
-## Task: Med Ed: Using LLMs to Apply Holistic Rubrics
-
-```{r, eval = FALSE}
-
-source('downloads/claude_plus.R')
-
+### Med Ed: Applying Holistic Rubric
 holistic_rubric <- "Each criterion should be rated as Insufficient (0 points), Developing (1 point), or Proficient (2 points) based on the quality of the response.
 
 Chief complaint is clearly documented
@@ -125,62 +90,13 @@ holistic_prompt <- build_osce_analytic_prompt(osce_note, holistic_rubric)
 holistic_response <- claude_plus(holistic_prompt,
                                  temperature = 0)
 
-```
-```{r, eval = FALSE, echo=FALSE}
-save(holistic_response, file = "data/holistic_response.Rdata")
-```
-
-::: {.callout-note collapse="true"}
-
-## View model application of Med Ed _Holistic_ Rubric
-
-```{r, echo = FALSE}
-load("data/holistic_response.Rdata")
-```
-```{r}
-# Some cleaning for the quarto output; not strictly necessary
 holistic_response <- format_for_qmd(holistic_response)
 knitr::asis_output(holistic_response)
-```
-
-:::
-
-What do you think about the model’s application of the holistic rubric? 
-How might you have scored the note differently? 
-What did the model do well (either in scoring or its justification), and where do you think it could have improved?
-
-As you can see, applying a holistic rubric is generally more difficult for an AI model because it lacks the context of the clinical encounter. 
-Some methods to improve the model performance in these instances would be to submit each rubric element individually and provide examples of each scoring level, and then empirically verify that the model is applying the rubric as intended. 
-In general, using generative AI to apply holistic rubrics may take more work than having the model apply an analytic rubric. 
-
-## Task: Using LLMs to Apply Holistic Rubrics
-
-Many attending AIME-CON are working in non-medical educational settings, so I wanted to develop a different example that may be more applicable to the work that you're doing.
-For this example I'm going to use the rubric that was part of the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/).
-This rubric was based on scoring essays from English as a foreign language (EFL) learners.
-The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5.
-The full dataset is available after filling out a [consent form](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform).
-
-The rubric has 3 components:
-
-| **Criteria** | **Description**                                                                                                                                                                                                                                         |
-|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Content      | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.                                                                                                                                                   |
-| Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. |
-| Language     | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.                                   |
 
 
-One of the prompts in the data is: "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion."
 
-To ensure that I'm compliant with the consent form agreement, I will be using synthetic responses generated (using Claude Sonnet 4.5) based observed student responses. We'll also be using the [`claude_plus` function we used in the parameter testing activity](@sec-claude-plus).
+## Applying Holistic Rubrics
 
-### First Model Call 
-
-Let's start by asking the model to apply the rubric to an essay. We'll use the default parameters for this first
-
-```{r, eval = FALSE}
-
-source('downloads/claude_plus.R')
 load('data/student_essays.Rdata')
 
 focal_student <- subset(student_essays, id == 2002)
@@ -219,34 +135,12 @@ Provide a brief justification (1-2 sentences) for each score.
 }
 
 one_rep_essay <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay))
-```
-```{r, eval = FALSE, echo = FALSE}
-save(one_rep_essay, file = 'data/one_rep_essay.Rdata')
-```
-Claude's essay evaluation:
-
-```{r, echo = FALSE}
-load('data/one_rep_essay.Rdata')
-```
-```{r}
 one_rep_essay <- format_for_qmd(one_rep_essay)
-knitr::asis_output(one_rep_essay)
-```
 
-### Repeating Score Task 
 
-Let's repeat the above process 20 times in a loop, extracting the scores after each model response.
 
-```{r, eval = FALSE}
+## Applying Holistic Rubric (Loop Scoring)
 
-# Function to extract scores
-
-library(httr)
-library(jsonlite)
-library(glue)
-library(dplyr)
-
-# Load the prompt function (from previous artifact)
 all_rubric_prompt <- function(prompt, essay){
   glue::glue("
 You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5.
@@ -357,26 +251,14 @@ for(i in 1:19){
   essay_score_again <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay))
   essay_score_one <- extract_scores_df(essay_score_again)
   essay_score_df <- rbind(essay_score_df, essay_score_one)
-
+  
 }
 
 rownames(essay_score_df) <- NULL
-```
-```{r, eval = FALSE, echo = FALSE}
-save(essay_score_df, file = "data/essay_score_df.Rdata")
-
-```
-
-Let's now see how consistently the model applied the scores to the essay:
-
-```{r, echo = FALSE}
-load("data/essay_score_df.Rdata")
-```
-```{r}
 
 # Function to get summary statistics for multiple scored essays
 summarize_scores <- function(score_df){
- 
+  
   # Calculate summary statistics
   summary_stats <- data.frame(
     criterion = c("Content", "Organization", "Language", "Total"),
@@ -404,16 +286,9 @@ summarize_scores <- function(score_df){
 score_summary <- summarize_scores(essay_score_df)
 score_summary
 
-```
 
-Pretty good! There is only .5 variation in scores for `Content` and `Organization`, and no variation in `Language` scores.
 
-### Repeating Score Task (`Temp = 0`)
-
-Let's now repeat the task, but turn the temperature down and see how this affects score variability.
-
-```{r, eval = FALSE}
-
+## Applying Holistic Rubric (Low Temp; Loop Scoring)
 
 low_temp_essay <- claude_plus(prompt = all_rubric_prompt(focal_prompt, focal_essay),
                               temperature = 0)
@@ -425,37 +300,16 @@ for(i in 1:19){
                                       temperature = 0)
   low_temp_score_one <- extract_scores_df(low_temp_score_again)
   low_temp_df <- rbind(low_temp_df, low_temp_score_one)
-
+  
 }
 
 rownames(low_temp_df) <- NULL
-```
-```{r, eval = FALSE, echo = FALSE}
-save(low_temp_df, file = "data/low_temp_df.Rdata")
-
-```
-```{r, echo = FALSE}
-load("data/low_temp_df.Rdata")
-```
-```{r}
 low_temp_summary <- summarize_scores(low_temp_df)
 low_temp_summary
 
-```
 
-Nice! 
-The eliminated all of the score variability. However, given the vague nature of the rubric, we still don't know if these scores are _accurate_ - we may be consistently missing the mark on what the true score should be.
-The rubric criteria are broad and it's unclear how one should apply the rubric.
-What constitutes each score level for the individual criteria?
 
-Interestingly, when I asked Anthropic for help in developing a scoring rubric for the essays, it recognized that having clear descriptions of the different scoring categories was important, so it made them up!
-The prompt below shows how the model decided to describe each of the score categories.
-Obviously these descriptions should be developed and reviewed by subject matter experts, but for the purposes of the workshop we'll just use what Claude generated.
-In your process you also want to check that your generative AI model is utilizing the rubric correctly - supplying a detailed rubric and obtaining consistent results alone isn't sufficient.
-
-### Scoring with Detailed Rubric 
-
-```{r, eval = FALSE}
+## Loop Scoring with Detailed Rubric
 
 claude_all_rubric_prompt <- function(prompt, essay){
   glue::glue("
@@ -498,13 +352,6 @@ Provide a brief justification (1-2 sentences) for each score.
 ")
 }
 
-```
-
-Let's now apply this rubric to the example essay and see how it might impact model-generated scores.
-
-```{r, eval = FALSE}
-
-
 claude_rubric_score <- claude_plus(prompt = claude_all_rubric_prompt(focal_prompt, focal_essay),
                                    temperature = 0)
 claude_rubric_df <- extract_scores_df(claude_rubric_score)
@@ -515,45 +362,20 @@ for(i in 1:19){
                                            temperature = 0)
   claude_rubric_one <- extract_scores_df(claude_rubric_score_again)
   claude_rubric_df <- rbind(claude_rubric_df, claude_rubric_one)
-
+  
 }
 
 rownames(claude_rubric_df) <- NULL
-```
-```{r, eval = FALSE, echo = FALSE}
-save(claude_rubric_df, file = "data/claude_rubric_df.Rdata")
-```
-```{r, echo = FALSE}
-load("data/claude_rubric_df.Rdata")
-```
-```{r}
 claude_rubric_summary <- summarize_scores(claude_rubric_df)
 claude_rubric_summary
-```
 
-Whoa! These are the exact same scores as when we didn't provide detailed rubric explanation in our prompt.
-This suggests to me that the model is generating a similar rubric each time through [invisible instructions](@sec-invisble), but I can't know this for sure.
 
-It has also been empirically demonstrated (find the citations, Chris) that these models don't apply rubrics well at the extremes - the lowest and highest scores. 
-When I used Claude to help generate synthetic student responses, I asked it have a range of score values represented in the 10 generated essays.
-It'll be useful to repeat the same experiment on all 10 essays to see if the scoring variability is consistent across the score range.
-(There's a strong possibility that it will be - I asked Claude to generate the essays and now I'm asking it to score essays it generated.)
 
-### Batch Scoring
-
-Now that we're repeating the same task across a batch of essays, it's a great time to introduce batch scoring!
-This generally works as you'd think - you submit multiple tasks at once to the API to complete in parallel - with the one wrinkle that Anthropic requires that the requests be in the JSONL format.
-In addition to being able to submit multiple requests at once, it's also cheaper to use than single-call API interactions.
-As of this writing (Oct 19, 2025), you save 50% with batch pricing. 
-This drops input costs from \$3 per 1M tokens to \$1.50 per 1M token, and output costs from \$15 per 1M tokens to \$7.50 per 1M tokens.
-
-#### Creating Batch Requests
-
-```{r, eval = FALSE}
+## Batch Scoring
 
 # Step 1: Read essays and create batch requests
 create_batch_requests <- function(essays_df, n_repetitions = 20){
-
+  
   # Create a list to store batch requests
   batch_requests <- list()
   request_counter <- 1
@@ -590,12 +412,6 @@ create_batch_requests <- function(essays_df, n_repetitions = 20){
 
 essay_batch_requests <- create_batch_requests(student_essays)
 
-```
-
-#### Writing Requests to JSONL
-
-```{r, eval = FALSE}
-
 # Step 2: Write requests to JSONL file
 write_batch_file <- function(batch_requests, output_file = "batch_requests.jsonl"){
   # Write each request as a JSON line
@@ -608,12 +424,6 @@ write_batch_file <- function(batch_requests, output_file = "batch_requests.jsonl
 }
 
 essay_batch_jsonl <- write_batch_file(essay_batch_requests)
-
-```
-
-#### Submitting Batch Request
-
-```{r, eval = FALSE}
 
 # Step 3: Submit batch job to Anthropic
 submit_batch <- function(jsonl_file){
@@ -652,15 +462,6 @@ submit_batch <- function(jsonl_file){
 
 essay_batch_info <- submit_batch(essay_batch_jsonl)
 
-# Batch submitted successfully!
-# Batch ID: msgbatch_018m5hGS9Lm3Gi28UorfsVTS
-
-```
-
-#### Checking Batch Status
-
-```{r, eval = FALSE}
-
 # Step 4: Check batch status
 check_batch_status <- function(batch_id){
   response <- GET(
@@ -679,23 +480,16 @@ check_batch_status <- function(batch_id){
   return(result)
 }
 
+# Periodically check how it's going
 essay_status <- check_batch_status(essay_batch_info$id)
-# Finished!
 
+# Can use the following to check how long it took to complete the task 
 library(lubridate)
 batch_start_time <- ymd_hms(essay_status$created_at)
 batch_stop_time <- ymd_hms(essay_status$ended_at)
 batch_run_time <- as.numeric(batch_stop_time - batch_start_time)
-# Time difference of 1.644671 mins
-# Less than 2 minutes to score 200 essays!
 
-```
-
-#### Saving Batch Results
-
-```{r, eval = FALSE}
-
-# Step 5: Saving Batch Results
+# Step 5: Saving batch results
 
 get_batch_results <- function(batch_id){
   response <- GET(
@@ -719,13 +513,6 @@ get_batch_results <- function(batch_id){
 }
 
 essay_batch_results <- get_batch_results(essay_batch_info$id)
-save(essay_batch_results, file = "data/essay_batch_results.Rdata")
-
-```
-
-#### Extracting Score from Results
-
-```{r, eval = FALSE}
 
 # Step 6: Extract scores from batch results
 extract_batch_scores <- function(results_list, debug = FALSE){
@@ -839,16 +626,10 @@ extract_batch_scores <- function(results_list, debug = FALSE){
   return(scores_df)
 }
 
-
 essay_batch_df <- extract_batch_scores(essay_batch_results, debug = TRUE)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(essay_batch_df, file = 'data/essay_batch_df.Rdata')
-```
-```{r, echo = FALSE}
-load('data/essay_batch_df.Rdata')
-```
-```{r}
+
+# Step 7: View Batch Results
+
 library(dplyr)
 library(DT)
 
@@ -887,18 +668,11 @@ datatable(essay_summary_detailed,
           caption = "Summary Statistics by Essay (20 repetitions each)")
 
 
-```
 
-So we did see some variation, but I also used the default temperature. 
-
-### Batch Scoring (`Temp = 0`)
-
-Let's redo the batch call with `temperature = 0`. 
-
-```{r, eval = FALSE}
+### Batch Processing with Temp = 0
 
 create_lowtemp_requests <- function(essays_df, n_repetitions = 20){
-
+  
   # Create a list to store batch requests
   batch_requests <- list()
   request_counter <- 1
@@ -947,17 +721,8 @@ lowtemp_run_time <- as.numeric(lowtemp_stop_time - lowtemp_start_time)
 # Time difference of 1.473892 mins
 
 lowtemp_batch_results <- get_batch_results(lowtemp_batch_info$id)
-save(lowtemp_batch_results, file = "data/lowtemp_batch_results.Rdata")
-
 lowtemp_batch_df <- extract_batch_scores(lowtemp_batch_results)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(lowtemp_batch_df, file = 'data/lowtemp_batch_df.Rdata')
-```
-```{r, echo = FALSE}
-load('data/lowtemp_batch_df.Rdata')
-```
-```{r}
+
 lowtemp_summary_detailed <- lowtemp_batch_df %>%
   group_by(essay_id) %>%
   summarise(
@@ -991,8 +756,4 @@ lowtemp_summary_detailed <- lowtemp_summary_detailed %>%
 datatable(lowtemp_summary_detailed, 
           options = list(pageLength = 10, scrollX = TRUE),
           caption = "Summary Statistics by Essay (20 repetitions each) - Temperature = 0")
-
-```
-
-Now we're seeing more consistent scores, and it took _less than 90 seconds_ to process all 200 requests.
 

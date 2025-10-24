@@ -32,11 +32,12 @@ Learning Objectives
 
 This book is a living document. Here's what I plan on covering next:
 
-| **Criteria** | **Description**                                                                                                                                                                                                                                         |
-|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Content      | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.                                                                                                                                                   |
-| Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. |
-| Language     | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.                                   |
+|       **Topic**       | **Expected Completion Date / Completed on Date** | **Link to Section** (when complete) |
+|:---------------------:|:------------------------------------------------:|:-----------------------------------:|
+| File Uploads          | Q2 2025                                          |                                     |
+| RAG Models            | Q2 2025                                          |                                     |
+| Multi-Agentic Systems | Q2 2025                                          |                                     |
+
 
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 ⚠️ Privacy Reminder

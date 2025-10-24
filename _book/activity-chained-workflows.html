@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>22&nbsp; Activity: Chained Workflows – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./23-calling-other-llms.html" rel="next">
+<link href="./21-chained-workflows.html" rel="prev">
+<link href="./therefore.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-23878c111f7dac4fb735463ab16209b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="style.css">
+</head>
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./activity-chained-workflows.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Integrating Generative AI into R Workflows: From APIs to Shiny Apps</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Setup</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-R-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-test-connect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-api-keys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Generative AI Models</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-gen-ai-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Generative AI Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-gen-ai-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-gen-ai-parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generation Parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-parameter-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Activity: Generation Parameter Testing</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Conversational Interactions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integrating LLMs into R Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-conversations-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-content-development-revision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Transactional Interactions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-prompt-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-mitigating-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-batch-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-chained-workflows.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-calling-other-llms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-rag-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Vibe Coding with Shiny</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R Shiny</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./26-vibe-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./27-shiny-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Activity: Shiny App Development</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./29-saving-shiny-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./30-reference-materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./31-acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acknowledgements</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./activity-chained-workflows.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-act-prompting" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>Now let’s work through an example of how you might implement a chained workflow. We’ll start with the work we did in a previous section where we <a href="@sec-act-rubric-task">applied analytic rubrics to an OSCE note</a>. What can one do with that note? Many things! Below is an image demonstrating how one could build a chained workflow for a comprehensive approach to evaluating student notes from OSCE assessments.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/promptchaining.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="border: 1.5px solid black;"></p>
+</figure>
+</div>
+<p>We won’t complete all of these tasks. Just working through a few steps will be sufficient to give you a sense of how a chained workflow might work in practice.</p>
+<section id="task-generate-feedback-report" class="level2" data-number="22.1"><h2 data-number="22.1" class="anchored" data-anchor-id="task-generate-feedback-report">
+<span class="header-section-number">22.1</span> Task: Generate Feedback Report</h2>
+<p>We have a report that we obtained by <a href="@sec-act-rubric-task">applying an analytic rubric to the student’s OSCE note</a>, but that report is not sufficient to provide the student with helpful feedback on their performance. Yes, it does provide a score and an indication of what information was present or not in their note, but this doesn’t translate to actionable feedback. We can now craft a prompt that uses this generated report as the basis for a prompt to generate feedback that would be more appropriate to provide to the student.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/analytic_response.Rdata"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">build_feedback_prompt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">completed_rubric</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Using the following completed rubric as a guide, provide constructive feedback to the student about their clinical case documentation. </span></span>
+<span><span class="st">    </span></span>
+<span><span class="st">    The feedback should consist of two well-developed paragraphs:</span></span>
+<span><span class="st">    The first paragraph should offer a balanced assessment of the student's documentation. </span></span>
+<span><span class="st">    Begin by acknowledging elements that were documented well (if any), then identify the most critical missing or inadequately addressed components based on the rubric. </span></span>
+<span><span class="st">    Be specific about what was missing and, where applicable, note the quality or completeness of what was documented.</span></span>
+<span><span class="st">    </span></span>
+<span><span class="st">    The second paragraph should provide educational context by explaining why the missing or inadequate elements are clinically important for evaluating and managing a patient presenting with this specific chief concern. </span></span>
+<span><span class="st">    Connect these documentation gaps to potential impacts on patient care, differential diagnosis, treatment planning, or patient safety. </span></span>
+<span><span class="st">    Use this as a teaching opportunity to help the student understand the clinical reasoning behind thorough documentation.</span></span>
+<span><span class="st">    </span></span>
+<span><span class="st">    Here is the complete rubric on the student's performance: {completed_rubric}</span></span>
+<span><span class="st">    "</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">feedback_prompt</span> <span class="op">&lt;-</span> <span class="fu">build_feedback_prompt</span><span class="op">(</span><span class="va">analytic_rubric</span><span class="op">)</span></span>
+<span><span class="va">feedback_response</span> <span class="op">&lt;-</span> <span class="fu">claude_plus</span><span class="op">(</span><span class="va">feedback_prompt</span>,</span>
+<span>                                 temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View Feedback Response
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Some cleaning for the quarto output; not strictly necessary</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/format_for_qmd.R'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">feedback_response</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">feedback_response</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">feedback_response</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><em>Constructive Feedback on Clinical Case Documentation</em></p>
+<p>Your documentation demonstrates attention to several critical elements of this cardiovascular presentation. You appropriately identified the chief concern of chest pain and documented the episodic pattern of symptoms, which is essential for characterizing the temporal nature of cardiac events. You also captured the patient’s poorly controlled hypertension history and recorded vital signs indicating current hypertensive values. However, your documentation has significant gaps that could compromise patient care. Most critically, you failed to document whether the pain radiates to the back, which is a key distinguishing feature in chest pain evaluation. Additionally, and most concerning, you did not formulate or document a working diagnosis such as acute coronary syndrome (ACS), NSTEMI, or STEMI. Without documenting your clinical impression, there is no clear indication of your clinical reasoning process or the urgency level you assigned to this presentation.</p>
+<p>The missing elements in your documentation have serious clinical implications for this patient presenting with chest pain. Radiation of chest pain to the back is a red flag symptom that could indicate aortic dissection—a life-threatening condition that can mimic ACS but requires completely different management (contraindicated thrombolytics, need for emergent imaging and surgical consultation). Failing to assess and document this characteristic could lead to catastrophic treatment errors. Furthermore, not documenting a working diagnosis of ACS/NSTEMI/STEMI represents a critical gap in clinical reasoning documentation. In a patient with chest pain, hypertension, and episodic symptoms, ACS must be at the top of your differential diagnosis, driving immediate interventions such as ECG interpretation, cardiac biomarkers, antiplatelet therapy, and cardiology consultation. Your documentation should reflect the urgency of the situation and guide other healthcare providers who may assume care. Complete documentation protects patient safety, ensures care continuity, and demonstrates your clinical decision-making process—all essential components of competent clinical practice.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-generate-instructor-report" class="level2" data-number="22.2"><h2 data-number="22.2" class="anchored" data-anchor-id="task-generate-instructor-report">
+<span class="header-section-number">22.2</span> Task: Generate Instructor Report</h2>
+<p>Now that we have student feedback, let’s use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">build_remediation_prompt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">feedback_output</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  You will analyze feedback that has been provided to a student about their performance. </span></span>
+<span><span class="st">  Your task is to identify any potential gaps in the course materials or instruction that could be improved to further help the learning. </span></span>
+<span><span class="st">  Based on the documentation deficiencies and missing clinical elements identified in the student feedback:</span></span>
+<span><span class="st">  </span></span>
+<span><span class="st">  1. Pattern Analysis: Determine whether these gaps likely reflect:</span></span>
+<span><span class="st">  • Individual student oversight or understanding issues</span></span>
+<span><span class="st">  • Systematic instructional gaps that may affect multiple students</span></span>
+<span><span class="st">  • Unclear expectations in the assignment or rubric</span></span>
+<span><span class="st">  </span></span>
+<span><span class="st">  2. Curricular Recommendations: If the gaps suggest instructional needs, provide 2-3 specific, actionable recommendations for strengthening the course materials. </span></span>
+<span><span class="st">  For each recommendation, specify:</span></span>
+<span><span class="st">  • Which course component to enhance (e.g., lecture content, practice cases, rubric clarity, pre-assignment resources)</span></span>
+<span><span class="st">  • What specific content or skill should be emphasized</span></span>
+<span><span class="st">  • Why this would address the observed documentation gap</span></span>
+<span><span class="st">  </span></span>
+<span><span class="st">  3. Context Considerations: Note whether the missing elements are:</span></span>
+<span><span class="st">  • Foundational knowledge that should have been covered previously</span></span>
+<span><span class="st">  • Advanced concepts that may need more instructional time</span></span>
+<span><span class="st">  • Clinical reasoning skills requiring additional practice opportunities</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  Format your response as a brief analysis followed by concrete action items that an instructor can implement.</span></span>
+<span><span class="st">  </span></span>
+<span><span class="st">  Complete this task using this feedback: {feedback_output}</span></span>
+<span><span class="st">  "</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">remediation_prompt</span> <span class="op">&lt;-</span> <span class="fu">build_remediation_prompt</span><span class="op">(</span><span class="va">feedback_response</span><span class="op">)</span></span>
+<span><span class="va">remediation_response</span> <span class="op">&lt;-</span> <span class="fu">claude_plus</span><span class="op">(</span><span class="va">remediation_prompt</span>,</span>
+<span>                                    temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View Feedback Response
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">remediation_response</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">remediation_response</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">remediation_response</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><em>Analysis of Feedback and Instructional Gaps</em></p>
+<p><strong>Pattern Analysis</strong></p>
+<p>This feedback reveals <strong>systematic instructional gaps</strong> rather than simple student oversight. The missing elements fall into two critical categories:</p>
+<ol type="1">
+<li>
+<strong>Structured clinical reasoning documentation</strong> - The absence of a working diagnosis suggests students may not understand that documentation must explicitly demonstrate their clinical thought process</li>
+<li>
+<strong>Red flag symptom assessment</strong> - Missing the back pain radiation inquiry indicates potential gaps in teaching systematic approaches to high-risk chief complaints</li>
+</ol>
+<p>These are unlikely to be individual oversights because they represent fundamental clinical reasoning steps that should be automatic in chest pain evaluation. The pattern suggests students may be completing tasks (gathering some history, recording vitals) without understanding the <strong>clinical decision-making framework</strong> that should guide comprehensive assessment.</p>
+<p><strong>Curricular Recommendations</strong></p>
+<p><strong><em>Recommendation 1: Enhance Pre-Assignment Resources with Clinical Reasoning Templates</em></strong></p>
+<p><strong>Component:</strong> Pre-assignment preparatory materials **</p>
+<p><strong>Specific Content:</strong> ** - Provide a “Clinical Reasoning Documentation Framework” that explicitly shows: Chief Complaint → Systematic Assessment (including red flags) → Working Diagnosis → Clinical Rationale - Include annotated exemplars showing how experienced clinicians document their differential diagnosis thinking - Create a chest pain-specific checklist highlighting life-threatening differentials (ACS, aortic dissection, PE) with their distinguishing features</p>
+<p><strong>Rationale:</strong> Students appear to be documenting data collection without understanding they must also document clinical synthesis. This addresses the complete absence of working diagnosis documentation and provides scaffolding for systematic red flag assessment.**</p>
+<p><strong><em>Recommendation 2: Integrate Deliberate Practice Cases for High-Risk Chief Complaints</em></strong></p>
+<p><strong>Component:</strong> Practice cases with formative feedback **</p>
+<p><strong>Specific Content:</strong> - Develop 3-4 progressive chest pain scenarios requiring students to: (a) identify must-ask questions for life-threatening conditions, (b) formulate and document differential diagnoses, (c) explain clinical reasoning - Include cases where missing key questions (like back radiation) leads to different diagnoses - Provide immediate feedback showing consequences of incomplete assessment (e.g., “Without asking about back radiation, you cannot rule out aortic dissection”)</p>
+<p><strong>Rationale:</strong> This directly addresses the missing back pain radiation assessment by making the clinical consequences explicit and memorable. Repeated practice with feedback builds automatic inclusion of critical elements.**</p>
+<p><strong><em>Recommendation 3: Clarify Rubric Expectations for Clinical Reasoning Documentation</em></strong></p>
+<p><strong>Component:</strong> Assignment rubric and instructions **</p>
+<p><strong>Specific Content:</strong> - Add explicit rubric criteria: “Documents working diagnosis with supporting clinical rationale” (separate from data collection) - Include rubric item: “Assesses and documents red flag symptoms specific to chief complaint” - Provide rubric language: “Demonstrates systematic approach to ruling out life-threatening conditions” - In assignment instructions, explicitly state: “Your documentation must include your clinical impression/working diagnosis and the reasoning behind it”</p>
+<p><strong>Rationale:</strong> Students may believe their task is complete after data collection if expectations for clinical reasoning documentation aren’t explicit. This clarifies that documentation of thinking is as important as documentation of findings.**</p>
+<p><strong>Context Considerations</strong></p>
+<p><strong>Foundational Knowledge Gaps:</strong> - Understanding that documentation serves as evidence of clinical reasoning (not just data recording) - this is foundational professional competency - Knowledge of red flag symptoms for common chief complaints - should be covered in basic clinical assessment courses</p>
+<p><strong>Advanced Skills Requiring More Support:</strong> - Differential diagnosis formulation in ambiguous presentations - this is an evolving skill requiring substantial practice - Translating clinical reasoning into clear, actionable documentation - bridges cognitive and communication skills</p>
+<p><strong>Clinical Reasoning Development:</strong> - The gap between knowing facts (aortic dissection exists) and applying systematic approaches (always assess back radiation in chest pain) requires <strong>deliberate practice with specific feedback</strong> - Students need multiple opportunities to practice the complete cycle: assess → synthesize → document reasoning → receive feedback on clinical logic</p>
+<p><strong>Implementation Priority</strong></p>
+<p><strong>Immediate action:</strong> Clarify rubric expectations (Recommendation 3) - can be implemented before next assignment **</p>
+<p><strong>Short-term:</strong> Develop clinical reasoning templates (Recommendation 1) - provides immediate scaffolding **</p>
+<p><strong>Ongoing development:</strong> Build practice case library (Recommendation 2) - most resource-intensive but highest impact for skill development**</p>
+<p>The pattern suggests students may be approaching this as a documentation exercise rather than a clinical reasoning demonstration. All recommendations aim to make the expectation explicit: <strong>document not just what you found, but what you’re thinking and why.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-all-3-steps-at-once" class="level2" data-number="22.3"><h2 data-number="22.3" class="anchored" data-anchor-id="task-all-3-steps-at-once">
+<span class="header-section-number">22.3</span> Task: All 3 Steps at Once!</h2>
+<p>Let’s put this all together in a single workflow. I’ve written a different simulated OSCE note so we can see the variation in what the model produces given a different basis for the workflow.</p>
+<p>I saved the functions that we used earlier so we can easily load them. This allows us to pay more attention to the chained workflow and not get caught up in the details of the lengthy prompt text. Saving the individual prompts as files to be loaded by <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> later is a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow. I also saved <code>analytic_rubric</code> in the <code>build_osce_analytic_prompt</code> file instead of repeating it here.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_osce_analytic_prompt.R'</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_feedback_prompt.R'</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_remediation_prompt.R'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">osce_note_2</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">45yo m presents with shortness of breath due to intermittent chest pain.</span></span>
+<span><span class="st">Reports that the pain more noticable on exertion this morning (walking up stairs). </span></span>
+<span><span class="st">Hypertensive, although on medication, suggesting it is poorly controlled.</span></span>
+<span><span class="st">Diagnostic testing to rule out ACS should be completed first."</span></span>
+<span></span>
+<span></span>
+<span><span class="va">analytic_response_2</span> <span class="op">&lt;-</span> <span class="fu">claude_plus</span><span class="op">(</span></span>
+<span>  <span class="fu">build_osce_analytic_prompt</span><span class="op">(</span><span class="va">osce_note_2</span>, <span class="va">analytic_rubric</span><span class="op">)</span>,</span>
+<span>  temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">analytic_response_2</span>, file <span class="op">=</span> <span class="st">'data/analytic_response_2.Rdata'</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">feedback_response_2</span> <span class="op">&lt;-</span> <span class="fu">claude_plus</span><span class="op">(</span></span>
+<span>  <span class="fu">build_feedback_prompt</span><span class="op">(</span><span class="va">analytic_response_2</span><span class="op">)</span>,</span>
+<span>  temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">feedback_response_2</span>, file <span class="op">=</span> <span class="st">'data/feedback_response_2.Rdata'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">remediation_response_2</span> <span class="op">&lt;-</span> <span class="fu">claude_plus</span><span class="op">(</span></span>
+<span>  <span class="fu">build_remediation_prompt</span><span class="op">(</span><span class="va">feedback_response_2</span><span class="op">)</span>,</span>
+<span>  temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">remediation_response_2</span>, file <span class="op">=</span> <span class="st">'data/remediation_response_2.Rdata'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">full_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">analytic_response_2</span>,</span>
+<span>                     <span class="va">feedback_response_2</span>,</span>
+<span>                     <span class="va">remediation_response_2</span>,</span>
+<span>                     collapse <span class="op">=</span> <span class="st">"\n\n  ***  \n\n"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">full_report</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">full_report</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+View Workflow Output
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">full_report</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><em>OSCE Post-Encounter Note Scoring Rubric</em></p>
+<p><strong>Criterion 1: Chief concern of chest pain</strong></p>
+<p><strong>Status: Included</strong></p>
+<p><strong>Justification:</strong> The note clearly states “45yo m presents with shortness of breath due to intermittent chest pain.” While shortness of breath is mentioned first, chest pain is explicitly identified as part of the presenting complaint.**</p>
+<p><strong>Criterion 2: Episodic pattern of symptoms</strong></p>
+<p><strong>Status: Included</strong></p>
+<p><strong>Justification:</strong> The note describes “intermittent chest pain” and specifies that “the pain more noticable on exertion this morning (walking up stairs),” which indicates an episodic pattern with exertional triggers.**</p>
+<p><strong>Criterion 3: Poorly controlled history of hypertension</strong></p>
+<p><strong>Status: Included</strong></p>
+<p><strong>Justification:</strong> The note explicitly states “Hypertensive, although on medication, suggesting it is poorly controlled,” which directly addresses both the history of hypertension and its poor control status.**</p>
+<p><strong>Criterion 4: Vitals indicate hypertension</strong></p>
+<p><strong>Status: Not Included</strong></p>
+<p><strong>Justification:</strong> While the note mentions the patient is hypertensive, there is no documentation of actual vital sign measurements (e.g., specific blood pressure readings) to support this finding.**</p>
+<p><strong>Criterion 5: Pain radiates to the back</strong></p>
+<p><strong>Status: Not Included</strong></p>
+<p><strong>Justification:</strong> There is no mention of pain radiation to the back or any other location in the note.**</p>
+<p><strong>Criterion 6: Likely diagnosis of acute coronary syndrome (ACS), NSTEMI, or STEMI</strong></p>
+<p><strong>Status: Included</strong></p>
+<p><strong>Justification:</strong> The note states “Diagnostic testing to rule out ACS should be completed first,” which indicates ACS is being considered as a likely diagnosis requiring immediate evaluation.**</p>
+<hr>
+<p><strong>Summary: 4 of 6 criteria met</strong> ** Constructive Feedback**</p>
+<p>Your clinical documentation demonstrates several strengths, particularly in capturing the essential presenting complaint and relevant medical history. You clearly identified both the chest pain and shortness of breath, recognized the episodic and exertional nature of the symptoms, and appropriately documented the patient’s poorly controlled hypertension despite medication use. Most importantly, you correctly prioritized acute coronary syndrome (ACS) in your differential diagnosis and appropriately indicated the need for immediate diagnostic testing to rule out this life-threatening condition. However, there are two critical gaps in your documentation that significantly limit the completeness of your clinical assessment. First, you failed to document the actual vital sign measurements, particularly the blood pressure reading that would objectively demonstrate the degree of hypertension present during this acute presentation. Second, you did not document whether the chest pain radiates to the back or any other location—a key characteristic that was presumably elicited during your history-taking.</p>
+<p>These omissions have important clinical implications for this patient presenting with chest pain. Documenting specific vital signs, especially blood pressure values, is essential because the degree of hypertension can help differentiate between diagnoses (such as hypertensive emergency, aortic dissection, or ACS) and guides immediate treatment decisions, including whether antihypertensive therapy should be initiated or adjusted during the acute presentation. The pattern of pain radiation is equally critical in this scenario—radiation to the back is a red flag symptom for aortic dissection, a catastrophic condition that can mimic ACS but requires completely different management. Administering thrombolytics or anticoagulation for presumed ACS in a patient with unrecognized aortic dissection could be fatal. In emergency presentations with chest pain, these specific details aren’t just documentation formalities; they are essential data points that directly impact your differential diagnosis, determine which diagnostic tests are ordered, and influence potentially life-saving treatment decisions. Always document objective measurements and specific symptom characteristics to ensure safe, appropriate care. * Analysis of Feedback and Instructional Gaps</p>
+<p><strong>Pattern Analysis</strong></p>
+<p>This feedback reveals <strong>systematic instructional gaps</strong> rather than simple student oversight. The student demonstrated strong clinical reasoning (correctly prioritizing ACS, recognizing the need for immediate testing) but failed to document two fundamental clinical elements:</p>
+<ol type="1">
+<li>
+<strong>Objective vital sign values</strong> (specific BP measurements)</li>
+<li>
+<strong>Critical symptom characteristics</strong> (pain radiation pattern)</li>
+</ol>
+<p>The disconnect between good clinical thinking and incomplete documentation suggests students may not fully understand: - <strong>Which</strong> specific data elements are non-negotiable in documentation - <strong>Why</strong> certain details have life-or-death clinical implications - <strong>How</strong> documentation directly drives differential diagnosis refinement</p>
+<p>This pattern indicates students are learning clinical reasoning but not the parallel skill of translating clinical assessment into complete, actionable documentation.</p>
+<hr>
+<p><strong>Curricular Recommendations</strong></p>
+<p>*<strong>Recommendation 1: </strong>Create a “High-Stakes Documentation Checklist” Resource**</p>
+<p><strong>Component to enhance:</strong> Pre-assignment resources and rubric materials**</p>
+<p><strong>Specific content:</strong> Develop a symptom-specific documentation checklist for common chief complaints (chest pain, shortness of breath, abdominal pain, headache). For chest pain specifically, create a visual checklist highlighting:** - Mandatory vital signs with rationale (BP values → differentiates dissection/hypertensive emergency) - Critical symptom descriptors (radiation pattern → rules in/out dissection) - “Cannot proceed without” documentation elements marked distinctly</p>
+<p><strong>Why this addresses the gap:</strong> Students need explicit guidance on which elements are clinically mandatory versus supplementary. The feedback shows the student captured history but missed critical specifics—a checklist bridges the gap between “taking a history” and “documenting decision-critical details.” This makes implicit expectations explicit.**</p>
+<hr>
+<p>*<strong>Recommendation 2: </strong>Integrate “Documentation Consequences” Case Scenarios**</p>
+<p><strong>Component to enhance:</strong> Lecture content and practice cases**</p>
+<p><strong>Specific content:</strong> Add 2-3 brief case vignettes demonstrating adverse outcomes from incomplete documentation:** - Case A: Chest pain documented without radiation pattern → aortic dissection missed, anticoagulation given, patient deteriorates - Case B: “Elevated BP” documented without values → treatment delayed, hypertensive emergency progresses</p>
+<p>Follow each vignette with guided reflection: “What specific documentation element was missing? What was the clinical consequence? How does this change your documentation approach?”</p>
+<p><strong>Why this addresses the gap:</strong> The feedback emphasizes clinical implications, but students may not viscerally understand the connection between documentation omissions and patient harm. Concrete examples of “what goes wrong” when specific elements are missing transforms documentation from a bureaucratic task to a patient safety imperative.**</p>
+<hr>
+<p>*<strong>Recommendation 3: </strong>Add “Documentation Translation” Practice Exercises**</p>
+<p><strong>Component to enhance:</strong> Practice cases with structured feedback**</p>
+<p><strong>Specific content:</strong> Provide 3-4 practice scenarios where students receive a clinical vignette with complete information, then must:** 1. Identify which elements are “mandatory to document” vs.&nbsp;“supplementary” 2. Write the documentation 3. Receive immediate feedback comparing their documentation against an expert exemplar with annotations explaining why each element matters clinically</p>
+<p>Include specific practice with vital sign documentation (writing actual values, not interpretations) and symptom characterization (specific descriptors, not generalizations).</p>
+<p><strong>Why this addresses the gap:</strong> This student likely heard the information during history-taking but didn’t recognize it as documentation-critical. Deliberate practice in translating clinical data into complete documentation—with immediate feedback—builds the habit of capturing specific, actionable details rather than general impressions.**</p>
+<hr>
+<p><strong>Context Considerations</strong></p>
+<p><strong>Foundational knowledge requiring reinforcement:</strong> - Documentation of objective measurements (vital signs as numbers, not interpretations) - This is basic clinical documentation but may need explicit re-teaching in the context of decision-making</p>
+<p><strong>Clinical reasoning skills requiring additional practice:</strong> - Connecting specific documentation elements to differential diagnosis refinement (e.g., pain radiation → changes DDx from ACS alone to ACS vs.&nbsp;dissection) - Understanding documentation as a clinical reasoning tool, not just a record-keeping task</p>
+<p><strong>Advanced concept needing more emphasis:</strong> - The concept of “red flag symptoms” and their documentation priority - How specific details change management pathways (dissection vs.&nbsp;ACS requiring opposite treatments)</p>
+<hr>
+<p><strong>Implementation Priority</strong></p>
+<p><strong>Immediate action:</strong> Implement Recommendation 1 (checklist) before the next assignment—low effort, high impact.**</p>
+<p><strong>Short-term:</strong> Develop Recommendation 3 (practice exercises) for ongoing skill-building.**</p>
+<p><strong>Curriculum revision:</strong> Integrate Recommendation 2 (consequence cases) into core lecture</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-brainstorm-a-chained-workflow" class="level2" data-number="22.4"><h2 data-number="22.4" class="anchored" data-anchor-id="task-brainstorm-a-chained-workflow">
+<span class="header-section-number">22.4</span> Task: Brainstorm a Chained Workflow</h2>
+<p>Now it’s time for you to think about how you can incorporate a chained workflow into some of your processes at your organization / institution! What sophisticated tasks / workflows could you use a generative AI chained workflow to automate? In what steps does the model output flow directly into another model call? Are there places where you’d like to have human review before the model completes additional steps?</p>
+<p>For this activity, identify <strong>at least 3 steps</strong> where a generative AI model could be useful in your workflow.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./21-chained-workflows.html" class="pagination-link" aria-label="Chained Workflows">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./23-calling-other-llms.html" class="pagination-link" aria-label="Call other (non-Gen AI) LLMs">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Activity: Chained Workflows {#sec-act-prompting}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Now let's work through an example of how you might implement a chained workflow.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>We'll start with the work we did in a previous section where we <span class="co">[</span><span class="ot">applied analytic rubrics to an OSCE note</span><span class="co">](@sec-act-rubric-task)</span>.</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>What can one do with that note?</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Many things!</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Below is an image demonstrating how one could build a chained workflow for a comprehensive approach to evaluating student notes from OSCE assessments.</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/promptchaining.png)</span>{fig-align="center" style="border: 1.5px solid black;"}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>We won't complete all of these tasks.</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>Just working through a few steps will be sufficient to give you a sense of how a chained workflow might work in practice.</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Generate Feedback Report</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>We have a report that we obtained by <span class="co">[</span><span class="ot">applying an analytic rubric to the student's OSCE note</span><span class="co">](@sec-act-rubric-task)</span>, but that report is not sufficient to provide the student with helpful feedback on their performance. Yes, it does provide a score and an indication of what information was present or not in their note, but this doesn't translate to actionable feedback.</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>We can now craft a prompt that uses this generated report as the basis for a prompt to generate feedback that would be more appropriate to provide to the student.</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/analytic_response.Rdata"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>build_feedback_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(completed_rubric){</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Using the following completed rubric as a guide, provide constructive feedback to the student about their clinical case documentation. </span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="st">    The feedback should consist of two well-developed paragraphs:</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="st">    The first paragraph should offer a balanced assessment of the student's documentation. </span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="st">    Begin by acknowledging elements that were documented well (if any), then identify the most critical missing or inadequately addressed components based on the rubric. </span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="st">    Be specific about what was missing and, where applicable, note the quality or completeness of what was documented.</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="st">    The second paragraph should provide educational context by explaining why the missing or inadequate elements are clinically important for evaluating and managing a patient presenting with this specific chief concern. </span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="st">    Connect these documentation gaps to potential impacts on patient care, differential diagnosis, treatment planning, or patient safety. </span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="st">    Use this as a teaching opportunity to help the student understand the clinical reasoning behind thorough documentation.</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="st">    Here is the complete rubric on the student's performance: {completed_rubric}</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="st">    "</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>feedback_prompt <span class="ot">&lt;-</span> <span class="fu">build_feedback_prompt</span>(analytic_rubric)</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>feedback_response <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(feedback_prompt,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(feedback_response, <span class="at">file =</span> <span class="st">"data/feedback_response.Rdata"</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Feedback Response</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/feedback_response.Rdata"</span>)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Some cleaning for the quarto output; not strictly necessary</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/format_for_qmd.R'</span>)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>feedback_response <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(feedback_response)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(feedback_response)</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Generate Instructor Report</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>Now that we have student feedback, let's use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>build_remediation_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(feedback_output){</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="st">  You will analyze feedback that has been provided to a student about their performance. </span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="st">  Your task is to identify any potential gaps in the course materials or instruction that could be improved to further help the learning. </span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="st">  Based on the documentation deficiencies and missing clinical elements identified in the student feedback:</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="st">  1. Pattern Analysis: Determine whether these gaps likely reflect:</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="st">  • Individual student oversight or understanding issues</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="st">  • Systematic instructional gaps that may affect multiple students</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="st">  • Unclear expectations in the assignment or rubric</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="st">  2. Curricular Recommendations: If the gaps suggest instructional needs, provide 2-3 specific, actionable recommendations for strengthening the course materials. </span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="st">  For each recommendation, specify:</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="st">  • Which course component to enhance (e.g., lecture content, practice cases, rubric clarity, pre-assignment resources)</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="st">  • What specific content or skill should be emphasized</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="st">  • Why this would address the observed documentation gap</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Context Considerations: Note whether the missing elements are:</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="st">  • Foundational knowledge that should have been covered previously</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="st">  • Advanced concepts that may need more instructional time</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="st">  • Clinical reasoning skills requiring additional practice opportunities</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="st">  Format your response as a brief analysis followed by concrete action items that an instructor can implement.</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="st">  Complete this task using this feedback: {feedback_output}</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="st">  "</span>)</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>remediation_prompt <span class="ot">&lt;-</span> <span class="fu">build_remediation_prompt</span>(feedback_response)</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>remediation_response <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(remediation_prompt,</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(remediation_response, <span class="at">file =</span> <span class="st">"data/remediation_response.Rdata"</span>)</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Feedback Response</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/remediation_response.Rdata"</span>)</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>remediation_response <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(remediation_response)</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(remediation_response)</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: All 3 Steps at Once!</span></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>Let's put this all together in a single workflow. I've written a different simulated OSCE note so we can see the variation in what the model produces given a different basis for the workflow.</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>I saved the functions that we used earlier so we can easily load them.</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>This allows us to pay more attention to the chained workflow and not get caught up in the details of the lengthy prompt text. </span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>Saving the individual prompts as files to be loaded by <span class="in">`source()`</span> later is a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow.</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>I also saved <span class="in">`analytic_rubric`</span> in the <span class="in">`build_osce_analytic_prompt`</span> file instead of repeating it here. </span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_osce_analytic_prompt.R'</span>)</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_feedback_prompt.R'</span>)</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_remediation_prompt.R'</span>)</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>osce_note_2 <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="st">45yo m presents with shortness of breath due to intermittent chest pain.</span></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="st">Reports that the pain more noticable on exertion this morning (walking up stairs). </span></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="st">Hypertensive, although on medication, suggesting it is poorly controlled.</span></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="st">Diagnostic testing to rule out ACS should be completed first."</span></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>analytic_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_osce_analytic_prompt</span>(osce_note_2, analytic_rubric),</span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(analytic_response_2, <span class="at">file =</span> <span class="st">'data/analytic_response_2.Rdata'</span>)</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>feedback_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_feedback_prompt</span>(analytic_response_2),</span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(feedback_response_2, <span class="at">file =</span> <span class="st">'data/feedback_response_2.Rdata'</span>)</span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>remediation_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_remediation_prompt</span>(feedback_response_2),</span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(remediation_response_2, <span class="at">file =</span> <span class="st">'data/remediation_response_2.Rdata'</span>)</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>full_report <span class="ot">&lt;-</span> <span class="fu">paste</span>(analytic_response_2,</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>                     feedback_response_2,</span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>                     remediation_response_2,</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>                     <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">  ***  </span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>full_report <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(full_report)</span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(full_report, <span class="at">file =</span> <span class="st">'data/full_report.Rdata'</span>)</span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Workflow Output</span></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/full_report.Rdata'</span>)</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(full_report)</span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Brainstorm a Chained Workflow</span></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a>Now it's time for you to think about how you can incorporate a chained workflow into some of your processes at your organization / institution!</span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a>What sophisticated tasks / workflows could you use a generative AI chained workflow to automate?</span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>In what steps does the model output flow directly into another model call?</span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a>Are there places where you'd like to have human review before the model completes additional steps?</span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>For this activity, identify **at least 3 steps** where a generative AI model could be useful in your workflow.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This workshop was developed by Christopher Runyon.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+</body></html>

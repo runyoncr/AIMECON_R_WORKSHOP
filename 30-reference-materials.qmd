@@ -14,12 +14,20 @@ This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/under
 
 ***
 
-## Reference Guides
+## Reference Guides (including Prompt Engineering)
+
+[promptingguide.ai](https://www.promptingguide.ai/){target="_blank"} is a great resources for learning more about prompt engineering techniques
+
+[Anthropic's Prompt Engineering Guide](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview){target="_blank"}
+- Some directions on [uploading files via API](https://docs.claude.com/en/api/files-create)
 
 [OpenAI Cookbook](https://cookbook.openai.com/){target="_blank"}
+[OpenAI's Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering){target="_blank"}
+
+[Google Gemini's Prompt Engineering Guide](https://ai.google.dev/gemini-api/docs/prompting-strategies){target="_blank"}
+- Includes directions on [uploading a file via API](https://ai.google.dev/gemini-api/docs/files#prompt-guide){target="_blank"} as part of a prompt.
 
 ***
-
 ## Newsletters
 
 ### TL:DR

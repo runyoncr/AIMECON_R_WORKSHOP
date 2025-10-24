@@ -1,4 +1,4 @@
-# Chained Workflows
+# Chained Workflows {#sec-chained-workflows}
 
 Generative AI models aren't just powerful in isolation - they become transformative when woven throughout your workflow.
 Instead of using the model as a thought partner or a colleague to help with some task, you can link together tasks to make automate _entire processes_, effectively creating your own team of AI agents.

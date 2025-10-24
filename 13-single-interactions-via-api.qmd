@@ -1,5 +1,30 @@
-# Single Interactions via API
-  
-## Continued interactions with models
+# Transactional Interactions via API
 
-When are these appropriate?
+We've now had practice using an API for conversational interactions with generative AI models, much like you would have when using an online chatbot interface.
+You submit a prompt, the model response, you respond again, and the model's next response takes into context the entire conversation.
+This method of interacting with models is valuable for brainstorming and other processes that benefit from iterative interactions, where you can make tweaks to your request after viewing the model's response or push the consersation in a new direction.
+And while it's possible to save the model's responses through the `chat$get_turns()` argument, it may not always be easy to locate the precise model output that you want, especially if you've had a long conversation. 
+
+This brings us to the second method of interacting with a generative AI model that we briefly discussed before: **transactional interactions**.
+I use this term because it captures the one-off interaction with the model well.
+You ask the model to do something, the model does it, and then you continue on with your workflow. 
+This mirrors normal transactions: you go to the grocery, pick out your items, buy them, and continue on with your day.
+There is no need to have an extensive interaction.
+
+Transactional interactions are more likely to be the ones that you use in your workflows when completing tasks at scale.
+It doesn't make sense to have a conversational interaction when you're asking the model to apply a rubric to an assessment, to generate items with certain characteristics, or other time-intensive tasks that need to be repeated many times.
+
+This doesn't mean that conversational interactions aren't valuable when incorporating generative AI models into your workflow.
+When building the prompts for a workflow, I find conversational interactions to be extremely valuable in helping you to optimize your prompt.
+I often ask the model to help me identify missing information, or for suggestions on how to provide an example output structure to improve future down-stream tasks that I have planned.
+
+Even then, it's good to hop back-and-forth between the two:
+
+- Iteratively work to refine your prompt in a conversation
+- Test how well the prompt is working on a few test cases in your workflow
+  - verify content of the output is accurate
+  - verify structure of the output is accurate
+- Repeat the above as necessary until the output consistently meets your needs
+
+For these reasons (and more), it's useful to learn a little bit about prompt engineering and prompting strategies.
+These are (arguably) less important in conversational interactions because you can give the model immediate feedback, but these skills are essential when crafting prompts that will be used at scale in your workflow processes.

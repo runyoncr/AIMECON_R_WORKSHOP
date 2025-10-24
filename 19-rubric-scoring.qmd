@@ -123,15 +123,3 @@ Describing what differentiates one level of performance from another – especia
 However, even with these supports, it’s important to recognize that many LLMs may not fully replicate expert-level evaluation. 
 Expertise isn’t something the model “learns” during training; rather, it’s an emergent property built from abstracting general knowledge across many examples. 
 GPTs learn relationships between words and concepts, but that doesn’t guarantee they’ll apply those relationships with the nuance and judgment of a human expert.
-
-# New Step: Using LLM to Parse Rubrics for Scoring
-
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/overview ?  (nah - no rubric)
-
-### Task: Using LLMs to Apply Analytic Rubrics
-
-
-### Task: Using LLMs to Apply Holistic Rubrics
-
-
-### Task: Rubric Scoring at Scale
