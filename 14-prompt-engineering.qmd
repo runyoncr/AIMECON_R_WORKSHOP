@@ -19,7 +19,7 @@ Any detail that you don't explicity specify in a prompt will be inferred by the 
 
 An obvious example can be helpful here.
 
-```{r}
+```{r, eval = FALSE}
 
 library(knitr)
 library(stringr)
