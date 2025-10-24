@@ -21,10 +21,7 @@ An obvious example can be helpful here.
 
 ```{r, eval = FALSE}
 
-library(knitr)
-library(stringr)
 source('downloads/claude_plus.R')
-source('downloads/format_for_qmd.R')
 
 silly_test <- claude_plus("Generate an assessment question for science test.")
 
@@ -36,6 +33,10 @@ save(silly_test, file = 'data/silly_test.Rdata')
 load('data/silly_test.Rdata')
 ```
 ```{r}
+
+library(knitr)
+library(stringr)
+source('downloads/format_for_qmd.R')
 
 silly_test <- format_for_qmd(silly_test)
 knitr::asis_output(silly_test)
