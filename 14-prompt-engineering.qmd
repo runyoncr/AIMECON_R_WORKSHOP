@@ -22,6 +22,7 @@ An obvious example can be helpful here.
 ```{r}
 
 library(knitr)
+library(stringr)
 source('downloads/claude_plus.R')
 source('downloads/format_for_qmd.R')
 

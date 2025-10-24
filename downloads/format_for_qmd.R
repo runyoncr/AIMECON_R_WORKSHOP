@@ -1,3 +1,5 @@
+library(stringr)
+
 format_for_qmd <- function(genai_output){
   
   formatted_response <- str_replace_all(genai_output, "#", "*")
