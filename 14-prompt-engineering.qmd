@@ -1,10 +1,15 @@
 # Prompt Engineering
 
-We'll only cover a sampling of these methods in the workshop today because we'll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.
+We'll only cover a sampling of these methods in the workshop today.
+I want to keep the focus more on their application than extensively testing different prompting strategies.
+I encourage you to further explore these techniques based on your specific use case.
 
 ## Prompt Engineering Importance
 
-Tie in to chapter 1
+These models are _amazing_ pattern matchers - they can identify other tokens that are close together in the multidimensional embedding space.
+And it's important to use words (tokens) that appropriately leverage the model's attention - and also to make sure you're not diffusing the attention by including too many instructions.
+
+Achieving both of these goals is at the heart of the field of prompt engineering. The following are some useful tips to help you achieve these goals.
 
 ## Madlibs
 
