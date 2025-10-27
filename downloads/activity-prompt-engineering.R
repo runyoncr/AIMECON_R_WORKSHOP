@@ -1,28 +1,12 @@
-# Activity: Prompt Engineering {#sec-act-prompting}
+# Syntax for "Activity: Scoring with Rubrics"
 
-It's time to practice prompt engineering!
+ANTHROPIC_API_KEY <- Sys.getenv("ANTHROPIC_API_KEY")
+source('claude_plus.R')
+source('format_for_qmd.R')
 
-## Task 1: Prompt Formulas
+### Prompt Formulas 3 ways:
 
-Pick a particular use case and try fitting that use case into the 3 different prompt formulas:
-
-- **Role + Task + Output**
-- **Action, Context, Tone (ACT) Formula**
-- **The C-A-R-E Framework**
-  - Context: [situation]
-  - Action: [what to do]
-  - Result: [desired output]
-  - Explanation: [why or how]
-
-For my example, I'm going to use the use case of explaining test reliability to K-12 educators who do not have a psychometrics background and want to better understand why student test scores vary between test administrations.
-
-::: {.callout-note collapse="true"}
-
-## Role + Task + Output
-
-```{r, eval = FALSE}
-source('downloads/claude_plus.R')
-source('downloads/format_for_qmd.R')
+# Role + Task + Output
 
 rto_prompt <- 
   "Role: You are en educational measurement specialist.
@@ -33,24 +17,10 @@ rto_prompt <-
 
 reliability_rto <- claude_plus(rto_prompt)
 reliability_rto <- format_for_qmd(reliability_rto)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(reliability_rto, file = 'data/reliability_rto.Rdata')
-```
-```{r, echo = FALSE}
-load('data/reliability_rto.Rdata')
-```
-```{r}
 knitr::asis_output(reliability_rto)
-```
 
-:::
 
-::: {.callout-note collapse="true"}
-
-## "ACT" (Action - Context - Tone)
-
-```{r, eval = FALSE}
+# "ACT" (Action - Context - Tone)
 act_prompt <- "
   Action: Explain the concept of test reliability.
   
@@ -60,24 +30,10 @@ act_prompt <- "
 
 reliability_act <- claude_plus(act_prompt)
 reliability_act <- format_for_qmd(reliability_act)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(reliability_act, file = 'data/reliability_act.Rdata')
-```
-```{r, echo = FALSE}
-load('data/reliability_act.Rdata')
-```
-```{r}
 knitr::asis_output(reliability_act)
-```
 
-:::
 
-::: {.callout-note collapse="true"}
-
-## "CARE" (Context - Action- Result - Explanation)
-
-```{r, eval = FALSE}
+# "CARE" (Context - Action- Result - Explanation)
 care_prompt <- "
   Context: Teachers have noticed that their students’ scores fluctuate across testing sessions and are unsure what that means.
 
@@ -89,141 +45,55 @@ care_prompt <- "
 
 reliability_care <- claude_plus(care_prompt)
 reliability_care <- format_for_qmd(reliability_care)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(reliability_care, file = 'data/reliability_care.Rdata')
-```
-```{r, echo = FALSE}
-load('data/reliability_care.Rdata')
-```
-```{r}
 knitr::asis_output(reliability_care)
-```
 
-:::
 
-What did you notice when writing the prompts?
-What information was more easily apparent that needed to be included in the prompt by using the different formulas?
-Which one did you like best, and why?
 
-## Task 2: Progressive Constraints
 
-Let's now do a similar activity - that of adding **progressive constraints**. This process probably most closely mirrors how I iterate and refine prompts before I start to empirically test them. 
+### Progressive Constraints
 
-Start with a vague prompt, and then add another bit of detail and see how this changes the output. And then another bit of detail, see how it changes the output, and so on. I'll do this so there are a total of 4 interactions with the model. 
-
-I'll also add a system prompt of "You are a measurement educator who explains things concisely in a single paragraph" to decrease the amount of output you'll have to read through. 😅
-
-::: {.callout-note collapse="true"}
-
-## Progressive 1
-
-```{r, eval = FALSE}
+# 1
 progressive_1 <- "Explain test validity."
 
 validity_p1 <- claude_plus(progressive_1,
                            system = "You are a measurement educator who explains things concisely in a single paragraph")
 
 validity_p1 <- format_for_qmd(validity_p1)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(validity_p1, file = 'data/validity_p1.Rdata')
-```
-```{r, echo = FALSE}
-load('data/validity_p1.Rdata')
-```
-```{r}
 knitr::asis_output(validity_p1)
-```
 
-:::
-
-::: {.callout-note collapse="true"}
-
-## Progressive 2
-
-```{r, eval = FALSE}
+# 2
 progressive_2 <- "Explain test validity to K–12 educators who are not familiar with psychometrics."
 
 validity_p2 <- claude_plus(progressive_2,
                            system = "You are a measurement educator who explains things concisely in a single paragraph")
 
 validity_p2 <- format_for_qmd(validity_p2)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(validity_p2, file = 'data/validity_p2.Rdata')
-```
-```{r, echo = FALSE}
-load('data/validity_p2.Rdata')
-```
-```{r}
 knitr::asis_output(validity_p2)
-```
 
-:::
-
-::: {.callout-note collapse="true"}
-
-## Progressive 3
-
-```{r, eval = FALSE}
+# 3
 progressive_3 <- "Explain test validity to K–12 educators unfamiliar with psychometrics, focusing on helping them understand why some test results may not reflect true student ability."
 
 validity_p3 <- claude_plus(progressive_3,
                            system = "You are a measurement educator who explains things concisely in a single paragraph")
 
 validity_p3 <- format_for_qmd(validity_p3)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(validity_p3, file = 'data/validity_p3.Rdata')
-```
-```{r, echo = FALSE}
-load('data/validity_p3.Rdata')
-```
-```{r}
 knitr::asis_output(validity_p3)
-```
 
-:::
-
-::: {.callout-note collapse="true"}
-
-## Progressive 4
-
-```{r, eval = FALSE}
+# 4
 progressive_4 <- "Explain test validity to K–12 educators unfamiliar with psychometrics, focusing on helping them understand why some test results may not reflect true student ability. Write in plain language suitable for a short teacher newsletter and avoid using the words “psychometrics” or “construct.”"
 
 validity_p4 <- claude_plus(progressive_4,
                            system = "You are a measurement educator who explains things concisely in a single paragraph")
 
 validity_p4 <- format_for_qmd(validity_p4)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(validity_p4, file = 'data/validity_p4.Rdata')
-```
-```{r, echo = FALSE}
-load('data/validity_p4.Rdata')
-```
-```{r}
 knitr::asis_output(validity_p4)
-```
 
-:::
 
-## Task 3: Including Examples (Zero-shot v Few-shot)
 
-This activity demonstrates how large language models can learn implicitly from examples provided within the prompt, even when the task involves completely unfamiliar or made-up categories (e.g., information not well represented in their training data). 
 
-In a **zero-shot** setting, the model receives only instructions, so it must guess without any contextual grounding. 
+### Including Examples (Zero-shot v Few-shot)
 
-In a **few-shot** setting, however, the model can observe patterns in the examples — inferring a latent rule or decision boundary and then applying that inferred rule to new inputs.
-
-::: {.callout-note collapse="true"}
-
-## Zero-Shot
-
-```{r, eval = FALSE}
-
+# Zero-shot
 make_zero <- "
 Classify the following sentences as wamples or doglets:
 
@@ -239,25 +109,10 @@ Respond _only_ with the sentence and either (wample) or (doglet) after the sente
 
 zeroshot <- claude_plus(make_zero)
 zeroshot <- format_for_qmd(zeroshot)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(zeroshot, file = 'data/zeroshot.Rdata')
-```
-```{r, echo = FALSE}
-load('data/zeroshot.Rdata')
-```
-```{r}
 knitr::asis_output(zeroshot)
-```
 
-:::
 
-::: {.callout-note collapse="true"}
-
-## Few-Shot
-
-```{r, eval = FALSE}
-
+# Few-shot
 make_few <- "
 A doglet sentence describes a pleasant or positive experience.
 A wample sentence describes an unpleasant or negative experience.
@@ -282,34 +137,12 @@ Respond _only_ with the sentence and either (wample) or (doglet) after the sente
 
 fewshot <- claude_plus(make_few)
 fewshot <- format_for_qmd(fewshot)
-```
-```{r, eval = FALSE, echo = FALSE}
-save(fewshot, file = 'data/fewshot.Rdata')
-```
-```{r, echo = FALSE}
-load('data/fewshot.Rdata')
-```
-```{r}
 knitr::asis_output(fewshot)
-```
 
-:::
 
-## Task 4 : Prompt Improvement
 
-- Step 1: Write your own prompt - whatever topic you'd like, or re-use one that we've already used today. Don't submit the prompt to the model yet.
 
-- Step 2: Using the prompt below to ask the model for help with your prompt.
-
-I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.
-Specifically:
-•	Identify any missing context or details that would help generate better results
-•	Point out areas where the prompt might be vague or ambiguous
-•	Suggest how to better structure the request
-•	Recommend any information I should add about my goals, audience, or desired format
-Here is my prompt: {paste your prompt here}
-
-```{r, eval = FALSE}
+### Prompt Improvement
 
 prompt_prompt <- "I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.
 
@@ -325,21 +158,5 @@ What are the pros and cons of Bayesian vs Frequentist statistics? For each point
 
 improved_prompt <- claude_plus(prompt_prompt)
 improved_prompt <- format_for_qmd(improved_prompt)
-```
-
-```{r, eval = FALSE, echo = FALSE}
-save(improved_prompt, file = 'data/improved_prompt.Rdata')
-```
-```{r, echo = FALSE}
-load('data/improved_prompt.Rdata')
-```
-
-::: {.callout-note collapse="true"}
-
-## Improved Prompt Result
-
-```{r}
 knitr::asis_output(improved_prompt)
-```
 
-:::

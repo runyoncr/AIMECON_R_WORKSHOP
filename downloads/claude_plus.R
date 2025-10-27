@@ -3,6 +3,7 @@ library(jsonlite)
 
 claude_plus <- function(prompt,
                         model = "claude-sonnet-4-5-20250929",
+                        system = NULL,
                         temperature = NULL,
                         top_p = NULL,
                         top_k = NULL,
@@ -26,12 +27,17 @@ claude_plus <- function(prompt,
     max_tokens = max_tokens # Required; will be an argument in other functions
   )
   
+  # Add system prompt if provided
+  if (!is.null(system)) {
+    request_body$system <- system
+  }
+  
   # Add temperature if provided (takes precedence over top_p)
   # if (!is.null(temperature)) {
-     request_body$temperature <- temperature
+  request_body$temperature <- temperature
   # } else if (!is.null(top_p)) {
   #   # Only add top_p if temperature is not provided
-     request_body$top_p <- top_p
+  request_body$top_p <- top_p
   # }
   # 
   # Add top_k if provided
