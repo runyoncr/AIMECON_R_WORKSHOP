@@ -113,7 +113,7 @@ It performs especially well in coding and instruction following scenarios, adher
 
 The suggestion to get output that most resembles non-reasoning models is to have `reasoning_effort = 'minimal'` and `verbosity = 'low'`.
 
-Below is example syntax that you can use to call OpenAI's ChatGPT5 model.
+[Earlier we looked at example syntax that you can use to call OpenAI's ChatGPT5 model.](05-api-keys.qmd#sec-gpt5-call)
 Note that you'll need to get your own OpenAI API key for this code to work.
 
 ```{r}

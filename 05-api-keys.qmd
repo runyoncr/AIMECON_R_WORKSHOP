@@ -17,12 +17,17 @@ I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
 They generally look like this: `sk-1234567890abcdefGHIJKLMNOPQRSTUVWXYZ1234`.
 The actual prefixes and length of random alphanumeric characters usually vary by provider.
 
+When you have an API account, you can easily generate additional keys.
+This can be helpful when you want to track your usage for different projects or team members.
+You can also change the billing information for additional keys, which can be helpful when using the APIs for different clients.
+
 
 ## Choosing a Generative AI Model
 
 In my opinion, there is no definitive choice for a "best" generative AI model. Each provider (and the different models offered by each provider) has their strengths and weaknesses.
 Some models might perform better at certain tasks than others, and vice versa.
-If you must use a specific provider or model due to institutional policy or other agreements, I think _all_ of the foundational models offered by the different providers perform well at many tasks.
+
+If you must use a specific provider or model due to institutional policy or other agreements, I think _all_ of the foundational models now perform most tasks reasonably well.
 If you do have some freedom in model selection, I encourage you to empirically test which provider/model is giving you the output most aligned with what you want.
 
 Links to documentation for API keys:
@@ -44,7 +49,7 @@ Links to documentation for API keys:
 ## Workshop API Key {#sec-workshop-key}
 
 I created an API key that you will be able to use for the purposes of the workshop.
-I have chosen to use Anthropic's [Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"} for this workshop.
+I have chosen to use Anthropic's [Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5) for this workshop.
 This API key will only be active during the workshop hours.
 If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
 
@@ -112,10 +117,13 @@ call_claude <- function(prompt,
 
 ```
 
-### OpenAI ChatGPT5 example
+### OpenAI ChatGPT5 example {#sec-gpt5-call}
 
 Here is a version of a function you can use to call OpenAI's ChatGPT5.
-Note that calling this model has two generation parameters: `verbosity` and `reasoning_effort`, which you can read more about [here (cookbook.openai.com)](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools){target="_blank"} and [here (latest model page the OpenAI Platform; will change when new model is released.)](https://platform.openai.com/docs/guides/latest-model){target="_blank"} 
+
+Note that calling this model has two generation parameters: `verbosity` and `reasoning_effort`, [which we will discuss later](08-gen-ai-parameters#sec-gpt5).
+
+If you're antsy to learn more now, you can read more about [here (cookbook.openai.com)](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools) and [here (latest model page the OpenAI Platform; will change when new model is released.)](https://platform.openai.com/docs/guides/latest-model)
 
 ```{r, eval = FALSE}
 
