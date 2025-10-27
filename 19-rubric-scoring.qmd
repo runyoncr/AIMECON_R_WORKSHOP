@@ -24,7 +24,7 @@ I simply needed a rubric for GPT to apply when evaluating a student’s post-enc
 ::: {.content-visible when-format="html" style="margin-top: 1.5em; margin-bottom: 1.5em"}
 
 ![](images/osce-analytic-rubric-example.png){fig-align="center" }
-Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" [@runyon2025using].
+<center>Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" [@runyon2025using].</center>
 
 :::
 

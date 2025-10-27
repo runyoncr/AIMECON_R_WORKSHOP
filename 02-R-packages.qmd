@@ -5,6 +5,8 @@
 # This chunk activates knitr for inline code
 ```
 
+![](images/under-construction-data.png){fig-align="center" width=25%}
+
 R's strength lies not just in its statistical capabilities, but in its open-source nature. 
 R’s code is freely available for anyone to inspect, modify, and improve. 
 This openness has cultivated a vibrant global community of statisticians, data scientists, and developers who actively contribute to the language's evolution.
@@ -15,13 +17,19 @@ These packages allow you to utilize and build on classic and new analytical meth
 
 ## Workshop package
 
-## Package details
+When I figure out how to do it, I'm going to make an R package that's hosted on my GitHub that:
 
-```{r, eval=FALSE, echo=TRUE}
+- installs all the necessary packages for the workshop
+- contains all the syntax files for the workshop
+- contains all the data for the workshop
 
-install.packages(c("tidyverse", "curl", "ragnar", "duckdb", "shiny", "shinyjs"))
+## Individual package details
 
-```
+I'll also highlight some of the key R packages used in the workshop.
 
-A number of packages have been developed to more easily facilitate interacting with LLMs via R. Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. You can find some [information about those packages in this section](@sec-r-packages).
+## Generative AI packages
+
+A number of packages have been developed to more easily facilitate interacting with LLMs via R. 
+Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. 
+You can find some [information about those packages in this section](30-reference-materials.qmd#sec-r-llm-packages).
 

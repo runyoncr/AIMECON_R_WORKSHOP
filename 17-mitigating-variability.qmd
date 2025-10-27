@@ -21,6 +21,7 @@ In fact, it’s beneficial for creative tasks like brainstorming or ideation.
 But it can be problematic for scoring tasks, where consistency is critical.
 
 I developed a 3-part framework that helps me think about sources of variability in model responses:
+
 - Model-based strategies
 - Prompt-based strategies
 - Materials-based strategies
@@ -54,4 +55,5 @@ I found the model applied the rubric in 3 different ways (paraphrasing model rat
 This can easily be corrected by changing the rubric to include guidance for this edge case: "Tenderness to deep palpation on the right medial heel : 1 point - it is not necessary for the learner to include the word 'medial'".
 
 ***
+
 [^1]: I liberally use the "usually" qualifier because as models improve, these factors influence variability may become less of an issue.

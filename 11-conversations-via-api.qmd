@@ -2,7 +2,7 @@
 
 So far I've focused on just interacting with generative models in one-off interactions, where the chat history isn't preserved.
 This functionality significantly differs from the normal chatbot interface user experience.
-This may not be helpful, depending on what you want out of your interaction with the generative model.
+These transactional interactions not be helpful, depending on what you want out of the generative model.
 
 The [`ellmer` package](https://ellmer.tidyverse.org/){target="_blank"}, developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models.
 In this section we'll go over some of the basics for using this functionality.
@@ -27,7 +27,7 @@ models_anthropic()
 
 The "input" column is the cost per million tokens of model input (the prompts).
 The "output" column is the cost per million tokens of the model response.
-For some context, Shakespeare's _Romeo and Juliet_ is about 25,000 words, which roughly translates to 40,000 tokens (depends on the tokenization method of the model).
+For some context, Shakespeare's _Romeo and Juliet_ is about 25,000 words, which roughly translates to 40,000 tokens (depends on the [tokenization method](@sec-tokens) of the model).
 
 For the purposes of demonstration in our workshop, there's no need to change it, although I'll show you how you can do this below.
 
@@ -68,7 +68,7 @@ chat$chat("What are the most important non-USA exploration missions?")
 :::
 
 As you can see, the second response from the model takes into context the first prompt - it's still talking about the moon!
-This conversational functionality is useful when you're doing iterative development or planning, and the previous calls to the model are important for providing content and building upon previous prompts and model responses.
+This conversational functionality is useful when you're doing iterative development or planning, as the previous calls to the model are important for providing content and building upon previous prompts and model responses.
 
 ## `chat_anthropic` Details
 

@@ -3,7 +3,7 @@
 An API key is a unique identifier that allows software programs to communicate securely with external services, such as a large language model hosted by a provider. 
 The key acts like a digital credential: it tells the system who you are, verifies that you have permission to use the service, and tracks how much you use it for billing and security purposes.
 Unfortunately, if you have a subscription to an LLM provider (e.g., Anthropic, OpenAI, etc.), this does not automatically come with an API key.
-You will have to set up the API separately.
+You will have to set up the API account separately.
 
 For users integrating LLMs into R or other analytic workflows, the API key serves as the bridge between your local environment and the remote model. 
 When your script makes an API call, the key authenticates that request and returns the model’s response. 
@@ -15,12 +15,12 @@ Understanding how to manage this key responsibly is a foundational step in incor
 In practice, an API key is a long string of letters and numbers that you include in your code whenever you send a request to the model.
 I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
 They generally look like this: `sk-1234567890abcdefGHIJKLMNOPQRSTUVWXYZ1234`.
-The actual prefixes and length of random alphanumeric characters will usually vary by provider.
+The actual prefixes and length of random alphanumeric characters usually vary by provider.
 
 
 ## Choosing a Generative AI Model
 
-In my opinion, there is no definitive choice for a "best" generative AI model. Each provider (and model offered by the different providers) has their strengths and weaknesses.
+In my opinion, there is no definitive choice for a "best" generative AI model. Each provider (and the different models offered by each provider) has their strengths and weaknesses.
 Some models might perform better at certain tasks than others, and vice versa.
 If you must use a specific provider or model due to institutional policy or other agreements, I think _all_ of the foundational models offered by the different providers perform well at many tasks.
 If you do have some freedom in model selection, I encourage you to empirically test which provider/model is giving you the output most aligned with what you want.

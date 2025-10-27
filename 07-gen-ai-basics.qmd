@@ -11,7 +11,7 @@ An example can be useful here. In the following sentence, what is the masked wor
 
 How did you come to your answer? You likely looked at the works surrounding the blank and made some inferences based on what you know about those words: "little", hairy", and "sleeping" all provide helpful cues. Even "behind a tree" - gives us some context for size.
 
-What if I told you that the masked word was ["wampimuk"]()? How does that change things?
+What if I told you that the masked word was ["wampimuk"](https://aclanthology.org/P14-1132/)? How does that change things?
 In a sense, it doesn't really.
 We may not know what a "wampimuk" is, but we already have an idea because of the other words we expected for the masked word.
 In much the same way, this partly is how a generative AI model "understands meaning" - it recognizes the pattern of words that commonly occur together because they are in a similar location in the multi-dimensional trained parameter space.
@@ -31,7 +31,10 @@ At the foundation of large language models (LLMs) is a simple idea: text must fi
 Generative AI models don’t process words - they process tokens. 
 A token is a fragment of text, often a word, word piece, or even punctuation mark, depending on the model’s underlying vocabulary. 
 The process of dividing text into these fragments is called tokenization.
-For example, the sentence “The playground filled with laughter and brought happiness to everyone" might be split into tokens like [The] [play] [ground] [filled] [with] [laugh] [ter] [and] [brought] [happi] [ness] [to] [every] [one] [.].
+For example, the sentence “The playground filled with laughter and brought happiness to everyone" might be split into tokens like:
+
+[The] [play] [ground] [filled] [with] [laugh] [ter] [and] [brought] [happi] [ness] [to] [every] [one] [.].
+
 I say "might" because different approaches use different tokenization methods; there's no single standard for tokenization.
 
 Tokenization serves two purposes. 
@@ -54,9 +57,7 @@ An embedding model learns these relationships by training on massive text corpor
 The result is a continuous, mathematical map of semantic relationships, where analogies can even be expressed through vector arithmetic—famously, vector("king") – vector("man") + vector("woman") ≈ vector("queen").
 
 ![](images/embeddings.png){fig-align="center"}
-
-
-Image from [this paper](https://arxiv.org/abs/1810.04882)
+<center>Image from [this paper.](https://arxiv.org/abs/1810.04882)</center>
 
 Later approaches, such as contextual embeddings, extended this concept so that the same word can take on different meanings depending on its surrounding text [@ethayarajh2019contextual]. 
 Sentence-level embedding models further expanded this idea by learning representations for entire sentences or paragraphs that preserve semantic similarity [@reimers2019sentence].

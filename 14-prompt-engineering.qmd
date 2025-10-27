@@ -12,7 +12,9 @@ I think it's helpful to think of building a prompt like filling in missing blank
 
 ![](images/madlibs.png){fig-align="center"}
 
-[snippet taken from here](https://madlibs.com/wp-content/uploads/2024/06/VacationFun_ML_2009_pg15.pdf)
+<center>[screenshot of Mad Libs taken from here](https://madlibs.com/wp-content/uploads/2024/06/VacationFun_ML_2009_pg15.pdf)</center>
+
+***
 
 A well-crafted prompt includes instructions that touch upon all the most important blanks to be filled in.
 Any detail that you don't explicity specify in a prompt will be inferred by the model when generating its response - usually picking the most common token to fill in that blank.
@@ -70,7 +72,7 @@ Here’s what a prompt formula looks like — it’s a high-level structure that
 
 ![](images/promptformula.png){fig-align="center" style="border: 1px solid black;"}
 
-This common formula is Role–Task–Goal. 
+<center>This common formula is Role–Task–Goal.</center>
 
 I’ve broken down a sample prompt using this structure:
 
@@ -83,7 +85,7 @@ I’ve broken down a sample prompt using this structure:
 
 The second example follows the same structure but focuses on planning icebreaker activities for a conference. An alternative phrasing might be:
 
-_“You are an expert in developing interactive icebreaker sessions for conferences. Generate a session for 30-, 60-, and 90-minute formats, including timing and materials needed for each.”_ [^1]
+_“You are an expert in developing interactive icebreaker sessions for conferences. Generate a session for 30-, 60-, and 90-minute formats, including timing and materials needed for each.”_[^1]
 
 As you can see, many details are still left out—like whether materials should be required, the topic of the conference, or the types of attendees. But by using a prompt formula, you’re reminded to include these kinds of details to get more targeted and useful output.
 
@@ -163,6 +165,8 @@ In summary, chaining makes the reasoning process visible and, in a sense, audita
 It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.
 
 ***
-[^1] Many people have pointed out that a 90-minute ice breaker session would be _terrifying._
 
-[^2] I would argue that the process of generating the response isn't really "thinking" in the sense that you and I know the word. Anthropic has published [research showing that models don't always say what they're actually thinking](https://www.anthropic.com/research/reasoning-models-dont-say-think) when providing a response that "shows" their reasoning.
+[^1]: Many people have pointed out that a 90-minute ice breaker session would be _terrifying._
+
+[^2]: I would argue that the process of generating the response isn't really "thinking" in the sense that you and I know the word. 
+Anthropic has published [research showing that models don't always say what they're actually thinking](https://www.anthropic.com/research/reasoning-models-dont-say-think) when providing a response that "shows" their reasoning.

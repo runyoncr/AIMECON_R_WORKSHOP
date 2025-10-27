@@ -14,4 +14,4 @@ Many thanks to those that helped me in creating this guide (whether they knew it
 
 - [Hadley Wickham](https://hadley.nz/){target="_blank"}. Aside from being generally inspirational in the quality of their work and open-science attitude, I largely modeled this Quarto book off his immensely helpful ["R for Data Science"](https://r4ds.hadley.nz/){target="_blank"} book. Being able to review the [code](https://github.com/hadley/r4ds/){target="_blank"} used to make that book saved me a significant amount of time.
 
-- **Workshop participants.** Without your interest I wouldn't have been so motivated to organize the materials. I hope you've found them useful.
+- **Workshop participants!** Without your interest I wouldn't have been so motivated to organize the materials. I hope you've found them useful.

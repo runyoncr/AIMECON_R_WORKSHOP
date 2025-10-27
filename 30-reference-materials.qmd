@@ -64,9 +64,7 @@ This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/under
 
 ***
 
-## Blogs
-
-Are there any?
+## Podcasts
 
 ***
 
@@ -76,7 +74,7 @@ Are there any?
 
 ***
 
-## LLM-specific R Packages {#sec-r-packages}
+## LLM-specific R Packages {#sec-r-llm-packages}
 
 A number of packages have been developed to more easily facilitate interacting with LLMs via R. 
 Many of these packages are useful (we'll cover some of those in the workshop), whereas other packages include some developer design decisions that don't work particularly well for my usual workflows. 

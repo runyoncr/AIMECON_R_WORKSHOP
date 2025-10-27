@@ -1,6 +1,6 @@
 # Saving R Shiny Data
 
-Although Shiny is built around reactivity—inputs changing, outputs updating—you can absolutely treat it like a front end for data collection. 
+Although Shiny is built around reactivity, you can also treat it like a front end for data collection. 
 Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. 
 In simple setups that storage might be a local file; in production it’s typically a database or object store. 
 In your case, your organization exposes an API that writes to an S3 bucket, so Shiny acts as the UI, and your API is the bridge to persistent storage.

@@ -1,6 +1,6 @@
 # Retrieval Augmented Generation
 
-![](images/under-construction-data.png){fig-align="center" width=50%}
+![](images/under-construction-data.png){fig-align="center" width=25%}
 
 Retrieval-Augmented Generation (RAG) is an approach that enhances large language models by connecting them to external knowledge sources. 
 Instead of relying solely on the information encoded in the model during training, 

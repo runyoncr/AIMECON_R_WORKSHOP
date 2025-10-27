@@ -1,7 +1,7 @@
 # Testing API Connection {#sec-test-connect}
 
-Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in a _little_ more depth later).
-For the purposes of this workshop I've set up an API key through Anthropic for you all to use (see @sec-workshop-key).
+Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in more depth later).
+For the purposes of this workshop I've set up an API key through Anthropic for you all to use ([see here](@sec-workshop-key)).
 
 The following is a _very_ basic function for you to test that you can connect to [Anthropic's Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5){target="_blank"}. 
 As we progress through the workshop we'll use a slightly different function that gives you more control over some of the model generation parameters.
@@ -86,7 +86,7 @@ A few things to note:
 1. Generally speaking, the process used by a generative AI model involves predicting the next token to be selected and sampling from a distribution of possible options.
 (We will discuss ways to control this later.)
 A (sometimes, mostly) beautiful implication of this is that responses from generative AI models will often be different, even if the **exact** same prompt is used.
-This is especially the case in the simple function above, as we haven't made an effort to tune the model generation parameters to achieve a deterministic or replicable result.
+This is especially the case in the simple function above, as we haven't made an effort to tune the [model generation parameters](@sec-gen-params) to achieve a deterministic or replicable result.
 Thus, when _you_ call Anthropic and have it generate a joke for you using the same prompt, you will likely get different responses each time.
 In fact, each time that I compile this book on GitHub the result changes!
 

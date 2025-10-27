@@ -2,7 +2,7 @@
 
 We've now had practice using an API for conversational interactions with generative AI models, much like you would have when using an online chatbot interface.
 You submit a prompt, the model response, you respond again, and the model's next response takes into context the entire conversation.
-This method of interacting with models is valuable for brainstorming and other processes that benefit from iterative interactions, where you can make tweaks to your request after viewing the model's response or push the consersation in a new direction.
+This method of interacting with models is valuable for brainstorming and other processes that benefit from iterative interactions, where you can make tweaks to your request after viewing the model's response or push the conversation in a new direction.
 And while it's possible to save the model's responses through the `chat$get_turns()` argument, it may not always be easy to locate the precise model output that you want, especially if you've had a long conversation. 
 
 This brings us to the second method of interacting with a generative AI model that we briefly discussed before: **transactional interactions**.

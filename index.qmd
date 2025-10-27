@@ -12,9 +12,11 @@ Although created primarily for this purpose, I intend to continually update thes
 
 <!-- This endeavor reminds me of the quote "The only constant is change", usually attributed to [Heraclitus](https://en.wikipedia.org/wiki/Heraclitus){target="_blank"} ([maybe wrongly](https://euppublishingblog.com/2021/07/19/misunderstanding-of-heraclitus/){target="_blank"}). -->
 
-Changes to the book last made on: **`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`**
+Changes to the book last made on: 
 
----
+**`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`** (GMT)
+
+***
 
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 Learning Objectives
@@ -25,19 +27,20 @@ Learning Objectives
 -	Explain key LLM architectural features that inform effective integration practices
 -	Apply prompt engineering principles to achieve consistent, reliable outputs in R workflows
 -	Implement both single-use and conversational API interactions with LLMs from R
--	Design and deploy simple multi-agentic systems for complex tasks
+-	Design and deploy simple chained prompt workflows for complex tasks
 -	Build interactive Shiny applications that leverage LLM capabilities for end-user functionality
 
----
+***
 
 This book is a living document. Here's what I plan on covering next:
 
 |       **Topic**       | **Expected Completion Date / Completed on Date** | **Link to Section** (when complete) |
 |:---------------------:|:------------------------------------------------:|:-----------------------------------:|
 | File Uploads          | Q2 2025                                          |                                     |
-| RAG Models            | Q2 2025                                          |                                     |
+| RAG Models / ragnar   | Q2 2025                                          |                                     |
 | Multi-Agentic Systems | Q2 2025                                          |                                     |
 
+***
 
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 ⚠️ Privacy Reminder
@@ -45,7 +48,9 @@ This book is a living document. Here's what I plan on covering next:
 
 Please don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.
 
+***
+
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 ⚖️ Legal Disclaimer
 </div>
-The information provided in this workshop is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.
+The information provided in this book and workshop is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.
