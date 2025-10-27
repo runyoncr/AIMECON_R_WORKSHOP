@@ -37,6 +37,7 @@ This book is a living document. Here's what I plan on covering next:
 |       **Topic**       | **Expected Completion Date / Completed on Date** | **Link to Section** (when complete) |
 |:---------------------:|:------------------------------------------------:|:-----------------------------------:|
 | File Uploads          | Q2 2025                                          |                                     |
+| Web Search via API    | Q2 2025                                          |                                     |
 | RAG Models / ragnar   | Q2 2025                                          |                                     |
 | Multi-Agentic Systems | Q2 2025                                          |                                     |
 

@@ -78,7 +78,9 @@ There is no self-reflective step where the model evaluates whether the informati
 ### Transformer
 
 And, finally, **T** – transformer. 
-This refers to the specific neural network architecture that makes models like GPT so powerful. Before transformers were introduced, models processed language sequentially, one word at a time, which limited their ability to capture long-range context or parallelize computations efficiently. The transformer architecture, introduced by Vaswani et al. (2017)[@vaswani2017attention] revolutionized this process by allowing models to “pay attention” to all parts of a text at once. 
+This refers to the specific neural network architecture that makes models like GPT so powerful. 
+Before transformers were introduced, models processed language sequentially, one word at a time, which limited their ability to capture long-range context, understand ambiguities (e.g., pronoun referents, ambiguous negation, etc.), or parallelize computations efficiently. 
+The transformer architecture revolutionized this process by allowing models to “pay attention” to all parts of a text at once. 
 Attention helps the model determine which words (or tokens) are most relevant to predicting the next one ([we'll talk more about attention soon](07-gen-ai-basics.qmd#sec-attention).
 
 This design has two major advantages: it scales extremely well to large amounts of data, and it captures meaning flexibly across varying contexts. 
