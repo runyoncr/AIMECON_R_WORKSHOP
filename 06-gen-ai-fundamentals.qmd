@@ -71,4 +71,4 @@ And, finally, **T** – transformer.
 This is a technical aspect of the model architecture.
 : More details and links for this audience. :
 
-[This blog post on Financial Times](https://ig.ft.com/generative-ai/){target="_blank"} is a  great visual explanation of transformers (and related concepts) transformers without being too technical.
+[This blog post on Financial Times](https://ig.ft.com/generative-ai/) is a  great visual explanation of transformers (and related concepts) transformers without being too technical.

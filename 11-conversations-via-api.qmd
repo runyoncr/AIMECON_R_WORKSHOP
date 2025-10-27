@@ -72,7 +72,7 @@ This conversational functionality is useful when you're doing iterative developm
 
 ## `chat_anthropic` Details
 
-Let's look at the details of `chat_anthropic` (from [this page of the `ellmer` package reference.](https://ellmer.tidyverse.org/reference/chat_anthropic.html){target="_blank"})
+Let's look at the details of `chat_anthropic` (from [this page of the `ellmer` package reference.](https://ellmer.tidyverse.org/reference/chat_anthropic.html))
 
 ```{r, eval = FALSE}
 
@@ -92,7 +92,7 @@ chat_anthropic(
 ```
 
 It's important to note the `params` argument, which allows you to set a variety of model parameters when chatting with the model.
-This is a [general argument](https://ellmer.tidyverse.org/reference/params.html){target="_blank"} in the `ellmer` package. 
+This is a [general argument](https://ellmer.tidyverse.org/reference/params.html) in the `ellmer` package. 
 You'll need to ensure that your model input allows a specific generation parameter before including it in your call.
 
 This is one place where having a conversation with a model via API instead of via a chatbot interface is different - it's not always easy (and sometimes impossible) to change these parameters in the normal chat interface.
@@ -121,7 +121,7 @@ This is useful when you want to start a conversation about another topic.
 
 ### Clearing While Maintaining Chat Configuration
 
-The following syntax simply clears the turns but maintains the other aspects of the chat configuration (which I'll discuss momentarily in @sec-chat-config). 
+The following syntax simply clears the turns but maintains the other aspects of the chat configuration (which we'll discuss momentarily). 
 In the background the `ellmer` package is saving a history of your prompts and model responses, and it sending this history as part of the prompt when you send a new prompt.
 This is also happens when having a conversation with a chatbot, but it's even less obvious.
 
@@ -176,7 +176,7 @@ ed_meas_chat[4]
 
 ## System Prompts
 
-We briefly discussed system prompts in the section about generative parameters (see @sec-system-prompt).
+We briefly discussed system prompts in the [section about generative parameters ](08-gen-ai-parameters.qmd#sec-system-prompt).
 The system prompt is an instruction to the model that is maintained throughout all of your interactions with the model.
 I don't generally use system prompts when calling models via API, but I probably should.
 😅

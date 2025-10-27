@@ -1,4 +1,4 @@
-# Activity: Chained Workflows {#sec-act-prompting}
+# Activity: Chained Workflows {#sec-act-chained}
 
 Now let's work through an example of how you might implement a chained workflow.
 We'll start with the work we did in a previous section where we [applied analytic rubrics to an OSCE note](@sec-act-rubric-task).

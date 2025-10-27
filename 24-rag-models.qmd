@@ -7,7 +7,7 @@ Instead of relying solely on the information encoded in the model during trainin
 RAG systems first search through a database or document collection to find relevant information, then use that retrieved content to generate more accurate and grounded responses. 
 Think of it like an open-book exam versus a closed-book exam: the model can "look up" information from trusted sources rather than depending entirely on memorized knowledge.
 
-When you submit a query to a RAG system, it first converts your question into a mathematical representation called an embedding (see @sec-embeddings). 
+When you submit a query to a RAG system, it first converts your question into a mathematical representation called an [embedding](06-gen-ai-basics.qmd#sec-embeddings). 
 The documents in the RAG database have been pre-processed the same way - each document or chunk of text has been converted into its own embedding. 
 The system then performs a similarity search to find which document embeddings are most similar to your query embedding, retrieving the most relevant passages.
 

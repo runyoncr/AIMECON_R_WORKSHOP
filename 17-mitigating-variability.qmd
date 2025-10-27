@@ -29,7 +29,7 @@ I developed a 3-part framework that helps me think about sources of variability 
 ## Model-based strategies
 
 These strategies are specifically focused on changing the model's generation parameters. 
-As we [discussed earlier](@sec-gen-params) and [experimented with in an activity](@sec-act-parameter), lowering the `temperature` or setting a low value for `top-p` can encourage the model to select the same tokens when generating a response.
+As we [discussed earlier](08-gen-ai-parameters.qmd#sec-gen-params) and [experimented with in an activity](activity-parameter-testing.qmd#sec-act-parameter), lowering the `temperature` or setting a low value for `top-p` can encourage the model to select the same tokens when generating a response.
 
 ## Prompt-based strategies
 

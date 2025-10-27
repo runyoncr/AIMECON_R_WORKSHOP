@@ -144,7 +144,7 @@ Let's look at a sophisticated example from [Anthropic's "Research" mode:](https:
 
 ![](images/anthropic_research.png){fig-align="center"}
 
-While this also touches on [multi-agentic systems, which we'll briefly discuss later](@sec-chained-workflows), the main point is that there are a _lot_ of other instructions that happen behinds the scenes that are invisible to the user. 
+While this also touches on [multi-agentic systems, which we'll briefly discuss later](21-chained-workflows.qmd#sec-chained-workflows), the main point is that there are a _lot_ of other instructions that happen behinds the scenes that are invisible to the user. 
 In Anthropic's research mode, the user submits a prompt. 
 Through hidden instructions, a “lead researcher” prompt is generated. 
 This agent then creates and directs additional prompts. 
@@ -159,7 +159,7 @@ After all these steps, the final output is returned to the user.
 
 You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate.
 One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step.
-I won't go into much detail here because [we'll cover this in more depth later (including an activity)](sec-chained-workflows), but I want to mention it here for completeness while discussing effective prompt engineering strategies.
+I won't go into much detail here because [we'll cover this in more depth later (including an activity)](activity-chained-workflows.qmd#sec-act-chained), but I want to mention it here for completeness while discussing effective prompt engineering strategies.
 
 In summary, chaining makes the reasoning process visible and, in a sense, auditable.[^2]
 It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.

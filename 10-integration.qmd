@@ -27,7 +27,7 @@ Thus, conversational workflows are ideal when the task involves discovery, refin
 
 While conversational workflows are interactive, transactional interactions are task-oriented and repeatable.
 This makes them more appropriate for structured, scalable applications where the logic is already well-defined. 
-In R, this means calling an LLM once (or in a controlled loop or via [batch processing](@sec-batch-processing)) to perform a fixed function, such as applying a rubric, classifying text, generating distractors for test items, or summarizing response sets. Once the prompt template is validated, the workflow can be automated across hundreds or thousands of responses, with little or no human intervention per transaction.
+In R, this means calling an LLM once (or in a controlled loop or via [batch processing](18-batch-processing.qmd#sec-batch-processing)) to perform a fixed function, such as applying a rubric, classifying text, generating distractors for test items, or summarizing response sets. Once the prompt template is validated, the workflow can be automated across hundreds or thousands of responses, with little or no human intervention per transaction.
 
 Transactional use cases align closely with measurement and scoring pipelines. For example, an R script might use a model to:
 

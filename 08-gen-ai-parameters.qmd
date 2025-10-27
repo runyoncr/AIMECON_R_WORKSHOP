@@ -96,17 +96,17 @@ Defining a schema encourages consistency across runs, simplifies parsing in R wo
 
 ## OpenAI's ChatGPT5 {#sec-gpt5}
 
-Because nothing can be easy, OpenAI's [ChatGPT5](https://openai.com/index/introducing-gpt-5/){target="_blank"} - a reasoning model - doesn't have the above parameters available via API.
+Because nothing can be easy, OpenAI's [ChatGPT5](https://openai.com/index/introducing-gpt-5/) - a reasoning model - doesn't have the above parameters available via API.
 Instead, it introduces two parameters that capture the intent of many of the above parameters: `reasoning.effort` and `verbosity`.
 
 The options for `verbosity` are `low`, `medium`, and `high`. The OpenAI Cookbook says verbosity "lets you hint the model to be more or less expansive in its replies. Keep prompts stable and use the parameter instead of re-writing."
 `low` is for terse UX, minimal prose. 
 `medium` (default) is for balanced detail.
-`high` is verbose, great for audits, teaching, or hand-offs. (descriptions [taken from here](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools){target="_blank"})
+`high` is verbose, great for audits, teaching, or hand-offs. (descriptions [taken from here](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools))
 
 The options for `reasoning_effort` are `minimal`, `low`, `medium`, and `high`.
 `minimal` setting produces very few reasoning tokens for cases where you need the fastest possible time-to-first-token.
-It performs especially well in coding and instruction following scenarios, adhering closely to given directions. However, it may require prompting to act more proactively. To improve the model's reasoning quality, even at minimal effort, encourage it to “think” or outline its steps before answering. ([taken from here](https://platform.openai.com/docs/guides/latest-model#minimal-reasoning-effort){target="_blank"})
+It performs especially well in coding and instruction following scenarios, adhering closely to given directions. However, it may require prompting to act more proactively. To improve the model's reasoning quality, even at minimal effort, encourage it to “think” or outline its steps before answering. ([taken from here](https://platform.openai.com/docs/guides/latest-model#minimal-reasoning-effort)})
 `low` favors speed and economical token usage.
 `medium` (default) is a balance between speed and reasoning accuracy.
 `high` favors more complete reasoning. (low, medium, and high descriptions [taken from here](https://platform.openai.com/docs/guides/reasoning){target="_blank"})
