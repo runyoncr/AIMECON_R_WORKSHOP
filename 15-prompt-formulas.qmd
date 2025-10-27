@@ -1,6 +1,59 @@
-#Prompt Formulas"
+# Prompt Formulas
 
+The following are some examples of prompt formulas.
+A quick search online will produce many, many more examples, but the point is always the same - a high-level structure that helps you think through key components when writing a prompt 
   
-## Example Prompt Formulas
+## Role + Task + Context + Output Format
 
-Link to examples here
+- Role: Define the AI’s perspective or expertise
+- Task: Specify what you want it to do
+- Context: Provide any necessary background or details
+- Output Format: Describe how you want the answer presented
+
+Example structure: “You are a [role]. [Task]. Context: [details]. Output as [format].”
+
+## ACT Formula (Action, Context, Tone)
+
+- Action: Describe the task or behavior you want
+- Context: Explain the situation or purpose
+- Tone: Indicate the desired communication style or mood
+
+Example structure: “Please [action] in the context of [context], using a [tone/style] tone.”
+
+## C-A-R-E Framework
+
+- Context: Describe the situation or background
+- Action: Specify what the model should do
+- Result: Define the intended outcome or goal
+- Explanation: Clarify why or how the result should be achieved
+
+Example structure: “Context: [situation]. Action: [what to do]. Result: [desired output]. Explanation: [why or how].”
+
+## CRISPE Formula
+
+- Capacity and Role: Define the AI’s expertise or viewpoint
+- Insight: Provide background or relevant context
+- Statement: Specify the exact task or request
+- Personality: Set the tone or style
+- Experiment: Suggest output formats or variations
+
+Example structure: “Capacity/Role: [expertise]. Context: [insight]. Task: [statement]. Tone: [personality]. Try presenting it as [experiment].”
+
+## RISEN Formula
+
+- Role: Define the AI’s expertise
+- Instructions: Provide clear, specific directions
+- Steps: Outline the process or sequence of actions
+- End Goal: Describe the final desired outcome
+- Narrowing: Add any constraints or boundaries
+
+Example structure: “Role: [expert]. Do this: [instructions]. Process: [steps]. Goal: [outcome]. Constraints: [specifics].”
+
+## RACE Formula
+
+- Role: Identify the perspective or expertise to adopt
+- Action: Specify the task or objective
+- Context: Include relevant background or scenario details
+- Example: Provide one or more examples to illustrate the desired output
+
+Example structure: “As a [role], [action]. Context: [background]. For example: [sample].”

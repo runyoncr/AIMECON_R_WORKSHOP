@@ -1893,5 +1893,82 @@
       "Transactional Interactions",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Activity: Prompt Engineering</span>"
     ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html",
+    "href": "15-prompt-formulas.html",
+    "title": "15  Prompt Formulas",
+    "section": "",
+    "text": "15.1 Role + Task + Context + Output Format\nThe following are some examples of prompt formulas. A quick search online will produce many, many more examples, but the point is always the same - a high-level structure that helps you think through key components when writing a prompt\nExample structure: “You are a [role]. [Task]. Context: [details]. Output as [format].”",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html#act-formula-action-context-tone",
+    "href": "15-prompt-formulas.html#act-formula-action-context-tone",
+    "title": "15  Prompt Formulas",
+    "section": "15.2 ACT Formula (Action, Context, Tone)",
+    "text": "15.2 ACT Formula (Action, Context, Tone)\n\nAction: Describe the task or behavior you want\nContext: Explain the situation or purpose\nTone: Indicate the desired communication style or mood\n\nExample structure: “Please [action] in the context of [context], using a [tone/style] tone.”",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html#c-a-r-e-framework",
+    "href": "15-prompt-formulas.html#c-a-r-e-framework",
+    "title": "15  Prompt Formulas",
+    "section": "15.3 C-A-R-E Framework",
+    "text": "15.3 C-A-R-E Framework\n\nContext: Describe the situation or background\nAction: Specify what the model should do\nResult: Define the intended outcome or goal\nExplanation: Clarify why or how the result should be achieved\n\nExample structure: “Context: [situation]. Action: [what to do]. Result: [desired output]. Explanation: [why or how].”",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html#crispe-formula",
+    "href": "15-prompt-formulas.html#crispe-formula",
+    "title": "15  Prompt Formulas",
+    "section": "15.4 CRISPE Formula",
+    "text": "15.4 CRISPE Formula\n\nCapacity and Role: Define the AI’s expertise or viewpoint\nInsight: Provide background or relevant context\nStatement: Specify the exact task or request\nPersonality: Set the tone or style\nExperiment: Suggest output formats or variations\n\nExample structure: “Capacity/Role: [expertise]. Context: [insight]. Task: [statement]. Tone: [personality]. Try presenting it as [experiment].”",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html#risen-formula",
+    "href": "15-prompt-formulas.html#risen-formula",
+    "title": "15  Prompt Formulas",
+    "section": "15.5 RISEN Formula",
+    "text": "15.5 RISEN Formula\n\nRole: Define the AI’s expertise\nInstructions: Provide clear, specific directions\nSteps: Outline the process or sequence of actions\nEnd Goal: Describe the final desired outcome\nNarrowing: Add any constraints or boundaries\n\nExample structure: “Role: [expert]. Do this: [instructions]. Process: [steps]. Goal: [outcome]. Constraints: [specifics].”",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html#race-formula",
+    "href": "15-prompt-formulas.html#race-formula",
+    "title": "15  Prompt Formulas",
+    "section": "15.6 RACE Formula",
+    "text": "15.6 RACE Formula\n\nRole: Identify the perspective or expertise to adopt\nAction: Specify the task or objective\nContext: Include relevant background or scenario details\nExample: Provide one or more examples to illustrate the desired output\n\nExample structure: “As a [role], [action]. Context: [background]. For example: [sample].”",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
+  },
+  {
+    "objectID": "15-prompt-formulas.html#role-task-context-output-format",
+    "href": "15-prompt-formulas.html#role-task-context-output-format",
+    "title": "15  Prompt Formulas",
+    "section": "",
+    "text": "Role: Define the AI’s perspective or expertise\nTask: Specify what you want it to do\nContext: Provide any necessary background or details\nOutput Format: Describe how you want the answer presented",
+    "crumbs": [
+      "Transactional Interactions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Prompt Formulas</span>"
+    ]
   }
 ]

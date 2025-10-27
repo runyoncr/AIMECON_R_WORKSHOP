@@ -43,7 +43,6 @@ knitr::asis_output(silly_test)
 
 ```
 
-
 As you can see, the model had to make some choices (via probability sampling) about the assessment item that we didn't specify:
 
 - Grade Level: Middle School (6-8 grade)
