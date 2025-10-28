@@ -1,7 +1,7 @@
 # Scoring with Rubrics {#sec-rubric-scoring}
 
 Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric.
-I work in medical education, and one useful performance assessment that is used is the Objective Structured Clinical Examination (OSCE){target="_blank"}.
+I work in medical education, and one useful performance assessment that is used is the [Objective Structured Clinical Examination (OSCE)](https://en.wikipedia.org/wiki/Objective_structured_clinical_examination).
 In short, an OSCE is a simulated patient interaction where the person being assessed must integrate several important aspects of clinical reasoning to provide effective care.
 These assessments typically require a summary note to be written after the encounter, which serves as documentation of the visit.
 I'll use post-encounter notes from an OSCE as the motivating example for the following discussion because I've done some work in this area. 
@@ -21,7 +21,7 @@ It’s important to note that I created this rubric independently, without any d
 Even though this rubric may not be ideal for evaluating notes about a patient with plantar fasciitis, that wasn’t critical for my task. 
 I simply needed a rubric for GPT to apply when evaluating a student’s post-encounter note.
 
-::: {.content-visible when-format="html" style="margin-top: 1.5em; margin-bottom: 1.5em"}
+::: {.content-visible when-format="html" style="margin-top: 2em; margin-bottom: 2em"}
 
 ![](images/osce-analytic-rubric-example.png){fig-align="center" }
 <center>Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" [@runyon2025using].</center>

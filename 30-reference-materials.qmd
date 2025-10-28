@@ -10,31 +10,39 @@ The [3Blue1Brown YouTube Channel](https://www.youtube.com/c/3blue1brown){target=
 
 Anthropic's paper [On the Biology of a Large Language Model](https://transformer-circuits.pub/2025/attribution-graphs/biology.html){target="_blank"} is particularly interesting.
 
-This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic){target="_blank"} provides a nice high-level summary for understanding LLMs.
+This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/understanding-llms-insights-from-mechanistic) provides a nice high-level summary for understanding LLMs.
 
 ***
 
 ## Reference Guides (including Prompt Engineering)
 
-[promptingguide.ai](https://www.promptingguide.ai/){target="_blank"} is a great resources for learning more about prompt engineering techniques
+[promptingguide.ai](https://www.promptingguide.ai/) is a great resources for learning more about prompt engineering techniques
 
-[Anthropic's Prompt Engineering Guide](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview){target="_blank"}
+[Anthropic's Prompt Engineering Guide](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)
 - Some directions on [uploading files via API](https://docs.claude.com/en/api/files-create)
 
-[OpenAI Cookbook](https://cookbook.openai.com/){target="_blank"}
-[OpenAI's Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering){target="_blank"}
+[OpenAI Cookbook](https://cookbook.openai.com/)
+[OpenAI's Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
 
-[Google Gemini's Prompt Engineering Guide](https://ai.google.dev/gemini-api/docs/prompting-strategies){target="_blank"}
-- Includes directions on [uploading a file via API](https://ai.google.dev/gemini-api/docs/files#prompt-guide){target="_blank"} as part of a prompt.
+[Google Gemini's Prompt Engineering Guide](https://ai.google.dev/gemini-api/docs/prompting-strategies)
+- Includes directions on [uploading a file via API](https://ai.google.dev/gemini-api/docs/files#prompt-guide) as part of a prompt.
 
 ***
 ## Newsletters
 
-### TL:DR
+The following 3 newsletters are sent out M-F. They're broad in nature (industry trends, policy information, etc) but also include useful information related to assessment (model updates, new model features, etc).
 
-### Superhuman
+### [The Neuron](https://www.theneuron.ai/newsletter)
+- Has a searchable archive of previous posts that is really useful.
 
-### The Neuron
+### [Superhuman](https://www.superhuman.ai/)
+- Also has a searchable archive.
+
+### [TL:DR AI](https://tldr.tech/ai)
+-  Part of the [TL:DR Tech](https://tldr.tech/) network.
+
+### [The Signal Substack](https://thesignal.substack.com/)
+- Only published on Sunday, highlights the 3-5 most important AI news stories of the week.
 
 ### [Gary Marcus Substack](https://substack.com/@garymarcus)
 - Professor Emeritus of Psychology and Neural Science at NYU
@@ -47,6 +55,8 @@ This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/under
 ### [Michael Jabbour Substack](https://michaeljjabbour.substack.com/)
 - AI Innovation Officer at Microsoft
 
+
+
 ### [One Useful Thing](oneusefulthing.org)
 - by Ethan Mollick, author of the 
 
@@ -54,9 +64,9 @@ This [post on lesswrong](https://www.lesswrong.com/posts/XGHf7EY3CK4KorBpw/under
 
 ## Books
 
-[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/){target="_blank"} by Chip Huyen is a slightly more advanced read for those interested in building AI products.
+[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/) by Chip Huyen is a slightly more advanced read for those interested in building AI products.
 
-[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/){target="_blank"} by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.
+[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/) by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.
 
 [Brave New Words](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/) by Sal Khan (of [Khan Academy](https://www.khanacademy.org/) fame) is an interesting perspective on how AI will change education.
 
