@@ -55,8 +55,6 @@ The following 3 newsletters are sent out M-F. They're broad in nature (industry 
 ### [Michael Jabbour Substack](https://michaeljjabbour.substack.com/)
 - AI Innovation Officer at Microsoft
 
-
-
 ### [One Useful Thing](oneusefulthing.org)
 - by Ethan Mollick, author of the 
 
@@ -76,11 +74,45 @@ The following 3 newsletters are sent out M-F. They're broad in nature (industry 
 
 ## Podcasts
 
+### The AI Daily Brief
+- Short (usually < 30 min.) daily podcasts on various topics. Some are more applicable than others.
+- "A daily news analysis show on all things artificial intelligence. NLW looks at AI from multiple angles, from the explosion of creativity brought on by new tools like Midjourney and ChatGPT to the potential disruptions to work and industries as we know them to the great philosophical, ethical and practical questions of advanced general intelligence, alignment and x-risk."
+- [Spotify](https://open.spotify.com/show/7gKwwMLFLc6RmjmRpbMtEO) , [Apple](https://podcasts.apple.com/us/podcast/the-ai-daily-brief-artificial-intelligence-news/id1680633614)
+
+### Hard Fork
+- Part of the New York Times collection of podcasts: "'Hard Fork' is a show about the future that’s already here. Each week, journalists Kevin Roose and Casey Newton explore and make sense of the latest in the rapidly changing world of tech."
+- [New York Times](https://www.nytimes.com/column/hard-fork), [Spotify](https://open.spotify.com/show/44fllCS2FTFr2x2kjP9xeT), [Apple](https://podcasts.apple.com/us/podcast/hard-fork/id1528594034)
+
+```{r, eval = FALSE, echo = FALSE}
+
+# ### AI Breakdown
+# - "'AI Breakdown' dives deep into the world of artificial intelligence, exploring the latest advancements and trends shaping this rapidly evolving field."
+# - [Spotify](https://open.spotify.com/show/2mCr8Laiq2oKhICMemxGoi), [Apple]()
+# 
+# ### AI Breakdown (yes, same name)
+# - "The podcast where we use AI to breakdown the recent AI papers and provide simplified explanations of intricate AI topics for educational purposes.
+# The content ... is generated automatically by utilizing LLM and text to speech technologies."
+# - [Spotify](https://open.spotify.com/show/5nr8blvyQwadadxV0gXaeu)
+
+```
+
 ***
 
-## Training
+## Online Training / YouTube Channels
+
+### [DeepLearning.AI](https://learn.deeplearning.ai/)
+- Many great courses, such as [Evaluating AI Agents](https://learn.deeplearning.ai/courses/evaluating-ai-agents/lesson/sqkza/introduction) and [Orchestrating Workflows for GenAI Applications](https://learn.deeplearning.ai/courses/orchestrating-workflows-for-genai-applications/lesson/tw64g/introduction)
+- The also have a nice [YouTube channel](https://www.youtube.com/c/deeplearningai)
 
 ### DataCamp
+- Many [AI Skill Tracks](https://app.datacamp.com/learn/skill-tracks?topics=ai)
+
+### [Anthropic YouTube Channel](https://www.youtube.com/@anthropic-ai)
+
+### [OpenAI YouTube Channel](https://www.youtube.com/@OpenAI)
+
+### [Cursor](https://www.youtube.com/@cursor_ai)
+- [Cursor](https://cursor.com/) is a fantastic AI coding assistant
 
 ***
 
