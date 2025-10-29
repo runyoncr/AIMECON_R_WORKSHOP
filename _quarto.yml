@@ -6,16 +6,16 @@ book:
   title: "Integrating Generative AI into R Workflows: From APIs to Shiny Apps"
   author: "Christopher Runyon"
   date: last-modified
-  
+
   page-footer:
     left: |
-      This workshop was developed by Christopher Runyon.
+      Copyright © 2025 by Christopher Runyon.<br> 
+      Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
   
   cover-image: SimpleBookCover_Image.png
   favicon: therefore.png
-  
   
   chapters:
     - index.qmd

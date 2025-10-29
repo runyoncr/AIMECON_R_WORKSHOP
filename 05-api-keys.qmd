@@ -21,13 +21,25 @@ When you have an API account, you can easily generate additional keys.
 This can be helpful when you want to track your usage for different projects or team members.
 You can also change the billing information for additional keys, which can be helpful when using the APIs for different clients.
 
+## Workshop API Key {#sec-workshop-key}
+
+I created an API key that you will be able to use for the purposes of the workshop.
+I have chosen to use Anthropic's [Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5) for this workshop.
+If you are using this resource outside of the workshop and want to complete the activities on your own, you will need to sign up for your own [Anthropic API Key](https://console.anthropic.com/). Completing these activities will be inexpensive; adding enough for a nice coffee (~ $5) should be sufficient. 
+
+**This Workshop API key will only be active during the workshop.**
+If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
+
+Because API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. 
+Use costs are relatively low for this type of use and I'm happy to cover the cost and provide an API key for educational purposes.
+Outside of the workshop you'll need to create an account with a model provider and register for an API key to track your model use.
 
 ## Choosing a Generative AI Model
 
 In my opinion, there is no definitive choice for a "best" generative AI model. Each provider (and the different models offered by each provider) has their strengths and weaknesses.
-Some models might perform better at certain tasks than others, and vice versa.
+Some models might perform better at certain tasks than others.
 
-If you must use a specific provider or model due to institutional policy or other agreements, I think _all_ of the foundational models now perform most tasks reasonably well.
+If you _must_ use a specific provider or model due to institutional policy or other agreements, I think any of the foundational flagship models from the popular providers now complete most tasks reasonably well, granted that you're using them effectively (the purpose of this workshop!).
 If you do have some freedom in model selection, I encourage you to empirically test which provider/model is giving you the output most aligned with what you want.
 
 Links to documentation for API keys:
@@ -45,17 +57,6 @@ Links to documentation for API keys:
   - [Mistral API pricing](https://mistral.ai/pricing#api-pricing)
 - [Qwen is available through Alibaba Cloud](https://www.alibabacloud.com/en/product/modelstudio); this is another model family where some are freely available, but using their API has its benefits
   - [Qwen API Pricing](https://www.alibabacloud.com/help/en/model-studio/models); more details are available by clicking on specific models on the page above
-
-## Workshop API Key {#sec-workshop-key}
-
-I created an API key that you will be able to use for the purposes of the workshop.
-I have chosen to use Anthropic's [Claude Sonnet 4.5 model](https://www.anthropic.com/news/claude-sonnet-4-5) for this workshop.
-This API key will only be active during the workshop hours.
-If you attempt to use the API key outside of these hours, you will see that it has been disabled and your calls to the model will not be completed.
-
-Because API keys are cost-per-use, I ask that you please only do the workshop activities and other experimentation. 
-Use costs are relatively low for this type of use and I'm happy to cover the cost and provide an API key for educational purposes.
-Outside of the workshop you'll need to create an account with a model provider and register for an API key to track your model use.
 
 ### Calling the Model via API
 

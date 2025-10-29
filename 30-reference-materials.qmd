@@ -60,27 +60,21 @@ The following 3 newsletters are sent out M-F. They're broad in nature (industry 
 
 ***
 
-## Books
-
-[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/) by Chip Huyen is a slightly more advanced read for those interested in building AI products.
-
-[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/) by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.
-
-[Brave New Words](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/) by Sal Khan (of [Khan Academy](https://www.khanacademy.org/) fame) is an interesting perspective on how AI will change education.
-
-[Co-Intelligence: Living and Working with AI](https://www.penguinrandomhouse.com/books/741805/co-intelligence-by-ethan-mollick/) by Ethan Mollick. More accessible discussion of AI, and might not be too helpful to those that have been interested in or working in the field for a bit.
-
-***
-
 ## Podcasts
 
 ### The AI Daily Brief
-- Short (usually < 30 min.) daily podcasts on various topics. Some are more applicable than others.
 - "A daily news analysis show on all things artificial intelligence. NLW looks at AI from multiple angles, from the explosion of creativity brought on by new tools like Midjourney and ChatGPT to the potential disruptions to work and industries as we know them to the great philosophical, ethical and practical questions of advanced general intelligence, alignment and x-risk."
+- Short (usually < 30 min.) daily podcasts on various topics. Some are more applicable than others.
+  - I found [this episode (Spotify link)](https://open.spotify.com/episode/0Yv0q5BwKlTEIJbfiWeN5X?si=K2eIXVf-RmuNi2eEyywUbQ) on what's helping companies in AI adoption to be broadly interesting.
+  - I also like [this episode (Spotify link)](https://open.spotify.com/episode/2efJsPhwniSmaKSbriCyM5?si=9qfi1scRTguDhAcvSfLcXQ) on "5 Prompting Tricks to Make Your AI Less Average" to be interesting.
 - [Spotify](https://open.spotify.com/show/7gKwwMLFLc6RmjmRpbMtEO) , [Apple](https://podcasts.apple.com/us/podcast/the-ai-daily-brief-artificial-intelligence-news/id1680633614)
+- Also a [YouTube Channel](https://www.youtube.com/@AIDailyBrief)
 
 ### Hard Fork
 - Part of the New York Times collection of podcasts: "'Hard Fork' is a show about the future that’s already here. Each week, journalists Kevin Roose and Casey Newton explore and make sense of the latest in the rapidly changing world of tech."
+  - **Requires an account** (maybe free is sufficient? I'm a NYT subscriber anyway.)
+  - [This episode](https://www.nytimes.com/2025/09/05/podcasts/hardfork-education-alpha-school.html) - "AI School is in Session: Two Takes on the Future of Education" was cool.
+
 - [New York Times](https://www.nytimes.com/column/hard-fork), [Spotify](https://open.spotify.com/show/44fllCS2FTFr2x2kjP9xeT), [Apple](https://podcasts.apple.com/us/podcast/hard-fork/id1528594034)
 
 ```{r, eval = FALSE, echo = FALSE}
@@ -111,8 +105,20 @@ The following 3 newsletters are sent out M-F. They're broad in nature (industry 
 
 ### [OpenAI YouTube Channel](https://www.youtube.com/@OpenAI)
 
-### [Cursor](https://www.youtube.com/@cursor_ai)
+### [Cursor YouTube Channel](https://www.youtube.com/@cursor_ai)
 - [Cursor](https://cursor.com/) is a fantastic AI coding assistant
+
+***
+
+## Books
+
+[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/) by Chip Huyen is a slightly more advanced read for those interested in building AI products.
+
+[Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs](https://www.oreilly.com/library/view/prompt-engineering-for/9781098153427/) by James Phoenix and Mike Taylor is also a good resource for learning more about prompt engineering. Focused more on earlier (non-reasoning) models, but some important parts carry through.
+
+[Brave New Words](https://www.penguinrandomhouse.com/books/740806/brave-new-words-by-salman-khan/) by Sal Khan (of [Khan Academy](https://www.khanacademy.org/) fame) is an interesting perspective on how AI will change education.
+
+[Co-Intelligence: Living and Working with AI](https://www.penguinrandomhouse.com/books/741805/co-intelligence-by-ethan-mollick/) by Ethan Mollick. More accessible discussion of AI, and might not be too helpful to those that have been interested in or working in the field for a bit.
 
 ***
 
