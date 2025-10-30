@@ -7,6 +7,8 @@
 
 This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at [AIMECON in October, 2025](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm). I'll periodically continue to update these materials as I learn and the models evolve.
 
+The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham's (free) [R for Data Science](https://r4ds.hadley.nz/).
+
 This website licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en) License. 
 
 Changes to the book last made on: 

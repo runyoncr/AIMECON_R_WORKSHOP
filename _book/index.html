@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Christopher Runyon">
-<meta name="dcterms.date" content="2025-10-28">
+<meta name="dcterms.date" content="2025-10-30">
 <title>Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 28, 2025</p>
+      <p class="date">October 30, 2025</p>
     </div>
   </div>
   
@@ -429,10 +429,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 <section id="welcome" class="level1 unnumbered"><h1 class="unnumbered">Welcome</h1><p><img src="SimpleBookCover_Image.png" title="Integrating Generative AI into R Workflows: From APIs to Shiny Apps" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>This online book was created to be a user-friendly way to present the materials in support of the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at <a href="https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm" target="_blank">AIMECON in October, 2025</a>. Although created primarily for this purpose, I intend to continually update these materials as I learn and as the models continue to evolve. (Although I learn slower than these models evolve, so some information might be out of date.) This website licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0</a> License.</p>
-<!-- This endeavor reminds me of the quote "The only constant is change", usually attributed to [Heraclitus](https://en.wikipedia.org/wiki/Heraclitus){target="_blank"} ([maybe wrongly](https://euppublishingblog.com/2021/07/19/misunderstanding-of-heraclitus/){target="_blank"}). -->
+<p>This online resource shares materials from the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at <a href="https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm">AIMECON in October, 2025</a>. I’ll periodically continue to update these materials as I learn and the models evolve.</p>
+<p>The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham’s (free) <a href="https://r4ds.hadley.nz/">R for Data Science</a>.</p>
+<p>This website licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0</a> License.</p>
 <p>Changes to the book last made on:</p>
-<p><strong>2025-10-28 12:11:53</strong> (GMT)</p>
+<p><strong>2025-10-30 10:45:01</strong> (GMT)</p>
 <hr>
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 <p>Learning Objectives</p>
@@ -440,13 +441,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><u>By the end of this workshop, participants will be able to:</u></p>
 <ul>
 <li>Explain key LLM architectural features that inform effective integration practices</li>
-<li>Apply prompt engineering principles to achieve consistent, reliable outputs in R workflows</li>
-<li>Implement both single-use and conversational API interactions with LLMs from R</li>
+<li>Apply prompt engineering principles to achieve useful outputs in R workflows</li>
+<li>Implement both conversational and transcational API interactions with LLMs from R</li>
 <li>Design and deploy simple chained prompt workflows for complex tasks</li>
 <li>Build interactive Shiny applications that leverage LLM capabilities for end-user functionality</li>
 </ul>
 <hr>
-<p>This book is a living document. Here’s what I plan on covering next:</p>
+<p>This resource is a living document. Here’s what I plan on covering next:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -491,7 +492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 <p>⚖️ Legal Disclaimer</p>
 </div>
-<p>The information provided in this book and workshop is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.</p>
+<p>The information provided in this resource is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.</p>
 
 
 <!-- -->
@@ -965,11 +966,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This chunk activates knitr for inline code</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>This online book was created to be a user-friendly way to present the materials in support of the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at <span class="co">[</span><span class="ot">AIMECON in October, 2025</span><span class="co">](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm)</span>{target="_blank"}.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Although created primarily for this purpose, I intend to continually update these materials as I learn and as the models continue to evolve.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>(Although I learn slower than these models evolve, so some information might be out of date.) This website licensed under the <span class="co">[</span><span class="ot">CC BY-NC-ND 4.0</span><span class="co">](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en)</span> License. </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at <span class="co">[</span><span class="ot">AIMECON in October, 2025</span><span class="co">](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm)</span>. I'll periodically continue to update these materials as I learn and the models evolve.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham's (free) <span class="co">[</span><span class="ot">R for Data Science</span><span class="co">](https://r4ds.hadley.nz/)</span>.</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- This endeavor reminds me of the quote "The only constant is change", usually attributed to [Heraclitus](https://en.wikipedia.org/wiki/Heraclitus){target="_blank"} ([maybe wrongly](https://euppublishingblog.com/2021/07/19/misunderstanding-of-heraclitus/){target="_blank"}). --&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>This website licensed under the <span class="co">[</span><span class="ot">CC BY-NC-ND 4.0</span><span class="co">](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en)</span> License. </span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Changes to the book last made on: </span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
@@ -984,14 +985,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">By the end of this workshop, participants will be able to:</span><span class="co">]</span>{.underline}</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Explain key LLM architectural features that inform effective integration practices</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Apply prompt engineering principles to achieve consistent, reliable outputs in R workflows</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Implement both single-use and conversational API interactions with LLMs from R</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Apply prompt engineering principles to achieve useful outputs in R workflows</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Implement both conversational and transcational API interactions with LLMs from R</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Design and deploy simple chained prompt workflows for complex tasks</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Build interactive Shiny applications that leverage LLM capabilities for end-user functionality</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>***</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>This book is a living document. Here's what I plan on covering next:</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>This resource is a living document. Here's what I plan on covering next:</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>       **Topic**       | **Expected Completion Date / Completed on Date** | **Link to Section** (when complete) <span class="pp">|</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------------------:|:------------------------------------------------:|:-----------------------------------:|</span></span>
@@ -1013,7 +1014,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;"</span><span class="dt">&gt;</span></span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>⚖️ Legal Disclaimer</span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>The information provided in this book and workshop is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>The information provided in this resource is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
