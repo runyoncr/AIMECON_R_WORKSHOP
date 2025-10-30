@@ -5,13 +5,9 @@
 # This chunk activates knitr for inline code
 ```
 
-This online resource was created to be a user-friendly way to share the materials in support of the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at [AIMECON in October, 2025](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm).
-
-Although created primarily for this purpose, I intend to periodically update these materials as I learn and as the models continue to evolve.
+This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at [AIMECON in October, 2025](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm). I'll periodically continue to update these materials as I learn and the models evolve.
 
 This website licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en) License. 
-
-<!-- This endeavor reminds me of the quote "The only constant is change", usually attributed to [Heraclitus](https://en.wikipedia.org/wiki/Heraclitus){target="_blank"} ([maybe wrongly](https://euppublishingblog.com/2021/07/19/misunderstanding-of-heraclitus/){target="_blank"}). -->
 
 Changes to the book last made on: 
 

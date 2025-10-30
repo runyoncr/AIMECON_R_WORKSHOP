@@ -19,7 +19,12 @@ While Claude has shown strength in R-specific support, many others (ChatGPT, Gem
 The key is to maintain the vibe—a rhythm of asking, testing, refining, and learning. 
 This approach not only accelerates development but also deepens understanding, helping you bridge the gap between concept and implementation in a way that feels intuitive and creative.
 
-## `shinychat`
+## Helpful Vibe Coding Resources
+
+### [Google AI Studio](https://blog.google/technology/developers/introducing-vibe-coding-in-google-ai-studio/)
+- Environment specifically designed to facilitate vibe coding apps.
+
+### `shinychat`
 
 Unsurprisingly (again), Posit has created an interface to help you add an AI chatbot to a Shiny app.
 That package is called [`shinychat`.](https://posit-dev.github.io/shinychat/){target="_blank"}
