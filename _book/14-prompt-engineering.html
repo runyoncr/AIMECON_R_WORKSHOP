@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script><link rel="stylesheet" href="style.css">
 </head>
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
@@ -397,7 +397,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#prompt-engineering-importance" id="toc-prompt-engineering-importance" class="nav-link active" data-scroll-target="#prompt-engineering-importance"><span class="header-section-number">14.1</span> Prompt Engineering Importance</a></li>
+  <li><a href="#madlibs" id="toc-madlibs" class="nav-link" data-scroll-target="#madlibs"><span class="header-section-number">14.2</span> Madlibs</a></li>
+  <li><a href="#prompt-formulas" id="toc-prompt-formulas" class="nav-link" data-scroll-target="#prompt-formulas"><span class="header-section-number">14.3</span> Prompt Formulas</a></li>
+  <li><a href="#prompt-structuring" id="toc-prompt-structuring" class="nav-link" data-scroll-target="#prompt-structuring"><span class="header-section-number">14.4</span> Prompt Structuring</a></li>
+  <li><a href="#prompt-chaining" id="toc-prompt-chaining" class="nav-link" data-scroll-target="#prompt-chaining"><span class="header-section-number">14.5</span> Prompt Chaining</a></li>
+  <li><a href="#chained-workflows" id="toc-chained-workflows" class="nav-link" data-scroll-target="#chained-workflows"><span class="header-section-number">14.6</span> Chained Workflows</a></li>
+  </ul></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./14-prompt-engineering.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
@@ -416,10 +427,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>We’ll only cover a sampling of these methods in the workshop today because we’ll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.</p>
+</header><p>We’ll only cover a sampling of these methods in the workshop today. I want to keep the focus more on their application than extensively testing different prompting strategies. I encourage you to further explore these techniques based on your specific use case.</p>
 <section id="prompt-engineering-importance" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="prompt-engineering-importance">
 <span class="header-section-number">14.1</span> Prompt Engineering Importance</h2>
-<p>Tie in to chapter 1</p>
+<p>These models are <em>amazing</em> pattern matchers - they can identify other tokens that are close together in the multidimensional embedding space. And it’s important to use words (tokens) that appropriately leverage the model’s attention - and also to make sure you’re not diffusing the attention by including too many instructions.</p>
+<p>Achieving both of these goals is at the heart of the field of prompt engineering. The following are some useful tips to help you achieve these goals.</p>
 </section><section id="madlibs" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="madlibs">
 <span class="header-section-number">14.2</span> Madlibs</h2>
 <p>I think it’s helpful to think of building a prompt like filling in missing blanks in <a href="https://en.wikipedia.org/wiki/Mad_Libs">Mad Libs</a>.</p>
@@ -440,9 +452,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/format_for_qmd.R'</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'knitr' was built under R version 4.5.2</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.5.2</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/format_for_qmd.R'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">silly_test</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">silly_test</span><span class="op">)</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">silly_test</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -533,10 +551,10 @@ These are system prompts or additional instructions that aren’t shown to the u
 <figure class="figure"><p><img src="images/anthropic_research.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>While this also touches on <a href="@sec-chained-workflows">multi-agentic systems, which we’ll briefly discuss later</a>, the main point is that there are a <em>lot</em> of other instructions that happen behinds the scenes that are invisible to the user. In Anthropic’s research mode, the user submits a prompt. Through hidden instructions, a “lead researcher” prompt is generated. This agent then creates and directs additional prompts. These prompts spawn sub-agents, each focused on a narrow aspect of the research topic. The number of sub-agents is determined by the output of the lead researcher prompt. Each sub-agent investigates its assigned topic and may also search the web for supporting information. The sources accessed are saved in an index. Once all sub-agents complete their tasks, another agent reviews and synthesizes the information into a coherent narrative, including citations where appropriate. After all these steps, the final output is returned to the user.</p>
+<p>While this also touches on <a href="./21-chained-workflows.html#sec-chained-workflows">multi-agentic systems, which we’ll briefly discuss later</a>, the main point is that there are a <em>lot</em> of other instructions that happen behinds the scenes that are invisible to the user. In Anthropic’s research mode, the user submits a prompt. Through hidden instructions, a “lead researcher” prompt is generated. This agent then creates and directs additional prompts. These prompts spawn sub-agents, each focused on a narrow aspect of the research topic. The number of sub-agents is determined by the output of the lead researcher prompt. Each sub-agent investigates its assigned topic and may also search the web for supporting information. The sources accessed are saved in an index. Once all sub-agents complete their tasks, another agent reviews and synthesizes the information into a coherent narrative, including citations where appropriate. After all these steps, the final output is returned to the user.</p>
 </section><section id="chained-workflows" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="chained-workflows">
 <span class="header-section-number">14.6</span> Chained Workflows</h2>
-<p>You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate. One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step. I won’t go into much detail here because <a href="sec-chained-workflows">we’ll cover this in more depth later (including an activity)</a>, but I want to mention it here for completeness while discussing effective prompt engineering strategies.</p>
+<p>You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate. One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step. I won’t go into much detail here because <a href="./activity-chained-workflows.html#sec-act-chained">we’ll cover this in more depth later (including an activity)</a>, but I want to mention it here for completeness while discussing effective prompt engineering strategies.</p>
 <p>In summary, chaining makes the reasoning process visible and, in a sense, auditable.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.</p>
 <hr>
 
@@ -1012,183 +1030,188 @@ These are system prompts or additional instructions that aren’t shown to the u
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Prompt Engineering</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>We'll only cover a sampling of these methods in the workshop today because we'll be focusing more on their application than extensively testing different prompting strategies, but I encourage you to further explore these techniques based on your specific use case.</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Engineering Importance</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Tie in to chapter 1</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Madlibs</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>I think it's helpful to think of building a prompt like filling in missing blanks in <span class="co">[</span><span class="ot">Mad Libs</span><span class="co">](https://en.wikipedia.org/wiki/Mad_Libs)</span>.</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/madlibs.png)</span>{fig-align="center"}</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span><span class="co">[</span><span class="ot">screenshot of Mad Libs taken from here</span><span class="co">](https://madlibs.com/wp-content/uploads/2024/06/VacationFun_ML_2009_pg15.pdf)</span><span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>A well-crafted prompt includes instructions that touch upon all the most important blanks to be filled in.</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>Any detail that you don't explicity specify in a prompt will be inferred by the model when generating its response - usually picking the most common token to fill in that blank.</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>An obvious example can be helpful here.</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/claude_plus.R'</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>silly_test <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(<span class="st">"Generate an assessment question for science test."</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(silly_test, <span class="at">file =</span> <span class="st">'data/silly_test.Rdata'</span>)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/silly_test.Rdata'</span>)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/format_for_qmd.R'</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>silly_test <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(silly_test)</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(silly_test)</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>As you can see, the model had to make some choices (via probability sampling) about the assessment item that we didn't specify:</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Grade Level: Middle School (6-8 grade)</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Topic: States of Matter</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Assessment format: Multi-part free response, with 3 parts</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Surprised it wasn't an MCQ to be honest</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Point Values for Each Part</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Correct Responses for Each Part</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>... an so on</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>Although this example was extreme, it demonstrates the point well.</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>We didn't precisely tell the model what we wanted, so what did we expect?</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>If we had different expections for the output than what the model provided, we need to make that clear in our prompt.</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>Vague prompts aren't inherently bad.</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>They're quite useful when you're brainstorming and want ideas about a topic that are different than ideas you've already considered.</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>Even asking the model to develop novel solutions can be helpful in these instances; when a model needs to predict the next token and they don't have the appropriate content, they usually predict the next token that is most common in the training data given similar contexts.</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Formulas</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>In my experience, most posts online about effectively using AI models give examples of wording or a way to structure your prompt that helps decrease the number of madlib blanks that need to be filled in.</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>The latter are _prompt formulas_, which provide a template that helps you fill in key details, essentially reducing the ambiguity in your prompt and guiding the model toward the kind of output you want.</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>Here’s what a prompt formula looks like — it’s a high-level structure that helps you think through key components when writing a prompt. </span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/promptformula.png)</span>{fig-align="center" style="border: 1px solid black;"}</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span>This common formula is Role–Task–Goal.<span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>I’ve broken down a sample prompt using this structure:</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Role:** You assign a role to the model — either by specifying who you are or by asking the model to take on a specific background. In this example, the role is someone in their mid-40s who wants to learn about film.</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Task:** The task is to identify movies that blend romance and science fiction.</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Goal:** The goal is a list of 10 movies that fit this criterion, each with a short explanation of why it’s worth watching.</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">(Example inspired by this awesome Criterion Collection list on Interdimensional Romance)</span><span class="co">](https://letterboxd.com/criterion/list/interdimensional-romance-criterion-channel/)</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>The second example follows the same structure but focuses on planning icebreaker activities for a conference. An alternative phrasing might be:</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>_“You are an expert in developing interactive icebreaker sessions for conferences. Generate a session for 30-, 60-, and 90-minute formats, including timing and materials needed for each.”_<span class="ot">[^1]</span></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>As you can see, many details are still left out—like whether materials should be required, the topic of the conference, or the types of attendees. But by using a prompt formula, you’re reminded to include these kinds of details to get more targeted and useful output.</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>Here's another example:</span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/formula_w_example.png)</span>{fig-align="center" style="border: 1px solid black;"}</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>Like the previous one, it includes context, action, and result, but with a powerful addition: you provide the LLM with an example of the output you want.</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>In this case, the context is medical education, the action is to develop sample patient charts, and the desired result is a set of charts with similar structure but different diagnoses. </span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>By including a sample chart, you’re giving the model a clear template to follow. </span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>It’s essentially being asked to “fill in the blanks” based on the example and the other information you’ve provided.</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>This approach gives the model more guidance for the desired output, especially when the structure or format of the output is important.</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>Providing a completed example is extremely powerful for two key reasons:</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>It guides the structure of the output, helping ensure the format aligns with what you’re looking for.</span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>It influences the content, not just the format. GPT doesn’t simply mimic the layout—it also interprets the relationships between the elements in your example. That means it uses the example as secondary instructions, shaping how it generates new content based on the patterns and connections it sees.</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>This double duty of providing guidance on both structure and substance is what makes examples such a valuable part of prompt engineering.</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Structuring</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>It can be helpful to explicitly structure your prompts within the prompt formula you're using. </span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>Using punctuation or formatting to separate the components can make each part clearer to the model.</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/structured_prompt.png)</span>{fig-align="center" style="border: 1px solid black;"}</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span>(Content generated by ChatGPT5)<span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>While you could write the prompt above as paragraph, doing so requires the model to spend some of its attention deciphering how the sentences relate to one another and what it should be doing. </span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>By using a more structured format you allow the model to focus more on the content and the output, rather than on parsing the prompt itself.</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>This kind of formatting acts as a signal, helping the model better understand your intent and produce more accurate results.</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Chaining</span></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>Prompt chaining is the process of sequencing prompts together to complete more complex tasks.</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>Prompt chaining is effective because it mirrors how humans tackle complex reasoning—by breaking problems into smaller, sequential steps that build on one another. </span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>Early generations of language models required explicit guidance to do this well. </span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>Users learned to include instructions like “think through this step-by-step” or “show your reasoning before answering” to encourage a structured, multi-stage thought process known as chain-of-thought prompting. </span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>This approach improved accuracy because it forced the model to generate a longer sequence of tokens that adhered to what an explanation would look like instead of just predicting the final output.</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>Even with newer models this approach - asking for rationales or other details in addition to your desired output - has been shown to be beneficial.</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>Newer reasoning models and research modes have internalized much of this behavior through invisible instructions.  </span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>These are system prompts or additional instructions that aren’t shown to the user but are built into the system to help guide the model’s behavior and improve the quality of its responses.</span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>These instructions are always present in some form. </span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>Before generating a response, the model applies internal rules to review your input and shape its output. </span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>For example, it reviews inputs and output to check for content that might infringe on intellectual property, is plagiarized, or includes harmful or illegal material. </span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>(While companies have heavily invested in these safeguards, they’re not guaranteed. It’s still your responsibility to verify that the output is appropriate and doesn’t violate any guidelines.)</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>Invisible instructions also influence the style and personality of the model’s responses. </span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>You might have noticed that a model may suggest next steps or follow-up actions, even if you didn’t explicitly ask for them. </span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>That’s part of the invisible instructions, designed to extend your engagement with the chatbot.</span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>Let's look at a sophisticated example from <span class="co">[</span><span class="ot">Anthropic's "Research" mode:</span><span class="co">](https://www.anthropic.com/engineering/built-multi-agent-research-system)</span></span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/anthropic_research.png)</span>{fig-align="center"}</span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>While this also touches on <span class="co">[</span><span class="ot">multi-agentic systems, which we'll briefly discuss later</span><span class="co">](@sec-chained-workflows)</span>, the main point is that there are a _lot_ of other instructions that happen behinds the scenes that are invisible to the user. </span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>In Anthropic's research mode, the user submits a prompt. </span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>Through hidden instructions, a “lead researcher” prompt is generated. </span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>This agent then creates and directs additional prompts. </span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>These prompts spawn sub-agents, each focused on a narrow aspect of the research topic. </span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>The number of sub-agents is determined by the output of the lead researcher prompt. </span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>Each sub-agent investigates its assigned topic and may also search the web for supporting information. </span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>The sources accessed are saved in an index. </span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>Once all sub-agents complete their tasks, another agent reviews and synthesizes the information into a coherent narrative, including citations where appropriate. </span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>After all these steps, the final output is returned to the user.</span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chained Workflows</span></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate.</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step.</span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>I won't go into much detail here because <span class="co">[</span><span class="ot">we'll cover this in more depth later (including an activity)</span><span class="co">](sec-chained-workflows)</span>, but I want to mention it here for completeness while discussing effective prompt engineering strategies.</span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>In summary, chaining makes the reasoning process visible and, in a sense, auditable.<span class="ot">[^2]</span></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.</span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Many people have pointed out that a 90-minute ice breaker session would be _terrifying._</span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a><span class="ot">[^2]: </span>I would argue that the process of generating the response isn't really "thinking" in the sense that you and I know the word. </span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>Anthropic has published <span class="co">[</span><span class="ot">research showing that models don't always say what they're actually thinking</span><span class="co">](https://www.anthropic.com/research/reasoning-models-dont-say-think)</span> when providing a response that "shows" their reasoning.</span>
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Prompt Engineering</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>We'll only cover a sampling of these methods in the workshop today.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>I want to keep the focus more on their application than extensively testing different prompting strategies.</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>I encourage you to further explore these techniques based on your specific use case.</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Engineering Importance</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>These models are _amazing_ pattern matchers - they can identify other tokens that are close together in the multidimensional embedding space.</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>And it's important to use words (tokens) that appropriately leverage the model's attention - and also to make sure you're not diffusing the attention by including too many instructions.</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>Achieving both of these goals is at the heart of the field of prompt engineering. The following are some useful tips to help you achieve these goals.</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Madlibs</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>I think it's helpful to think of building a prompt like filling in missing blanks in <span class="co">[</span><span class="ot">Mad Libs</span><span class="co">](https://en.wikipedia.org/wiki/Mad_Libs)</span>.</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/madlibs.png)</span>{fig-align="center"}</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span><span class="co">[</span><span class="ot">screenshot of Mad Libs taken from here</span><span class="co">](https://madlibs.com/wp-content/uploads/2024/06/VacationFun_ML_2009_pg15.pdf)</span><span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>A well-crafted prompt includes instructions that touch upon all the most important blanks to be filled in.</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>Any detail that you don't explicity specify in a prompt will be inferred by the model when generating its response - usually picking the most common token to fill in that blank.</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>An obvious example can be helpful here.</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/claude_plus.R'</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>silly_test <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(<span class="st">"Generate an assessment question for science test."</span>)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(silly_test, <span class="at">file =</span> <span class="st">'data/silly_test.Rdata'</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/silly_test.Rdata'</span>)</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/format_for_qmd.R'</span>)</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>silly_test <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(silly_test)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(silly_test)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>As you can see, the model had to make some choices (via probability sampling) about the assessment item that we didn't specify:</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Grade Level: Middle School (6-8 grade)</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Topic: States of Matter</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Assessment format: Multi-part free response, with 3 parts</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Surprised it wasn't an MCQ to be honest</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Point Values for Each Part</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Correct Responses for Each Part</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>... an so on</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>Although this example was extreme, it demonstrates the point well.</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>We didn't precisely tell the model what we wanted, so what did we expect?</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>If we had different expections for the output than what the model provided, we need to make that clear in our prompt.</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>Vague prompts aren't inherently bad.</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>They're quite useful when you're brainstorming and want ideas about a topic that are different than ideas you've already considered.</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>Even asking the model to develop novel solutions can be helpful in these instances; when a model needs to predict the next token and they don't have the appropriate content, they usually predict the next token that is most common in the training data given similar contexts.</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Formulas</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>In my experience, most posts online about effectively using AI models give examples of wording or a way to structure your prompt that helps decrease the number of madlib blanks that need to be filled in.</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>The latter are _prompt formulas_, which provide a template that helps you fill in key details, essentially reducing the ambiguity in your prompt and guiding the model toward the kind of output you want.</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>Here’s what a prompt formula looks like — it’s a high-level structure that helps you think through key components when writing a prompt. </span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/promptformula.png)</span>{fig-align="center" style="border: 1px solid black;"}</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span>This common formula is Role–Task–Goal.<span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>I’ve broken down a sample prompt using this structure:</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Role:** You assign a role to the model — either by specifying who you are or by asking the model to take on a specific background. In this example, the role is someone in their mid-40s who wants to learn about film.</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Task:** The task is to identify movies that blend romance and science fiction.</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Goal:** The goal is a list of 10 movies that fit this criterion, each with a short explanation of why it’s worth watching.</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">(Example inspired by this awesome Criterion Collection list on Interdimensional Romance)</span><span class="co">](https://letterboxd.com/criterion/list/interdimensional-romance-criterion-channel/)</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>The second example follows the same structure but focuses on planning icebreaker activities for a conference. An alternative phrasing might be:</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>_“You are an expert in developing interactive icebreaker sessions for conferences. Generate a session for 30-, 60-, and 90-minute formats, including timing and materials needed for each.”_<span class="ot">[^1]</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>As you can see, many details are still left out—like whether materials should be required, the topic of the conference, or the types of attendees. But by using a prompt formula, you’re reminded to include these kinds of details to get more targeted and useful output.</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>Here's another example:</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/formula_w_example.png)</span>{fig-align="center" style="border: 1px solid black;"}</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>Like the previous one, it includes context, action, and result, but with a powerful addition: you provide the LLM with an example of the output you want.</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>In this case, the context is medical education, the action is to develop sample patient charts, and the desired result is a set of charts with similar structure but different diagnoses. </span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>By including a sample chart, you’re giving the model a clear template to follow. </span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>It’s essentially being asked to “fill in the blanks” based on the example and the other information you’ve provided.</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>This approach gives the model more guidance for the desired output, especially when the structure or format of the output is important.</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>Providing a completed example is extremely powerful for two key reasons:</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>It guides the structure of the output, helping ensure the format aligns with what you’re looking for.</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>It influences the content, not just the format. GPT doesn’t simply mimic the layout—it also interprets the relationships between the elements in your example. That means it uses the example as secondary instructions, shaping how it generates new content based on the patterns and connections it sees.</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>This double duty of providing guidance on both structure and substance is what makes examples such a valuable part of prompt engineering.</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Structuring</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>It can be helpful to explicitly structure your prompts within the prompt formula you're using. </span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>Using punctuation or formatting to separate the components can make each part clearer to the model.</span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/structured_prompt.png)</span>{fig-align="center" style="border: 1px solid black;"}</span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span>(Content generated by ChatGPT5)<span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>While you could write the prompt above as paragraph, doing so requires the model to spend some of its attention deciphering how the sentences relate to one another and what it should be doing. </span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>By using a more structured format you allow the model to focus more on the content and the output, rather than on parsing the prompt itself.</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>This kind of formatting acts as a signal, helping the model better understand your intent and produce more accurate results.</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Chaining</span></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>Prompt chaining is the process of sequencing prompts together to complete more complex tasks.</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>Prompt chaining is effective because it mirrors how humans tackle complex reasoning—by breaking problems into smaller, sequential steps that build on one another. </span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>Early generations of language models required explicit guidance to do this well. </span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>Users learned to include instructions like “think through this step-by-step” or “show your reasoning before answering” to encourage a structured, multi-stage thought process known as chain-of-thought prompting. </span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>This approach improved accuracy because it forced the model to generate a longer sequence of tokens that adhered to what an explanation would look like instead of just predicting the final output.</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>Even with newer models this approach - asking for rationales or other details in addition to your desired output - has been shown to be beneficial.</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>Newer reasoning models and research modes have internalized much of this behavior through invisible instructions.  </span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>These are system prompts or additional instructions that aren’t shown to the user but are built into the system to help guide the model’s behavior and improve the quality of its responses.</span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>These instructions are always present in some form. </span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>Before generating a response, the model applies internal rules to review your input and shape its output. </span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>For example, it reviews inputs and output to check for content that might infringe on intellectual property, is plagiarized, or includes harmful or illegal material. </span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>(While companies have heavily invested in these safeguards, they’re not guaranteed. It’s still your responsibility to verify that the output is appropriate and doesn’t violate any guidelines.)</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>Invisible instructions also influence the style and personality of the model’s responses. </span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>You might have noticed that a model may suggest next steps or follow-up actions, even if you didn’t explicitly ask for them. </span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>That’s part of the invisible instructions, designed to extend your engagement with the chatbot.</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>Let's look at a sophisticated example from <span class="co">[</span><span class="ot">Anthropic's "Research" mode:</span><span class="co">](https://www.anthropic.com/engineering/built-multi-agent-research-system)</span></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/anthropic_research.png)</span>{fig-align="center"}</span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>While this also touches on <span class="co">[</span><span class="ot">multi-agentic systems, which we'll briefly discuss later</span><span class="co">](21-chained-workflows.qmd#sec-chained-workflows)</span>, the main point is that there are a _lot_ of other instructions that happen behinds the scenes that are invisible to the user. </span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>In Anthropic's research mode, the user submits a prompt. </span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>Through hidden instructions, a “lead researcher” prompt is generated. </span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>This agent then creates and directs additional prompts. </span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>These prompts spawn sub-agents, each focused on a narrow aspect of the research topic. </span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>The number of sub-agents is determined by the output of the lead researcher prompt. </span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>Each sub-agent investigates its assigned topic and may also search the web for supporting information. </span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>The sources accessed are saved in an index. </span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a>Once all sub-agents complete their tasks, another agent reviews and synthesizes the information into a coherent narrative, including citations where appropriate. </span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>After all these steps, the final output is returned to the user.</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chained Workflows</span></span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate.</span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step.</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>I won't go into much detail here because <span class="co">[</span><span class="ot">we'll cover this in more depth later (including an activity)</span><span class="co">](activity-chained-workflows.qmd#sec-act-chained)</span>, but I want to mention it here for completeness while discussing effective prompt engineering strategies.</span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>In summary, chaining makes the reasoning process visible and, in a sense, auditable.<span class="ot">[^2]</span></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.</span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Many people have pointed out that a 90-minute ice breaker session would be _terrifying._</span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a><span class="ot">[^2]: </span>I would argue that the process of generating the response isn't really "thinking" in the sense that you and I know the word. </span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>Anthropic has published <span class="co">[</span><span class="ot">research showing that models don't always say what they're actually thinking</span><span class="co">](https://www.anthropic.com/research/reasoning-models-dont-say-think)</span> when providing a response that "shows" their reasoning.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>This workshop was developed by Christopher Runyon.</p>
+<p>Copyright © 2025 by Christopher Runyon.<br> Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

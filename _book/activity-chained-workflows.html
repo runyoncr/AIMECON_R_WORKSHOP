@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script><link rel="stylesheet" href="style.css">
 </head>
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./15-prompt-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -397,10 +397,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#task-generate-feedback-report" id="toc-task-generate-feedback-report" class="nav-link active" data-scroll-target="#task-generate-feedback-report"><span class="header-section-number">22.1</span> Task: Generate Feedback Report</a></li>
+  <li><a href="#task-generate-instructor-report" id="toc-task-generate-instructor-report" class="nav-link" data-scroll-target="#task-generate-instructor-report"><span class="header-section-number">22.2</span> Task: Generate Instructor Report</a></li>
+  <li><a href="#task-all-3-steps-at-once" id="toc-task-all-3-steps-at-once" class="nav-link" data-scroll-target="#task-all-3-steps-at-once"><span class="header-section-number">22.3</span> Task: All 3 Steps at Once!</a></li>
+  <li><a href="#task-brainstorm-a-chained-workflow" id="toc-task-brainstorm-a-chained-workflow" class="nav-link" data-scroll-target="#task-brainstorm-a-chained-workflow"><span class="header-section-number">22.4</span> Task: Brainstorm a Chained Workflow</a></li>
+  </ul></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./activity-chained-workflows.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-act-prompting" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-act-chained" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -461,10 +470,15 @@ View Feedback Response
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Some cleaning for the quarto output; not strictly necessary</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.5.2</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'knitr' was built under R version 4.5.2</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Some cleaning for the quarto output; not strictly necessary</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/format_for_qmd.R'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">feedback_response</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">feedback_response</span><span class="op">)</span></span>
@@ -483,7 +497,7 @@ View Feedback Response
 <span class="header-section-number">22.2</span> Task: Generate Instructor Report</h2>
 <p>Now that we have student feedback, let’s use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">build_remediation_prompt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">feedback_output</span><span class="op">)</span><span class="op">{</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">build_remediation_prompt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">feedback_output</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">  You will analyze feedback that has been provided to a student about their performance. </span></span>
 <span><span class="st">  Your task is to identify any potential gaps in the course materials or instruction that could be improved to further help the learning. </span></span>
@@ -529,7 +543,7 @@ View Feedback Response
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">remediation_response</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">remediation_response</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">remediation_response</span> <span class="op">&lt;-</span> <span class="fu">format_for_qmd</span><span class="op">(</span><span class="va">remediation_response</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">remediation_response</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -575,7 +589,7 @@ View Feedback Response
 <p>Let’s put this all together in a single workflow. I’ve written a different simulated OSCE note so we can see the variation in what the model produces given a different basis for the workflow.</p>
 <p>I saved the functions that we used earlier so we can easily load them. This allows us to pay more attention to the chained workflow and not get caught up in the details of the lengthy prompt text. Saving the individual prompts as files to be loaded by <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> later is a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow. I also saved <code>analytic_rubric</code> in the <code>build_osce_analytic_prompt</code> file instead of repeating it here.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_osce_analytic_prompt.R'</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_osce_analytic_prompt.R'</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_feedback_prompt.R'</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'downloads/build_remediation_prompt.R'</span><span class="op">)</span></span>
 <span></span>
@@ -622,7 +636,7 @@ View Workflow Output
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">full_report</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">asis_output</a></span><span class="op">(</span><span class="va">full_report</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><em>OSCE Post-Encounter Note Scoring Rubric</em></p>
 <p><strong>Criterion 1: Chief concern of chest pain</strong></p>
@@ -692,7 +706,9 @@ View Workflow Output
 </div>
 </section><section id="task-brainstorm-a-chained-workflow" class="level2" data-number="22.4"><h2 data-number="22.4" class="anchored" data-anchor-id="task-brainstorm-a-chained-workflow">
 <span class="header-section-number">22.4</span> Task: Brainstorm a Chained Workflow</h2>
-<p>Now it’s time for you to think about how you can incorporate a chained workflow into some of your processes at your organization / institution! What sophisticated tasks / workflows could you use a generative AI chained workflow to automate? In what steps does the model output flow directly into another model call? Are there places where you’d like to have human review before the model completes additional steps?</p>
+<p>Now it’s time for <em>you</em> to think about how you can utilize a chained workflow!</p>
+<p>What sophisticated tasks / workflows could benefit from integrating a generative AI chained workflow? What processes could you automate?</p>
+<p>In what steps does the model output flow directly into another model call? Are there places where you’d like to have human review before the model completes additional steps?</p>
 <p>For this activity, identify <strong>at least 3 steps</strong> where a generative AI model could be useful in your workflow.</p>
 
 
@@ -1163,207 +1179,210 @@ View Workflow Output
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Activity: Chained Workflows {#sec-act-prompting}</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Now let's work through an example of how you might implement a chained workflow.</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>We'll start with the work we did in a previous section where we <span class="co">[</span><span class="ot">applied analytic rubrics to an OSCE note</span><span class="co">](@sec-act-rubric-task)</span>.</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>What can one do with that note?</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Many things!</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Below is an image demonstrating how one could build a chained workflow for a comprehensive approach to evaluating student notes from OSCE assessments.</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/promptchaining.png)</span>{fig-align="center" style="border: 1.5px solid black;"}</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>We won't complete all of these tasks.</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>Just working through a few steps will be sufficient to give you a sense of how a chained workflow might work in practice.</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Generate Feedback Report</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>We have a report that we obtained by <span class="co">[</span><span class="ot">applying an analytic rubric to the student's OSCE note</span><span class="co">](@sec-act-rubric-task)</span>, but that report is not sufficient to provide the student with helpful feedback on their performance. Yes, it does provide a score and an indication of what information was present or not in their note, but this doesn't translate to actionable feedback.</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>We can now craft a prompt that uses this generated report as the basis for a prompt to generate feedback that would be more appropriate to provide to the student.</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/analytic_response.Rdata"</span>)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>build_feedback_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(completed_rubric){</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Using the following completed rubric as a guide, provide constructive feedback to the student about their clinical case documentation. </span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="st">    The feedback should consist of two well-developed paragraphs:</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="st">    The first paragraph should offer a balanced assessment of the student's documentation. </span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="st">    Begin by acknowledging elements that were documented well (if any), then identify the most critical missing or inadequately addressed components based on the rubric. </span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="st">    Be specific about what was missing and, where applicable, note the quality or completeness of what was documented.</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="st">    The second paragraph should provide educational context by explaining why the missing or inadequate elements are clinically important for evaluating and managing a patient presenting with this specific chief concern. </span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="st">    Connect these documentation gaps to potential impacts on patient care, differential diagnosis, treatment planning, or patient safety. </span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="st">    Use this as a teaching opportunity to help the student understand the clinical reasoning behind thorough documentation.</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="st">    Here is the complete rubric on the student's performance: {completed_rubric}</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="st">    "</span>)</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>feedback_prompt <span class="ot">&lt;-</span> <span class="fu">build_feedback_prompt</span>(analytic_rubric)</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>feedback_response <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(feedback_prompt,</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(feedback_response, <span class="at">file =</span> <span class="st">"data/feedback_response.Rdata"</span>)</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Feedback Response</span></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/feedback_response.Rdata"</span>)</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Some cleaning for the quarto output; not strictly necessary</span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/format_for_qmd.R'</span>)</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>feedback_response <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(feedback_response)</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(feedback_response)</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Generate Instructor Report</span></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>Now that we have student feedback, let's use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>build_remediation_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(feedback_output){</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="st">  You will analyze feedback that has been provided to a student about their performance. </span></span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="st">  Your task is to identify any potential gaps in the course materials or instruction that could be improved to further help the learning. </span></span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="st">  Based on the documentation deficiencies and missing clinical elements identified in the student feedback:</span></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="st">  1. Pattern Analysis: Determine whether these gaps likely reflect:</span></span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="st">  • Individual student oversight or understanding issues</span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="st">  • Systematic instructional gaps that may affect multiple students</span></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="st">  • Unclear expectations in the assignment or rubric</span></span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="st">  2. Curricular Recommendations: If the gaps suggest instructional needs, provide 2-3 specific, actionable recommendations for strengthening the course materials. </span></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="st">  For each recommendation, specify:</span></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="st">  • Which course component to enhance (e.g., lecture content, practice cases, rubric clarity, pre-assignment resources)</span></span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="st">  • What specific content or skill should be emphasized</span></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="st">  • Why this would address the observed documentation gap</span></span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Context Considerations: Note whether the missing elements are:</span></span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="st">  • Foundational knowledge that should have been covered previously</span></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="st">  • Advanced concepts that may need more instructional time</span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="st">  • Clinical reasoning skills requiring additional practice opportunities</span></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="st">  Format your response as a brief analysis followed by concrete action items that an instructor can implement.</span></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="st">  Complete this task using this feedback: {feedback_output}</span></span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="st">  "</span>)</span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>remediation_prompt <span class="ot">&lt;-</span> <span class="fu">build_remediation_prompt</span>(feedback_response)</span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>remediation_response <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(remediation_prompt,</span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(remediation_response, <span class="at">file =</span> <span class="st">"data/remediation_response.Rdata"</span>)</span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Feedback Response</span></span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/remediation_response.Rdata"</span>)</span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>remediation_response <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(remediation_response)</span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(remediation_response)</span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: All 3 Steps at Once!</span></span>
-<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>Let's put this all together in a single workflow. I've written a different simulated OSCE note so we can see the variation in what the model produces given a different basis for the workflow.</span>
-<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>I saved the functions that we used earlier so we can easily load them.</span>
-<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>This allows us to pay more attention to the chained workflow and not get caught up in the details of the lengthy prompt text. </span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>Saving the individual prompts as files to be loaded by <span class="in">`source()`</span> later is a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow.</span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>I also saved <span class="in">`analytic_rubric`</span> in the <span class="in">`build_osce_analytic_prompt`</span> file instead of repeating it here. </span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_osce_analytic_prompt.R'</span>)</span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_feedback_prompt.R'</span>)</span>
-<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_remediation_prompt.R'</span>)</span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>osce_note_2 <span class="ot">&lt;-</span> <span class="st">"</span></span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="st">45yo m presents with shortness of breath due to intermittent chest pain.</span></span>
-<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="st">Reports that the pain more noticable on exertion this morning (walking up stairs). </span></span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="st">Hypertensive, although on medication, suggesting it is poorly controlled.</span></span>
-<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="st">Diagnostic testing to rule out ACS should be completed first."</span></span>
-<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>analytic_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
-<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_osce_analytic_prompt</span>(osce_note_2, analytic_rubric),</span>
-<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(analytic_response_2, <span class="at">file =</span> <span class="st">'data/analytic_response_2.Rdata'</span>)</span>
-<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>feedback_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
-<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_feedback_prompt</span>(analytic_response_2),</span>
-<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(feedback_response_2, <span class="at">file =</span> <span class="st">'data/feedback_response_2.Rdata'</span>)</span>
-<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>remediation_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
-<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_remediation_prompt</span>(feedback_response_2),</span>
-<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(remediation_response_2, <span class="at">file =</span> <span class="st">'data/remediation_response_2.Rdata'</span>)</span>
-<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>full_report <span class="ot">&lt;-</span> <span class="fu">paste</span>(analytic_response_2,</span>
-<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>                     feedback_response_2,</span>
-<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>                     remediation_response_2,</span>
-<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>                     <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">  ***  </span><span class="sc">\n\n</span><span class="st">"</span>)</span>
-<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>full_report <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(full_report)</span>
-<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
-<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(full_report, <span class="at">file =</span> <span class="st">'data/full_report.Rdata'</span>)</span>
-<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Workflow Output</span></span>
-<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/full_report.Rdata'</span>)</span>
-<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(full_report)</span>
-<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Brainstorm a Chained Workflow</span></span>
-<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a>Now it's time for you to think about how you can incorporate a chained workflow into some of your processes at your organization / institution!</span>
-<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a>What sophisticated tasks / workflows could you use a generative AI chained workflow to automate?</span>
-<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>In what steps does the model output flow directly into another model call?</span>
-<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a>Are there places where you'd like to have human review before the model completes additional steps?</span>
-<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>For this activity, identify **at least 3 steps** where a generative AI model could be useful in your workflow.</span>
+<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Activity: Chained Workflows {#sec-act-chained}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Now let's work through an example of how you might implement a chained workflow.</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>We'll start with the work we did in a previous section where we <span class="co">[</span><span class="ot">applied analytic rubrics to an OSCE note</span><span class="co">](@sec-act-rubric-task)</span>.</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>What can one do with that note?</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>Many things!</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>Below is an image demonstrating how one could build a chained workflow for a comprehensive approach to evaluating student notes from OSCE assessments.</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/promptchaining.png)</span>{fig-align="center" style="border: 1.5px solid black;"}</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>We won't complete all of these tasks.</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>Just working through a few steps will be sufficient to give you a sense of how a chained workflow might work in practice.</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Generate Feedback Report</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>We have a report that we obtained by <span class="co">[</span><span class="ot">applying an analytic rubric to the student's OSCE note</span><span class="co">](@sec-act-rubric-task)</span>, but that report is not sufficient to provide the student with helpful feedback on their performance. Yes, it does provide a score and an indication of what information was present or not in their note, but this doesn't translate to actionable feedback.</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>We can now craft a prompt that uses this generated report as the basis for a prompt to generate feedback that would be more appropriate to provide to the student.</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/analytic_response.Rdata"</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>build_feedback_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(completed_rubric){</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Using the following completed rubric as a guide, provide constructive feedback to the student about their clinical case documentation. </span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="st">    The feedback should consist of two well-developed paragraphs:</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="st">    The first paragraph should offer a balanced assessment of the student's documentation. </span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="st">    Begin by acknowledging elements that were documented well (if any), then identify the most critical missing or inadequately addressed components based on the rubric. </span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="st">    Be specific about what was missing and, where applicable, note the quality or completeness of what was documented.</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="st">    The second paragraph should provide educational context by explaining why the missing or inadequate elements are clinically important for evaluating and managing a patient presenting with this specific chief concern. </span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="st">    Connect these documentation gaps to potential impacts on patient care, differential diagnosis, treatment planning, or patient safety. </span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="st">    Use this as a teaching opportunity to help the student understand the clinical reasoning behind thorough documentation.</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="st">    Here is the complete rubric on the student's performance: {completed_rubric}</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="st">    "</span>)</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>feedback_prompt <span class="ot">&lt;-</span> <span class="fu">build_feedback_prompt</span>(analytic_rubric)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>feedback_response <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(feedback_prompt,</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(feedback_response, <span class="at">file =</span> <span class="st">"data/feedback_response.Rdata"</span>)</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Feedback Response</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/feedback_response.Rdata"</span>)</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Some cleaning for the quarto output; not strictly necessary</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/format_for_qmd.R'</span>)</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>feedback_response <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(feedback_response)</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(feedback_response)</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Generate Instructor Report</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>Now that we have student feedback, let's use this to provide information to the instructor about where they might need to improve their course materials or provide additional instruction / information / attention.</span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>build_remediation_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(feedback_output){</span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"</span></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="st">  You will analyze feedback that has been provided to a student about their performance. </span></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="st">  Your task is to identify any potential gaps in the course materials or instruction that could be improved to further help the learning. </span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="st">  Based on the documentation deficiencies and missing clinical elements identified in the student feedback:</span></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="st">  1. Pattern Analysis: Determine whether these gaps likely reflect:</span></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a><span class="st">  • Individual student oversight or understanding issues</span></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="st">  • Systematic instructional gaps that may affect multiple students</span></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a><span class="st">  • Unclear expectations in the assignment or rubric</span></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="st">  2. Curricular Recommendations: If the gaps suggest instructional needs, provide 2-3 specific, actionable recommendations for strengthening the course materials. </span></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a><span class="st">  For each recommendation, specify:</span></span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="st">  • Which course component to enhance (e.g., lecture content, practice cases, rubric clarity, pre-assignment resources)</span></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a><span class="st">  • What specific content or skill should be emphasized</span></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a><span class="st">  • Why this would address the observed documentation gap</span></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Context Considerations: Note whether the missing elements are:</span></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="st">  • Foundational knowledge that should have been covered previously</span></span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="st">  • Advanced concepts that may need more instructional time</span></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="st">  • Clinical reasoning skills requiring additional practice opportunities</span></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a><span class="st">  Format your response as a brief analysis followed by concrete action items that an instructor can implement.</span></span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a><span class="st">  Complete this task using this feedback: {feedback_output}</span></span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a><span class="st">  "</span>)</span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>remediation_prompt <span class="ot">&lt;-</span> <span class="fu">build_remediation_prompt</span>(feedback_response)</span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>remediation_response <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(remediation_prompt,</span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(remediation_response, <span class="at">file =</span> <span class="st">"data/remediation_response.Rdata"</span>)</span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Feedback Response</span></span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/remediation_response.Rdata"</span>)</span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>remediation_response <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(remediation_response)</span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(remediation_response)</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: All 3 Steps at Once!</span></span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>Let's put this all together in a single workflow. I've written a different simulated OSCE note so we can see the variation in what the model produces given a different basis for the workflow.</span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>I saved the functions that we used earlier so we can easily load them.</span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>This allows us to pay more attention to the chained workflow and not get caught up in the details of the lengthy prompt text. </span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>Saving the individual prompts as files to be loaded by <span class="in">`source()`</span> later is a good practice because you can refine pieces of the chained workflow individually, catching errors and optimizing each step in the workflow.</span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>I also saved <span class="in">`analytic_rubric`</span> in the <span class="in">`build_osce_analytic_prompt`</span> file instead of repeating it here. </span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_osce_analytic_prompt.R'</span>)</span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_feedback_prompt.R'</span>)</span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'downloads/build_remediation_prompt.R'</span>)</span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>osce_note_2 <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a><span class="st">45yo m presents with shortness of breath due to intermittent chest pain.</span></span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a><span class="st">Reports that the pain more noticable on exertion this morning (walking up stairs). </span></span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a><span class="st">Hypertensive, although on medication, suggesting it is poorly controlled.</span></span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="st">Diagnostic testing to rule out ACS should be completed first."</span></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>analytic_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_osce_analytic_prompt</span>(osce_note_2, analytic_rubric),</span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(analytic_response_2, <span class="at">file =</span> <span class="st">'data/analytic_response_2.Rdata'</span>)</span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>feedback_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_feedback_prompt</span>(analytic_response_2),</span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(feedback_response_2, <span class="at">file =</span> <span class="st">'data/feedback_response_2.Rdata'</span>)</span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>remediation_response_2 <span class="ot">&lt;-</span> <span class="fu">claude_plus</span>(</span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">build_remediation_prompt</span>(feedback_response_2),</span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(remediation_response_2, <span class="at">file =</span> <span class="st">'data/remediation_response_2.Rdata'</span>)</span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>full_report <span class="ot">&lt;-</span> <span class="fu">paste</span>(analytic_response_2,</span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>                     feedback_response_2,</span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>                     remediation_response_2,</span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>                     <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">  ***  </span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>full_report <span class="ot">&lt;-</span> <span class="fu">format_for_qmd</span>(full_report)</span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE, echo = FALSE}</span></span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(full_report, <span class="at">file =</span> <span class="st">'data/full_report.Rdata'</span>)</span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## View Workflow Output</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/full_report.Rdata'</span>)</span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">asis_output</span>(full_report)</span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task: Brainstorm a Chained Workflow</span></span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a>Now it's time for _you_ to think about how you can utilize a chained workflow!</span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>What sophisticated tasks / workflows could benefit from integrating a generative AI chained workflow?</span>
+<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a>What processes could you automate?</span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>In what steps does the model output flow directly into another model call?</span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>Are there places where you'd like to have human review before the model completes additional steps?</span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>For this activity, identify **at least 3 steps** where a generative AI model could be useful in your workflow.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>This workshop was developed by Christopher Runyon.</p>
+<p>Copyright © 2025 by Christopher Runyon.<br> Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

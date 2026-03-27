@@ -1,0 +1,117 @@
+---
+title: "Getting Started with the Anthropic API"
+output: html_notebook
+---
+
+## Overview
+
+In this workshop, we will be using the **Anthropic API** to interact with Claude directly from R. Before the workshop begins, this notebook will walk you through the two setup steps you need to complete:
+
+1. Entering your Anthropic API key
+2. Loading the `call_claude()` function
+
+If both steps complete without errors, you are ready to go.
+
+---
+
+## Step 1: Load Required Packages
+
+Run this chunk first. If either package is not installed, run `install.packages("httr")` or `install.packages("jsonlite")` in your console first, then try again.
+
+```{r packages}
+library(httr)
+library(jsonlite)
+```
+
+---
+
+## Step 2: Enter Your API Key
+
+When you run the chunk below, a popup window will appear asking for your Anthropic API key. Paste your key into the box and click OK. Your key will be stored securely for this R session only — it is never saved to disk.
+
+If you do not yet have an API key, you can create one at [console.anthropic.com](https://console.anthropic.com) under **API Keys**. You won't need many credits for the workshop - $5 should suffice.
+
+```{r api-key}
+Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+```
+
+---
+
+## Step 3: Load the `call_claude()` Function
+
+Run the chunk below to load the function we will be using throughout the workshop. You do not need to modify anything here.
+
+```{r call-claude-function}
+call_claude <- function(prompt,
+                        model = "claude-sonnet-4-6",
+                        system = NULL,
+                        temperature = 0.5,
+                        max_tokens = 4096,
+                        effort = "low") {
+  
+  # Get API key from environment
+  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+  
+  # Convert text prompt to required message format
+  messages <- list(list(role = "user", content = prompt))
+  
+  # Build request body
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = max_tokens,
+    temperature = temperature,
+    output_config = list(effort = effort)
+  )
+  
+  # Add system prompt if provided
+  if (!is.null(system)) {
+    request_body$system <- system
+  }
+  
+  # Set up headers
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    "anthropic-version" = "2023-06-01",
+    "content-type" = "application/json"
+  )
+  
+  # Make the API request
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages",
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  
+  # Check if request was successful
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message,
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  
+  # Parse response and extract text content
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(result$content$text)
+  
+}
+```
+
+---
+
+## Step 4: Test Your Setup
+
+Run the chunk below to send a simple message to Claude. If everything is working correctly, you should see a response appear below the chunk within a few seconds.
+
+```{r test}
+call_claude("Please respond with the following message exactly: 'API key confirmed. Ready for the workshop!'")
+```
+
+---
+
+## You're All Set!
+
+If you saw a response above, your API key is working and you are ready for the workshop. If you encountered an error, the most common causes are:
+
+- The API key was entered incorrectly — re-run the Step 2 chunk and try again
+- The `httr` or `jsonlite` package is not installed — see Step 1 above
+- Your API key does not have available credits — check your usage at [console.anthropic.com](https://console.anthropic.com)

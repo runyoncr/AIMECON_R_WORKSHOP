@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Activity: Content Development and Revision – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>12&nbsp; Activity: Content Development and Revision – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,8 +61,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./activity-scoring-with-rubrics.html" rel="next">
-<link href="./04d-batch-processing.html" rel="prev">
+<link href="./13-single-interactions-via-api.html" rel="next">
+<link href="./11-conversations-via-api.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -101,14 +101,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script><link rel="stylesheet" href="style.css">
 </head>
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./activity-content-development-revision.html">Activity: Content Development and Revision</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-integration.html">Conversational Interactions</a></li><li class="breadcrumb-item"><a href="./activity-content-development-revision.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -135,80 +135,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Setup</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00a-R-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00b-R-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="./02-R-packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00c-test-connect.html" class="sidebar-item-text sidebar-link">
+  <a href="./03-test-connect.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./03-api-implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">API Implementation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03a-api-keys.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03b-prompting-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Prompting LLMs via API</span></span></a>
+  <a href="./05-api-keys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./01-gen-ai-fundamentals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Generative AI Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Generative AI Models</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01a-gen-ai-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
+  <a href="./06-gen-ai-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Generative AI Fundamentals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01b-gen-ai-parameters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Generation Parameters</span></span></a>
+  <a href="./07-gen-ai-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Foundational Principles</span></span></a>
   </div>
 </li>
-      </ul>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-gen-ai-parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generation Parameters</span></span></a>
+  </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-parameter-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Activity: Generation Parameter Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Activity: Generation Parameter Testing</span></span></a>
   </div>
+</li>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./02-prompt-engineering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Prompt Engineering</span></a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conversational Interactions</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -216,132 +222,193 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02a-general-prompt-information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">General Prompt Engineering</span></span></a>
+  <a href="./10-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integrating LLMs into R Workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02b-prompt-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example Prompt Formulas</span></span></a>
+  <a href="./11-conversations-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02c-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./04-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Integrating LLMs into R Workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04a-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single Interactions via API</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04b-conversations-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04c-rag-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04d-batch-processing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-content-development-revision.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Activity: Content Development and Revision</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Activity: Scoring with Rubrics</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./05-shiny-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Shiny Integration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05a-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Shiny</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05b-vibe-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></span></a>
   </div>
 </li>
       </ul>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transactional Interactions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Activity: Shiny App Development</span></a>
+  <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-references.html" class="sidebar-item-text sidebar-link">
+  <a href="./14-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-prompt-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-mitigating-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-batch-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-chained-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-calling-other-llms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-rag-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Vibe Coding with Shiny</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R Shiny</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./26-vibe-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./27-shiny-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Activity: Shiny App Development</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./29-saving-shiny-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./30-reference-materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./31-acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acknowledgements</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-reference-materials.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Reference Materials</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgements</span></a>
-  </div>
+      </ul>
 </li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#task-1-pros-and-cons" id="toc-task-1-pros-and-cons" class="nav-link active" data-scroll-target="#task-1-pros-and-cons"><span class="header-section-number">12.1</span> Task 1 : Pros and Cons</a></li>
+  <li><a href="#task-2-model-response-agreeability" id="toc-task-2-model-response-agreeability" class="nav-link" data-scroll-target="#task-2-model-response-agreeability"><span class="header-section-number">12.2</span> Task 2 : Model Response Agreeability</a></li>
+  <li><a href="#task-3-model-response-conviction" id="toc-task-3-model-response-conviction" class="nav-link" data-scroll-target="#task-3-model-response-conviction"><span class="header-section-number">12.3</span> Task 3 : Model Response Conviction</a></li>
+  </ul></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-act-content" class="quarto-section-identifier">Activity: Content Development and Revision</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-integration.html">Conversational Interactions</a></li><li class="breadcrumb-item"><a href="./activity-content-development-revision.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-act-content" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -355,7 +422,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="task-1-pros-and-cons" class="level2"><h2 class="anchored" data-anchor-id="task-1-pros-and-cons">Task 1 : Pros and Cons</h2>
+</header><section id="task-1-pros-and-cons" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="task-1-pros-and-cons">
+<span class="header-section-number">12.1</span> Task 1 : Pros and Cons</h2>
 <p>Choose a topic and ask the model to generate a list of pros and cons for each side. You can use one of the suggestions below or pick your own:</p>
 <ul>
 <li>Bayesian vs Frequentist Statistics</li>
@@ -388,40 +456,41 @@ Bayesian vs Frequentist Statistics: Pros and Cons
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><em>Bayesian vs Frequentist Statistics: Pros and Cons</em></p>
-<section id="bayesian-statistics" class="level2"><h2 class="anchored" data-anchor-id="bayesian-statistics"><strong>Bayesian Statistics</strong></h2>
-<section id="pros" class="level3"><h3 class="anchored" data-anchor-id="pros"><strong>Pros:</strong></h3>
+<p><strong>Bayesian Statistics</strong></p>
+<p><strong>Pros:</strong></p>
 <p><strong>1. Incorporates Prior Knowledge</strong> - You can include existing knowledge or expert opinion through prior distributions, making results more informed and contextually relevant</p>
 <p><strong>2. Direct Probability Statements</strong> - Provides intuitive interpretations like “95% probability the parameter lies in this interval” rather than complex frequency-based interpretations</p>
 <p><strong>3. Natural Uncertainty Quantification</strong> - Full posterior distributions show the complete uncertainty about parameters, not just point estimates</p>
 <p><strong>4. Coherent Decision Framework</strong> - Provides a principled way to make decisions by combining prior beliefs with data through Bayes’ theorem</p>
 <p><strong>5. Handles Small Samples Well</strong> - Prior information helps stabilize estimates when data is limited, preventing overfitting</p>
 <p><strong>6. Sequential Learning</strong> - Today’s posterior becomes tomorrow’s prior, allowing natural updating as new data arrives</p>
-</section><section id="cons" class="level3"><h3 class="anchored" data-anchor-id="cons"><strong>Cons:</strong></h3>
+<p><strong>Cons:</strong></p>
 <p><strong>1. Subjective Prior Selection</strong> - Choice of priors can be controversial and may influence results, especially with limited data</p>
 <p><strong>2. Computational Complexity</strong> - Often requires sophisticated algorithms (MCMC, variational inference) that can be slow and technically challenging</p>
 <p><strong>3. Model Sensitivity</strong> - Results can be sensitive to modeling assumptions, and model checking can be more complex</p>
 <p><strong>4. Communication Challenges</strong> - May be harder to explain to non-statisticians and less accepted in some traditional scientific fields</p>
-<hr></section></section><section id="frequentist-statistics" class="level2"><h2 class="anchored" data-anchor-id="frequentist-statistics"><strong>Frequentist Statistics</strong></h2>
-<section id="pros-1" class="level3"><h3 class="anchored" data-anchor-id="pros-1"><strong>Pros:</strong></h3>
+<hr>
+<p><strong>Frequentist Statistics</strong></p>
+<p><strong>Pros:</strong></p>
 <p><strong>1. Objectivity</strong> - No subjective priors needed; results depend only on the data and assumed statistical model</p>
 <p><strong>2. Computational Efficiency</strong> - Many procedures have closed-form solutions or use well-established, fast algorithms</p>
 <p><strong>3. Strong Theoretical Foundation</strong> - Well-developed theory for sampling distributions, hypothesis testing, and confidence intervals</p>
 <p><strong>4. Widespread Acceptance</strong> - Standard approach in many fields with established conventions and regulatory acceptance</p>
 <p><strong>5. Long-run Guarantees</strong> - Provides clear frequentist properties like Type I error control and coverage probabilities</p>
-</section><section id="cons-1" class="level3"><h3 class="anchored" data-anchor-id="cons-1"><strong>Cons:</strong></h3>
+<p><strong>Cons:</strong></p>
 <p><strong>1. Counterintuitive Interpretations</strong> - Confidence intervals and p-values have complex interpretations that are often misunderstood (“95% of such intervals contain the true parameter”)</p>
 <p><strong>2. Cannot Incorporate Prior Knowledge</strong> - No formal mechanism to include existing knowledge or expert opinion</p>
 <p><strong>3. Poor Small Sample Performance</strong> - Can produce unreliable results with limited data, especially for complex models</p>
 <p><strong>4. Multiple Testing Problems</strong> - Requires complex adjustments when performing many tests, and stopping rules affect conclusions</p>
 <p><strong>5. No Direct Probability Statements</strong> - Cannot make statements like “the probability that the treatment works is 80%” about specific hypotheses</p>
 <p><strong>6. Fixed Sample Size Limitation</strong> - Classical procedures assume predetermined sample sizes; sequential analysis requires special methods</p>
-<hr></section></section><section id="bottom-line" class="level2"><h2 class="anchored" data-anchor-id="bottom-line"><strong>Bottom Line</strong></h2>
-<p>The choice between approaches often depends on your specific context: Bayesian methods excel when you have prior knowledge, need intuitive probability statements, or work with complex models, while Frequentist methods are preferred when objectivity is paramount, computational resources are limited, or working within established regulatory frameworks.</p>
-</section>
+<hr>
+<p><strong>Bottom Line</strong> The choice between approaches often depends on your specific context: Bayesian methods excel when you have prior knowledge, need intuitive probability statements, or work with complex models, while Frequentist methods are preferred when objectivity is paramount, computational resources are limited, or working within established regulatory frameworks.</p>
 </div>
 </div>
 </div>
-</section><section id="task-2-model-response-agreeability" class="level2"><h2 class="anchored" data-anchor-id="task-2-model-response-agreeability">Task 2 : Model Response Agreeability</h2>
+</section><section id="task-2-model-response-agreeability" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="task-2-model-response-agreeability">
+<span class="header-section-number">12.2</span> Task 2 : Model Response Agreeability</h2>
 <p>Pick the weakest part of the model’s response from Task 1. Then, ask the model to elaborate on why that point might actually be the strongest argument. You can use a prompt like:</p>
 <p><em>“Yes, I completely agree. [insert weak argument here] is a great reason for [topic]. Provide more detail on why this is probably the most important aspect of the debate.”</em></p>
 <div class="cell">
@@ -441,18 +510,18 @@ Computational Complexity as a Con for Bayesian Statistics
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>I appreciate your perspective, but I’d actually argue that <strong>computational complexity isn’t necessarily the most important aspect</strong> of the Bayesian vs Frequentist debate anymore. Let me explain why this argument has become less compelling over time, while acknowledging the valid concerns:</p>
-<section id="why-computational-complexity-used-to-be-decisive" class="level2"><h2 class="anchored" data-anchor-id="why-computational-complexity-used-to-be-decisive"><strong>Why Computational Complexity Used to Be Decisive</strong></h2>
+<p><strong>Why Computational Complexity Used to Be Decisive</strong></p>
 <p><strong>Historical Barrier (1990s-2000s)</strong> - Bayesian methods required specialized MCMC coding that could take days or weeks to run - Limited software availability meant most practitioners couldn’t implement Bayesian models - Frequentist methods had decades of optimized, battle-tested implementations</p>
 <p><strong>Resource Intensity</strong> - Complex models might require expensive computing clusters - Debugging convergence issues required deep statistical expertise - Time-to-results was often impractical for business or research deadlines</p>
-</section><section id="why-this-argument-has-weakened" class="level2"><h2 class="anchored" data-anchor-id="why-this-argument-has-weakened"><strong>Why This Argument Has Weakened</strong></h2>
+<p><strong>Why This Argument Has Weakened</strong></p>
 <p><strong>1. Computational Power Revolution</strong> - Modern laptops can run analyses that required supercomputers 20 years ago - Cloud computing makes massive computational resources accessible and affordable - GPU acceleration has made many Bayesian computations dramatically faster</p>
 <p><strong>2. Software Maturation</strong> - Tools like Stan, PyMC, JAGS have made Bayesian modeling nearly as accessible as running a t-test - Automated diagnostics and default priors reduce the expertise barrier - Integration with popular languages (R, Python) has streamlined workflows</p>
 <p><strong>3. Algorithmic Advances</strong> - Variational inference provides fast approximate Bayesian solutions - No-U-Turn samplers and other modern MCMC methods are more efficient and robust - Automatic differentiation has revolutionized gradient-based sampling</p>
-</section><section id="the-more-fundamental-issues" class="level2"><h2 class="anchored" data-anchor-id="the-more-fundamental-issues"><strong>The More Fundamental Issues</strong></h2>
+<p><strong>The More Fundamental Issues</strong></p>
 <p><strong>Interpretability and Communication</strong> - A 95% credible interval vs.&nbsp;95% confidence interval distinction matters more in practice than computation time - Stakeholders need to understand what results mean, regardless of how fast you computed them</p>
 <p><strong>Prior Specification</strong> - The subjectivity issue doesn’t disappear with faster computers - Regulatory agencies and peer reviewers still question prior choices - Sensitivity analyses still require careful thought and justification</p>
 <p><strong>Problem Appropriateness</strong> - Some problems genuinely don’t benefit from Bayesian approaches - When you have massive data and no prior knowledge, frequentist methods may be more straightforward</p>
-</section><section id="when-computation-still-matters" class="level2"><h2 class="anchored" data-anchor-id="when-computation-still-matters"><strong>When Computation Still Matters</strong></h2>
+<p><strong>When Computation Still Matters</strong></p>
 <ul>
 <li>
 <strong>Real-time applications</strong> (fraud detection, algorithmic trading)</li>
@@ -462,13 +531,13 @@ Computational Complexity as a Con for Bayesian Statistics
 <strong>Resource-constrained environments</strong> (embedded systems, developing regions)</li>
 </ul>
 <p><strong>Bottom Line:</strong> While computational complexity remains a practical consideration, I’d argue that <strong>conceptual fit, interpretability needs, and organizational culture</strong> have become more decisive factors in choosing between Bayesian and Frequentist approaches. The computational barrier has been largely democratized away.</p>
-</section>
 </div>
 </div>
 </div>
 <p>After reviewing the model’s response, consider the following: Did the model agree with your statement? Did it offer meaningful counterpoints or just reinforce your position?</p>
 <p>For topics without a clear factual basis, many models will simply agree with whatever you present as important. That’s because they’re not critically evaluating the content – these models are just predicting what comes next based on patterns in their training data. This is why it’s important to <strong>actively seek out alternative viewpoints.</strong> Otherwise, you may just end up reinforcing your own assumptions.</p>
-</section><section id="task-3-model-response-conviction" class="level2"><h2 class="anchored" data-anchor-id="task-3-model-response-conviction">Task 3 : Model Response Conviction</h2>
+</section><section id="task-3-model-response-conviction" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="task-3-model-response-conviction">
+<span class="header-section-number">12.3</span> Task 3 : Model Response Conviction</h2>
 <p>Choose another point from the model’s original response in Task 1. This time, suggest to the model that it might be mistaken or misinformed. You can use a prompt like:</p>
 <p><em>“I’m not sure that [insert point here] is actually a strong argument. Can you explain why you think this is true?”</em></p>
 <p><em>“I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?”</em></p>
@@ -489,90 +558,31 @@ Problems with Bayesian Prior Knowledge
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You raise an excellent point that deserves careful examination. The “incorporating prior knowledge” argument for Bayesian statistics is actually more nuanced and problematic than often presented. Let me break down why this might not be as strong an argument as commonly claimed:</p>
-<section id="problems-with-the-prior-knowledge-argument" class="level2"><h2 class="anchored" data-anchor-id="problems-with-the-prior-knowledge-argument"><strong>Problems with the “Prior Knowledge” Argument</strong></h2>
+<p><strong>Problems with the “Prior Knowledge” Argument</strong></p>
 <p><strong>1. Most “Prior Knowledge” is Poorly Quantified</strong> - Experts rarely have well-calibrated probabilistic beliefs that translate cleanly into proper prior distributions - Vague statements like “the effect is probably small” don’t naturally map to specific Beta(2,8) priors - What feels like “knowledge” is often just intuition, bias, or wishful thinking</p>
 <p><strong>2. Prior Specification is Technically Difficult</strong> - Choosing appropriate prior families requires deep statistical expertise - Small changes in prior specification can dramatically affect results, especially with limited data - “Uninformative” priors are often more informative than researchers realize</p>
 <p><strong>3. The Knowledge May Be Wrong</strong> - Prior beliefs might reflect outdated theories, publication bias, or systematic errors in previous research - Incorporating bad prior knowledge can be worse than starting fresh with the data - Historical “expert knowledge” in medicine, psychology, and other fields has often been overturned</p>
 <p><strong>4. Objectivity vs.&nbsp;Subjectivity Trade-off</strong> - Science values reproducibility and objectivity; priors introduce subjective elements that can be hard to defend - Different experts will have different priors, leading to different conclusions from the same data - Creates opportunities for researchers to (consciously or unconsciously) bias results toward preferred outcomes</p>
-</section><section id="when-prior-knowledge-actually-helps" class="level2"><h2 class="anchored" data-anchor-id="when-prior-knowledge-actually-helps"><strong>When “Prior Knowledge” Actually Helps</strong></h2>
+<p><strong>When “Prior Knowledge” Actually Helps</strong></p>
 <p><strong>Engineering and Physical Sciences</strong> - Well-established physical laws provide genuinely informative priors (e.g., conservation of energy) - Manufacturing tolerances based on decades of production data</p>
 <p><strong>Regularization in High-Dimensional Problems</strong> - Prior assumptions about sparsity or smoothness improve prediction in machine learning - Here it’s less about “knowledge” and more about mathematical necessity</p>
 <p><strong>Sequential Decision Making</strong> - When you genuinely need to make decisions with limited data and waiting isn’t an option - Clinical trials where early stopping decisions must incorporate prior evidence</p>
-</section><section id="a-stronger-argument-for-bayesian-methods" class="level2"><h2 class="anchored" data-anchor-id="a-stronger-argument-for-bayesian-methods"><strong>A Stronger Argument for Bayesian Methods</strong></h2>
+<p><strong>A Stronger Argument for Bayesian Methods</strong></p>
 <p>Rather than “incorporating prior knowledge,” I think <strong>better uncertainty quantification and decision-theoretic coherence</strong> are stronger arguments:</p>
 <ul>
 <li>Bayesian credible intervals have more intuitive interpretations than confidence intervals</li>
 <li>The full posterior distribution provides richer information about uncertainty</li>
 <li>Provides a principled framework for decision-making under uncertainty</li>
 <li>Natural handling of hierarchical models and complex data structures</li>
-</ul></section><section id="the-frequentist-counterpoint" class="level2"><h2 class="anchored" data-anchor-id="the-frequentist-counterpoint"><strong>The Frequentist Counterpoint</strong></h2>
+</ul>
+<p><strong>The Frequentist Counterpoint</strong></p>
 <p>Frequentist methods effectively say: “Let’s see what the data alone tells us, without contaminating it with potentially biased prior beliefs.” This has real scientific merit, especially in exploratory research where we want to be surprised by unexpected findings.</p>
 <p><strong>Bottom Line:</strong> You’re right to question this. The “incorporating prior knowledge” argument is often overstated and can mask the real challenges of prior specification and the value of objectivity in scientific inference. The strongest cases for Bayesian methods might lie elsewhere entirely.</p>
-</section>
 </div>
 </div>
 </div>
 <p>After the model responds, reflect on the following: Did it revise its position or double down on the original point? Did it provide additional evidence or just rephrase the same idea? How convincing was its explanation? This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. They’re just predicting what’s likely to come next based on patterns in their training data. That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.</p>
 <p>By questioning the model’s output, you’re practicing a key skill: <strong>critical engagement.</strong> This helps ensure you’re not just passively accepting what the model says but actively evaluating its reasoning.</p>
-</section><section id="task-4-prompt-improvement" class="level2"><h2 class="anchored" data-anchor-id="task-4-prompt-improvement">Task 4 : Prompt Improvement</h2>
-<ul>
-<li><p>Step 1: Write your own prompt - whatever topic you’d like, or re-use one from above. Don’t submit the prompt to the model.</p></li>
-<li><p>Step 2: Using the prompt below to ask the model for help with your prompt.</p></li>
-</ul>
-<p>I’d like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective. Specifically: • Identify any missing context or details that would help generate better results • Point out areas where the prompt might be vague or ambiguous • Suggest how to better structure the request • Recommend any information I should add about my goals, audience, or desired format Here is my prompt: {paste your prompt here}</p>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">Specifically:</span></span>
-<span><span class="st">•   Identify any missing context or details that would help generate better results</span></span>
-<span><span class="st">•   Point out areas where the prompt might be vague or ambiguous</span></span>
-<span><span class="st">•   Suggest how to better structure the request</span></span>
-<span><span class="st">•   Recommend any information I should add about my goals, audience, or desired format</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">Here is my prompt:</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Bayesian v Frequentist Statistics Prompt Revision
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Your prompt is a good start, but here are several ways to make it clearer and more effective:</p>
-<section id="current-issues" class="level2"><h2 class="anchored" data-anchor-id="current-issues">Current Issues:</h2>
-<p><strong>Vague/Ambiguous Areas:</strong> - “Brief explanation” is subjective - what length do you consider brief? - No specification of technical depth or mathematical complexity - Unclear what aspects of the comparison matter most to you - No guidance on format or structure preferences</p>
-<p><strong>Missing Context:</strong> - Your background/expertise level in statistics - Intended audience for this information - Specific use case or application context - Whether you want practical examples or theoretical focus</p>
-</section><section id="improved-prompt-structure" class="level2"><h2 class="anchored" data-anchor-id="improved-prompt-structure">Improved Prompt Structure:</h2>
-<p>**“I need a comparison of Bayesian vs Frequentist statistical approaches for [YOUR CONTEXT - e.g., “a graduate-level biostatistics course” or “business decision-making presentation”].</p>
-<p><strong>Background:</strong> [YOUR EXPERIENCE LEVEL - e.g., “I have basic statistical knowledge but am new to these philosophical differences”]</p>
-<p><strong>Format requested:</strong> - 4-6 key pros and cons for each approach - Each point explained in 2-3 sentences - [Include/exclude mathematical notation] - Include 1-2 practical examples where each approach excels</p>
-<p><strong>Focus areas I’m most interested in:</strong> - [e.g., Practical implementation, philosophical differences, computational requirements, interpretation of results]</p>
-<p><strong>Audience:</strong> [e.g., “Non-statisticians who need to understand methodology choices” or “Statistics students preparing for exams”]”</p>
-</section><section id="recommended-additions" class="level2"><h2 class="anchored" data-anchor-id="recommended-additions">Recommended Additions:</h2>
-<ol type="1">
-<li>
-<strong>Specify your goal</strong> - Are you choosing between methods, teaching others, or writing a paper?</li>
-<li>
-<strong>Define scope</strong> - Do you want to cover computational aspects, philosophical foundations, or practical applications?</li>
-<li>
-<strong>Set constraints</strong> - Word count, technical level, specific statistical contexts (hypothesis testing, parameter estimation, etc.)</li>
-</ol>
-<p>Would you like to revise your prompt with some of these suggestions?</p>
-</section>
-</div>
-</div>
-</div>
-<p>What improvements did the model suggest? Did it identify anything you hadn’t considered? Was the feedback helpful or too generic? How would you revise your prompt based on the suggestions? If you used the prompt before, did you get a better result using the revised prompt suggested by AI?</p>
 
 
 <!-- -->
@@ -714,6 +724,11 @@ Bayesian v Frequentist Statistics Prompt Revision
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1027,413 +1042,321 @@ Bayesian v Frequentist Statistics Prompt Revision
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./04d-batch-processing.html" class="pagination-link" aria-label="Batch Processing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Batch Processing</span></span>
+      <a href="./11-conversations-via-api.html" class="pagination-link" aria-label="Chat Conversations via API">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./activity-scoring-with-rubrics.html" class="pagination-link" aria-label="Activity: Scoring with Rubrics">
-        <span class="nav-page-text">Activity: Scoring with Rubrics</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./13-single-interactions-via-api.html" class="pagination-link" aria-label="Transactional Interactions via API">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Activity: Content Development and Revision {#sec-act-content .unnumbered}</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 1 : Pros and Cons</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Choose a topic and ask the model to generate a list of pros and cons for each side. </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>You can use one of the suggestions below or pick your own:</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bayesian vs Frequentist Statistics</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classical Test Theory vs Item Response Theory</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unidimensional / Rasch Modeling vs Multidimensional IRT Models</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Argument-Based Validity (Kane) vs Traditional Validity Frameworks (Messick)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Performance Assessments vs Selected-Response Items</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Statistical Significance vs Practical Significance in DIF Detection</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>**Suggested prompt:** _"What are the pros and cons of {topic}? For each point, include a brief explanation."_</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>Review the suggested pros and cons. Which points seem most accurate or well-supported? Are any based on weaker reasoning or questionable information?</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>()</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation."</span>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bayesian vs Frequentist Statistics: Pros and Cons</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>*Bayesian vs Frequentist Statistics: Pros and Cons*</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Bayesian Statistics**</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Pros:**</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>**1. Incorporates Prior Knowledge**</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can include existing knowledge or expert opinion through prior distributions, making results more informed and </span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>contextually relevant</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>**2. Direct Probability Statements**</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides intuitive interpretations like "95% probability the parameter lies in this interval" rather than complex </span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>frequency-based interpretations</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>**3. Natural Uncertainty Quantification**</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full posterior distributions show the complete uncertainty about parameters, not just point estimates</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>**4. Coherent Decision Framework**</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides a principled way to make decisions by combining prior beliefs with data through Bayes' theorem</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>**5. Handles Small Samples Well**</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior information helps stabilize estimates when data is limited, preventing overfitting</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>**6. Sequential Learning**</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Today's posterior becomes tomorrow's prior, allowing natural updating as new data arrives</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Cons:**</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>**1. Subjective Prior Selection**</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choice of priors can be controversial and may influence results, especially with limited data</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>**2. Computational Complexity**</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Often requires sophisticated algorithms (MCMC, variational inference) that can be slow and technically challenging</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>**3. Model Sensitivity**</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Results can be sensitive to modeling assumptions, and model checking can be more complex</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>**4. Communication Challenges**</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>May be harder to explain to non-statisticians and less accepted in some traditional scientific fields</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Frequentist Statistics**</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Pros:**</span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>**1. Objectivity**</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No subjective priors needed; results depend only on the data and assumed statistical model</span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>**2. Computational Efficiency**</span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Many procedures have closed-form solutions or use well-established, fast algorithms</span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>**3. Strong Theoretical Foundation**</span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Well-developed theory for sampling distributions, hypothesis testing, and confidence intervals</span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>**4. Widespread Acceptance**</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Standard approach in many fields with established conventions and regulatory acceptance</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>**5. Long-run Guarantees**</span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides clear frequentist properties like Type I error control and coverage probabilities</span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Cons:**</span></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>**1. Counterintuitive Interpretations**</span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Confidence intervals and p-values have complex interpretations that are often misunderstood ("95% of such intervals </span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>contain the true parameter")</span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>**2. Cannot Incorporate Prior Knowledge**</span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No formal mechanism to include existing knowledge or expert opinion</span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>**3. Poor Small Sample Performance**</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Can produce unreliable results with limited data, especially for complex models</span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>**4. Multiple Testing Problems**</span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Requires complex adjustments when performing many tests, and stopping rules affect conclusions</span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>**5. No Direct Probability Statements**</span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cannot make statements like "the probability that the treatment works is 80%" about specific hypotheses</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>**6. Fixed Sample Size Limitation**</span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classical procedures assume predetermined sample sizes; sequential analysis requires special methods</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Bottom Line**</span></span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>The choice between approaches often depends on your specific context: Bayesian methods excel when you have prior </span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>knowledge, need intuitive probability statements, or work with complex models, while Frequentist methods are preferred</span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>when objectivity is paramount, computational resources are limited, or working within established regulatory </span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>frameworks.</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 2 : Model Response Agreeability</span></span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>Pick the weakest part of the model’s response from Task 1. </span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>Then, ask the model to elaborate on why that point might actually be the strongest argument. You can use a prompt like:</span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>_"Yes, I completely agree. [insert weak argument here] is a great reason for [topic]. Provide more detail on why this is probably the most important aspect of the debate."_</span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Yes, I completely agree. Computational Complexity is a great reason for why one shouldn't choose to use Bayesian statistics. Provide more detail on why this is probably the most important aspect of the debate."</span>)</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Computational Complexity as a Con for Bayesian Statistics</span></span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>I appreciate your perspective, but I'd actually argue that **computational complexity isn't necessarily the most </span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>important aspect** of the Bayesian vs Frequentist debate anymore. Let me explain why this argument has become less </span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>compelling over time, while acknowledging the valid concerns:</span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Why Computational Complexity Used to Be Decisive**</span></span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>**Historical Barrier (1990s-2000s)**</span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bayesian methods required specialized MCMC coding that could take days or weeks to run</span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Limited software availability meant most practitioners couldn't implement Bayesian models</span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Frequentist methods had decades of optimized, battle-tested implementations</span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>**Resource Intensity**</span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Complex models might require expensive computing clusters</span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Debugging convergence issues required deep statistical expertise</span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Time-to-results was often impractical for business or research deadlines</span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Why This Argument Has Weakened**</span></span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>**1. Computational Power Revolution**</span>
-<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Modern laptops can run analyses that required supercomputers 20 years ago</span>
-<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cloud computing makes massive computational resources accessible and affordable</span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GPU acceleration has made many Bayesian computations dramatically faster</span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>**2. Software Maturation**</span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tools like Stan, PyMC, JAGS have made Bayesian modeling nearly as accessible as running a t-test</span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Automated diagnostics and default priors reduce the expertise barrier</span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integration with popular languages (R, Python) has streamlined workflows</span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>**3. Algorithmic Advances**</span>
-<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Variational inference provides fast approximate Bayesian solutions</span>
-<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No-U-Turn samplers and other modern MCMC methods are more efficient and robust</span>
-<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Automatic differentiation has revolutionized gradient-based sampling</span>
-<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## **The More Fundamental Issues**</span></span>
-<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>**Interpretability and Communication**</span>
-<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 95% credible interval vs. 95% confidence interval distinction matters more in practice than computation time</span>
-<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stakeholders need to understand what results mean, regardless of how fast you computed them</span>
-<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>**Prior Specification**</span>
-<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The subjectivity issue doesn't disappear with faster computers</span>
-<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Regulatory agencies and peer reviewers still question prior choices</span>
-<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sensitivity analyses still require careful thought and justification</span>
-<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>**Problem Appropriateness**</span>
-<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Some problems genuinely don't benefit from Bayesian approaches</span>
-<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When you have massive data and no prior knowledge, frequentist methods may be more straightforward</span>
-<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## **When Computation Still Matters**</span></span>
-<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Real-time applications** (fraud detection, algorithmic trading)</span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Massive scale problems** where even small per-unit costs matter</span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Resource-constrained environments** (embedded systems, developing regions)</span>
-<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>**Bottom Line:** While computational complexity remains a practical consideration, I'd argue that **conceptual fit, </span>
-<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>interpretability needs, and organizational culture** have become more decisive factors in choosing between Bayesian </span>
-<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>and Frequentist approaches. The computational barrier has been largely democratized away.</span>
-<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>After reviewing the model’s response, consider the following: Did the model agree with your statement? Did it offer meaningful counterpoints or just reinforce your position?</span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>For topics without a clear factual basis, many models will simply agree with whatever you present as important. </span>
-<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>That’s because they’re not critically evaluating the content – these models are just predicting what comes next based on patterns in their training data. </span>
-<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>This is why it’s important to **actively seek out alternative viewpoints.** Otherwise, you may just end up reinforcing your own assumptions.</span>
-<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 3 : Model Response Conviction</span></span>
-<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>Choose another point from the model’s original response in Task 1. </span>
-<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>This time, suggest to the model that it might be mistaken or misinformed. You can use a prompt like:</span>
-<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>_"I’m not sure that [insert point here] is actually a strong argument. Can you explain why you think this is true?"_</span>
-<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>_"I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?"_</span>
-<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"I’m not sure that incorporating prior knowledge is actually a strong argument for using Bayesian statistics. Can you explain why you think this is true?"</span>)</span>
-<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problems with Bayesian Prior Knowledge</span></span>
-<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>You raise an excellent point that deserves careful examination. The "incorporating prior knowledge" argument for </span>
-<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>Bayesian statistics is actually more nuanced and problematic than often presented. Let me break down why this might </span>
-<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>not be as strong an argument as commonly claimed:</span>
-<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Problems with the "Prior Knowledge" Argument**</span></span>
-<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>**1. Most "Prior Knowledge" is Poorly Quantified**</span>
-<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Experts rarely have well-calibrated probabilistic beliefs that translate cleanly into proper prior distributions</span>
-<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vague statements like "the effect is probably small" don't naturally map to specific Beta(2,8) priors</span>
-<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What feels like "knowledge" is often just intuition, bias, or wishful thinking</span>
-<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>**2. Prior Specification is Technically Difficult**</span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choosing appropriate prior families requires deep statistical expertise</span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Small changes in prior specification can dramatically affect results, especially with limited data</span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Uninformative" priors are often more informative than researchers realize</span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>**3. The Knowledge May Be Wrong**</span>
-<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior beliefs might reflect outdated theories, publication bias, or systematic errors in previous research</span>
-<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Incorporating bad prior knowledge can be worse than starting fresh with the data</span>
-<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Historical "expert knowledge" in medicine, psychology, and other fields has often been overturned</span>
-<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>**4. Objectivity vs. Subjectivity Trade-off**</span>
-<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Science values reproducibility and objectivity; priors introduce subjective elements that can be hard to defend</span>
-<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Different experts will have different priors, leading to different conclusions from the same data</span>
-<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Creates opportunities for researchers to (consciously or unconsciously) bias results toward preferred outcomes</span>
-<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## **When "Prior Knowledge" Actually Helps**</span></span>
-<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>**Engineering and Physical Sciences**</span>
-<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Well-established physical laws provide genuinely informative priors (e.g., conservation of energy)</span>
-<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Manufacturing tolerances based on decades of production data</span>
-<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>**Regularization in High-Dimensional Problems**</span>
-<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior assumptions about sparsity or smoothness improve prediction in machine learning</span>
-<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Here it's less about "knowledge" and more about mathematical necessity</span>
-<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>**Sequential Decision Making**</span>
-<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When you genuinely need to make decisions with limited data and waiting isn't an option</span>
-<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Clinical trials where early stopping decisions must incorporate prior evidence</span>
-<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## **A Stronger Argument for Bayesian Methods**</span></span>
-<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>Rather than "incorporating prior knowledge," I think **better uncertainty quantification and decision-theoretic </span>
-<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>coherence** are stronger arguments:</span>
-<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bayesian credible intervals have more intuitive interpretations than confidence intervals</span>
-<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The full posterior distribution provides richer information about uncertainty</span>
-<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides a principled framework for decision-making under uncertainty</span>
-<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Natural handling of hierarchical models and complex data structures</span>
-<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a><span class="fu">## **The Frequentist Counterpoint**</span></span>
-<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a>Frequentist methods effectively say: "Let's see what the data alone tells us, without contaminating it with </span>
-<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>potentially biased prior beliefs." This has real scientific merit, especially in exploratory research where we want to</span>
-<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a>be surprised by unexpected findings.</span>
-<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a>**Bottom Line:** You're right to question this. The "incorporating prior knowledge" argument is often overstated and </span>
-<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>can mask the real challenges of prior specification and the value of objectivity in scientific inference. The </span>
-<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a>strongest cases for Bayesian methods might lie elsewhere entirely.</span>
-<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>After the model responds, reflect on the following: </span>
-<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a>Did it revise its position or double down on the original point? </span>
-<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a>Did it provide additional evidence or just rephrase the same idea? </span>
-<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a>How convincing was its explanation?</span>
-<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a>This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. </span>
-<span id="cb5-296"><a href="#cb5-296" aria-hidden="true" tabindex="-1"></a>They’re just predicting what’s likely to come next based on patterns in their training data. </span>
-<span id="cb5-297"><a href="#cb5-297" aria-hidden="true" tabindex="-1"></a>That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.</span>
-<span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-299"><a href="#cb5-299" aria-hidden="true" tabindex="-1"></a>By questioning the model’s output, you’re practicing a key skill: **critical engagement.** </span>
-<span id="cb5-300"><a href="#cb5-300" aria-hidden="true" tabindex="-1"></a>This helps ensure you’re not just passively accepting what the model says but actively evaluating its reasoning.</span>
-<span id="cb5-301"><a href="#cb5-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-302"><a href="#cb5-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-303"><a href="#cb5-303" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 4 : Prompt Improvement</span></span>
-<span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Step 1: Write your own prompt - whatever topic you'd like, or re-use one from above. Don't submit the prompt to the model.</span>
-<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Step 2: Using the prompt below to ask the model for help with your prompt.</span>
-<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-309"><a href="#cb5-309" aria-hidden="true" tabindex="-1"></a>I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.</span>
-<span id="cb5-310"><a href="#cb5-310" aria-hidden="true" tabindex="-1"></a>Specifically:</span>
-<span id="cb5-311"><a href="#cb5-311" aria-hidden="true" tabindex="-1"></a>•   Identify any missing context or details that would help generate better results</span>
-<span id="cb5-312"><a href="#cb5-312" aria-hidden="true" tabindex="-1"></a>•   Point out areas where the prompt might be vague or ambiguous</span>
-<span id="cb5-313"><a href="#cb5-313" aria-hidden="true" tabindex="-1"></a>•   Suggest how to better structure the request</span>
-<span id="cb5-314"><a href="#cb5-314" aria-hidden="true" tabindex="-1"></a>•   Recommend any information I should add about my goals, audience, or desired format</span>
-<span id="cb5-315"><a href="#cb5-315" aria-hidden="true" tabindex="-1"></a>Here is my prompt: {paste your prompt here}</span>
-<span id="cb5-316"><a href="#cb5-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-317"><a href="#cb5-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb5-318"><a href="#cb5-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-319"><a href="#cb5-319" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>()</span>
-<span id="cb5-320"><a href="#cb5-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-321"><a href="#cb5-321" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"I'd like your help improving the prompt below. Please review it and suggest ways to make it clearer and more effective.</span></span>
-<span id="cb5-322"><a href="#cb5-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-323"><a href="#cb5-323" aria-hidden="true" tabindex="-1"></a><span class="st">Specifically:</span></span>
-<span id="cb5-324"><a href="#cb5-324" aria-hidden="true" tabindex="-1"></a><span class="st">•   Identify any missing context or details that would help generate better results</span></span>
-<span id="cb5-325"><a href="#cb5-325" aria-hidden="true" tabindex="-1"></a><span class="st">•   Point out areas where the prompt might be vague or ambiguous</span></span>
-<span id="cb5-326"><a href="#cb5-326" aria-hidden="true" tabindex="-1"></a><span class="st">•   Suggest how to better structure the request</span></span>
-<span id="cb5-327"><a href="#cb5-327" aria-hidden="true" tabindex="-1"></a><span class="st">•   Recommend any information I should add about my goals, audience, or desired format</span></span>
-<span id="cb5-328"><a href="#cb5-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-329"><a href="#cb5-329" aria-hidden="true" tabindex="-1"></a><span class="st">Here is my prompt:</span></span>
-<span id="cb5-330"><a href="#cb5-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-331"><a href="#cb5-331" aria-hidden="true" tabindex="-1"></a><span class="st">What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation."</span>)</span>
-<span id="cb5-332"><a href="#cb5-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-333"><a href="#cb5-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-334"><a href="#cb5-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-335"><a href="#cb5-335" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb5-336"><a href="#cb5-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-337"><a href="#cb5-337" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bayesian v Frequentist Statistics Prompt Revision</span></span>
-<span id="cb5-338"><a href="#cb5-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-339"><a href="#cb5-339" aria-hidden="true" tabindex="-1"></a>Your prompt is a good start, but here are several ways to make it clearer and more effective:</span>
-<span id="cb5-340"><a href="#cb5-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-341"><a href="#cb5-341" aria-hidden="true" tabindex="-1"></a><span class="fu">## Current Issues:</span></span>
-<span id="cb5-342"><a href="#cb5-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-343"><a href="#cb5-343" aria-hidden="true" tabindex="-1"></a>**Vague/Ambiguous Areas:**</span>
-<span id="cb5-344"><a href="#cb5-344" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Brief explanation" is subjective - what length do you consider brief?</span>
-<span id="cb5-345"><a href="#cb5-345" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No specification of technical depth or mathematical complexity</span>
-<span id="cb5-346"><a href="#cb5-346" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unclear what aspects of the comparison matter most to you</span>
-<span id="cb5-347"><a href="#cb5-347" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No guidance on format or structure preferences</span>
-<span id="cb5-348"><a href="#cb5-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-349"><a href="#cb5-349" aria-hidden="true" tabindex="-1"></a>**Missing Context:**</span>
-<span id="cb5-350"><a href="#cb5-350" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Your background/expertise level in statistics</span>
-<span id="cb5-351"><a href="#cb5-351" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Intended audience for this information</span>
-<span id="cb5-352"><a href="#cb5-352" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Specific use case or application context</span>
-<span id="cb5-353"><a href="#cb5-353" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Whether you want practical examples or theoretical focus</span>
-<span id="cb5-354"><a href="#cb5-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-355"><a href="#cb5-355" aria-hidden="true" tabindex="-1"></a><span class="fu">## Improved Prompt Structure:</span></span>
-<span id="cb5-356"><a href="#cb5-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-357"><a href="#cb5-357" aria-hidden="true" tabindex="-1"></a>**"I need a comparison of Bayesian vs Frequentist statistical approaches for [YOUR CONTEXT - e.g., "a graduate-level </span>
-<span id="cb5-358"><a href="#cb5-358" aria-hidden="true" tabindex="-1"></a>biostatistics course" or "business decision-making presentation"].</span>
-<span id="cb5-359"><a href="#cb5-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-360"><a href="#cb5-360" aria-hidden="true" tabindex="-1"></a>**Background:** [YOUR EXPERIENCE LEVEL - e.g., "I have basic statistical knowledge but am new to these philosophical </span>
-<span id="cb5-361"><a href="#cb5-361" aria-hidden="true" tabindex="-1"></a>differences"]</span>
-<span id="cb5-362"><a href="#cb5-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-363"><a href="#cb5-363" aria-hidden="true" tabindex="-1"></a>**Format requested:**</span>
-<span id="cb5-364"><a href="#cb5-364" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>4-6 key pros and cons for each approach</span>
-<span id="cb5-365"><a href="#cb5-365" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each point explained in 2-3 sentences</span>
-<span id="cb5-366"><a href="#cb5-366" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Include/exclude mathematical notation</span><span class="co">]</span></span>
-<span id="cb5-367"><a href="#cb5-367" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Include 1-2 practical examples where each approach excels</span>
-<span id="cb5-368"><a href="#cb5-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-369"><a href="#cb5-369" aria-hidden="true" tabindex="-1"></a>**Focus areas I'm most interested in:**</span>
-<span id="cb5-370"><a href="#cb5-370" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">e.g., Practical implementation, philosophical differences, computational requirements, interpretation of results</span><span class="co">]</span></span>
-<span id="cb5-371"><a href="#cb5-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-372"><a href="#cb5-372" aria-hidden="true" tabindex="-1"></a>**Audience:** [e.g., "Non-statisticians who need to understand methodology choices" or "Statistics students preparing </span>
-<span id="cb5-373"><a href="#cb5-373" aria-hidden="true" tabindex="-1"></a>for exams"]"</span>
-<span id="cb5-374"><a href="#cb5-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-375"><a href="#cb5-375" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recommended Additions:</span></span>
-<span id="cb5-376"><a href="#cb5-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-377"><a href="#cb5-377" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Specify your goal** - Are you choosing between methods, teaching others, or writing a paper?</span>
-<span id="cb5-378"><a href="#cb5-378" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Define scope** - Do you want to cover computational aspects, philosophical foundations, or practical </span>
-<span id="cb5-379"><a href="#cb5-379" aria-hidden="true" tabindex="-1"></a>applications?</span>
-<span id="cb5-380"><a href="#cb5-380" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Set constraints** - Word count, technical level, specific statistical contexts (hypothesis testing, parameter </span>
-<span id="cb5-381"><a href="#cb5-381" aria-hidden="true" tabindex="-1"></a>estimation, etc.)</span>
-<span id="cb5-382"><a href="#cb5-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-383"><a href="#cb5-383" aria-hidden="true" tabindex="-1"></a>Would you like to revise your prompt with some of these suggestions?</span>
-<span id="cb5-384"><a href="#cb5-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-385"><a href="#cb5-385" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-386"><a href="#cb5-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-387"><a href="#cb5-387" aria-hidden="true" tabindex="-1"></a>What improvements did the model suggest? </span>
-<span id="cb5-388"><a href="#cb5-388" aria-hidden="true" tabindex="-1"></a>Did it identify anything you hadn’t considered? </span>
-<span id="cb5-389"><a href="#cb5-389" aria-hidden="true" tabindex="-1"></a>Was the feedback helpful or too generic? </span>
-<span id="cb5-390"><a href="#cb5-390" aria-hidden="true" tabindex="-1"></a>How would you revise your prompt based on the suggestions? </span>
-<span id="cb5-391"><a href="#cb5-391" aria-hidden="true" tabindex="-1"></a>If you used the prompt before, did you get a better result using the revised prompt suggested by AI?</span>
-<span id="cb5-392"><a href="#cb5-392" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Activity: Content Development and Revision {#sec-act-content}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 1 : Pros and Cons</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Choose a topic and ask the model to generate a list of pros and cons for each side. </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>You can use one of the suggestions below or pick your own:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bayesian vs Frequentist Statistics</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classical Test Theory vs Item Response Theory</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unidimensional / Rasch Modeling vs Multidimensional IRT Models</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Argument-Based Validity (Kane) vs Traditional Validity Frameworks (Messick)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Performance Assessments vs Selected-Response Items</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Statistical Significance vs Practical Significance in DIF Detection</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>**Suggested prompt:** _"What are the pros and cons of {topic}? For each point, include a brief explanation."_</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Review the suggested pros and cons. Which points seem most accurate or well-supported? Are any based on weaker reasoning or questionable information?</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>()</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"What are the pros and cons of Bayesian vs Frequentist statistics? For each point, include a brief explanation."</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bayesian vs Frequentist Statistics: Pros and Cons</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>*Bayesian vs Frequentist Statistics: Pros and Cons*</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>**Bayesian Statistics**</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>**Pros:**</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>**1. Incorporates Prior Knowledge**</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can include existing knowledge or expert opinion through prior distributions, making results more informed and </span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>contextually relevant</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>**2. Direct Probability Statements**</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides intuitive interpretations like "95% probability the parameter lies in this interval" rather than complex </span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>frequency-based interpretations</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>**3. Natural Uncertainty Quantification**</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full posterior distributions show the complete uncertainty about parameters, not just point estimates</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>**4. Coherent Decision Framework**</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides a principled way to make decisions by combining prior beliefs with data through Bayes' theorem</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>**5. Handles Small Samples Well**</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior information helps stabilize estimates when data is limited, preventing overfitting</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>**6. Sequential Learning**</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Today's posterior becomes tomorrow's prior, allowing natural updating as new data arrives</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>**Cons:**</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>**1. Subjective Prior Selection**</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choice of priors can be controversial and may influence results, especially with limited data</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>**2. Computational Complexity**</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Often requires sophisticated algorithms (MCMC, variational inference) that can be slow and technically challenging</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>**3. Model Sensitivity**</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Results can be sensitive to modeling assumptions, and model checking can be more complex</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>**4. Communication Challenges**</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>May be harder to explain to non-statisticians and less accepted in some traditional scientific fields</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>**Frequentist Statistics**</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>**Pros:**</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>**1. Objectivity**</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No subjective priors needed; results depend only on the data and assumed statistical model</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>**2. Computational Efficiency**</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Many procedures have closed-form solutions or use well-established, fast algorithms</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>**3. Strong Theoretical Foundation**</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Well-developed theory for sampling distributions, hypothesis testing, and confidence intervals</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>**4. Widespread Acceptance**</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Standard approach in many fields with established conventions and regulatory acceptance</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>**5. Long-run Guarantees**</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides clear frequentist properties like Type I error control and coverage probabilities</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>**Cons:**</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>**1. Counterintuitive Interpretations**</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Confidence intervals and p-values have complex interpretations that are often misunderstood ("95% of such intervals </span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>contain the true parameter")</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>**2. Cannot Incorporate Prior Knowledge**</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No formal mechanism to include existing knowledge or expert opinion</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>**3. Poor Small Sample Performance**</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Can produce unreliable results with limited data, especially for complex models</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>**4. Multiple Testing Problems**</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Requires complex adjustments when performing many tests, and stopping rules affect conclusions</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>**5. No Direct Probability Statements**</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cannot make statements like "the probability that the treatment works is 80%" about specific hypotheses</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>**6. Fixed Sample Size Limitation**</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Classical procedures assume predetermined sample sizes; sequential analysis requires special methods</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>**Bottom Line**</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>The choice between approaches often depends on your specific context: Bayesian methods excel when you have prior </span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>knowledge, need intuitive probability statements, or work with complex models, while Frequentist methods are preferred</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>when objectivity is paramount, computational resources are limited, or working within established regulatory </span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>frameworks.</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 2 : Model Response Agreeability</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>Pick the weakest part of the model’s response from Task 1. </span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>Then, ask the model to elaborate on why that point might actually be the strongest argument. You can use a prompt like:</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>_"Yes, I completely agree. [insert weak argument here] is a great reason for [topic]. Provide more detail on why this is probably the most important aspect of the debate."_</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Yes, I completely agree. Computational Complexity is a great reason for why one shouldn't choose to use Bayesian statistics. Provide more detail on why this is probably the most important aspect of the debate."</span>)</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Computational Complexity as a Con for Bayesian Statistics</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>I appreciate your perspective, but I'd actually argue that **computational complexity isn't necessarily the most </span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>important aspect** of the Bayesian vs Frequentist debate anymore. Let me explain why this argument has become less </span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>compelling over time, while acknowledging the valid concerns:</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>**Why Computational Complexity Used to Be Decisive**</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>**Historical Barrier (1990s-2000s)**</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bayesian methods required specialized MCMC coding that could take days or weeks to run</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Limited software availability meant most practitioners couldn't implement Bayesian models</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Frequentist methods had decades of optimized, battle-tested implementations</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>**Resource Intensity**</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Complex models might require expensive computing clusters</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Debugging convergence issues required deep statistical expertise</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Time-to-results was often impractical for business or research deadlines</span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>**Why This Argument Has Weakened**</span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>**1. Computational Power Revolution**</span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Modern laptops can run analyses that required supercomputers 20 years ago</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cloud computing makes massive computational resources accessible and affordable</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GPU acceleration has made many Bayesian computations dramatically faster</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>**2. Software Maturation**</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tools like Stan, PyMC, JAGS have made Bayesian modeling nearly as accessible as running a t-test</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Automated diagnostics and default priors reduce the expertise barrier</span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integration with popular languages (R, Python) has streamlined workflows</span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>**3. Algorithmic Advances**</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Variational inference provides fast approximate Bayesian solutions</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No-U-Turn samplers and other modern MCMC methods are more efficient and robust</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Automatic differentiation has revolutionized gradient-based sampling</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>**The More Fundamental Issues**</span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>**Interpretability and Communication**</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 95% credible interval vs. 95% confidence interval distinction matters more in practice than computation time</span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stakeholders need to understand what results mean, regardless of how fast you computed them</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>**Prior Specification**</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The subjectivity issue doesn't disappear with faster computers</span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Regulatory agencies and peer reviewers still question prior choices</span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sensitivity analyses still require careful thought and justification</span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>**Problem Appropriateness**</span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Some problems genuinely don't benefit from Bayesian approaches</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When you have massive data and no prior knowledge, frequentist methods may be more straightforward</span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a>**When Computation Still Matters**</span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Real-time applications** (fraud detection, algorithmic trading)</span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Massive scale problems** where even small per-unit costs matter</span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Resource-constrained environments** (embedded systems, developing regions)</span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>**Bottom Line:** While computational complexity remains a practical consideration, I'd argue that **conceptual fit, </span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>interpretability needs, and organizational culture** have become more decisive factors in choosing between Bayesian </span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a>and Frequentist approaches. The computational barrier has been largely democratized away.</span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a>After reviewing the model’s response, consider the following: Did the model agree with your statement? Did it offer meaningful counterpoints or just reinforce your position?</span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>For topics without a clear factual basis, many models will simply agree with whatever you present as important. </span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a>That’s because they’re not critically evaluating the content – these models are just predicting what comes next based on patterns in their training data. </span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a>This is why it’s important to **actively seek out alternative viewpoints.** Otherwise, you may just end up reinforcing your own assumptions.</span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 3 : Model Response Conviction</span></span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a>Choose another point from the model’s original response in Task 1. </span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a>This time, suggest to the model that it might be mistaken or misinformed. You can use a prompt like:</span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a>_"I’m not sure that [insert point here] is actually a strong argument. Can you explain why you think this is true?"_</span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>_"I’ve seen other sources suggest the opposite of [insert point here]. Could you clarify or provide more evidence?"_</span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"I’m not sure that incorporating prior knowledge is actually a strong argument for using Bayesian statistics. Can you explain why you think this is true?"</span>)</span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problems with Bayesian Prior Knowledge</span></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a>You raise an excellent point that deserves careful examination. The "incorporating prior knowledge" argument for </span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>Bayesian statistics is actually more nuanced and problematic than often presented. Let me break down why this might </span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a>not be as strong an argument as commonly claimed:</span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a>**Problems with the "Prior Knowledge" Argument**</span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a>**1. Most "Prior Knowledge" is Poorly Quantified**</span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Experts rarely have well-calibrated probabilistic beliefs that translate cleanly into proper prior distributions</span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vague statements like "the effect is probably small" don't naturally map to specific Beta(2,8) priors</span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What feels like "knowledge" is often just intuition, bias, or wishful thinking</span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a>**2. Prior Specification is Technically Difficult**</span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choosing appropriate prior families requires deep statistical expertise</span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Small changes in prior specification can dramatically affect results, especially with limited data</span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"Uninformative" priors are often more informative than researchers realize</span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a>**3. The Knowledge May Be Wrong**</span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior beliefs might reflect outdated theories, publication bias, or systematic errors in previous research</span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Incorporating bad prior knowledge can be worse than starting fresh with the data</span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Historical "expert knowledge" in medicine, psychology, and other fields has often been overturned</span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a>**4. Objectivity vs. Subjectivity Trade-off**</span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Science values reproducibility and objectivity; priors introduce subjective elements that can be hard to defend</span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Different experts will have different priors, leading to different conclusions from the same data</span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Creates opportunities for researchers to (consciously or unconsciously) bias results toward preferred outcomes</span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a>**When "Prior Knowledge" Actually Helps**</span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a>**Engineering and Physical Sciences**</span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Well-established physical laws provide genuinely informative priors (e.g., conservation of energy)</span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Manufacturing tolerances based on decades of production data</span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a>**Regularization in High-Dimensional Problems**</span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior assumptions about sparsity or smoothness improve prediction in machine learning</span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Here it's less about "knowledge" and more about mathematical necessity</span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a>**Sequential Decision Making**</span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When you genuinely need to make decisions with limited data and waiting isn't an option</span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Clinical trials where early stopping decisions must incorporate prior evidence</span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a>**A Stronger Argument for Bayesian Methods**</span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a>Rather than "incorporating prior knowledge," I think **better uncertainty quantification and decision-theoretic </span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a>coherence** are stronger arguments:</span>
+<span id="cb4-272"><a href="#cb4-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-273"><a href="#cb4-273" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bayesian credible intervals have more intuitive interpretations than confidence intervals</span>
+<span id="cb4-274"><a href="#cb4-274" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The full posterior distribution provides richer information about uncertainty</span>
+<span id="cb4-275"><a href="#cb4-275" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provides a principled framework for decision-making under uncertainty</span>
+<span id="cb4-276"><a href="#cb4-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Natural handling of hierarchical models and complex data structures</span>
+<span id="cb4-277"><a href="#cb4-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-278"><a href="#cb4-278" aria-hidden="true" tabindex="-1"></a>**The Frequentist Counterpoint**</span>
+<span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a>Frequentist methods effectively say: "Let's see what the data alone tells us, without contaminating it with </span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a>potentially biased prior beliefs." This has real scientific merit, especially in exploratory research where we want to</span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a>be surprised by unexpected findings.</span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a>**Bottom Line:** You're right to question this. The "incorporating prior knowledge" argument is often overstated and </span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a>can mask the real challenges of prior specification and the value of objectivity in scientific inference. The </span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a>strongest cases for Bayesian methods might lie elsewhere entirely.</span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a>After the model responds, reflect on the following: </span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a>Did it revise its position or double down on the original point? </span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a>Did it provide additional evidence or just rephrase the same idea? </span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a>How convincing was its explanation?</span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a>This activity highlights an important limitation: generative AI models don’t “know” whether something is true or false. </span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a>They’re just predicting what’s likely to come next based on patterns in their training data. </span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a>That means they may confidently repeat incorrect or misleading information unless prompted to reconsider.</span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a>By questioning the model’s output, you’re practicing a key skill: **critical engagement.** </span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a>This helps ensure you’re not just passively accepting what the model says but actively evaluating its reasoning.</span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>This workshop was developed by Christopher Runyon.</p>
+<p>Copyright © 2025 by Christopher Runyon.<br> Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

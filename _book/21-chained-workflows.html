@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; API Implementation – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>21&nbsp; Chained Workflows – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-api-keys.html" rel="next">
-<link href="./03-test-connect.html" rel="prev">
+<link href="./activity-chained-workflows.html" rel="next">
+<link href="./activity-scoring-with-rubrics.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./21-chained-workflows.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,13 +152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Setup</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
@@ -257,13 +257,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Transactional Interactions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
@@ -314,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link">
+  <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
   </div>
 </li>
@@ -413,15 +413,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prompt-chaining-vs-multi-agentic-systems" id="toc-prompt-chaining-vs-multi-agentic-systems" class="nav-link active" data-scroll-target="#prompt-chaining-vs-multi-agentic-systems"><span class="header-section-number">21.1</span> Prompt Chaining vs Multi-Agentic Systems</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./21-chained-workflows.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-chained-workflows" class="quarto-section-identifier"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -438,14 +444,87 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The chatbot interface is probably the most common method of interacting with a generative AI model that people are first familiar with. These interfaces support a conversational interactions with LLM much like a text conversation or Teams chat (or AOL Instant Messaging). There is a text box, you enter a prompt, the model processes that prompt, and provides a response. And continue.</p>
-<p>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It’s easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.</p>
-<p>However, for certain tasks (especially repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the <em>n</em> number of times you need to complete a task. In these instances it may be better to interact with a model via an <strong><em>application programming interface</em></strong> (API).</p>
-<p>An API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you’re programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</p>
+<p>Generative AI models aren’t just powerful in isolation - they become transformative when woven throughout your workflow. Instead of using the model as a thought partner or a colleague to help with some task, you can link together tasks to make automate <em>entire processes</em>, effectively creating your own team of AI agents.</p>
+<p>Chaining also makes debugging and refinement easier. If an error appears in the final result, you can isolate which link in the chain failed or didn’t work as expected (remember the <code>medial heel</code> example?), and then you can iterate on that step until it’s working as expected. This modularity mirrors good measurement practice: test and validate each subcomponent of a process before interpreting the final results. It’s similar to having an error in your data cleaning that leads to an erroneous statistical conclusion.</p>
+<p>If you’ve heard of “Multi-Agentic Systems” before, you may be wondering if chained workflows are examples of these systems. The answer is <em>it depends</em>. (Unsatifying, I know.) In general, the purpose of both processes is the same - breaking down a sophisticated process into discrete tasks - but the implementation of this process varies a bit when comparing chained workflows and multi-agentic systems.</p>
+<p>Chained workflows can be thought of as single-agent systems with structured memory and sequence. Each step is still executed by one model instance (or “agent”), but the outputs are fed forward as inputs for subsequent steps. Multi-agentic systems extend this concept further: instead of one model handling multiple roles, different agents — each specifically designed for a specialized task — interact or coordinate with one another (e.g., one generates items, another reviews for fairness, a third formats the output).</p>
+<p>Although implementing properly multi-agent systems requires more engineering than most educational researchers need, understanding the connection is useful. Chaining is the conceptual and methodological bridge to multi-agent workflows. The same logic (task decomposition, model-to-model communication, and iteration) underpins both. By designing your LLM tasks as transparent, stepwise processes now, you build a foundation that can later evolve into more automated and collaborative systems when institutional infrastructure or tooling catches up.</p>
+<p>OpenAI now offers <a href="https://openai.com/index/introducing-agentkit/">AgentKit</a>, a set of tools for “building, deploying, and optimizing agents.” A quick overview can be found in <a href="https://youtu.be/44eFf-tRiSg?si=F7xcH1YwleoC9-Ux">this YouTube video</a>. Here’s a guide to an <a href="https://platform.openai.com/docs/guides/agent-builder">agent builder</a>, which is part of the AgentKit. In these sections they often talk about <a href="https://platform.openai.com/docs/guides/chatkit">ChatKit</a>.</p>
+<p>I’m being a bit hand-wavy here because this is still new to me (was introduced at the <a href="https://openai.com/devday/">OpenAI Dev Day</a> on October 6, 2025), but I expect to dive into this designing multi-agentic systems in the next few months. Check back later if you’re interested to see what I learn!</p>
+<section id="prompt-chaining-vs-multi-agentic-systems" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="prompt-chaining-vs-multi-agentic-systems"><span class="header-section-number">21.1</span> Prompt Chaining vs Multi-Agentic Systems</h2>
+<p>I asked ChatGPT5 to make a table describing the differences between the two. I’m not completely sold on some of the distinctions made below, but here is the table nonetheless:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 45%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Prompt chaining</th>
+<th>Multi-agent system</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primary pattern</td>
+<td>Sequential prompts where each step consumes the previous step’s output</td>
+<td>Multiple specialized agents coordinated by an orchestrator</td>
+</tr>
+<tr class="even">
+<td>Orchestration</td>
+<td>You (or your code) dictate the next step explicitly</td>
+<td>Orchestrator/agents decide routing, handoffs, and tool calls</td>
+</tr>
+<tr class="odd">
+<td>Modularity</td>
+<td>Lower; steps are prompts in a linear pipeline</td>
+<td>Higher; agents have clear roles and can be reused</td>
+</tr>
+<tr class="even">
+<td>Autonomy</td>
+<td>Low; flow is mostly hard-coded</td>
+<td>Higher; agents can make decisions and call other agents/tools</td>
+</tr>
+<tr class="odd">
+<td>Parallelism/branching</td>
+<td>Usually linear; branching is manual</td>
+<td>Supports branching and parallel subtasks</td>
+</tr>
+<tr class="even">
+<td>Tool integration</td>
+<td>Possible but usually wired per step</td>
+<td>First-class; agents can use tools, APIs, and call other agents</td>
+</tr>
+<tr class="odd">
+<td>State &amp; memory</td>
+<td>Minimal, often passed manually between steps</td>
+<td>Agent/flow state maintained across handoffs</td>
+</tr>
+<tr class="even">
+<td>Error handling</td>
+<td>Failures often break the chain</td>
+<td>Supervisory/validation agents can retry or route around failures</td>
+</tr>
+<tr class="odd">
+<td>Best for</td>
+<td>Simple, deterministic multi-step workflows</td>
+<td>Complex, dynamic workflows with distinct sub-skills</td>
+</tr>
+<tr class="even">
+<td>Cost/complexity</td>
+<td>Lower to build/maintain for small tasks</td>
+<td>Higher initial setup; scales better for complex use cases</td>
+</tr>
+</tbody>
+</table>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -905,30 +984,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03-test-connect.html" class="pagination-link" aria-label="Testing API Connection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span>
+      <a href="./activity-scoring-with-rubrics.html" class="pagination-link" aria-label="Activity: Scoring with Rubrics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-api-keys.html" class="pagination-link" aria-label="API Keys">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./activity-chained-workflows.html" class="pagination-link" aria-label="Activity: Chained Workflows">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Implementation</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Chained Workflows {#sec-chained-workflows}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The chatbot interface is probably the most common method of interacting with a generative AI model that people are first familiar with. </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>These interfaces support a conversational interactions with LLM much like a text conversation or Teams chat (or AOL Instant Messaging). </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>There is a text box, you enter a prompt, the model processes that prompt, and provides a response. And continue.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>It's easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, for certain tasks (especially repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the _n_ number of times you need to complete a task. In these instances it may be better to interact with a model via an **_application programming interface_** (API). </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>An API is a structured way for one piece of software to communicate with another. </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>When you use a generative AI model through its API, you're programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Generative AI models aren't just powerful in isolation - they become transformative when woven throughout your workflow.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Instead of using the model as a thought partner or a colleague to help with some task, you can link together tasks to make automate _entire processes_, effectively creating your own team of AI agents.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Chaining also makes debugging and refinement easier. </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>If an error appears in the final result, you can isolate which link in the chain failed or didn't work as expected (remember the <span class="in">`medial heel`</span> example?), and then you can iterate on that step until it's working as expected. </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>This modularity mirrors good measurement practice: test and validate each subcomponent of a process before interpreting the final results.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>It's similar to having an error in your data cleaning that leads to an erroneous statistical conclusion.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>If you've heard of "Multi-Agentic Systems" before, you may be wondering if chained workflows are examples of these systems. The answer is _it depends_.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>(Unsatifying, I know.)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>In general, the purpose of both processes is the same - breaking down a sophisticated process into discrete tasks - but the implementation of this process varies a bit when comparing chained workflows and multi-agentic systems.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Chained workflows can be thought of as single-agent systems with structured memory and sequence. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Each step is still executed by one model instance (or “agent”), but the outputs are fed forward as inputs for subsequent steps. </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Multi-agentic systems extend this concept further: instead of one model handling multiple roles, different agents — each specifically designed for a specialized task — interact or coordinate with one another (e.g., one generates items, another reviews for fairness, a third formats the output).</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Although implementing properly multi-agent systems requires more engineering than most educational researchers need, understanding the connection is useful. </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>Chaining is the conceptual and methodological bridge to multi-agent workflows. </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>The same logic (task decomposition, model-to-model communication, and iteration) underpins both. </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>By designing your LLM tasks as transparent, stepwise processes now, you build a foundation that can later evolve into more automated and collaborative systems when institutional infrastructure or tooling catches up.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>OpenAI now offers <span class="co">[</span><span class="ot">AgentKit</span><span class="co">](https://openai.com/index/introducing-agentkit/)</span>, a set of tools for "building, deploying, and optimizing agents." </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>A quick overview can be found in <span class="co">[</span><span class="ot">this YouTube video</span><span class="co">](https://youtu.be/44eFf-tRiSg?si=F7xcH1YwleoC9-Ux)</span>.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Here's a guide to an <span class="co">[</span><span class="ot">agent builder</span><span class="co">](https://platform.openai.com/docs/guides/agent-builder)</span>, which is part of the AgentKit. </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>In these sections they often talk about <span class="co">[</span><span class="ot">ChatKit</span><span class="co">](https://platform.openai.com/docs/guides/chatkit)</span>.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>I'm being a bit hand-wavy here because this is still new to me (was introduced at the <span class="co">[</span><span class="ot">OpenAI Dev Day</span><span class="co">](https://openai.com/devday/)</span> on October 6, 2025), but I expect to dive into this designing multi-agentic systems in the next few months. Check back later if you're interested to see what I learn! </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt Chaining vs Multi-Agentic Systems</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>I asked ChatGPT5 to make a table describing the differences between the two. I'm not completely sold on some of the distinctions made below, but here is the table nonetheless:</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Feature               <span class="pp">|</span> Prompt chaining                                                        <span class="pp">|</span> Multi-agent system                                               <span class="pp">|</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---------------------</span> <span class="pp">| ----------------------------------------------------------------------</span> <span class="pp">| ----------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Primary pattern       <span class="pp">|</span> Sequential prompts where each step consumes the previous step’s output <span class="pp">|</span> Multiple specialized agents coordinated by an orchestrator       <span class="pp">|</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Orchestration         <span class="pp">|</span> You (or your code) dictate the next step explicitly                    <span class="pp">|</span> Orchestrator/agents decide routing, handoffs, and tool calls     <span class="pp">|</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Modularity            <span class="pp">|</span> Lower; steps are prompts in a linear pipeline                          <span class="pp">|</span> Higher; agents have clear roles and can be reused                <span class="pp">|</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Autonomy              <span class="pp">|</span> Low; flow is mostly hard-coded                                         <span class="pp">|</span> Higher; agents can make decisions and call other agents/tools    <span class="pp">|</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Parallelism/branching <span class="pp">|</span> Usually linear; branching is manual                                    <span class="pp">|</span> Supports branching and parallel subtasks                         <span class="pp">|</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tool integration      <span class="pp">|</span> Possible but usually wired per step                                    <span class="pp">|</span> First-class; agents can use tools, APIs, and call other agents   <span class="pp">|</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> State &amp; memory        <span class="pp">|</span> Minimal, often passed manually between steps                           <span class="pp">|</span> Agent/flow state maintained across handoffs                      <span class="pp">|</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Error handling        <span class="pp">|</span> Failures often break the chain                                         <span class="pp">|</span> Supervisory/validation agents can retry or route around failures <span class="pp">|</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Best for              <span class="pp">|</span> Simple, deterministic multi-step workflows                             <span class="pp">|</span> Complex, dynamic workflows with distinct sub-skills              <span class="pp">|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cost/complexity       <span class="pp">|</span> Lower to build/maintain for small tasks                                <span class="pp">|</span> Higher initial setup; scales better for complex use cases        <span class="pp">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

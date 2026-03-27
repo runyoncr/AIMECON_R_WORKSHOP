@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Christopher Runyon">
-<meta name="dcterms.date" content="2025-10-30">
+<meta name="dcterms.date" content="2026-03-27">
 <title>Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
@@ -102,7 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script><link rel="stylesheet" href="style.css">
 </head>
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
@@ -398,7 +398,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  </ul></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Integrating Generative AI into R Workflows: From APIs to Shiny Apps</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
@@ -418,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 30, 2025</p>
+      <p class="date">March 27, 2026</p>
     </div>
   </div>
   
@@ -429,11 +435,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 <section id="welcome" class="level1 unnumbered"><h1 class="unnumbered">Welcome</h1><p><img src="SimpleBookCover_Image.png" title="Integrating Generative AI into R Workflows: From APIs to Shiny Apps" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>This online resource shares materials from the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first given at <a href="https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm">AIMECON in October, 2025</a>. I’ll periodically continue to update these materials as I learn and the models evolve.</p>
+<p>This online resource shares materials from the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first presented at first <a href="https://ncme.org/events/aime-conference/">AIMECON</a> meeting in October, 2025. I’m excited to announce that I’ll be giving an updated version of the workshop on Wednesday, April 8, 2026 at the <a href="https://ncme.org/events/2026-annual-meeting/">NCME Annual Meeting in Los Angeles.</a></p>
 <p>The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham’s (free) <a href="https://r4ds.hadley.nz/">R for Data Science</a>.</p>
 <p>This website licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0</a> License.</p>
 <p>Changes to the book last made on:</p>
-<p><strong>2025-10-30 10:45:01</strong> (GMT)</p>
+<p><strong>2026-03-27 12:39:11</strong> (GMT)</p>
 <hr>
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 <p>Learning Objectives</p>
@@ -966,7 +972,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This chunk activates knitr for inline code</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at <span class="co">[</span><span class="ot">AIMECON in October, 2025</span><span class="co">](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm)</span>. I'll periodically continue to update these materials as I learn and the models evolve.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first presented at first <span class="co">[</span><span class="ot">AIMECON</span><span class="co">](https://ncme.org/events/aime-conference/)</span> meeting in October, 2025. I'm excited to announce that I'll be giving an updated version of the workshop on Wednesday, April 8, 2026 at the <span class="co">[</span><span class="ot">NCME Annual Meeting in Los Angeles.</span><span class="co">](https://ncme.org/events/2026-annual-meeting/)</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham's (free) <span class="co">[</span><span class="ot">R for Data Science</span><span class="co">](https://r4ds.hadley.nz/)</span>.</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>

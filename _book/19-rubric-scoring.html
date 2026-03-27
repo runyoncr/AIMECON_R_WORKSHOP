@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; API Implementation – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>19&nbsp; Scoring with Rubrics – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,7 +55,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,8 +84,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-api-keys.html" rel="next">
-<link href="./03-test-connect.html" rel="prev">
+<link href="./activity-scoring-with-rubrics.html" rel="next">
+<link href="./18-batch-processing.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./19-rubric-scoring.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,13 +171,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Setup</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
@@ -179,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
@@ -257,13 +276,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Transactional Interactions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
@@ -302,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link">
+  <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
   </div>
 </li>
@@ -413,15 +432,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#analytic-rubrics" id="toc-analytic-rubrics" class="nav-link active" data-scroll-target="#analytic-rubrics"><span class="header-section-number">19.1</span> Analytic Rubrics</a></li>
+  <li><a href="#holistic-rubrics" id="toc-holistic-rubrics" class="nav-link" data-scroll-target="#holistic-rubrics"><span class="header-section-number">19.2</span> Holistic Rubrics</a></li>
+  <li><a href="#implications-for-llm-scoring" id="toc-implications-for-llm-scoring" class="nav-link" data-scroll-target="#implications-for-llm-scoring"><span class="header-section-number">19.3</span> Implications for LLM Scoring</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./19-rubric-scoring.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-rubric-scoring" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -438,14 +465,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The chatbot interface is probably the most common method of interacting with a generative AI model that people are first familiar with. These interfaces support a conversational interactions with LLM much like a text conversation or Teams chat (or AOL Instant Messaging). There is a text box, you enter a prompt, the model processes that prompt, and provides a response. And continue.</p>
-<p>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It’s easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.</p>
-<p>However, for certain tasks (especially repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the <em>n</em> number of times you need to complete a task. In these instances it may be better to interact with a model via an <strong><em>application programming interface</em></strong> (API).</p>
-<p>An API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you’re programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</p>
+<p>Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric. I work in medical education, and one useful performance assessment that is used is the <a href="https://en.wikipedia.org/wiki/Objective_structured_clinical_examination">Objective Structured Clinical Examination (OSCE)</a>. In short, an OSCE is a simulated patient interaction where the person being assessed must integrate several important aspects of clinical reasoning to provide effective care. These assessments typically require a summary note to be written after the encounter, which serves as documentation of the visit. I’ll use post-encounter notes from an OSCE as the motivating example for the following discussion because I’ve done some work in this area. However, the same principles apply to any assessment where a written rubric is used to evaluate student responses.</p>
+<p>We begin by considering why rubrics are valuable when grading student assessments. Rubrics promote consistency, ensuring that all students are evaluated using the same criteria. They also help streamline grading and feedback, while reinforcing alignment between the assessment and the learning objectives.</p>
+<section id="analytic-rubrics" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="analytic-rubrics"><span class="header-section-number">19.1</span> Analytic Rubrics</h2>
+<p>There are at least two main styles of rubrics. The first is the <em>analytic rubric</em>, sometimes referred to as a “checklist” rubric. These are based on a list of specific elements that should be included in the student’s response, allowing for a more structured and detailed evaluation.</p>
+<p>Here’s an example of an analytic rubric I developed while learning how to use AI to score OSCE notes. It’s important to note that I created this rubric independently, without any direct physician input. Even though this rubric may not be ideal for evaluating notes about a patient with plantar fasciitis, that wasn’t critical for my task. I simply needed a rubric for GPT to apply when evaluating a student’s post-encounter note.</p>
+<img src="images/osce-analytic-rubric-example.png" class="img-fluid quarto-figure quarto-figure-center">
+<center>
+Example of an Analytic Rubric from my “Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes”<span class="citation" data-cites="runyon2025using"><sup><a href="32-references.html#ref-runyon2025using" role="doc-biblioref">1</a></sup></span>.
+</center>
+<p>The structure of the rubric is what matters here. It outlines specific concepts that should appear in the note based on the patient’s presentation. Each concept is assigned a point value, and some entries include qualifiers for partial credit.</p>
+<p>At the bottom I added an extra instruction for GenAI model: if the note describes a different clinical condition than the one specified in the rubric, it should not receive a score. This was designed to test how well GenAI models could detect mismatched cases, such as when a candidate submits the same note across multiple cases to gain credit for generic elements like “normal vital signs” or “unremarkable family or social history.”</p>
+<p>One advantage of analytic rubrics is their level of detail. They identify very specific concepts that should be included in a response. Typically, each element is scored independently, meaning a candidate can earn credit for one element regardless of whether they included others.</p>
+<p>However, applying analytic rubrics can be time-consuming. Imagine using the rubric above to score 100 OSCE notes by hand. Even with practice, it would still take a considerable amount of time, and it’s easy to accidentally miss elements when reviewing so many responses.</p>
+<p>There’s also a valid critique that analytic rubrics don’t always reflect the underlying construct you’re trying to measure. For example, it’s hard to make strong claims about a candidates’s clinical reasoning ability based solely on which discrete elements appear in their note.</p>
+<p>Finally, analytic rubrics can be helpful for feedback - but this is a bit of a double-edged sword. While you can point out which elements were missing, documenting that feedback for each student can also be labor-intensive.</p>
+</section>
+<section id="holistic-rubrics" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="holistic-rubrics"><span class="header-section-number">19.2</span> Holistic Rubrics</h2>
+<p>The other common type of rubric is the <em>holistic rubric</em>. These are more general in nature and typically consist of several high-level elements that reflect the overall quality of a student’s performance.</p>
+<p>Here’s a strong example of a holistic rubric: the Assessment of Reasoning Tool (ART), developed by the Society to Improve Diagnosis in Medicine. It’s one of the more complete and thoughtfully designed holistic rubrics available, making it especially useful for our discussion.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/SIDM_ART.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><a href="https://www.degruyterbrill.com/document/doi/10.1515/dx-2018-0052/html" target="_blank">Thammasitboon S, Rencic JJ, Trowbridge RL, Olson APJ, Sur M, Dhaliwal G. The Assessment of Reasoning Tool (ART): structuring the conversation between teachers and learners. Diagnosis (Berl). 2018;5(4):197-203.</a></p>
+<p>Let’s use the top row of the rubric to explore how holistic rubrics work. This section asks: “Did the learner collect/report history and examination data in a hypothesis-directed manner?”</p>
+<p>Each element in the ART rubric is rated across three performance levels: Minimal, Partial, and Complete. For this particular element, minimal is characterized by non-directed questioning and examination, with questions asked without a clear focus on potential diagnoses. Partial reflects questioning and examination that generally align with potential diagnoses, though some questions may be less relevant or tangential. And complete corresponds to a clear line of inquiry, with questions directed toward findings that meaningfully increase or decrease the likelihood of specific diagnoses.</p>
+<p>As with most holistic rubrics, this one is intentionally generic. It’s designed to be broadly applicable across different clinical cases, rather than prescribing specific content for a specific scenario.</p>
+<p>Another key difference from analytic rubrics is that holistic rubrics typically don’t assign numerical values to individual behaviors or content elements. Instead, they reflect an overall judgment of performance (which is why they’re called holistic). This also accounts for the varying importance of different elements within a case. And while you might be tempted to assign numbers like “1, 2, 3” to the categories, that’s not always appropriate given the qualitative nature of the assessment.</p>
+<p>Using holistic rubrics often requires evaluators with sufficient expertise to distinguish between performance levels. They need to observe the learner’s approach and determine whether it reflects a “partial” or “complete” level of reasoning.</p>
+<p>To summarize, holistic rubrics are typically more global in nature and don’t focus on discrete, minute elements of a student’s performance. They’re often easier to implement; rather than scanning a patient note for specific details, the evaluator simply places the student’s performance into a category, which can be done relatively quickly.</p>
+<p>However, the lack of specific, objective criteria introduces a degree of subjectivity. For instance, a student on the borderline between “partial” and “complete” might be rated differently by two assessors, and both judgments could be well justified.</p>
+<p>Additionally, because holistic rubric elements are more conceptual and less concrete, the feedback provided needs to be tailored to the learner’s specific performance. This can be time-intensive, especially if feedback isn’t delivered in person.</p>
+<p>This comparison should help clarify the differences between analytic and holistic rubrics. Importantly, one isn’t inherently better than the other. Each is appropriate depending on the context and goals of the assessment.</p>
+</section>
+<section id="implications-for-llm-scoring" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="implications-for-llm-scoring"><span class="header-section-number">19.3</span> Implications for LLM Scoring</h2>
+<p>So what does all this mean when using a GPT model to apply a rubric?</p>
+<p>If you recall the concept of co-occurrence - the idea that words frequently used in similar contexts tend to have related meanings - GPTs are well-suited to produce and identify lexical variants. For example, if your rubric includes the phrase “nocturnal cough,” the model can easily identify that “wakes up at night coughing” conveys a similar meaning.</p>
+<p>Thinking back to model attention, GPTs may struggle with long rubrics (although newer reasoning models are better at this). Their performance tends to drop when asked to process and apply lengthy criteria all at once. A simple workaround is to break the rubric into smaller, more manageable sections and then combine the results into a complete evaluation (part of what a reasoning model does behind the scenes, which is why it does better with longer rubrics).</p>
+<p>Also, while this issue has improved in newer models, earlier GPTs had difficulty tracking scores when applying analytic rubrics. Remember, these are <em>language</em> models - their strength is <em>literacy</em>, not <em>numeracy</em>. So when asked to add multiple values, they treat more like a word problem and try to predict the answer based on the other tokens in the sentence. It’s similar to standing next to someone in an elevator and saying, “Hey, can you add 1 + 1 + 2 + 1 + 2 + 1 + 1 + 1 + 1?” and having them analyze that and respond purely from the semantics of the words, and not their associated numerical values. A very hard task to do! Although newer models handle this better, it’s still important to double-check the math when using GPTs for scoring.</p>
+<p>Holistic rubrics present a different kind of challenge for LLMs, largely because they rely on the evaluator’s expertise to be effective. A sking a model to make global judgments across multiple score categories is a more complex task than identifying lexical variants of discrete concepts.</p>
+<p>When using a GPT model with a holistic rubric, it’s best to evaluate each rubric element separately. This helps focus the model’s attention and improves the accuracy of its assessment.</p>
+<p>To support this process, it’s often helpful to provide examples for each score category within the context of a specific case. Describing what differentiates one level of performance from another – especially by including examples - can give the model a proxy for the expertise typically required to make these judgments.</p>
+<p>However, even with these supports, it’s important to recognize that many LLMs may not fully replicate expert-level evaluation. Expertise isn’t something the model “learns” during training; rather, it’s an emergent property built from abstracting general knowledge across many examples. GPTs learn relationships between words and concepts, but that doesn’t guarantee they’ll apply those relationships with the nuance and judgment of a human expert.</p>
 
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-runyon2025using" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Runyon C. Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes. <em>Medical Teacher</em>. Published online 2025:1-9.</div>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -905,30 +981,141 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03-test-connect.html" class="pagination-link" aria-label="Testing API Connection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span>
+      <a href="./18-batch-processing.html" class="pagination-link" aria-label="Batch Processing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Batch Processing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-api-keys.html" class="pagination-link" aria-label="API Keys">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./activity-scoring-with-rubrics.html" class="pagination-link" aria-label="Activity: Scoring with Rubrics">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Implementation</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Scoring with Rubrics {#sec-rubric-scoring}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The chatbot interface is probably the most common method of interacting with a generative AI model that people are first familiar with. </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>These interfaces support a conversational interactions with LLM much like a text conversation or Teams chat (or AOL Instant Messaging). </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>There is a text box, you enter a prompt, the model processes that prompt, and provides a response. And continue.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>It's easy have a back-and-forth conversation, and many of the model providers have made it so you can continue old conversations or search through previous conversations.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Now we turn to another potential use of AI: supporting the time-intensive task of scoring student work using a rubric.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>I work in medical education, and one useful performance assessment that is used is the <span class="co">[</span><span class="ot">Objective Structured Clinical Examination (OSCE)</span><span class="co">](https://en.wikipedia.org/wiki/Objective_structured_clinical_examination)</span>.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>In short, an OSCE is a simulated patient interaction where the person being assessed must integrate several important aspects of clinical reasoning to provide effective care.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>These assessments typically require a summary note to be written after the encounter, which serves as documentation of the visit.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>I'll use post-encounter notes from an OSCE as the motivating example for the following discussion because I've done some work in this area. </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>However, the same principles apply to any assessment where a written rubric is used to evaluate student responses.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, for certain tasks (especially repetitive tasks to be completed at scale), the chatbot interface can be inefficient. It can be time consuming to copy-cut-paste-submit-copy-cut-paste - and repeat - for the _n_ number of times you need to complete a task. In these instances it may be better to interact with a model via an **_application programming interface_** (API). </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>An API is a structured way for one piece of software to communicate with another. </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>When you use a generative AI model through its API, you're programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Unlike a chatbot interface where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>We begin by considering why rubrics are valuable when grading student assessments. </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Rubrics promote consistency, ensuring that all students are evaluated using the same criteria. </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>They also help streamline grading and feedback, while reinforcing alignment between the assessment and the learning objectives.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analytic Rubrics</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>There are at least two main styles of rubrics. The first is the _analytic rubric_, sometimes referred to as a “checklist” rubric. </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>These are based on a list of specific elements that should be included in the student’s response, allowing for a more structured and detailed evaluation.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Here’s an example of an analytic rubric I developed while learning how to use AI to score OSCE notes. </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>It’s important to note that I created this rubric independently, without any direct physician input. </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Even though this rubric may not be ideal for evaluating notes about a patient with plantar fasciitis, that wasn’t critical for my task. </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>I simply needed a rubric for GPT to apply when evaluating a student’s post-encounter note.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>::: {.content-visible when-format="html" style="margin-top: 2em; margin-bottom: 2em"}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/osce-analytic-rubric-example.png)</span>{fig-align="center" }</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span>Example of an Analytic Rubric from my "Using large language models (LLMs) to apply analytic rubrics to score post-encounter notes" <span class="co">[</span><span class="ot">@runyon2025using</span><span class="co">]</span>.<span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>The structure of the rubric is what matters here. </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>It outlines specific concepts that should appear in the note based on the patient’s presentation. </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Each concept is assigned a point value, and some entries include qualifiers for partial credit. </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>At the bottom I added an extra instruction for GenAI model: if the note describes a different clinical condition than the one specified in the rubric, it should not receive a score. </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>This was designed to test how well GenAI models could detect mismatched cases, such as when a candidate submits the same note across multiple cases to gain credit for generic elements like “normal vital signs” or “unremarkable family or social history.”</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>One advantage of analytic rubrics is their level of detail. </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>They identify very specific concepts that should be included in a response. </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Typically, each element is scored independently, meaning a candidate can earn credit for one element regardless of whether they included others.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>However, applying analytic rubrics can be time-consuming. </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Imagine using the rubric above to score 100 OSCE notes by hand.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>Even with practice, it would still take a considerable amount of time, and it’s easy to accidentally miss elements when reviewing so many responses.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>There’s also a valid critique that analytic rubrics don’t always reflect the underlying construct you’re trying to measure. </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>For example, it’s hard to make strong claims about a candidates’s clinical reasoning ability based solely on which discrete elements appear in their note.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>Finally, analytic rubrics can be helpful for feedback - but this is a bit of a double-edged sword. </span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>While you can point out which elements were missing, documenting that feedback for each student can also be labor-intensive.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Holistic Rubrics</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>The other common type of rubric is the _holistic rubric_. </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>These are more general in nature and typically consist of several high-level elements that reflect the overall quality of a student’s performance.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Here’s a strong example of a holistic rubric: the Assessment of Reasoning Tool (ART), developed by the Society to Improve Diagnosis in Medicine. </span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>It’s one of the more complete and thoughtfully designed holistic rubrics available, making it especially useful for our discussion.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/SIDM_ART)</span>{fig-align="center"}</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Thammasitboon S, Rencic JJ, Trowbridge RL, Olson APJ, Sur M, Dhaliwal G. The Assessment of Reasoning Tool (ART): structuring the conversation between teachers and learners. Diagnosis (Berl). 2018;5(4):197-203.</span><span class="co">](https://www.degruyterbrill.com/document/doi/10.1515/dx-2018-0052/html)</span>{target="_blank"}</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>Let’s use the top row of the rubric to explore how holistic rubrics work. </span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>This section asks: “Did the learner collect/report history and examination data in a hypothesis-directed manner?”</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>Each element in the ART rubric is rated across three performance levels: Minimal, Partial, and Complete. </span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>For this particular element, minimal is characterized by non-directed questioning and examination, with questions asked without a clear focus on potential diagnoses. </span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>Partial reflects questioning and examination that generally align with potential diagnoses, though some questions may be less relevant or tangential. </span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>And complete corresponds to a clear line of inquiry, with questions directed toward findings that meaningfully increase or decrease the likelihood of specific diagnoses.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>As with most holistic rubrics, this one is intentionally generic. </span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>It’s designed to be broadly applicable across different clinical cases, rather than prescribing specific content for a specific scenario.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>Another key difference from analytic rubrics is that holistic rubrics typically don’t assign numerical values to individual behaviors or content elements. </span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>Instead, they reflect an overall judgment of performance (which is why they’re called holistic). </span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>This also accounts for the varying importance of different elements within a case. </span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>And while you might be tempted to assign numbers like “1, 2, 3” to the categories, that’s not always appropriate given the qualitative nature of the assessment.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>Using holistic rubrics often requires evaluators with sufficient expertise to distinguish between performance levels. </span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>They need to observe the learner’s approach and determine whether it reflects a “partial” or “complete” level of reasoning.</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>To summarize, holistic rubrics are typically more global in nature and don’t focus on discrete, minute elements of a student’s performance. </span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>They’re often easier to implement; rather than scanning a patient note for specific details, the evaluator simply places the student’s performance into a category, which can be done relatively quickly.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>However, the lack of specific, objective criteria introduces a degree of subjectivity. </span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>For instance, a student on the borderline between “partial” and “complete” might be rated differently by two assessors, and both judgments could be well justified.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>Additionally, because holistic rubric elements are more conceptual and less concrete, the feedback provided needs to be tailored to the learner’s specific performance. </span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>This can be time-intensive, especially if feedback isn’t delivered in person.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>This comparison should help clarify the differences between analytic and holistic rubrics. </span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>Importantly, one isn’t inherently better than the other. </span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>Each is appropriate depending on the context and goals of the assessment.</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## Implications for LLM Scoring</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>So what does all this mean when using a GPT model to apply a rubric?</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>If you recall the concept of co-occurrence - the idea that words frequently used in similar contexts tend to have related meanings - GPTs are well-suited to produce and identify lexical variants. </span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>For example, if your rubric includes the phrase “nocturnal cough,” the model can easily identify that “wakes up at night coughing” conveys a similar meaning.</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>Thinking back to model attention, GPTs may struggle with long rubrics (although newer reasoning models are better at this). </span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>Their performance tends to drop when asked to process and apply lengthy criteria all at once. </span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>A simple workaround is to break the rubric into smaller, more manageable sections and then combine the results into a complete evaluation (part of what a reasoning model does behind the scenes, which is why it does better with longer rubrics).</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>Also, while this issue has improved in newer models, earlier GPTs had difficulty tracking scores when applying analytic rubrics. </span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>Remember, these are _language_ models - their strength is _literacy_, not _numeracy_. </span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>So when asked to add multiple values, they treat more like a word problem and try to predict the answer based on the other tokens in the sentence. </span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>It’s similar to standing next to someone in an elevator and saying, “Hey, can you add 1 + 1 + 2 + 1 + 2 + 1 + 1 + 1 + 1?” and having them analyze that and respond purely from the semantics of the words, and not their associated numerical values. </span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>A very hard task to do!</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>Although newer models handle this better, it’s still important to double-check the math when using GPTs for scoring.</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>Holistic rubrics present a different kind of challenge for LLMs, largely because they rely on the evaluator’s expertise to be effective. A</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>sking a model to make global judgments across multiple score categories is a more complex task than identifying lexical variants of discrete concepts.</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>When using a GPT model with a holistic rubric, it’s best to evaluate each rubric element separately. </span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>This helps focus the model’s attention and improves the accuracy of its assessment.</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>To support this process, it’s often helpful to provide examples for each score category within the context of a specific case. </span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>Describing what differentiates one level of performance from another – especially by including examples - can give the model a proxy for the expertise typically required to make these judgments.</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>However, even with these supports, it’s important to recognize that many LLMs may not fully replicate expert-level evaluation. </span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>Expertise isn’t something the model “learns” during training; rather, it’s an emergent property built from abstracting general knowledge across many examples. </span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>GPTs learn relationships between words and concepts, but that doesn’t guarantee they’ll apply those relationships with the nuance and judgment of a human expert.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
