@@ -5,7 +5,7 @@
 # This chunk activates knitr for inline code
 ```
 
-This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first given at [AIMECON in October, 2025](https://www.xcdsystem.com/ncme/program/4HfWHuL/index.cfm). I'm excited to announce that I'll be giving an updated version of the workshop on Wednesday, April 8, 2026 at the [NCME Annual Meeting in Los Angeles.](https://ncme.org/events/2026-annual-meeting/)
+This online resource shares materials from the "Integrating Generative AI into R Workflows: From APIs to Shiny Apps" workshop, first presented at first [AIMECON](https://ncme.org/events/aime-conference/) meeting in October, 2025. I'm excited to announce that I'll be giving an updated version of the workshop on Wednesday, April 8, 2026 at the [NCME Annual Meeting in Los Angeles.](https://ncme.org/events/2026-annual-meeting/)
 
 The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham's (free) [R for Data Science](https://r4ds.hadley.nz/).
 

@@ -19,7 +19,7 @@ This is my preferred IDE for R, although you may choose others if you like. I wi
 
 I am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.
 
-**Note:** I just learned about [Positron](https://positron.posit.co/){target="_blank"}, the new IDE developed by Posit. I haven't used it yet, but I am excited about the AI coding assistant that's built in.
+**Note:** I just started using [Positron](https://positron.posit.co/){target="_blank"}, the new IDE developed by Posit. I've only used it for a couple of weeks so I'm fluent in it / can't easily help you debug, but all files / syntax we'll use can be implemented in Positron as well as R. I will most likely transition to using Positron as my primary IDE for all future workshops, given the additional functionality that it affords. If I'm brave I might even do the entire workshop on Posit Cloud.
 
 ## Installing R Tools
 
