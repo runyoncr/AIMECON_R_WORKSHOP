@@ -107,7 +107,7 @@ This is especially the case in the simple function above, as we haven't made an 
 Thus, when _you_ call Anthropic and have it generate a joke for you using the same prompt, you will likely get different responses each time.
 In fact, each time that I compile this book on GitHub the result changes!
 
-2. You may notice that escape sequences (`\n`, `\t`, etc.) may be present because the information is returned in the JSON format.
+2. You may notice that escape sequences (`\n`, `\t`, etc.) may be present because the is returned from the model.
 One way to handle this is to wrap your response in `cat()`.
 We'll revisit this again later in other sections.
 

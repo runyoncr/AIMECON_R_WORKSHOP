@@ -498,13 +498,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">test_joke</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>[1] "Here's one:\n\nA psychometrician walks into a bar and orders a drink. The bartender asks, \"How was your day?\"\n\nHe says, \"Well, it was reliable... but I'm still not sure it was valid.\"\n\n---\n\nIt's a niche crowd that laughs at that one, but anyone who's sat through a measurement theory course knows the pain of explaining that **consistency doesn't mean you're actually measuring what you think you're measuring**. 😄"</code></pre>
+<pre><code>[1] "Here's one:\n\nA psychometrician walks into a bar and orders a drink. The bartender asks, \"How was your day?\"\n\nHe says, \"Well, I can't be certain, but I'm 95% confident it was somewhere between terrible and awful.\"\n\n---\n\nOr this classic:\n\nWhy did the test score go to therapy?\n\nIt had **reliability issues** — it kept giving different answers depending on the day.\n\n---\n\nThese are pretty niche, but if you work in assessment, you *feel* them. 😄"</code></pre>
 </div>
 </div>
 <p>A few things to note:</p>
 <ol type="1">
 <li><p>Generally speaking, the process used by a generative AI model involves predicting the next token to be selected and sampling from a distribution of possible options. (We will discuss ways to better control this later.) A (sometimes, mostly) beautiful implication of this is that responses from generative AI models will often be different, even if the <strong>exact</strong> same prompt is used. This is especially the case in the simple function above, as we haven’t made an effort to tune the <a href="./08-gen-ai-parameters.html#sec-gen-params">model generation parameters</a> to achieve a deterministic or replicable result. Thus, when <em>you</em> call Anthropic and have it generate a joke for you using the same prompt, you will likely get different responses each time. In fact, each time that I compile this book on GitHub the result changes!</p></li>
-<li><p>You may notice that escape sequences (<code>\n</code>, <code>\t</code>, etc.) may be present because the information is returned in the JSON format. One way to handle this is to wrap your response in <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>. We’ll revisit this again later in other sections.</p></li>
+<li><p>You may notice that escape sequences (<code>\n</code>, <code>\t</code>, etc.) may be present because the is returned from the model. One way to handle this is to wrap your response in <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>. We’ll revisit this again later in other sections.</p></li>
 </ol>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">test_joke</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -513,11 +513,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 A psychometrician walks into a bar and orders a drink. The bartender asks, "How was your day?"
 
-He says, "Well, it was reliable... but I'm still not sure it was valid."
+He says, "Well, I can't be certain, but I'm 95% confident it was somewhere between terrible and awful."
 
 ---
 
-It's a niche crowd that laughs at that one, but anyone who's sat through a measurement theory course knows the pain of explaining that **consistency doesn't mean you're actually measuring what you think you're measuring**. 😄</code></pre>
+Or this classic:
+
+Why did the test score go to therapy?
+
+It had **reliability issues** — it kept giving different answers depending on the day.
+
+---
+
+These are pretty niche, but if you work in assessment, you *feel* them. 😄</code></pre>
 </div>
 </div>
 
@@ -1097,7 +1105,7 @@ It's a niche crowd that laughs at that one, but anyone who's sat through a measu
 <span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>Thus, when _you_ call Anthropic and have it generate a joke for you using the same prompt, you will likely get different responses each time.</span>
 <span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>In fact, each time that I compile this book on GitHub the result changes!</span>
 <span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>You may notice that escape sequences (<span class="in">`\n`</span>, <span class="in">`\t`</span>, etc.) may be present because the information is returned in the JSON format.</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>You may notice that escape sequences (<span class="in">`\n`</span>, <span class="in">`\t`</span>, etc.) may be present because the is returned from the model.</span>
 <span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>One way to handle this is to wrap your response in <span class="in">`cat()`</span>.</span>
 <span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>We'll revisit this again later in other sections.</span>
 <span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a></span>
@@ -1110,7 +1118,7 @@ It's a niche crowd that laughs at that one, but anyone who's sat through a measu
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Copyright © 2025 by Christopher Runyon.<br> Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
+<p>Copyright © <code>r format(Sys.Date(), "%Y")</code> by Christopher Runyon.<br> Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

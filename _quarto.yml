@@ -9,7 +9,7 @@ book:
 
   page-footer:
     left: |
-      Copyright © 2025 by Christopher Runyon.<br> 
+      Copyright © `r format(Sys.Date(), "%Y")` by Christopher Runyon.<br> 
       Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
