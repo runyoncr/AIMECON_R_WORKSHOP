@@ -37,6 +37,8 @@ book:
          
     - part: "Conversational Interactions"
       chapters: 
+        - num-sample-workflow.qmd
+        - num-practical-tools.qmd
         - 10-integration.qmd
         - 11-conversations-via-api.qmd
         - activity-content-development-revision.qmd

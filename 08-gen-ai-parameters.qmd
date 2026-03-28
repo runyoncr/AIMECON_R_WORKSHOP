@@ -1,12 +1,18 @@
 # Generation Parameters {#sec-gen-params}
 
-When large language models produce text, they do so through a probabilistic process—choosing one word (or token) at a time based on learned likelihoods from vast amounts of training data. 
+When large language models produce text, they do so through a probabilistic process—selecting one token at a time based on learned probability distributions derived from vast amounts of training data. 
 Generation parameters govern how that probabilistic process unfolds. 
-Rather than altering what the model “knows,” these parameters control how it expresses that knowledge: how much variability is allowed, how long a response can be, and how the model manages uncertainty while generating language.
+Rather than altering what the model “knows,” these parameters influence how it samples from its learned distribution: how much variability is allowed, how long a response can be, and how the model balances predictability with diversity while generating language.
 
 From an educational measurement perspective, generation parameters serve a role analogous to setting conditions for test administration or scoring protocols. 
 They define the boundaries within which the model operates, affecting reliability, reproducibility, and interpretability. 
-Understanding these controls allows researchers and educators to align model behavior with the goals of a particular task.
+Understanding these controls allows researchers and educators to better align model behavior with the goals of a particular task.
+
+**Note: Many of these generation parameters were more commonly exposed in earlier generations of foundational models and remain common in many open-source models. Newer generations of "reasoning models" may expose fewer direct sampling controls, or may handle some of these behaviors differently under the hood, but I have kept this section for completeness.** 
+In addition, if you're going to download and use an open-source model locally (which has many benefits, including more control over the broader data ecosystem—you are not sending data to a third-party resource), these parameters may still be useful. 
+There is a [section below on generation parameters](08-gen-ai-parameters.qmd#sec-reason-gen-params) for reasoning models. 
+
+<br>
 
 ## Sampling Controls
 
@@ -15,23 +21,23 @@ These parameters affect the randomness and diversity of the model output.
 ### Temperature
 
 Temperature controls how much randomness is introduced during text generation. 
-A value near 0 produces deterministic, highly focused responses; higher values (e.g., 0.8–1.0) make the output more varied and creative. 
-Statistically, it scales the model token weights before sampling, flattening or sharpening the probability distribution over possible next tokens. 
-For reproducible outputs or grading tasks, low temperature is preferred; for brainstorming or ideation, higher values work better.
+A value near 0 makes the output more deterministic and focused; higher values (e.g., 0.8–1.0) make the output more varied and exploratory. 
+Technically, temperature rescales the model’s token logits before sampling, which has the effect of sharpening or flattening the probability distribution over possible next tokens. 
+For reproducible outputs or grading tasks, low temperature is usually preferred; for brainstorming or ideation, higher values often work better.
 
 ### `top_p` (Nucleus Sampling)
 
 `top_p` defines how much of the total probability mass is considered when sampling the next token. 
-The model first sorts possible next tokens by probability and keeps only the smallest set whose cumulative probability exceeds p. 
-For example, top_p = 0.9 means sampling only from the top 90% of the probability mass. 
-This is another way to control diversity — lower values produce more predictable text.
+The model sorts possible next tokens by probability and keeps only the smallest set whose cumulative probability exceeds *p*. 
+For example, `top_p = 0.9` means the model samples only from the set of tokens that together account for 90% of the probability mass. 
+This is another way to control diversity—lower values produce more predictable text, while higher values allow a wider range of candidate tokens.
 
 ### `top_k`
 
 `top_k` restricts the number of candidate tokens the model can choose from at each step. 
-If k = 50, only the 50 most likely next tokens are considered. 
-This parameter is conceptually similar to top_p but framed in terms of count rather than probability. 
-Many APIs use either `top_p` or `top_k`, but not both — using one provides enough control over randomness.
+If `k = 50`, only the 50 most likely next tokens are considered. 
+This parameter is conceptually similar to `top_p`, but it uses a fixed number of candidates rather than a probability threshold. 
+Some APIs expose either `top_p` or `top_k`, while others expose both; in practice, many users adjust only one of them to control randomness.
 
 ## Length and Structure Controls
 
@@ -40,7 +46,7 @@ These parameters constrain how much or what kind of text the model can produce.
 ### Max Tokens
 
 `max_tokens` sets the upper limit for how long the model’s output can be, measured in tokens. 
-If the model reaches this limit, it stops generating even if the response isn’t complete. 
+If the model reaches this limit, it stops generating even if the response is not complete. 
 This parameter is useful for keeping outputs concise or fitting within budget constraints, since longer outputs consume more tokens (and thus cost more).
 
 ### Stop Sequences
@@ -56,62 +62,64 @@ These parameters discourage certain token patterns.
 ### Frequency Penalty
 
 `frequency_penalty` discourages the model from repeating the same words or phrases. 
-It adjusts token probabilities based on how often they’ve already appeared in the current response. 
-Higher values push the model to use more varied vocabulary, while lower or zero values allow freer repetition. 
-It’s especially useful for generating longer outputs that shouldn’t sound redundant.
+It adjusts token probabilities based on how often tokens have already appeared in the current response. 
+Higher values push the model toward more varied wording, while lower or zero values allow freer repetition. 
+It is especially useful for generating longer outputs that should not sound redundant.
 
 ### Presence Penalty
 
-The `presence_penalty` discourages the model from reusing tokens that have already appeared in the text. 
-Unlike the frequency_penalty, which scales with repetition, the presence penalty applies whenever a token has occurred before, even once. 
-Increasing this value nudges the model to introduce new concepts or vocabulary, which can make generated text more diverse and exploratory.
+`presence_penalty` discourages the model from reusing tokens that have already appeared in the text. 
+Unlike `frequency_penalty`, which scales with the number of repetitions, the presence penalty applies once a token has appeared at all. 
+Increasing this value nudges the model to introduce newer concepts or vocabulary, which can make generated text feel more diverse and exploratory.
+
+## Reasoning Model Generation Parameters {#sec-reason-gen-params}
+
+### Reasoning Effort
+
+One of the biggest changes from earlier foundational models to newer reasoning models is that developers now have more explicit control over how much computation a model uses before producing its final answer.
+_Inference time_ (also called test-time compute) refers to the computational process by which a trained language model generates a response to a given input.
+Recent advances allow some models to expend additional computation during inference, sometimes by generating internal reasoning tokens or by carrying out more extensive intermediate processing before producing a final output.
+
+Earlier foundational models were generally optimized for quick responses and often exposed fewer direct controls over this kind of extra test-time computation. 
+As widely documented in both research and practice, these models could produce hallucinations or other reasoning errors.
+One common prompting strategy for earlier models was to include language like "think through your response step-by-step," which often improved performance on more complex tasks. 
+Model developers recognized the value of giving models more room to reason, and newer systems now expose this more directly through API parameters and chatbot settings.
+As a result, you may have noticed that chatbot versions of generative AI models sometimes take a bit longer to respond after you submit a prompt.
+You may also have noticed that some providers offer options such as "Extended Thinking" or "Thinking" instead of "Auto" or "Instant."
+
+When using an LLM via API, you often have more precise control over how much reasoning a model performs before generating a response. 
+Longer or more intensive reasoning can be helpful for complex tasks, but that does not mean you should always use the highest setting—even lower settings are quite powerful for many use cases.
+It is also important to remember that this additional reasoning uses tokens. As a result, the cost of a response may reflect not only the tokens in the visible output, but also tokens consumed during intermediate test-time computation.
+
+The `effort` parameter in the `call_claude` function that we are using is what gives you control over how much computation Claude is willing to spend on a response.
+In Anthropic's current documentation, `high` is the default for Claude Sonnet 4.6 if you do not explicitly set the parameter (I have used `medium` as the default for this course).
+Below is a copy of the table in the [Anthropic documentation](https://platform.claude.com/docs/en/build-with-claude/effort) describing the different effort settings:
+
+| Level | Description | Typical use case |
+|-------|-------------|-----------------|
+| `max` | Absolute maximum capability with no constraints on token spending. Opus 4.6 only. Requests using `max` on other models return an error. | Tasks requiring the deepest possible reasoning and most thorough analysis |
+| `high` | High capability. Equivalent to not setting the parameter. | Complex reasoning, difficult coding problems, agentic tasks |
+| `medium` | Balanced approach with moderate token savings. | Agentic tasks that require a balance of speed, cost, and performance |
+| `low` | Most efficient. Significant token savings with some capability reduction. | Simpler tasks that need the best speed and lowest costs, such as subagents |
 
 ## Prompt Components
 
 ### System Prompt {#sec-system-prompt}
 
 The _system prompt_ sets the model’s overall role, tone, or behavior—essentially, the “meta” instruction that defines how the model should interpret everything that follows. 
-For example, it might specify “You are an R assistant who explains concepts clearly and uses examples.” 
-This prompt influences style and scope across the entire conversation.
-Most often the default system prompt is set to "User".
+For example, it might specify, “You are an R assistant who explains concepts clearly and uses examples.” 
+This prompt influences style, scope, and behavior across the entire interaction.
+In many chat interfaces and APIs, a system prompt may be supplied by the developer, the platform, or both; if you do not provide one yourself, the provider may still apply hidden system-level instructions or defaults behind the scenes. 
 
 ### User Prompt
 
-The _user prompt_ is the immediate question or task you’re asking the model to perform. 
+The _user prompt_ is the immediate question or task you are asking the model to perform. 
 It represents the actual input or query, such as “Write an R function that calculates bootstrapped confidence intervals.” 
-Together, the system and user prompts define both who the model should be and what it should do—analogous to a function’s global defaults and its current arguments.
+Together, the system and user prompts help define both who the model should be and what it should do—analogous to a function’s global defaults and its current arguments.
 
 ### Response Schema
 
 A response schema specifies the structure or format the model should follow when producing its output. 
-For example, you might require responses in JSON with fields like "score" and "rationale". 
+For example, you might require responses in JSON with fields like `"score"` and `"rationale"`. 
+In more formal workflows, this may involve providing a JSON schema or another structured-output specification that the model is asked to follow.
 Defining a schema encourages consistency across runs, simplifies parsing in R workflows, and reduces the need for post-processing or cleanup.
-
-
-## OpenAI's ChatGPT5 {#sec-gpt5}
-
-Because nothing can be easy, OpenAI's [ChatGPT5](https://openai.com/index/introducing-gpt-5/) - a reasoning model - doesn't have the above parameters available via API.
-Instead, it introduces two parameters that capture the intent of many of the above parameters: `reasoning.effort` and `verbosity`.
-
-The options for `verbosity` are `low`, `medium`, and `high`. The OpenAI Cookbook says `verbosity` "lets you hint the model to be more or less expansive in its replies. Keep prompts stable and use the parameter instead of re-writing."
-
-[Using they descriptions provided here:](https://cookbook.openai.com/examples/gpt-5/gpt-5_new_params_and_tools)
-
-- `low` is for terse UX, minimal prose. 
-- `medium` (default) is for balanced detail.
-- `high` is verbose, great for audits, teaching, or hand-offs. (descriptions )
-
-The options for `reasoning_effort` are `minimal`, `low`, `medium`, and `high`.
-
-[As per OpenAI](https://platform.openai.com/docs/guides/latest-model#minimal-reasoning-effort), `minimal` setting produces very few reasoning tokens for cases where you need the fastest possible time-to-first-token.It performs especially well in coding and instruction following scenarios, adhering closely to given directions. However, it may require prompting to act more proactively. To improve the model's reasoning quality, even at minimal effort, encourage it to “think” or outline its steps before answering. 
-
-([Using they descriptions provided here:](https://platform.openai.com/docs/guides/reasoning)
-
-- `low` favors speed and economical token usage.
-- `medium` (default) is a balance between speed and reasoning accuracy.
-- `high` favors more complete reasoning. (low, medium, and high descriptions 
-
-The suggestion to get output that most resembles non-reasoning models is to have `reasoning_effort = 'minimal'` and `verbosity = 'low'`.
-
-[Earlier we looked at example syntax that you can use to call OpenAI's ChatGPT5 model.](05-api-keys.qmd#sec-gpt5-call)
-Note that you'll need to get your own OpenAI API key for this code to work.

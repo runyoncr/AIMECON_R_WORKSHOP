@@ -1,0 +1,5 @@
+# Sample Workflow
+
+It will be helpful to have a fully-developed high-level template of what an LLM-supported workflow in R might look like.
+Subsequent sections will provide detail on some of the individual components of the workflow, and having this initial workflow design will help structure that discussion.
+

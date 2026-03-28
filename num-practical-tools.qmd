@@ -1,0 +1,195 @@
+# Practical Tools
+
+The following are two practical tools that I have found helpful when using LLMs via API at scale.
+
+## `glue`
+
+The `glue` package is part of the [`tidyverse`](https://glue.tidyverse.org/articles/glue.html) and provides interpreted string literals for combining strings with data (string interpolation) in a readable and efficient way. 
+It allows R expressions to be embedded directly within curly braces `{}` inside a string.
+This is a much safer and more efficient way of building a general prompt that will be used repeatedly with slightly different content, such as for content generation (different source material) or automated scoring (different rubrics and material to be evaluated).
+
+Here is an example of what I mean.
+
+```{r, eval = FALSE}
+# Specifying the input variables
+
+sample_gender <- "cisgender male"
+sample_age <- "37 years old"
+sample_diagnosis <- "acute bronchitis"
+
+```
+
+Rather than building the prompt with `paste0()` like this:
+```{r, eval = FALSE}
+
+prompt <- paste0("Generate a multiple-choice question for a preclerkship medical student about a ",
+                 age, " ", gender, " patient presenting with ", diagnosis, ".")
+
+```
+
+The `glue` package allows you to embed variables directly into a string using `{}`, making the prompt much easier to read, edit, and maintain:
+
+```{r, eval = FALSE}
+
+library(glue)
+
+med_mcq_prompt <- function(gender, age, diagnosis) {
+  glue("
+    A {age} {gender} presents to the clinic with a new diagnosis of {diagnosis}.
+    
+    Generate a single best-answer multiple-choice question appropriate for a preclerkship 
+    medical student that tests clinical reasoning about this presentation.
+    
+    The question should:
+    - Be written in a clinical vignette format
+    - Focus on diagnosis, pathophysiology, or first-line management
+    - Include exactly 5 answer options (A through E)
+    - Have one clearly correct answer and four plausible distractors
+    - Do not include an explanation in your response. Include only the elements listed above.
+
+    Format your response as follows:
+    Question: [vignette and question stem]
+    A. [option]
+    B. [option]
+    C. [option]
+    D. [option]
+    E. [option]
+    Correct Answer: [letter]
+  ")
+}
+
+one_med_mcq <- med_mcq_prompt(sample_gender, sample_age, sample_diagnosis)
+
+cat(call_claude(one_med_mcq))
+
+```
+
+Question: A 37-year-old male presents to the clinic with a 5-day history of cough productive of yellow-green sputum, mild chest discomfort with coughing, and fatigue. He reports a low-grade fever of 38.1°C (100.6°F) at home but is afebrile in the office. Vital signs show BP 122/78 mmHg, HR 82 bpm, RR 16 breaths/min, and O2 saturation 98% on room air. Lung auscultation reveals coarse breath sounds bilaterally without wheezing or crackles. A chest X-ray is ordered and returns normal. Which of the following is the most appropriate next step in management?
+
+A. Prescribe a 5-day course of azithromycin
+B. Prescribe a 7-day course of amoxicillin-clavulanate
+C. Order sputum culture and sensitivity before initiating treatment
+D. Provide supportive care with reassurance and recommend honey and analgesics as needed
+E. Prescribe a short course of oral corticosteroids to reduce airway inflammation
+
+Correct Answer: D
+
+<br>
+
+Notice that changing the patient's characteristics requires only updating the variables at the top—the prompt structure stays identical. This becomes especially powerful when iterating over many cases, allowing you to easily create an array of prompts to be submitted to an LLM without much fuss.
+
+```{r, eval = FALSE}
+
+gender_array <- c("cisgender female", "cisgender male", "cisgender male", "cisgender female")
+age_array <- c("23 years old", "37 years old", "63 years old", "52 years old")
+diagnosis_array <- c("hyperthyroidism", "acute bronchitis", "atrial fibrillation", "hypertension")
+
+med_prompt_array <- purrr::pmap_chr(
+  list(gender_array, age_array, diagnosis_array),
+  function(gender, age, diagnosis) med_mcq_prompt(gender, age, diagnosis)
+)
+
+```
+
+# `JSON` formatting
+
+It is helpful to provide the model with an expected output structure. For the sake of demonstration, let's say that the output from the prompt above was sufficient for your assessment purpose. Best practices for storing assessment content are probably _not_ to just have the assessment item with the stem, response options, and answer key all stored together in a single text file. You'd likely want to extract these components[^1] and store them separately in your database. If you had the output structured as above, this would require the use of some of the functions in the [`stringr` package](https://stringr.tidyverse.org/), or, even worse - regular expressions! 😬
+
+JSON is especially useful because it gives the model a clear, standardized structure to follow when generating output. It is a common data format used widely in APIs and software workflows, so models are generally quite good at producing it when asked. This makes the results much easier to parse, validate, and store automatically when working with large numbers of prompts. The [`jsonlite` package](https://cran.r-project.org/web/packages/jsonlite/refman/jsonlite.html) "offers simple, flexible tools for working with JSON in R, and is particularly powerful for building pipelines and interacting with a web API" - exactly our use case!
+
+Let's revisit the above prompt and specify that the output should be in JSON format, with specific sections for the item stem, each response option, and the correct response:
+
+```{r, eval = FALSE}
+
+med_mcq_prompt_json <- function(gender, age, diagnosis) {
+  glue("
+    A {age} {gender} presents to the clinic with a new diagnosis of {diagnosis}.
+    
+    Generate a single best-answer multiple-choice question appropriate for a preclerkship 
+    medical student that tests clinical reasoning about this presentation.
+    
+    The question should:
+    - Be written in a clinical vignette format
+    - Focus on diagnosis, pathophysiology, or first-line management
+    - Include exactly 5 answer options (A through E)
+    - Have one clearly correct answer and four plausible distractors
+    
+    Return your response as a JSON object with the following structure:
+    {{
+      \"stem\": \"[vignette and question stem]\",
+      \"options\": {{
+        \"A\": \"[option]\",
+        \"B\": \"[option]\",
+        \"C\": \"[option]\",
+        \"D\": \"[option]\",
+        \"E\": \"[option]\"
+      }},
+      \"correct_answer\": \"[letter]\"
+    }}
+    
+    Return only the JSON object. Do not include any additional text, explanation, or markdown formatting.
+  ")
+}
+
+one_med_mcq_json <- med_mcq_prompt_json(sample_gender, sample_age, sample_diagnosis)
+
+one_med_json_output <- call_claude(one_med_mcq_json)
+```
+```{r, echo=FALSE}
+load("one_med_json_output.Rdata")
+```
+```{r}
+cat(one_med_json_output)
+```
+
+
+We can now use the `JSONlite`
+
+
+
+```{r}
+library(jsonlite)
+
+# Parse the JSON output from the model
+result_parsed <- fromJSON(one_med_json_output)
+
+# View the full structured output
+result_parsed
+
+```
+
+The syntax below shows how you can extract additional elements from the JSON output. I have not shown all of the output here, but encourage you to go through the syntax below so you can become familiar with extracting specific elements from the parsed result.
+
+```{r, eval = FALSE}
+
+# Extract individual elements
+result_parsed$stem
+result_parsed$options
+result_parsed$correct_answer
+
+# Extract a specific response option
+result_parsed$options$C
+
+# Convert options to a named character vector (useful for downstream processing)
+unlist(result_parsed$options)
+
+# Combine into a tidy data frame
+data.frame(
+  option  = names(result_parsed$options),
+  text    = unlist(result_parsed$options),
+  correct = names(result_parsed$options) == result_parsed$correct_answer,
+  row.names = NULL
+)
+
+
+```
+
+## `glue` and JSON formatting
+
+The `med_mcq_prompt_json` function above also highlights that the `glue` package can easily handle special characters and formatting when building prompts. 
+It does require a some extra steps (e.g., using double brackets `{{` `}}` instead of single brackets, the need for escape `\` for quotes and other formatting), but it is still _much_ easier than trying to do this with `paste`. 
+
+And, to be transparent, I often will ask an LLM to help me ensure that my function has the correct formatting for the JSON output - I don't know all of the minute details that always need included. 
+
+
+[^1]: Along with item meta-data, etc.

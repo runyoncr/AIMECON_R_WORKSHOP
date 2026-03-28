@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>14&nbsp; Prompt Engineering – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>16&nbsp; Prompt Engineering – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./14-prompt-engineering.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./14-prompt-engineering.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -222,20 +222,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./num-sample-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sample Workflow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./num-practical-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./10-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integrating LLMs into R Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Integrating LLMs into R Workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-conversations-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-content-development-revision.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></span></a>
   </div>
 </li>
       </ul>
@@ -252,73 +264,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14-prompt-engineering.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./15-prompt-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./17-mitigating-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./18-batch-processing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./23-calling-other-llms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./24-rag-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
   </div>
 </li>
       </ul>
@@ -335,31 +347,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./25-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R Shiny</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./26-vibe-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./27-shiny-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Activity: Shiny App Development</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Activity: Shiny App Development</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./29-saving-shiny-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
   </div>
 </li>
       </ul>
@@ -376,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./30-reference-materials.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -401,18 +413,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#prompt-engineering-importance" id="toc-prompt-engineering-importance" class="nav-link active" data-scroll-target="#prompt-engineering-importance"><span class="header-section-number">14.1</span> Prompt Engineering Importance</a></li>
-  <li><a href="#madlibs" id="toc-madlibs" class="nav-link" data-scroll-target="#madlibs"><span class="header-section-number">14.2</span> Madlibs</a></li>
-  <li><a href="#prompt-formulas" id="toc-prompt-formulas" class="nav-link" data-scroll-target="#prompt-formulas"><span class="header-section-number">14.3</span> Prompt Formulas</a></li>
-  <li><a href="#prompt-structuring" id="toc-prompt-structuring" class="nav-link" data-scroll-target="#prompt-structuring"><span class="header-section-number">14.4</span> Prompt Structuring</a></li>
-  <li><a href="#prompt-chaining" id="toc-prompt-chaining" class="nav-link" data-scroll-target="#prompt-chaining"><span class="header-section-number">14.5</span> Prompt Chaining</a></li>
-  <li><a href="#chained-workflows" id="toc-chained-workflows" class="nav-link" data-scroll-target="#chained-workflows"><span class="header-section-number">14.6</span> Chained Workflows</a></li>
+<li><a href="#prompt-engineering-importance" id="toc-prompt-engineering-importance" class="nav-link active" data-scroll-target="#prompt-engineering-importance"><span class="header-section-number">16.1</span> Prompt Engineering Importance</a></li>
+  <li><a href="#madlibs" id="toc-madlibs" class="nav-link" data-scroll-target="#madlibs"><span class="header-section-number">16.2</span> Madlibs</a></li>
+  <li><a href="#prompt-formulas" id="toc-prompt-formulas" class="nav-link" data-scroll-target="#prompt-formulas"><span class="header-section-number">16.3</span> Prompt Formulas</a></li>
+  <li><a href="#prompt-structuring" id="toc-prompt-structuring" class="nav-link" data-scroll-target="#prompt-structuring"><span class="header-section-number">16.4</span> Prompt Structuring</a></li>
+  <li><a href="#prompt-chaining" id="toc-prompt-chaining" class="nav-link" data-scroll-target="#prompt-chaining"><span class="header-section-number">16.5</span> Prompt Chaining</a></li>
+  <li><a href="#chained-workflows" id="toc-chained-workflows" class="nav-link" data-scroll-target="#chained-workflows"><span class="header-section-number">16.6</span> Chained Workflows</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./14-prompt-engineering.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./14-prompt-engineering.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
-<span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span>
+<span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Prompt Engineering</span>
 </h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
@@ -428,12 +440,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><p>We’ll only cover a sampling of these methods in the workshop today. I want to keep the focus more on their application than extensively testing different prompting strategies. I encourage you to further explore these techniques based on your specific use case.</p>
-<section id="prompt-engineering-importance" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="prompt-engineering-importance">
-<span class="header-section-number">14.1</span> Prompt Engineering Importance</h2>
+<section id="prompt-engineering-importance" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="prompt-engineering-importance">
+<span class="header-section-number">16.1</span> Prompt Engineering Importance</h2>
 <p>These models are <em>amazing</em> pattern matchers - they can identify other tokens that are close together in the multidimensional embedding space. And it’s important to use words (tokens) that appropriately leverage the model’s attention - and also to make sure you’re not diffusing the attention by including too many instructions.</p>
 <p>Achieving both of these goals is at the heart of the field of prompt engineering. The following are some useful tips to help you achieve these goals.</p>
-</section><section id="madlibs" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="madlibs">
-<span class="header-section-number">14.2</span> Madlibs</h2>
+</section><section id="madlibs" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="madlibs">
+<span class="header-section-number">16.2</span> Madlibs</h2>
 <p>I think it’s helpful to think of building a prompt like filling in missing blanks in <a href="https://en.wikipedia.org/wiki/Mad_Libs">Mad Libs</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/madlibs.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -496,8 +508,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Although this example was extreme, it demonstrates the point well. We didn’t precisely tell the model what we wanted, so what did we expect? If we had different expections for the output than what the model provided, we need to make that clear in our prompt.</p>
 <p>Vague prompts aren’t inherently bad. They’re quite useful when you’re brainstorming and want ideas about a topic that are different than ideas you’ve already considered. Even asking the model to develop novel solutions can be helpful in these instances; when a model needs to predict the next token and they don’t have the appropriate content, they usually predict the next token that is most common in the training data given similar contexts.</p>
-</section><section id="prompt-formulas" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="prompt-formulas">
-<span class="header-section-number">14.3</span> Prompt Formulas</h2>
+</section><section id="prompt-formulas" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="prompt-formulas">
+<span class="header-section-number">16.3</span> Prompt Formulas</h2>
 <p>In my experience, most posts online about effectively using AI models give examples of wording or a way to structure your prompt that helps decrease the number of madlib blanks that need to be filled in. The latter are <em>prompt formulas</em>, which provide a template that helps you fill in key details, essentially reducing the ambiguity in your prompt and guiding the model toward the kind of output you want.</p>
 <p>Here’s what a prompt formula looks like — it’s a high-level structure that helps you think through key components when writing a prompt.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -532,15 +544,15 @@ This common formula is Role–Task–Goal.
 <li>It influences the content, not just the format. GPT doesn’t simply mimic the layout—it also interprets the relationships between the elements in your example. That means it uses the example as secondary instructions, shaping how it generates new content based on the patterns and connections it sees.</li>
 </ol>
 <p>This double duty of providing guidance on both structure and substance is what makes examples such a valuable part of prompt engineering.</p>
-</section><section id="prompt-structuring" class="level2" data-number="14.4"><h2 data-number="14.4" class="anchored" data-anchor-id="prompt-structuring">
-<span class="header-section-number">14.4</span> Prompt Structuring</h2>
+</section><section id="prompt-structuring" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="prompt-structuring">
+<span class="header-section-number">16.4</span> Prompt Structuring</h2>
 <p>It can be helpful to explicitly structure your prompts within the prompt formula you’re using. Using punctuation or formatting to separate the components can make each part clearer to the model.</p>
 <img src="images/structured_prompt.png" class="img-fluid quarto-figure quarto-figure-center" style="border: 1px solid black;"><center>
 (Content generated by ChatGPT5)
 </center>
 <p>While you could write the prompt above as paragraph, doing so requires the model to spend some of its attention deciphering how the sentences relate to one another and what it should be doing. By using a more structured format you allow the model to focus more on the content and the output, rather than on parsing the prompt itself. This kind of formatting acts as a signal, helping the model better understand your intent and produce more accurate results.</p>
-</section><section id="prompt-chaining" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="prompt-chaining">
-<span class="header-section-number">14.5</span> Prompt Chaining</h2>
+</section><section id="prompt-chaining" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="prompt-chaining">
+<span class="header-section-number">16.5</span> Prompt Chaining</h2>
 <p>Prompt chaining is the process of sequencing prompts together to complete more complex tasks. Prompt chaining is effective because it mirrors how humans tackle complex reasoning—by breaking problems into smaller, sequential steps that build on one another. Early generations of language models required explicit guidance to do this well. Users learned to include instructions like “think through this step-by-step” or “show your reasoning before answering” to encourage a structured, multi-stage thought process known as chain-of-thought prompting. This approach improved accuracy because it forced the model to generate a longer sequence of tokens that adhered to what an explanation would look like instead of just predicting the final output. Even with newer models this approach - asking for rationales or other details in addition to your desired output - has been shown to be beneficial.</p>
 <p>Newer reasoning models and research modes have internalized much of this behavior through invisible instructions.<br>
 These are system prompts or additional instructions that aren’t shown to the user but are built into the system to help guide the model’s behavior and improve the quality of its responses.</p>
@@ -552,8 +564,8 @@ These are system prompts or additional instructions that aren’t shown to the u
 </figure>
 </div>
 <p>While this also touches on <a href="./21-chained-workflows.html#sec-chained-workflows">multi-agentic systems, which we’ll briefly discuss later</a>, the main point is that there are a <em>lot</em> of other instructions that happen behinds the scenes that are invisible to the user. In Anthropic’s research mode, the user submits a prompt. Through hidden instructions, a “lead researcher” prompt is generated. This agent then creates and directs additional prompts. These prompts spawn sub-agents, each focused on a narrow aspect of the research topic. The number of sub-agents is determined by the output of the lead researcher prompt. Each sub-agent investigates its assigned topic and may also search the web for supporting information. The sources accessed are saved in an index. Once all sub-agents complete their tasks, another agent reviews and synthesizes the information into a coherent narrative, including citations where appropriate. After all these steps, the final output is returned to the user.</p>
-</section><section id="chained-workflows" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="chained-workflows">
-<span class="header-section-number">14.6</span> Chained Workflows</h2>
+</section><section id="chained-workflows" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="chained-workflows">
+<span class="header-section-number">16.6</span> Chained Workflows</h2>
 <p>You can design your own workflow of chained prompts that mirror many of the ways that reasoning model and research modes operate. One benefit of building your own chained workflow is that nothing is hidden - you know how the process has been designed and you have control at each step. I won’t go into much detail here because <a href="./activity-chained-workflows.html#sec-act-chained">we’ll cover this in more depth later (including an activity)</a>, but I want to mention it here for completeness while discussing effective prompt engineering strategies.</p>
 <p>In summary, chaining makes the reasoning process visible and, in a sense, auditable.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It allows educators and measurement professionals to preserve the interpretability of each decision stage, ensuring that LLM-driven analyses remain explainable, trustworthy, and aligned with established principles of evidence-based assessment.</p>
 <hr>
@@ -1021,12 +1033,12 @@ These are system prompts or additional instructions that aren’t shown to the u
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./13-single-interactions-via-api.html" class="pagination-link" aria-label="Transactional Interactions via API">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./15-prompt-formulas.html" class="pagination-link" aria-label="Prompt Formulas">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
