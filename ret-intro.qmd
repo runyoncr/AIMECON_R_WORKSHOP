@@ -1,0 +1,6 @@
+# Retired Pages
+
+This section of the book contains pages from previous versions of the workshop materials that I no longer use.
+Recent changes to my workshop have been to make the content more practical and less theoretical.
+Or some pages may no longer be as relevant, given the changes to LLM or their API implementation.
+I couldn't bring myself to just delete those pages (yet), so I've included them here in the case they provide some utility to others.

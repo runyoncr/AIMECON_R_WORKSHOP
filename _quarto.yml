@@ -71,6 +71,10 @@ book:
         - 30-reference-materials.qmd
         - 31-acknowledgements.qmd
         - 32-references.qmd
+        
+    - part: "Retired Pages"
+      chapters: 
+        - ret-intro.qmd
   
   sidebar:
     collapse-level: 1
