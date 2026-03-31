@@ -14,7 +14,10 @@ Understanding how to manage this key responsibly is a foundational step in incor
 
 In practice, an API key is a long string of letters and numbers that you include in your code whenever you send a request to the model.
 I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
-They generally look something like this: `sk-1234567890abcdefGHIJKLMNOPQRSTUVWXYZ1234`.
+They generally look something like this: 
+
+`sk-1234567890abcdefGHIJKLMNOPQRSTUVWXYZ1234`.
+
 The actual prefixes and length of the random alphanumeric characters usually vary by provider.
 
 When you have an API account, you can usually generate additional keys fairly easily.
@@ -29,7 +32,7 @@ I have chosen to use Anthropic's Claude because I took a workshop from Hadley Wi
 Although a lot has changed since then, and all models have significantly improved their ability to help with coding, I've stuck with Anthropic. 
 Who am I to argue with Hadley Wickham about something related to R? (or anything, really)
 
-If you _must_ use a specific provider or model due to institutional policy or other agreements, I think any of the foundational flagship models from the major providers can now complete most tasks reasonably well, provided that you are using them effectively (the purpose of this workshop!).
+If you _must_ use a specific provider or model due to institutional policy or other agreements, any of the foundational flagship models from the major providers can now complete most tasks reasonably well, provided that you are using them effectively (the purpose of this workshop!).
 If you do have some freedom in model selection, I encourage you to empirically test which provider and model combination gives you output that is most aligned with what you want.
 
 Links to documentation for API keys:
@@ -39,7 +42,7 @@ Links to documentation for API keys:
 - [OpenAI](https://platform.openai.com/api-keys)
   - [OpenAI API pricing](https://openai.com/api/pricing/)
 - [Google Gemini](https://aistudio.google.com/welcome)
-  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing) (you get $300 in free credits to use in the first 90 days when making an account)
+  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing) (you get used to get in free credits to use in the first 90 days when making an account; unsure if this has changed)
   - [Gemini API quickstart guide](https://ai.google.dev/gemini-api/docs/quickstart)
 - [DeepSeek](https://api-docs.deepseek.com/); many DeepSeek models are available through Hugging Face, but using their API gives you access to their most recent models
   - [DeepSeek API pricing](https://api-docs.deepseek.com/quick_start/pricing)
@@ -53,6 +56,15 @@ Links to documentation for API keys:
 We used a very simple function to call the Anthropic Claude Sonnet 4.6 model [earlier](03-test-connect.qmd#sec-call-claude).
 I've repeated it below for those who want to review it without leaving this section. 
 I've provided more comments in this version about what needs to be changed to call another Anthropic model, include additional parameters, and so on.
+
+One important thing to note is the `max_tokens` argument. 
+I've set a fairly high default (`4096`, which is approximately 3000–3200 words). 
+When using a reasoning model, especially one where you're increasing the `effort` parameter, the model may use tokens during intermediate reasoning before producing the final response. 
+This means that the total tokens required for a reasoning-model response may include both the tokens used during intermediate inference and the tokens in the visible output.
+
+If you set `max_tokens` too low, the model may use all available tokens during inference and fail to produce a final result. 
+I learned this the hard way when trying to produce short text outputs with a high effort level; the model spent all of the available tokens "thinking" and did not have enough left to generate a response. 
+You still get charged for those tokens, so be sure to test the number of tokens needed for both the expected output length and the selected reasoning effort to ensure that you get what you need.
 
 ```{r, eval = FALSE}
 
@@ -76,10 +88,10 @@ call_claude <- function(prompt,
   
   # Build request body
   request_body <- list(
-    model = model,
-    messages = messages,
-    max_tokens = max_tokens,
-    temperature = temperature,
+    model = model, # Can change to newer or different mdoels (e.g., claude-opus-4-6)
+    messages = messages, # The content you send to the reviewer
+    max_tokens = max_tokens, # The maximum number of tokens allowed for the model response
+    temperature = temperature, # Controls the sampling of candidate tokens; not available for all models
     output_config = list(effort = effort)
   )
   

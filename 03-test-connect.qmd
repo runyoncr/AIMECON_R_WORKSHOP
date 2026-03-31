@@ -1,12 +1,10 @@
 # Testing API Connection {#sec-test-connect}
 
 Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in more depth later). For this workshop you'll need to obtain your own Anthropic API key through [console.anthropic.com](https://console.anthropic.com). 
-$5 in credit should be sufficient for all workshop purposes, and you'll have enough left over to continue practicing what you've learned today.
 
-The following is a _very_ basic function for you to test that you can connect to [Anthropic's Claude Sonnet 4.6 model](https://www.anthropic.com/news/claude-sonnet-4-6). 
-As we progress through the workshop we'll use a slightly different function that gives you more control over some of the model generation parameters.
+$5 in credit should be sufficient for all workshop purposes, and you'll have enough left over to continue practicing sending LLM calls via API..
 
-To use this function you'll need to have the API loaded for the R session, which can you do via the syntax below:
+The following is a basic function for you to test that you can connect to [Anthropic's Claude Sonnet 4.6 model](https://www.anthropic.com/news/claude-sonnet-4-6). We'll cover some of the elements of the function later. To use this function you'll need to have the API loaded for the R session, which can you do via the syntax below:
 
 ```{r api-key, eval = FALSE}
 library(httr)
@@ -87,8 +85,8 @@ call_claude <- function(prompt,
 
 ```
 
-For now, the only argument that needs to be supplied to the function is the prompt that you want to send to the model; we'll discuss the other options in more detail in subsequent sections. 
-The prompt should be a text string that is enclosed by parentheses: "Tell me a joke about educational measurement."
+The only argument that _needs_ to be supplied to the function is the prompt that you want to send to the model; all other arguments have default values, and we'll discuss the other options in more detail in subsequent sections. 
+The prompt should be a text string that is enclosed by parentheses: e.g., "Tell me a joke about educational measurement."
 
 ```{r}
 

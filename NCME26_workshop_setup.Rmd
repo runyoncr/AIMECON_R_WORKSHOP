@@ -42,6 +42,7 @@ Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 Run the chunk below to load the function we will be using throughout the workshop. You do not need to modify anything here.
 
 ```{r call-claude-function}
+
 call_claude <- function(prompt,
                         model = "claude-sonnet-4-6",
                         system = NULL,
