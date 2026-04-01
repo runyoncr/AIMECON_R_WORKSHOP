@@ -1,0 +1,3 @@
+# Activity: Making a Shiny App
+
+Now that you've learned a bit about Shiny and vibe coding, we can combine that - _and_ our knowledge of how to call LLMs - to make Shiny apps.

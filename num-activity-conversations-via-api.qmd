@@ -1,0 +1,100 @@
+# Activity: Conversations via API
+
+Now it's time to practice a conversational interaction with an API.
+We won't be spending a lot of time on this, but I would be remiss if you didn't at least get to kick the tires on this functionality in the workshop.
+
+You can download the interactive notebook for this activity here:
+<a href="downloads/activity-conversations-via-api.Rmd" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  📥 Download `activity-conversations-via-api`
+</a>
+
+First you'll need to load the `ellmer` package and specify that we'll be using Claude Sonnet 4.6 for this activity:
+
+```{r load ellmer, eval = FALSE}
+library(ellmer)
+```
+
+Also load your API key if you haven't already provided it yet:
+
+```{r load api key, eval = FALSE}
+Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+```
+
+And let's specify that we'll be using Claude Sonnet 4.6 for this activity:
+
+```{r start claude, eval = FALSE}
+chat <- chat_anthropic(
+  system_prompt = "You explain things concisely, focusing on only the most significant parts of the response.",
+  model = "claude-sonnet-4-6")
+```
+
+Now that our chat is loaded, let's start!
+
+## Console-based interaction
+
+**Directions**: Have a short conversation with Claude in the console. It can be about anything; here are some suggestions for prompts.
+- Idea 1
+- Idea 2
+- Idea 3
+
+After a few turns, end the chat by submitting "Q" to quit.
+
+```{r console, eval = FALSE}
+live_console(chat)
+```
+
+## Browser-based interaction
+
+Let's now see how the functionality changes for the browser-based version. You can use the same prompt, or start another one. Again, after a few turns, end the chat. 
+
+```{r browser, eval = FALSE}
+library(shiny)
+library(shinychat)
+
+chat$set_turns(list()) # Resets the conversation
+
+live_browser(chat)
+```
+
+## Turn-based interaction
+
+Lastly, let's try the final version of the chat where you send your prompts individually via R commands.
+
+```{r turn 1, eval = FALSE}
+chat$set_turns(list()) # Resets the conversation
+
+# Paste your first prompt below
+chat$chat(" ")
+```
+
+Next prompt:
+```{r turn 2, eval = FALSE}
+# Paste your second prompt below
+chat$chat(" ")
+```
+
+And a third, final prompt:
+```{r turn 3, eval = FALSE}
+# Paste your third prompt below
+chat$chat(" ")
+```
+
+Now review the turns in the conversation:
+```{r rev turns, eval = FALSE}
+turn_review <- chat$get_turns()
+
+turn_review
+```
+
+## Silly system prompt
+Now try a single interaction using a whimsical system prompt.
+
+```{r silly system, eval = FALSE}
+chat$set_turns(list()) # Resets the conversation
+
+chat <- chat_anthropic(
+  system_prompt = "You are an assistant that likes to respond in rhymes."
+)
+
+chat$chat("Briefly tell me the point of using a Rasch model.")
+```

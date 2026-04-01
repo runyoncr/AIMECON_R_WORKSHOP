@@ -235,5 +235,20 @@
   },
   "ret-intro.qmd": {
     "ret-intro.html": "c9c9943a"
+  },
+  "num-activity-conversations-via-api.qmd": {
+    "num-activity-conversations-via-api.html": "10679f5f"
+  },
+  "num-activity-iterative-prompt-development.qmd": {
+    "num-activity-iterative-prompt-development.html": "21eb3573"
+  },
+  "num-activity-prompt-chaining.qmd": {
+    "num-activity-prompt-chaining.html": "1c744ddb"
+  },
+  "num-activity-batch-processing.qmd": {
+    "num-activity-batch-processing.html": "57fef738"
+  },
+  "num-make-llm-shiny-app.qmd": {
+    "num-make-llm-shiny-app.html": "316ce6da"
   }
 }

@@ -1,4 +1,4 @@
-# Chat Conversations via API
+# Conversational Interactions via API
 
 So far, we've focused on interacting with generative models in one-off interactions, where the chat history is not preserved.
 This functionality differs substantially from the normal chatbot interface user experience.
@@ -169,6 +169,7 @@ I've hidden the output because it's so long; you'll need to click to see the pro
 ## Click to see first prompt and response
 
 ```{r eq 1}
+chat$set_turns(list())
 chat$chat("Tell me about the history of the exploration of the moon")
 ```
 

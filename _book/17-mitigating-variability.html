@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Mitigating Output Variability – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>15&nbsp; Mitigating Output Variability – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./18-batch-processing.html" rel="next">
-<link href="./activity-prompt-engineering.html" rel="prev">
+<link href="./num-activity-iterative-prompt-development.html" rel="next">
+<link href="./13-single-interactions-via-api.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./17-mitigating-variability.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./num-sample-workflow.html">LLM Workflows with R</a></li><li class="breadcrumb-item"><a href="./17-mitigating-variability.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -222,13 +222,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">LLM Workflows with R</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./num-sample-workflow.html" class="sidebar-item-text sidebar-link">
@@ -250,90 +250,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-conversations-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Chat Conversations via API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Conversational Interactions via API</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./num-activity-conversations-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Activity: Conversations via API</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-mitigating-variability.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./num-activity-iterative-prompt-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Iterative Prompt Development</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-batch-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./num-activity-batch-processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Activity: Batch Processing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./num-activity-prompt-chaining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Prompt Chaining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-calling-other-llms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Transactional Interactions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Vibe Coding with Shiny</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13-single-interactions-via-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span></a>
+  <a href="./25-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">R Shiny</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./14-prompt-engineering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></span></a>
+  <a href="./26-vibe-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-prompt-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span></a>
+  <a href="./27-shiny-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
+  <a href="./num-make-llm-shiny-app.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Activity: Making a Shiny App</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-mitigating-variability.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./18-batch-processing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Batch Processing</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./21-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./activity-chained-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./23-calling-other-llms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Call other (non-Gen AI) LLMs</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./24-rag-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
+  <a href="./29-saving-shiny-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
   </div>
 </li>
       </ul>
@@ -341,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Vibe Coding with Shiny</span></a>
+ <span class="menu-text">Resources</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -349,49 +361,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./25-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R Shiny</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./26-vibe-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./27-shiny-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Activity: Shiny App Development</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./29-saving-shiny-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text">Resources</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./30-reference-materials.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -410,17 +381,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Retired Pages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ret-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Retired Pages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Retired Pages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-parameter-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Activity: Generation Parameter Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Prompt Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-prompt-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Prompt Formulas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-chained-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-content-development-revision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Activity: Content Development and Revision</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19-rubric-scoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Scoring with Rubrics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-scoring-with-rubrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Activity: Scoring with Rubrics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-chained-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Activity: Chained Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity-shiny-app-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Activity: Shiny App Development</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-rag-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Retrieval Augmented Generation</span></span></a>
   </div>
 </li>
       </ul>
@@ -435,18 +472,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#model-based-strategies" id="toc-model-based-strategies" class="nav-link active" data-scroll-target="#model-based-strategies"><span class="header-section-number">17.1</span> Model-based strategies</a></li>
-  <li><a href="#prompt-based-strategies" id="toc-prompt-based-strategies" class="nav-link" data-scroll-target="#prompt-based-strategies"><span class="header-section-number">17.2</span> Prompt-based strategies</a></li>
-  <li><a href="#materials-based-strategies" id="toc-materials-based-strategies" class="nav-link" data-scroll-target="#materials-based-strategies"><span class="header-section-number">17.3</span> Materials-based strategies</a></li>
+  <li><a href="#model-based-strategies" id="toc-model-based-strategies" class="nav-link active" data-scroll-target="#model-based-strategies"><span class="header-section-number">15.1</span> Model-based strategies</a></li>
+  <li><a href="#prompt-based-strategies" id="toc-prompt-based-strategies" class="nav-link" data-scroll-target="#prompt-based-strategies"><span class="header-section-number">15.2</span> Prompt-based strategies</a></li>
+  <li><a href="#materials-based-strategies" id="toc-materials-based-strategies" class="nav-link" data-scroll-target="#materials-based-strategies"><span class="header-section-number">15.3</span> Materials-based strategies</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-single-interactions-via-api.html">Transactional Interactions</a></li><li class="breadcrumb-item"><a href="./17-mitigating-variability.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./num-sample-workflow.html">LLM Workflows with R</a></li><li class="breadcrumb-item"><a href="./17-mitigating-variability.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -463,35 +500,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>An important aspect of using generative AI models to help with educational tasks is managing output variability. As we’ve seen (and demonstrated) several times so far, when using a model with the default parameter settings, you should expect slightly different responses from the model, even when using the <em>exact same prompt</em>. These models aren’t deterministic like regression models or other statistical techniques. Instead, generative models generate a probability distribution over possible next words and then sample from that distribution.</p>
-<p>Sometimes, the differences are minor. Word choices or sentence structure may vary, but the semantic meaning is generally the same. However, sometimes the variation can subtly shift the meaning. For example, if you’re summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.</p>
-<p>There are several factors that influence response variability. The first is output length; longer responses usually<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> tend to show more variation. Second is prompting method – reasoning models tend to introduce more response variability. Another factor is task complexity – the longer the task, the more room there is for variation in model response. “Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will like show more variation than “Identify the correct multiple-choice option”.</p>
-<p>This variability isn’t inherently bad. In fact, it’s beneficial for creative tasks like brainstorming or ideation. But it can be problematic for scoring tasks, where consistency is critical.</p>
+<p>An important aspect of using generative AI models for educational tasks is managing output variability. As we have seen (and demonstrated) several times so far, when using a model with default parameter settings, you should expect slightly different responses from the model, even when using the <em>exact same prompt</em>. These models are not deterministic in the same way as regression models or many other statistical techniques. Instead, generative models produce a probability distribution over possible next tokens and then sample from that distribution.</p>
+<p>Sometimes, the differences are minor. Word choices or sentence structure may vary, but the semantic meaning is generally the same. However, sometimes the variation can subtly shift the meaning. For example, if you are summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.</p>
+<p>There are several factors that influence response variability. The first is output length; longer responses usually<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> tend to show more variation. Second is prompting method—reasoning models, or prompting methods that encourage more extensive reasoning, may introduce more response variability. Another factor is task complexity—the more complex the task, the more room there is for variation in the model’s response. For example, “Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will likely show more variation than “Identify the correct multiple-choice option.”</p>
+<p>This variability is not inherently bad. In fact, it is beneficial for creative tasks like brainstorming or ideation. But it can be problematic for scoring tasks, where consistency is critical.</p>
 <p>I developed a 3-part framework that helps me think about sources of variability in model responses:</p>
 <ul>
 <li>Model-based strategies</li>
 <li>Prompt-based strategies</li>
 <li>Materials-based strategies</li>
 </ul>
-<section id="model-based-strategies" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="model-based-strategies"><span class="header-section-number">17.1</span> Model-based strategies</h2>
-<p>These strategies are specifically focused on changing the model’s generation parameters. As we <a href="./08-gen-ai-parameters.html#sec-gen-params">discussed earlier</a> and <a href="activity-parameter-testing.qmd#sec-act-parameter">experimented with in an activity</a>, lowering the <code>temperature</code> or setting a low value for <code>top-p</code> can encourage the model to select the same tokens when generating a response.</p>
+<section id="model-based-strategies" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="model-based-strategies"><span class="header-section-number">15.1</span> Model-based strategies</h2>
+<p>These strategies are specifically focused on changing the model’s generation parameters. As we <a href="./08-gen-ai-parameters.html#sec-gen-params">discussed earlier</a> and <a href="./activity-parameter-testing.html#sec-act-parameter">experimented with in an activity</a>, lowering the <code>temperature</code> can encourage the model to select the same or similar tokens when generating a response.</p>
 </section>
-<section id="prompt-based-strategies" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="prompt-based-strategies"><span class="header-section-number">17.2</span> Prompt-based strategies</h2>
-<p>These strategies focus on how you structure your prompts and workflow. Certain prompting techniques, like using examples, using punctuation to separate sections, or breaking tasks into steps, all can lead to more consistent outputs.</p>
+<section id="prompt-based-strategies" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="prompt-based-strategies"><span class="header-section-number">15.2</span> Prompt-based strategies</h2>
+<p>These strategies focus on how you structure your prompts and workflow. Certain prompting techniques, such as using examples, using punctuation or formatting to separate sections, or breaking tasks into steps, can all lead to more consistent outputs.</p>
 </section>
-<section id="materials-based-strategies" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="materials-based-strategies"><span class="header-section-number">17.3</span> Materials-based strategies</h2>
-<p>These relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like including context (filling in the Madlib blanks) and also clarifying or editing prompts.</p>
-<p>I’ve found this highlights another good use of generative models: <strong>rubric refinement</strong>. The model represents how a reasonably intelligent person might interpret the rubric, so passing an assessment artifact and rubric through to the model several times can identify potential rubric ambiguity or places in need of more clarification.</p>
-<p>I observed this in some of my own research. In a study I had an analytic rubric element of “Tenderness to deep palpation on the right medial heel : 1 point”. In one of the notes created to see how well the model could detect this concept, I wrote: “A musculoskeletal exam revealed some pain during a deep palpation on the right heel.” - which I intended to fully represent the concept. I found the model applied the rubric in 3 different ways (paraphrasing model rationales):</p>
+<section id="materials-based-strategies" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="materials-based-strategies"><span class="header-section-number">15.3</span> Materials-based strategies</h2>
+<p>These strategies relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like providing more context (filling in the Mad Lib blanks) and clarifying or editing the materials included in the prompt.</p>
+<p>I have found that this also highlights another good use of generative models: <strong>rubric refinement</strong>. The model can serve as a proxy for how a reasonably intelligent reader might interpret the rubric, so passing an assessment artifact and rubric through the model several times can help identify potential ambiguity or places in need of clarification.</p>
+<p>I observed this in some of my own research. In one study, I had an analytic rubric element that read: “Tenderness to deep palpation on the right medial heel: 1 point.” In one of the notes created to see how well the model could detect this concept, I wrote: “A musculoskeletal exam revealed some pain during a deep palpation on the right heel.” I intended this to fully represent the concept. I found that the model applied the rubric in 3 different ways (paraphrasing the model’s rationales):</p>
 <ul>
 <li>Full credit; 1 point.</li>
-<li>Learner did not say ‘medial’; 0.5 points (which wasn’t part of the rubric - but other elements had partial credit)</li>
-<li>Learner did not say ‘medial’: 0 points</li>
+<li>Learner did not say “medial”; 0.5 points (which was not part of the rubric, although other elements had partial credit).</li>
+<li>Learner did not say “medial”; 0 points.</li>
 </ul>
-<p>This can easily be corrected by changing the rubric to include guidance for this edge case: “Tenderness to deep palpation on the right medial heel : 1 point - it is not necessary for the learner to include the word ‘medial’”.</p>
+<p>This can easily be corrected by changing the rubric to include guidance for this edge case: “Tenderness to deep palpation on the right medial heel: 1 point. It is not necessary for the learner to include the word ‘medial.’”</p>
 <hr>
 
 
@@ -501,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>I liberally use the “usually” qualifier because as models improve, these factors influence variability may become less of an issue.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>I liberally use the “usually” qualifier because, as models improve, these factors influencing variability may become less of an issue.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -963,36 +1000,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./activity-prompt-engineering.html" class="pagination-link" aria-label="Activity: Prompt Engineering">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Prompt Engineering</span></span>
+      <a href="./13-single-interactions-via-api.html" class="pagination-link" aria-label="Transactional Interactions via API">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transactional Interactions via API</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./18-batch-processing.html" class="pagination-link" aria-label="Batch Processing">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Batch Processing</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./num-activity-iterative-prompt-development.html" class="pagination-link" aria-label="Activity: Iterative Prompt Development">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Activity: Iterative Prompt Development</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mitigating Output Variability</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>An important aspect of using generative AI models to help with educational tasks is managing output variability.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>As we've seen (and demonstrated) several times so far, when using a model with the default parameter settings, you should expect slightly different responses from the model, even when using the _exact same prompt_.</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>These models aren’t deterministic like regression models or other statistical techniques. </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Instead, generative models generate a probability distribution over possible next words and then sample from that distribution.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>An important aspect of using generative AI models for educational tasks is managing output variability.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>As we have seen (and demonstrated) several times so far, when using a model with default parameter settings, you should expect slightly different responses from the model, even when using the _exact same prompt_.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>These models are not deterministic in the same way as regression models or many other statistical techniques. </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Instead, generative models produce a probability distribution over possible next tokens and then sample from that distribution.</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Sometimes, the differences are minor. </span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Word choices or sentence structure may vary, but the semantic meaning is generally the same. </span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, sometimes the variation can subtly shift the meaning. </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>For example, if you're summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>For example, if you are summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>There are several factors that influence response variability. </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>The first is output length; longer responses usually<span class="ot">[^1]</span> tend to show more variation.</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Second is prompting method – reasoning models tend to introduce more response variability. </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Another factor is task complexity – the longer the task, the more room there is for variation in model response. </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>“Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will like show more variation than “Identify the correct multiple-choice option”.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Second is prompting method—reasoning models, or prompting methods that encourage more extensive reasoning, may introduce more response variability. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Another factor is task complexity—the more complex the task, the more room there is for variation in the model’s response. </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>For example, “Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will likely show more variation than “Identify the correct multiple-choice option.”</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>This variability isn’t inherently bad. </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>In fact, it’s beneficial for creative tasks like brainstorming or ideation. </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>This variability is not inherently bad. </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>In fact, it is beneficial for creative tasks like brainstorming or ideation. </span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>But it can be problematic for scoring tasks, where consistency is critical.</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>I developed a 3-part framework that helps me think about sources of variability in model responses:</span>
@@ -1004,34 +1041,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model-based strategies</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>These strategies are specifically focused on changing the model's generation parameters. </span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>As we <span class="co">[</span><span class="ot">discussed earlier</span><span class="co">](08-gen-ai-parameters.qmd#sec-gen-params)</span> and <span class="co">[</span><span class="ot">experimented with in an activity</span><span class="co">](activity-parameter-testing.qmd#sec-act-parameter)</span>, lowering the <span class="in">`temperature`</span> or setting a low value for <span class="in">`top-p`</span> can encourage the model to select the same tokens when generating a response.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>As we <span class="co">[</span><span class="ot">discussed earlier</span><span class="co">](08-gen-ai-parameters.qmd#sec-gen-params)</span> and <span class="co">[</span><span class="ot">experimented with in an activity</span><span class="co">](activity-parameter-testing.qmd#sec-act-parameter)</span>, lowering the <span class="in">`temperature`</span> can encourage the model to select the same or similar tokens when generating a response.</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt-based strategies</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>These strategies focus on how you structure your prompts and workflow. </span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Certain prompting techniques, like using examples, using punctuation to separate sections, or breaking tasks into steps, all can lead to more consistent outputs.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Certain prompting techniques, such as using examples, using punctuation or formatting to separate sections, or breaking tasks into steps, can all lead to more consistent outputs.</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Materials-based strategies</span></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>These relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like including context (filling in the Madlib blanks) and also clarifying or editing prompts.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>These strategies relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like providing more context (filling in the Mad Lib blanks) and clarifying or editing the materials included in the prompt.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>I've found this highlights another good use of generative models: **rubric refinement**.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>The model represents how a reasonably intelligent person might interpret the rubric, so passing an assessment artifact and rubric through to the model several times can identify potential rubric ambiguity or places in need of more clarification.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>I have found that this also highlights another good use of generative models: **rubric refinement**.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>The model can serve as a proxy for how a reasonably intelligent reader might interpret the rubric, so passing an assessment artifact and rubric through the model several times can help identify potential ambiguity or places in need of clarification.</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>I observed this in some of my own research.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>In a study I had an analytic rubric element of "Tenderness to deep palpation on the right medial heel : 1 point".</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>In one of the notes created to see how well the model could detect this concept, I wrote: "A musculoskeletal exam revealed some pain during a deep palpation on the right heel." - which I intended to fully represent the concept.</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>I found the model applied the rubric in 3 different ways (paraphrasing model rationales):</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>In one study, I had an analytic rubric element that read: "Tenderness to deep palpation on the right medial heel: 1 point."</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>In one of the notes created to see how well the model could detect this concept, I wrote: "A musculoskeletal exam revealed some pain during a deep palpation on the right heel." I intended this to fully represent the concept.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>I found that the model applied the rubric in 3 different ways (paraphrasing the model's rationales):</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full credit; 1 point.</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Learner did not say 'medial'; 0.5 points (which wasn't part of the rubric - but other elements had partial credit)</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Learner did not say 'medial': 0 points</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Learner did not say "medial"; 0.5 points (which was not part of the rubric, although other elements had partial credit).</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Learner did not say "medial"; 0 points.</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>This can easily be corrected by changing the rubric to include guidance for this edge case: "Tenderness to deep palpation on the right medial heel : 1 point - it is not necessary for the learner to include the word 'medial'".</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>This can easily be corrected by changing the rubric to include guidance for this edge case: "Tenderness to deep palpation on the right medial heel: 1 point. It is not necessary for the learner to include the word 'medial.'"</span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>***</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>I liberally use the "usually" qualifier because as models improve, these factors influence variability may become less of an issue.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>I liberally use the "usually" qualifier because, as models improve, these factors influencing variability may become less of an issue.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -1,324 +1,87 @@
 ---
-title: "Chat Conversations via API"
+title: "Activity: Conversations via API"
 output: html_notebook
 ---
 
 ## Setup
 
-Run this chunk first to load the required package and set your API key.
+Run this chunk first to load the required packages and set your API key.
 
 ```{r setup}
 library(ellmer)
+library(shiny)
+library(shinychat)
 
 Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
-```
 
----
-
-# Chat Conversations via API
-
-So far we've focused on interacting with generative models in one-off interactions, where the chat history isn't preserved.
-This functionality significantly differs from the normal chatbot interface user experience.
-These transactional interactions may not be helpful if you need to build on the same conversation.
-
-## Chatbot Functionality
-
-Before diving into conversational interactions via R, it will be helpful to briefly give more detail on how LLMs produce text in a conversation.
-When a chatbot first receives your prompt, there are a host of unseen instructions that have already been provided to the chatbot to guide its response.
-It then analyzes your response, and, based on its learning method, unseen instructions, and training data, generates the first _token_ of the response.
-Then, prior to generating the next token, the entire process starts again, but this time the prompt to the model includes the first token that was generated.
-
-For example, let's say you send the prompt of "Tell me why validity is important in educational measurement in one sentence" and the model responds with "Validity is important in educational measurement because it ensures that test scores support accurate and appropriate interpretations and decisions about what students know and can do."
-
-Although the sentence is produced almost seamlessly, this masks the internal process that is taking place.
-What happens after receiving your response, is that the model evaluates and predicts the next token (I'll use words for the rest of the example to make it easier to follow.)
-After going through its internal process, it may predict that the most appropriate next word is "validity".
-It then starts an auto-regressive process, and what is used by the model as the prompt is "Tell me why validity is important in educational measurement in one sentence.; **Validity**"
-From that it may predict that the next token is "is": "Tell me why validity is important in educational measurement in one sentence.; Validity **is**"
-The auto-regressive process starts again: the prompt is now "Tell me why validity is important in educational measurement in one sentence.; Validity is" and the predicted next word is **important**.
-And so on until the sentence is completed.
-
-You may have noticed this in earlier versions of online conversational chatbots — it seemed like the model was typing out the words as it responded.
-This wasn't a parlor trick or some fancy UI — it was actually adding new words to the response as they were predicted by the auto-regressive function.
-
-Conversational chats are similar.
-When you're continuing a conversation after an initial model response, what the model uses as a prompt to predict the next token (word) is: your initial prompt; the model's first response; and your second prompt.
-This continues as you progress in your conversation.
-If you're sending your 5th prompt to the model, the prompt that the model is evaluating is four preceding prompt-response pairs when predicting the next token to be produced.
-
-If you need to have a conversational interaction with a model, I prefer using the normal online chatbot interface. It has been designed to be efficient and useful, you can access past chat histories easily, and there are other options that make it easy (adding tools, uploading documents or images, etc.).
-
-However, there may be instances when you want to have the conversation from the console, or you might only have a secure API that doesn't retain data / prompts. In these instances, the [`ellmer` package](https://ellmer.tidyverse.org/), developed by Posit, offers an easy way to have a conversational interaction with the different generative AI models.
-
-## Conversational Interactions in R
-
-We'll continue to use our Anthropic API key, although `ellmer` supports interactions with a variety of model providers: OpenAI, Google Gemini, DeepSeek, Mistral, Hugging Face, perplexity.ai, etc.
-What follows can _mostly_ be generalized to working with other models, with some slight differences that you can learn about by consulting the `ellmer` website link above.
-
-## Quick Start
-
-The easiest way to start a conversation is just to use the default settings for a model.
-You can see what Anthropic models are available with the following:
-
-```{r anthropic-available, warning = FALSE}
-models_anthropic()
-```
-
-The "input" column is the cost per million tokens of model input (the prompts).
-The "output" column is the cost per million tokens of the model response.
-For some context, Shakespeare's _Romeo and Juliet_ is about 25,000 words, which roughly translates to 40,000 tokens (depends on the tokenization method of the model).
-
-For the purposes of demonstration in our workshop, there's no need to change it, although I'll show you how you can do this below.
-
-```{r ellmer-quick}
-# You'll see that Claude Sonnet 4.6 is being used by default.
-# I've included a system prompt, which we'll discuss below.
 chat <- chat_anthropic(
   system_prompt = "You explain things concisely, focusing on only the most significant parts of the response.",
   model = "claude-sonnet-4-6")
 ```
 
-There are two ways of using `ellmer` for conversational chats.
+---
 
-## `live_console`
+# Activity: Conversations via API
 
-The first is creating a temporary `live_console`, which most resembles the functionality of the chatbot interface.
-This can be done two ways: within the R console, and by leveraging the `shinychat` package to have the interaction open in a browser (the viewer window) via `live_browser`.
-Once you run the `live_console(chat)` argument, you'll notice that the console below changes to have three angle brackets (`>>>`) instead of the usual single angle bracket (`>`).
-The following message also appears to help alert you that you've entered the console mode:
+Now it's time to practice a conversational interaction with an API. We won't be spending a lot of time on this, but I would be remiss if you didn't at least get to kick the tires on this functionality in the workshop.
 
-```
-╔═══════════════════════════════╗
-║ Entering chat console.        ║
-║ Use """ for multi-line input. ║
-║ Type 'Q' to quit.             ║
-╚═══════════════════════════════╝
-```
+## Console-based Interaction
 
-**Try it yourself** — run the chunk below to launch the live console. Type a few prompts, then type `Q` to quit and return to the notebook.
+**Directions:** Have a short conversation with Claude in the console. It can be about anything; here are some suggestions for prompts:
 
-```{r live-console}
+- Explain what it means to define a construct in educational measurement, and why poor construct definition can create problems for assessment design. Keep the response to no more than 2 paragraphs.
+- Describe one promising use of generative AI in the design of educational assessments, along with one important caution educators should keep in mind. Keep the response to no more than 2 paragraphs.
+- Describe how generative AI might help provide feedback to learners, and explain one reason educators should still review AI-generated feedback carefully. Keep the response to no more than 2 paragraphs.
+
+After a few turns, end the chat by submitting `Q` to quit.
+
+```{r console}
 live_console(chat)
 ```
 
-This interactivity is hard to show in a static document, so I have copied-and-pasted a short interaction below as an example of what a session looks like:
+## Browser-based Interaction
 
-### `live_console` Example
+Let's now see how the functionality changes for the browser-based version. You can use the same prompts, or start a new conversation. Again, after a few turns, end the chat.
 
-```
-> live_console(chat)
-╔═══════════════════════════════╗
-║ Entering chat console.        ║
-║ Use """ for multi-line input. ║
-║ Type 'Q' to quit.             ║
-╚═══════════════════════════════╝
->>> Generate short description of why validity is important in educational research. The audience is a lay person. The explanation should only be two sentences.
-Validity ensures that a test or study actually measures what it claims to measure, so the results are trustworthy and meaningful. Without 
-validity, educators and policymakers could make important decisions about students and schools based on misleading or inaccurate information.
-
->>> Generate a similar response about reliability.
-Reliability ensures that a test or measurement produces consistent results every time it is used, much like a scale that gives you the same 
-weight each time you step on it. Without reliability, it would be impossible to know whether differences in student performance are due to 
-actual learning or simply random errors in the measurement tool.
-
->>> Generate another response about how these are important for fairness and equity. This should be no more than 5 sentences.
-When tests are both valid and reliable, all students have a fair opportunity to demonstrate their true knowledge and abilities, regardless of
-their background. If a test is invalid or unreliable, certain groups of students may be unfairly disadvantaged, leading to biased outcomes in
-areas like college admissions, graduation requirements, or special education placement. For example, a test that contains culturally biased 
-language may not accurately measure a student's actual knowledge, but instead reflect their familiarity with a particular culture. Ensuring 
-validity and reliability helps educators identify and close achievement gaps rather than create or reinforce them. Ultimately, valid and 
-reliable assessments are essential tools for building an educational system that treats every student with fairness and equity.
-
->>> Q
-```
-
-### `live_browser` Demo
-
-Alternatively, by also using the `shiny` and `shinychat` packages, you can have the same interaction appear in your "Viewer" window of the RStudio/Positron screen.
-Once you have provided your API key and set the initial `chat` details (as above), you then execute the following:
-
-```{r live-browser, eval = FALSE}
+```{r browser}
+chat$set_turns(list()) # Resets the conversation
 live_browser(chat)
 ```
 
-```
-╔═══════════════════════════╗
-║ Entering interactive chat ║
-║ Press Ctrl+C to quit.     ║
-╚═══════════════════════════╝
-```
+## Turn-based Interaction
 
-## Interactive Method Call
+Lastly, let's try the final version of the chat where you send your prompts individually via R commands. Replace the placeholder text in each chunk with your own prompt before running.
 
-Now let's look at the second method for conversational chats, the interactive call method.
-Below I've prompted the model via `chat$chat("prompt")`, and then immediately used the same syntax again (with a different prompt).
-
-First, reset the chat to start fresh, then run the two prompts in sequence:
-
-```{r chat-reset-1}
-chat$set_turns(list())
+```{r turn-1}
+chat$set_turns(list()) # Resets the conversation
+# Paste your first prompt below
+chat$chat(" ")
 ```
 
-```{r eq-1}
-chat$chat("Tell me about the history of the exploration of the moon")
+```{r turn-2}
+# Paste your second prompt below
+chat$chat(" ")
 ```
 
-```{r eq-2}
-chat$chat("What are the most important non-USA exploration missions?")
+```{r turn-3}
+# Paste your third prompt below
+chat$chat(" ")
 ```
 
-As you can see, the second response from the model takes into context the first prompt — it's still talking about the moon!
-This conversational functionality is useful when you're doing iterative development or planning, as the previous calls to the model are important for providing content and building upon previous prompts and model responses.
+Now review the turns in the conversation:
 
-## `chat_anthropic` Details
-
-The full set of arguments for `chat_anthropic()` is shown below for reference:
-
-```{r chat-anthropic-args, eval = FALSE}
-chat_anthropic(
-  system_prompt = NULL,
-  turns = NULL,
-  params = NULL,
-  model = NULL,
-  cache = c("5m", "1h", "none"),
-  api_args = list(),
-  base_url = "https://api.anthropic.com/v1",
-  beta_headers = character(),
-  api_key = NULL,
-  credentials = NULL,
-  api_headers = character(),
-  echo = NULL
-)
+```{r review-turns}
+turn_review <- chat$get_turns()
+turn_review
 ```
 
-It's important to note the `params` argument, which allows you to set a variety of model parameters when chatting with the model.
-This is a [general argument](https://ellmer.tidyverse.org/reference/params.html) in the `ellmer` package.
-You'll need to ensure that your model input allows a specific generation parameter before including it in your call.
+## Silly System Prompt
 
-This is one place where having a conversation with a model via API instead of via a chatbot interface is different — it's not always easy (and sometimes impossible) to change these parameters in the normal chat interface.
+Now try a single interaction using a whimsical system prompt.
 
-```{r params-reference, eval = FALSE}
-params(
-  temperature = NULL,
-  top_p = NULL,
-  top_k = NULL,
-  frequency_penalty = NULL,
-  presence_penalty = NULL,
-  seed = NULL,
-  max_tokens = NULL,
-  log_probs = NULL,
-  stop_sequences = NULL,
-  reasoning_effort = NULL,
-  reasoning_tokens = NULL,
-  ...
-)
-```
-
-### Options for Clearing the Chat
-
-There are two methods to reset the chat history when you're using the interactive call method.
-This is useful when you want to start a conversation about another topic.
-
-#### Clearing While Maintaining Chat Configuration
-
-The following syntax simply clears the turns but maintains the other aspects of the chat configuration.
-In the background the `ellmer` package is saving a history of your prompts and model responses, and it is sending this history as part of the prompt when you send a new prompt.
-This also happens when having a conversation with a chatbot, but it's even less obvious.
-
-```{r clear-turns, eval = FALSE}
-chat$set_turns(list())
-```
-
-#### Clearing All Chat Settings
-
-This starts an entirely new chat with the Anthropic model, and removes any settings you've made (system prompt, parameters).
-
-```{r clear-all, eval = FALSE}
-chat <- chat_anthropic()
-```
-
-### Retaining the Chat History
-
-As you interact with a generative AI model through `ellmer`, a record of your prompts and model responses are stored in `chat$get_turns()`.
-When you examine this list object, each odd-numbered entry (starting with 1) are your prompts, and each even-numbered entry is the model response.
-
-Run the chunks below to generate a two-turn conversation and then inspect the saved history:
-
-```{r chat-hist-generate}
-chat <- chat_anthropic()
-chat$chat("Give me a 5-sentence history of educational measurement.")
-chat$chat("Give me a 5-sentence summary of educational measurement breakthroughs since 2000.")
-```
-
-```{r chat-hist-view}
-ed_meas_chat <- chat$get_turns()
-
-ed_meas_chat[1]
-ed_meas_chat[2]
-ed_meas_chat[3]
-ed_meas_chat[4]
-```
-
----
-
-## System Prompts
-
-We briefly discussed system prompts in the section about generative parameters.
-The system prompt is an instruction to the model that is maintained throughout all of your interactions with the model.
-I don't generally use system prompts when calling models via API, but I probably should. 😅
-Nonetheless, let's see how changing the system prompt can change the model output.
-
-First, with no system prompt:
-
-```{r no-system-prompt}
-chat <- chat_anthropic()
-chat$chat("Briefly tell me the point of using a Rasch model.")
-```
-
----
-
-Now using a playful system prompt:
-
-```{r playful-system-prompt}
+```{r silly-system}
 chat <- chat_anthropic(
   system_prompt = "You are an assistant that likes to respond in rhymes."
 )
-
 chat$chat("Briefly tell me the point of using a Rasch model.")
-```
-
----
-
-Some more helpful examples of good system prompts are:
-
-- **Specifying Output Structure**
-  - "Always respond in JSON format with keys: 'answer', 'confidence', 'sources'. Never include any text outside the JSON object."
-- **Setting Constraints**
-  - "You are a medical information assistant. Always:
-  1. Emphasize you're not a doctor
-  2. Recommend consulting healthcare professionals
-  3. Cite medical sources when possible
-  4. Never diagnose conditions"
-
-### Retaining the Chat History with the System Prompt
-
-The system prompt is also retained in the chat history, and can be accessed by specifying `chat$get_turns(include_system_prompt = TRUE)`.
-The list object now has the system prompt as the first object, meaning that your prompts are now every even-numbered object, and the system responses are every odd-numbered object, starting at 3.
-
-Run the chunks below to generate a conversation with a system prompt and then inspect the full history including the system prompt:
-
-```{r chat-hist-system-generate}
-chat <- chat_anthropic("You respond only with the 5 most important sentences about a topic.")
-chat$chat("Give me a summary of the history of educational measurement.")
-chat$chat("Give me a summary of educational measurement breakthroughs since 2000.")
-```
-
-```{r chat-hist-system-view}
-ed_meas_chat_wsp <- chat$get_turns(include_system_prompt = TRUE)
-
-ed_meas_chat_wsp[1]
-ed_meas_chat_wsp[2]
-ed_meas_chat_wsp[3]
-ed_meas_chat_wsp[4]
-ed_meas_chat_wsp[5]
 ```

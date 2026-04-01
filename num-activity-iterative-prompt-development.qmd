@@ -1,0 +1,458 @@
+# Activity: Iterative Prompt Development
+
+Download the notebook for this activity:
+<a href="downloads/activity-iterative-prompt-development.Rmd" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  📥 Download `activity-iterative-prompt-development.Rmd`
+</a>
+
+Now it's time to practice the first element of an LLM workflow: iterative prompt development.
+This is the process of developing and tweaking a prompt until it's ready to be implemented more widely in your workflow.
+
+For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/) data, which is based on scoring essays from English as a foreign language learner. 
+I used responses for the essay prompt of "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?" when creating the 10 synthetic essays."
+
+The full dataset is available after filling out a [consent form](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform). The essays I generated
+
+The following rubric was developed for their analysis:
+| **Criteria** | **Description**                                                                                                                                                                                                                                         |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Content      | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.                                                                                                                                                   |
+| Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. |
+| Language     | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.                                   |
+
+The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for _each_ of the criteria.
+
+## First prompt
+
+The first step is to write an initial prompt to score the essays. I _very_ rarely use an initial prompt I develop with asking an LLM to review the prompt for completeness and organization. 
+To demonstrate this first step, I purposefully have written a vague prompt that I wouldn't use in practice so we can see what type of guidance a model might provide for us.
+You can use this prompt, or you can review it and improve it on your before providing it to a model.
+I've also include the outer prompt that I would use when asking an LLM for feedback on a prompt.
+
+```{r, eval = FALSE}
+
+score_rubric_prompt <- "You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5 (e.g., 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5). The prompt for this essay was 'Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?' 
+
+RUBRIC:
+
+**Content (1-5):**
+Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.
+
+**Organization (1-5):**
+The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.
+ 
+**Language (1-5):**
+The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.
+
+ESSAY: {essay}
+
+Please provide scores for each criterion and calculate the total score. Format your response as follows:
+Content: [score]
+Organization: [score]
+Language: [score]
+Total: [sum of three scores]
+
+Provide a brief justification (1-2 sentences) for each score."
+
+prompt_improvement <- function(scoring_prompt){
+  glue::glue("
+  I am preparing to using an LLM to help with the automated scoring of student essays.
+  
+  Please complete the following tasks:
+  1. Review the prompt and identify where more detail may improve the application of the rubric.
+  2. Review the prompt structure to ensure that the LLM can easily parse the different activities.
+  3. Draft an updated prompt incorporating the changes you suggested in (1) and (2), noting where more detail may need tobe added.
+  3. Include instructions for the output of the prompt to produce a JSON file with with the different score components.
+  4. Wrap the prompt in a function using the `glue` R package so I can easily cycle through the different essays to be scored.
+  
+  Here is the draft of my prompt: {scoring_prompt}
+  ")
+}
+
+```
+
+Loading `call_claude` to send the prompt.
+
+```{r call_claude}
+
+library(httr)
+library(jsonlite)
+
+call_claude <- function(prompt,
+                        model = "claude-sonnet-4-6",
+                        system = NULL,
+                        temperature = 0.5,
+                        max_tokens = 4096,
+                        effort = "low") {
+  
+  # Get API key from environment
+  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+  
+  # Convert text prompt to required message format
+  messages <- list(list(role = "user", content = prompt))
+  
+  # Build request body
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = max_tokens,
+    temperature = temperature,
+    output_config = list(effort = effort)
+  )
+  
+  # Add system prompt if provided
+  if (!is.null(system)) {
+    request_body$system <- system
+  }
+  
+  # Set up headers
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    "anthropic-version" = "2023-06-01",
+    "content-type" = "application/json"
+  )
+  
+  # Make the API request
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages",
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  
+  # Check if request was successful
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message,
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  
+  # Parse response and extract text content
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(result$content$text)
+  
+}
+
+
+```
+
+Asking for feedback on the prompt.
+
+```{r, eval = FALSE}
+
+revised_prompt <- call_claude(prompt_improvement(score_rubric_prompt))
+cat(revised_prompt)
+
+```
+
+
+::: {.callout-note collapse="true"}
+## Expand the LLM Response 
+
+I'll work through each task systematically.
+
+**Task 1: Areas Where More Detail Would Improve Rubric Application**
+
+1. **Content rubric** is vague - "well-developed" and "strong reasons" need anchor descriptions for each score level (1, 2, 3, 4, 5). Without this, the LLM has no basis for distinguishing a 2 from a 3.
+2. **Organization rubric** doesn't clarify expectations for essay-level structure (intro, body, conclusion) vs. paragraph-level structure.
+3. **Language rubric** conflates three distinct sub-dimensions (vocabulary, grammar, mechanics) making it hard to arrive at a single score when they conflict (e.g., rich vocabulary but poor spelling).
+4. **No anchor examples** are provided for any score level on any criterion.
+5. **No guidance on how to handle very short essays** or off-topic responses.
+6. **Scoring range behavior** is undefined at the extremes — what does a "1" look like vs. a "2"?
+
+---
+
+**Task 2: Structural Issues with the Prompt**
+
+1. The rubric criteria run together visually — the LLM may not cleanly separate scoring logic for each.
+2. The output format instruction is at the bottom but JSON was not requested (addressed in Task 3).
+3. Instructions for justification length are present but placement after the format block is easy to miss.
+4. The essay prompt context is buried mid-paragraph rather than clearly labeled.
+
+---
+
+**Tasks 3 & 4: Updated Prompt Wrapped in `glue` Function**
+
+```
+library(glue)
+
+score_essay <- function(essay) {
+  
+  prompt <- glue(
+    "You are an expert essay grader with experience in evaluating argumentative writing
+    at the secondary and post-secondary level.
+    
+    ## TASK
+    Score the student essay provided below using the three criteria in the rubric.
+    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,
+    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.
+    
+    ## ESSAY PROMPT GIVEN TO STUDENT
+    'Do you think that smartphones have destroyed communication among family and friends?
+    Give specific reasons and details to support your opinion.'
+    
+    ## SCORING RUBRIC
+    
+    ### CRITERION 1: Content (1-5)
+    Score the degree to which the essay develops a clear argument with relevant reasons
+    and specific supporting examples in response to the essay prompt.
+    
+    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and
+         concrete examples. All content directly supports the central claim.
+    - 4: Argument is well-developed with mostly specific reasons and examples. Minor
+         gaps in development or relevance.
+    - 3: Argument is adequately developed but reasons are sometimes general or examples
+         are vague. Some content may be loosely connected to the argument.
+    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and
+         examples are missing or unclear.
+    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,
+         or does not respond to the prompt.
+    
+    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls
+    between two descriptors.
+    
+    ### CRITERION 2: Organization (1-5)
+    Score the degree to which the essay is logically structured at both the essay level
+    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence
+    devices, single main idea per paragraph).
+    
+    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs
+         each focused on a single idea, and a conclusion. Transitions and coherence
+         devices are used effectively throughout.
+    - 4: Essay structure is clear and mostly effective. Minor issues with transitions
+         or paragraph focus.
+    - 3: Basic structure is present but inconsistently applied. Some paragraphs may
+         lack focus or transitions may be absent or mechanical.
+    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend
+         multiple unrelated ideas. Few or no transitions.
+    - 1: No discernible organizational structure. Ideas are presented randomly with no
+         paragraph logic.
+    
+    ### CRITERION 3: Language (1-5)
+    Score the overall quality of language use across three equally weighted
+    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage
+    correctness, and (c) spelling and punctuation accuracy. Average across these three
+    sub-dimensions to arrive at a single Language score.
+    
+    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar
+         and usage are correct throughout; (c) spelling and punctuation are correct
+         throughout.
+    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct
+         grammar with minor errors that do not impede meaning; (c) few spelling or
+         punctuation errors.
+    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar
+         errors are noticeable but meaning is generally clear; (c) some spelling and
+         punctuation errors.
+    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent
+         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.
+    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout
+         severely impede meaning; (c) spelling and punctuation errors throughout.
+    
+    ## HANDLING EDGE CASES
+    - If the essay is off-topic or does not respond to the prompt, assign a Content
+      score of 1 and note this in the justification.
+    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content
+      and Organization, and score Language based on what is present.
+      [NOTE: Adjust this word threshold based on your assignment expectations.]
+    
+    ## STUDENT ESSAY TO SCORE
+    {essay}
+    
+    ## OUTPUT INSTRUCTIONS
+    Return your response ONLY as a valid JSON object with no additional text before or
+    after it. Use the following structure exactly:
+    
+    {{
+      'content_score': <number>,
+      'content_justification': '<1-2 sentence justification>',
+      'organization_score': <number>,
+      'organization_justification': '<1-2 sentence justification>',
+      'language_score': <number>,
+      'language_justification': '<1-2 sentence justification referencing vocabulary,
+                                  grammar, and mechanics>',
+      'total_score': <sum of three scores>
+    }}
+    
+    Ensure that 'total_score' equals the sum of the three criterion scores. Do not
+    include any text outside the JSON object."
+  )
+  
+  return(prompt)
+  
+}
+```
+
+Example Usage
+
+```
+# Single essay
+my_essay <- "Smartphones have definitely changed how families communicate..."
+prompt_ready <- score_essay(essay = my_essay)
+
+# Cycling through a data frame of essays
+library(dplyr)
+library(purrr)
+
+essays_df <- tibble(
+  student_id = c("S001", "S002", "S003"),
+  essay_text = c(
+    "Smartphones have changed communication...",
+    "I think phones are bad because...",
+    "Families used to talk more before smartphones..."
+  )
+)
+
+essays_df <- essays_df |>
+  mutate(
+    prompt = map_chr(essay_text, ~ score_essay(essay = .x))
+  )
+
+# essays_df$prompt can then be passed to your LLM API call
+```
+
+---
+
+**Key Notes on Where You Should Add More Detail**
+
+| Location | What to Add |
+|---|---|
+| Content rubric | Domain-specific examples of what counts as a "specific example" for this prompt |
+| Word count threshold | Adjust the 50-word minimum to match your assignment requirements |
+| Language sub-dimension weights | Change equal weighting if mechanics matter more/less than grammar in your context |
+| Edge case handling | Add rules for plagiarism flags, non-English responses, or AI-generated text if relevant |
+| API call | You will need to add your own LLM API call function to pass `prompt_ready` to the model and parse the returned JSON |
+
+:::
+
+## Implement Revisions
+
+As you can see, the LLM identified many areas for improvement - many of which you may have identified yourself as measurement experts!
+
+For the purposes of this workshop, let's blindly adopt the changes the LLM provided.
+This is normally something I wouldn't do; instead, I would review the suggested edits, keep what was good, and continue refining the prompt based on ideas I received from the initial LLM feedback.
+I would usually do this a few more times, even if I'm working with subject-matter experts.
+I've often found that SMEs are impressed by some of the suggestions made by the LLM, and they also like it as a brainstorming partner.
+
+```{r}
+# Packages
+library(dplyr)
+library(purrr)
+library(glue)
+
+# Download the data
+load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"))
+
+score_essay <- function(essay) {
+  
+  prompt <- glue(
+    "You are an expert essay grader with experience in evaluating argumentative writing
+    at the secondary and post-secondary level.
+    
+    ## TASK
+    Score the student essay provided below using the three criteria in the rubric.
+    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,
+    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.
+    
+    ## ESSAY PROMPT GIVEN TO STUDENT
+    'Do you think that smartphones have destroyed communication among family and friends?
+    Give specific reasons and details to support your opinion.'
+    
+    ## SCORING RUBRIC
+    
+    ### CRITERION 1: Content (1-5)
+    Score the degree to which the essay develops a clear argument with relevant reasons
+    and specific supporting examples in response to the essay prompt.
+    
+    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and
+         concrete examples. All content directly supports the central claim.
+    - 4: Argument is well-developed with mostly specific reasons and examples. Minor
+         gaps in development or relevance.
+    - 3: Argument is adequately developed but reasons are sometimes general or examples
+         are vague. Some content may be loosely connected to the argument.
+    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and
+         examples are missing or unclear.
+    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,
+         or does not respond to the prompt.
+    
+    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls
+    between two descriptors.
+    
+    ### CRITERION 2: Organization (1-5)
+    Score the degree to which the essay is logically structured at both the essay level
+    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence
+    devices, single main idea per paragraph).
+    
+    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs
+         each focused on a single idea, and a conclusion. Transitions and coherence
+         devices are used effectively throughout.
+    - 4: Essay structure is clear and mostly effective. Minor issues with transitions
+         or paragraph focus.
+    - 3: Basic structure is present but inconsistently applied. Some paragraphs may
+         lack focus or transitions may be absent or mechanical.
+    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend
+         multiple unrelated ideas. Few or no transitions.
+    - 1: No discernible organizational structure. Ideas are presented randomly with no
+         paragraph logic.
+    
+    ### CRITERION 3: Language (1-5)
+    Score the overall quality of language use across three equally weighted
+    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage
+    correctness, and (c) spelling and punctuation accuracy. Average across these three
+    sub-dimensions to arrive at a single Language score.
+    
+    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar
+         and usage are correct throughout; (c) spelling and punctuation are correct
+         throughout.
+    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct
+         grammar with minor errors that do not impede meaning; (c) few spelling or
+         punctuation errors.
+    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar
+         errors are noticeable but meaning is generally clear; (c) some spelling and
+         punctuation errors.
+    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent
+         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.
+    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout
+         severely impede meaning; (c) spelling and punctuation errors throughout.
+    
+    ## HANDLING EDGE CASES
+    - If the essay is off-topic or does not respond to the prompt, assign a Content
+      score of 1 and note this in the justification.
+    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content
+      and Organization, and score Language based on what is present.
+      [NOTE: Adjust this word threshold based on your assignment expectations.]
+    
+    ## STUDENT ESSAY TO SCORE
+    {essay}
+    
+    ## OUTPUT INSTRUCTIONS
+    Return your response ONLY as a valid JSON object with no additional text before or
+    after it. Use the following structure exactly:
+    
+    {{
+      'content_score': <number>,
+      'content_justification': '<1-2 sentence justification>',
+      'organization_score': <number>,
+      'organization_justification': '<1-2 sentence justification>',
+      'language_score': <number>,
+      'language_justification': '<1-2 sentence justification referencing vocabulary,
+                                  grammar, and mechanics>',
+      'total_score': <sum of three scores>
+    }}
+    
+    Ensure that 'total_score' equals the sum of the three criterion scores. Do not
+    include any text outside the JSON object."
+  )
+  
+  return(prompt)
+  
+}
+
+# Creating new column of prompts to keep it in the same df
+student_essays$scoring_prompt <- sapply(student_essays$essay, score_essay)
+
+# Trying the first one
+student_essays$scoring_ouptut <- NA
+student_essays$scoring_ouptut[1] <- call_claude(student_essays$scoring_prompt[1])
+
+cat(student_essays$scoring_ouptut[1])
+
+```
+

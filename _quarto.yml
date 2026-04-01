@@ -33,6 +33,7 @@ book:
         - 06-gen-ai-fundamentals.qmd
         - 07-gen-ai-basics.qmd
         - 08-gen-ai-parameters.qmd
+        # Activity: Parameter Testing App
 
     - part: "LLM Workflows with R"
       chapters: 
@@ -40,28 +41,27 @@ book:
         - num-practical-tools.qmd
         - 10-integration.qmd
         - 11-conversations-via-api.qmd
-
-    - part: "Transactional Interactions"
-      chapters: 
+        - num-activity-conversations-via-api.qmd
+        # Activity: `ellmer`
         - 13-single-interactions-via-api.qmd
-        - 14-prompt-engineering.qmd
-        - 15-prompt-formulas.qmd
-        - activity-prompt-engineering.qmd
         - 17-mitigating-variability.qmd
+        - num-activity-iterative-prompt-development.qmd
+        # Activity: Prompt development & refinement
         - 18-batch-processing.qmd
-        - 19-rubric-scoring.qmd
-        - activity-scoring-with-rubrics.qmd
+        - num-activity-batch-processing.qmd
+        # Activity: Batch processing
         - 21-chained-workflows.qmd
-        - activity-chained-workflows.qmd
+        - num-activity-prompt-chaining.qmd
+        # Activity: Simple chained workflows
         - 23-calling-other-llms.qmd
-        - 24-rag-models.qmd
 
     - part: "Vibe Coding with Shiny"
       chapters: 
         - 25-shiny.qmd
         - 26-vibe-coding.qmd
         - 27-shiny-integration.qmd
-        - activity-shiny-app-development.qmd
+        - num-make-llm-shiny-app.qmd
+        # Activity: Make Shiny App with LLM Call
         - 29-saving-shiny-data.qmd
         
     - part: "Resources"
@@ -73,6 +73,18 @@ book:
     - part: "Retired Pages"
       chapters: 
         - ret-intro.qmd
+        - activity-parameter-testing.qmd
+        - 14-prompt-engineering.qmd
+        - 15-prompt-formulas.qmd
+        - activity-prompt-engineering.qmd
+        - activity-chained-workflows.qmd
+        - activity-content-development-revision.qmd
+        - 19-rubric-scoring.qmd
+        - activity-scoring-with-rubrics.qmd
+        - activity-chained-workflows.qmd
+        - activity-shiny-app-development.qmd
+        - 24-rag-models.qmd
+
   
   sidebar:
     collapse-level: 1

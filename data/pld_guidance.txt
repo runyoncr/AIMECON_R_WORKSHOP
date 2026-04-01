@@ -1,0 +1,25 @@
+GUIDANCE FOR WRITING PERFORMANCE LEVEL DESCRIPTORS
+
+Performance level descriptors (PLDs) are the written characterizations of what a student response at each score level looks, reads, or sounds like. Well-written PLDs are the core of a functional analytic rubric: they translate abstract constructs into observable, scoreable evidence. The goal is not to describe the student, but to describe the response — the words on the page, the ideas expressed, the reasoning demonstrated.
+
+GENERAL PRINCIPLES
+
+Each descriptor should be criterion-referenced, meaning it characterizes quality relative to the specific learning objective being assessed, not relative to other students or to a vague notion of "good" or "poor" writing. Avoid comparative language like "better than average" or "below grade level," which introduce norm-referenced thinking and make the rubric unusable without external benchmarks.
+
+Descriptors should be written in terms of observable response characteristics. A scorer should be able to hold a student response next to the descriptor and make a judgment based solely on what is present in (or absent from) the response — not on inferences about student effort, intent, or potential. Use language like "the response includes," "the explanation identifies," or "the response demonstrates" rather than "the student understands" or "the student tried to."
+
+The three levels — weak, developing, and competent — should form a meaningful progression, not just an additive list. Weak responses typically show an absence or fundamental mischaracterization of the targeted knowledge or skill. Developing responses show that the student is engaging with the right ideas but incompletely, inconsistently, or with meaningful gaps in clarity or accuracy. Competent responses provide clear, sufficient evidence that the learning objective has been met. The transition from weak to developing is often about the presence of relevant content; the transition from developing to competent is often about the completeness, clarity, and accuracy of that content.
+
+Each descriptor within a criterion should be internally consistent — if the science criterion's competent descriptor emphasizes accuracy and completeness, the developing descriptor should reference partial accuracy or incomplete coverage, not a different dimension entirely. Introducing new evaluative dimensions at different levels creates scoring ambiguity.
+
+Avoid hedged or vague language that collapses distinctions. Phrases like "somewhat addresses" or "partially demonstrates" are common but weak — they do not tell a scorer what to look for. Where possible, anchor descriptors to concrete indicators: the presence of a specific type of reasoning (e.g., cause-and-effect), the use of relevant evidence, or the identification of a key mechanism.
+
+CONSIDERATIONS FOR MIDDLE-SCHOOL SCIENCE
+
+Middle-school science assessments typically target both disciplinary knowledge and scientific practice — the ability to explain, reason about, or apply concepts, not just recall facts. PLDs for science criteria should reflect this dual emphasis. A weak response often restates the question or offers only a colloquial or everyday explanation without scientific grounding. A developing response may identify the correct concept but fail to connect it to the specific phenomenon or context described in the item. A competent response integrates accurate scientific content with a coherent explanation that is responsive to the specific prompt.
+
+Scientific vocabulary is an important but secondary consideration at the middle-school level. A response should not be rated as weak solely because it avoids technical terminology if the underlying reasoning is sound; conversely, the presence of scientific terms should not elevate a response that uses them incorrectly or without meaningful explanation. PLDs should reflect this priority: accuracy and coherence of reasoning first, precision of vocabulary second.
+
+For writing criteria in a science context, keep in mind that the writing is in service of scientific explanation. Clarity means the scientific idea is communicated so that the reader can follow the reasoning. Organization at the middle-school level often means the response has a discernible structure — an initial claim, supporting reasoning or evidence, and a conclusion — rather than sophisticated rhetorical moves. Developing writers at this level often produce responses with relevant content that is loosely assembled or sequenced in a way that obscures the logic. Weak writing may present ideas that are difficult to parse or that undermine the communication of the science regardless of whether the underlying knowledge is present.
+
+When writing descriptors for a middle-school audience, calibrate expectations to the developmental level. A competent response from a seventh-grader is not the same as a competent response from a high-school student; the descriptor should reflect what meeting the objective looks like at this level of instruction, not a universal standard of scientific communication.

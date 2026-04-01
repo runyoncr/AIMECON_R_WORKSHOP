@@ -1,0 +1,31 @@
+GUIDANCE FOR WRITING CONSTRUCTIVE FEEDBACK FOR MIDDLE-SCHOOL STUDENTS
+
+Written feedback on a science essay serves a specific instructional purpose: it helps a student understand what their response demonstrated and what they can do differently next time. Effective feedback is not a summary of the rubric, a restatement of the student's own words, or a general comment on their effort. It is a bridge between the work the student produced and the learning they are meant to develop.
+
+TONE AND LANGUAGE
+
+Feedback directed at middle-school students should feel like it is coming from a knowledgeable, supportive adult who has actually read their work — not from an evaluation system. The tone should be direct and warm without being effusive. Avoid hollow praise like "Great job!" or "You did a wonderful job trying," which students recognize as disconnected from their actual performance. Instead, anchor positive comments to something specific in the response: what idea they expressed, what connection they made, or what aspect of their explanation worked.
+
+Language should be accessible to a student in grades 6 through 8. This means avoiding measurement or instructional jargon (do not reference rubric labels, performance tiers, or assessment terminology) and writing at a reading level that prioritizes clarity over formality. Sentences should be relatively short and direct. The student should be addressed as "you" throughout.
+
+THE STRUCTURE OF USEFUL FEEDBACK
+
+For each learning objective, feedback should do two things: (1) reflect what the student's response actually showed at the level it was scored, and (2) offer one concrete, forward-looking suggestion when there is room to grow. These two functions should feel integrated, not formulaic. Avoid a rigid "here is what you did well / here is what you need to work on" template that applies the same structure regardless of what the student wrote — this reads as automated and impersonal.
+
+When a student performed at the competent level, feedback should still be specific and substantive. Confirming strong performance is useful only when it names what made the response effective. A comment like "Your explanation clearly connected the increase in temperature to the movement of the molecules, which is exactly the kind of scientific reasoning this question asked for" is more useful than "You demonstrated a solid understanding of the science concept."
+
+When a student performed at the developing or weak level, the improvement suggestion should be actionable and focused on a single thing. Giving a student three things to work on is functionally the same as giving them none. The suggestion should be phrased as something they can do — "Next time, try explaining why that happens, not just that it happens" — rather than as a deficit statement — "Your explanation lacked sufficient scientific reasoning." The former gives the student a path; the latter gives them a label.
+
+SCIENCE-SPECIFIC CONSIDERATIONS
+
+Middle-school science feedback should reflect the dual nature of the task: students are being asked to demonstrate both content knowledge and the ability to explain that knowledge in writing. These are related but distinct, and feedback should treat them as such rather than blending them into a single general comment.
+
+For science content, the most useful feedback often addresses whether the student connected the scientific concept to the specific phenomenon or scenario in the prompt. Many middle-school students can recall a concept in isolation but struggle to apply it to a context. Feedback that names this distinction — "You identified the right concept, but your explanation didn't connect it to what was happening in the experiment described in the question" — is more instructive than simply noting that the science was incomplete.
+
+Middle-school students are still developing their scientific vocabulary, and feedback should model accurate terminology without treating its absence as a primary failure. If a student explained a concept correctly using everyday language, the feedback might name the scientific term while affirming the underlying reasoning: "What you described — the way heat moves from the warmer object to the cooler one — is what scientists call thermal conduction." This approach reinforces content while building vocabulary without penalizing the student for the language they used.
+
+For writing criteria, feedback should focus on the communicative function of writing in a science context: whether the explanation was clear enough to follow, whether the reasoning was organized in a way that made the scientific logic visible, and whether key ideas were developed enough to be meaningful. Feedback on writing should not veer into general English-class commentary (sentence variety, word choice for its own sake) unless these directly affected the clarity of the scientific explanation.
+
+WHAT TO AVOID
+
+Feedback should not mention the names of performance levels or imply that the student received a particular score. It should not compare the student to other students or to an abstract standard. It should not suggest that the student did not try or did not care. It should not make global statements about the student's ability ("You are clearly a strong science student" or "Science writing seems challenging for you"), which are evaluative of the person rather than responsive to the specific work. Every comment should be traceable to something in the student's actual response.
