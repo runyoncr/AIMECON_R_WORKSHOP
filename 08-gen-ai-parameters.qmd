@@ -18,7 +18,7 @@ There is a [section below on generation parameters](08-gen-ai-parameters.qmd#sec
 
 These parameters affect the randomness and diversity of the model output.
 
-### Temperature
+### Temperature {#sec-temperature}
 
 Temperature controls how much randomness is introduced during text generation. 
 A value near 0 makes the output more deterministic and focused; higher values (e.g., 0.8–1.0) make the output more varied and exploratory. 

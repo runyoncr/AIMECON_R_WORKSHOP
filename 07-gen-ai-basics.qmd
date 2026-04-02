@@ -76,7 +76,7 @@ Sentence-level embedding models further expanded this idea by learning represent
 
 ## Attention {#sec-attention}
 
-The transformer architecture, introduced by Vaswani et al. (2017 - over [200,000 citations](https://scholar.google.com/scholar?cluster=2960712678066186980&hl=en&as_sdt=0,33) as of this writing!) [@vaswani2017attention], revolutionized how models handle context through a mechanism called attention. 
+The transformer architecture, introduced by Vaswani et al. (2017 - almost [240,000 citations](https://scholar.google.com/scholar?cluster=2960712678066186980&hl=en&as_sdt=0,33) as of this writing!) [@vaswani2017attention], revolutionized how models handle context through a mechanism called attention. 
 Attention allows the model to determine, for each token it processes, which other tokens in the sequence are most relevant for interpreting that token and predicting what comes next. 
 Rather than processing words in strict order like a recurrent neural network ([RNN](https://en.wikipedia.org/wiki/Recurrent_neural_network)), a transformer builds a weighted map of relationships. 
 Conceptually, it is like asking yourself, “How much should I pay attention to each other word when interpreting this one?”—much like we did when trying to figure out the masked word.

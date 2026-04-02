@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; API Implementation – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>19&nbsp; Mitigating Output Variability – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-api-keys.html" rel="next">
-<link href="./03-test-connect.html" rel="prev">
+<link href="./20-chained-workflows.html" rel="next">
+<link href="./18-activity-batch-processing.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-sample-workflow.html">LLM Workflows with R</a></li><li class="breadcrumb-item"><a href="./19-mitigating-variability.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,13 +152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Setup</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
@@ -228,13 +228,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">LLM Workflows with R</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-sample-workflow.html" class="sidebar-item-text sidebar-link">
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./19-mitigating-variability.html" class="sidebar-item-text sidebar-link">
+  <a href="./19-mitigating-variability.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></span></a>
   </div>
 </li>
@@ -390,15 +390,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#model-based-strategies" id="toc-model-based-strategies" class="nav-link active" data-scroll-target="#model-based-strategies"><span class="header-section-number">19.1</span> Model-based strategies</a></li>
+  <li><a href="#prompt-based-strategies" id="toc-prompt-based-strategies" class="nav-link" data-scroll-target="#prompt-based-strategies"><span class="header-section-number">19.2</span> Prompt-based strategies</a></li>
+  <li><a href="#materials-based-strategies" id="toc-materials-based-strategies" class="nav-link" data-scroll-target="#materials-based-strategies"><span class="header-section-number">19.3</span> Materials-based strategies</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-sample-workflow.html">LLM Workflows with R</a></li><li class="breadcrumb-item"><a href="./19-mitigating-variability.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mitigating Output Variability</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -415,14 +423,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The chatbot interface is probably the most common method people first use to interact with a generative AI model. These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging. There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</p>
-<p>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</p>
-<p>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the <em>n</em> number of times needed to complete a task. In these instances, it may be better to interact with a model via an <strong>application programming interface (API).</strong></p>
-<p>An API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</p>
+<p>An important aspect of using generative AI models for educational tasks is managing output variability. As we have seen (and demonstrated) several times so far, when using a model with default parameter settings, you should expect slightly different responses from the model, even when using the <em>exact same prompt</em>. These models are not deterministic in the same way as regression models or many other statistical techniques. Instead, generative models produce a probability distribution over possible next tokens and then sample from that distribution.</p>
+<p>Sometimes, the differences are minor. Word choices or sentence structure may vary, but the semantic meaning is generally the same. However, sometimes the variation can subtly shift the meaning. For example, if you are summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.</p>
+<p>There are several factors that influence response variability. The first is output length; longer responses usually<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> tend to show more variation. Second is prompting method—reasoning models, or prompting methods that encourage more extensive reasoning, may introduce more response variability. Another factor is task complexity—the more complex the task, the more room there is for variation in the model’s response. For example, “Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will likely show more variation than “Identify the correct multiple-choice option.”</p>
+<p>This variability is not inherently bad. In fact, it is beneficial for creative tasks like brainstorming or ideation. But it can be problematic for scoring tasks, where consistency is critical.</p>
+<p>I developed a 3-part framework that helps me think about sources of variability in model responses:</p>
+<ul>
+<li>Model-based strategies</li>
+<li>Prompt-based strategies</li>
+<li>Materials-based strategies</li>
+</ul>
+<section id="model-based-strategies" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="model-based-strategies"><span class="header-section-number">19.1</span> Model-based strategies</h2>
+<p>These strategies are specifically focused on changing the model’s generation parameters. As we <a href="./08-gen-ai-parameters.html#sec-gen-params">discussed earlier</a> and <a href="activity-parameter-testing.qmd#sec-act-parameter">experimented with in an activity</a>, lowering the <code>temperature</code> can encourage the model to select the same or similar tokens when generating a response.</p>
+</section>
+<section id="prompt-based-strategies" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="prompt-based-strategies"><span class="header-section-number">19.2</span> Prompt-based strategies</h2>
+<p>These strategies focus on how you structure your prompts and workflow. Certain prompting techniques, such as using examples, using punctuation or formatting to separate sections, or breaking tasks into steps, can all lead to more consistent outputs.</p>
+</section>
+<section id="materials-based-strategies" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="materials-based-strategies"><span class="header-section-number">19.3</span> Materials-based strategies</h2>
+<p>These strategies relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like providing more context (filling in the Mad Lib blanks) and clarifying or editing the materials included in the prompt.</p>
+<p>I have found that this also highlights another good use of generative models: <strong>rubric refinement</strong>. The model can serve as a proxy for how a reasonably intelligent reader might interpret the rubric, so passing an assessment artifact and rubric through the model several times can help identify potential ambiguity or places in need of clarification.</p>
+<p>I observed this in some of my own research. In one study, I had an analytic rubric element that read: “Tenderness to deep palpation on the right medial heel: 1 point.” In one of the notes created to see how well the model could detect this concept, I wrote: “A musculoskeletal exam revealed some pain during a deep palpation on the right heel.” I intended this to fully represent the concept. I found that the model applied the rubric in 3 different ways (paraphrasing the model’s rationales):</p>
+<ul>
+<li>Full credit; 1 point.</li>
+<li>Learner did not say “medial”; 0.5 points (which was not part of the rubric, although other elements had partial credit).</li>
+<li>Learner did not say “medial”; 0 points.</li>
+</ul>
+<p>This can easily be corrected by changing the rubric to include guidance for this edge case: “Tenderness to deep palpation on the right medial heel: 1 point. It is not necessary for the learner to include the word ‘medial.’”</p>
+<hr>
 
 
 <!-- -->
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>I liberally use the “usually” qualifier because, as models improve, these factors influencing variability may become less of an issue.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -882,30 +923,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03-test-connect.html" class="pagination-link" aria-label="Testing API Connection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span>
+      <a href="./18-activity-batch-processing.html" class="pagination-link" aria-label="Activity: Batch Processing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Activity: Batch Processing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-api-keys.html" class="pagination-link" aria-label="API Keys">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./20-chained-workflows.html" class="pagination-link" aria-label="Chained Workflows">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Chained Workflows</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Implementation</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mitigating Output Variability</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The chatbot interface is probably the most common method people first use to interact with a generative AI model.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging.</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the _n_ number of times needed to complete a task. In these instances, it may be better to interact with a model via an **application programming interface (API).**</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>An API is a structured way for one piece of software to communicate with another.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>An important aspect of using generative AI models for educational tasks is managing output variability.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>As we have seen (and demonstrated) several times so far, when using a model with default parameter settings, you should expect slightly different responses from the model, even when using the _exact same prompt_.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>These models are not deterministic in the same way as regression models or many other statistical techniques. </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Instead, generative models produce a probability distribution over possible next tokens and then sample from that distribution.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Sometimes, the differences are minor. </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Word choices or sentence structure may vary, but the semantic meaning is generally the same. </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, sometimes the variation can subtly shift the meaning. </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>For example, if you are summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>There are several factors that influence response variability. </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>The first is output length; longer responses usually<span class="ot">[^1]</span> tend to show more variation.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Second is prompting method—reasoning models, or prompting methods that encourage more extensive reasoning, may introduce more response variability. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Another factor is task complexity—the more complex the task, the more room there is for variation in the model’s response. </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>For example, “Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will likely show more variation than “Identify the correct multiple-choice option.”</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>This variability is not inherently bad. </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>In fact, it is beneficial for creative tasks like brainstorming or ideation. </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>But it can be problematic for scoring tasks, where consistency is critical.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>I developed a 3-part framework that helps me think about sources of variability in model responses:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Model-based strategies</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prompt-based strategies</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Materials-based strategies</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model-based strategies</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>These strategies are specifically focused on changing the model's generation parameters. </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>As we <span class="co">[</span><span class="ot">discussed earlier</span><span class="co">](08-gen-ai-parameters.qmd#sec-gen-params)</span> and <span class="co">[</span><span class="ot">experimented with in an activity</span><span class="co">](activity-parameter-testing.qmd#sec-act-parameter)</span>, lowering the <span class="in">`temperature`</span> can encourage the model to select the same or similar tokens when generating a response.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prompt-based strategies</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>These strategies focus on how you structure your prompts and workflow. </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Certain prompting techniques, such as using examples, using punctuation or formatting to separate sections, or breaking tasks into steps, can all lead to more consistent outputs.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Materials-based strategies</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>These strategies relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like providing more context (filling in the Mad Lib blanks) and clarifying or editing the materials included in the prompt.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>I have found that this also highlights another good use of generative models: **rubric refinement**.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>The model can serve as a proxy for how a reasonably intelligent reader might interpret the rubric, so passing an assessment artifact and rubric through the model several times can help identify potential ambiguity or places in need of clarification.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>I observed this in some of my own research.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>In one study, I had an analytic rubric element that read: "Tenderness to deep palpation on the right medial heel: 1 point."</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>In one of the notes created to see how well the model could detect this concept, I wrote: "A musculoskeletal exam revealed some pain during a deep palpation on the right heel." I intended this to fully represent the concept.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>I found that the model applied the rubric in 3 different ways (paraphrasing the model's rationales):</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full credit; 1 point.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Learner did not say "medial"; 0.5 points (which was not part of the rubric, although other elements had partial credit).</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Learner did not say "medial"; 0 points.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>This can easily be corrected by changing the rubric to include guidance for this edge case: "Tenderness to deep palpation on the right medial heel: 1 point. It is not necessary for the learner to include the word 'medial.'"</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>I liberally use the "usually" qualifier because, as models improve, these factors influencing variability may become less of an issue.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; API Implementation – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>24&nbsp; “Vibe Coding” – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-api-keys.html" rel="next">
-<link href="./03-test-connect.html" rel="prev">
+<link href="./25-shiny-integration.html" rel="next">
+<link href="./23-shiny.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-shiny.html">Vibe Coding with Shiny</a></li><li class="breadcrumb-item"><a href="./24-vibe-coding.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,13 +152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Setup</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
@@ -317,13 +317,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Vibe Coding with Shiny</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./23-shiny.html" class="sidebar-item-text sidebar-link">
@@ -332,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./24-vibe-coding.html" class="sidebar-item-text sidebar-link">
+  <a href="./24-vibe-coding.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></a>
   </div>
 </li>
@@ -390,15 +390,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#helpful-vibe-coding-resources" id="toc-helpful-vibe-coding-resources" class="nav-link active" data-scroll-target="#helpful-vibe-coding-resources"><span class="header-section-number">24.1</span> Helpful Vibe Coding Resources</a>
+  <ul>
+  <li><a href="#google-ai-studio" id="toc-google-ai-studio" class="nav-link" data-scroll-target="#google-ai-studio"><span class="header-section-number">24.1.1</span> Google AI Studio</a></li>
+  <li><a href="#shinychat" id="toc-shinychat" class="nav-link" data-scroll-target="#shinychat"><span class="header-section-number">24.1.2</span> <code>shinychat</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-shiny.html">Vibe Coding with Shiny</a></li><li class="breadcrumb-item"><a href="./24-vibe-coding.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-vibe-coding" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -415,14 +425,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The chatbot interface is probably the most common method people first use to interact with a generative AI model. These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging. There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</p>
-<p>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</p>
-<p>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the <em>n</em> number of times needed to complete a task. In these instances, it may be better to interact with a model via an <strong>application programming interface (API).</strong></p>
-<p>An API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</p>
+<p><em>Vibe Coding</em> is the recent term of the art for using an LLM to help you write syntax, which includes online applications. The term was coined by Andrej Karpathy in a tweet on February 2, 2025 <a href="https://arstechnica.com/ai/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/" target="_blank">(ars technica article)</a>, and is increasingly increasingly used to describe a style of working with generative AI models to build code collaboratively. Rather than prompting for one-off answers, vibe coding is iterative, conversational, and adaptive. The goal isn’t to have the AI generate a complete script for you, but to engage in a process of co-development—exploring options, refining syntax, and solving problems together. For R users, this means moving beyond “write me an app” to something more like “help me build a Shiny app that allows users to visualize item difficulty by grade level.”</p>
+<p>In this framework, the AI functions as a thought partner and syntax generator, helping translate your intent (“vibe”) into working R code. You might start with a broad goal (“I want users to upload a CSV and filter items by domain”) and then ask the model to scaffold the basic UI layout. As you test and refine, you can return to the model for troubleshooting (“I’m getting a reactive context error—how do I fix it?”) or optimization (“How can I make this app load faster?”). The iterative nature of vibe coding encourages exploration and experimentation—key skills for both creative developers and educational measurement professionals who often need to prototype analytic tools quickly.</p>
+<p>Vibe coding also helps lower the barrier to entry for complex frameworks like Shiny. Because reactivity and UI design can feel conceptually distant from typical R scripting, working with an AI assistant can make the process more approachable. The model can explain why certain elements belong in the server versus ui sections, or how to use reactive() and observeEvent() correctly. Over time, you develop a sense of how Shiny feels—its rhythms, its syntax, its underlying logic—by co-creating with an AI partner that provides just-in-time feedback and examples.</p>
+<p>No specific AI model is required for vibe coding. While Claude has shown strength in R-specific support, many others (ChatGPT, Gemini, Copilot) can perform well depending on your workflow. The key is to maintain the vibe—a rhythm of asking, testing, refining, and learning. This approach not only accelerates development but also deepens understanding, helping you bridge the gap between concept and implementation in a way that feels intuitive and creative.</p>
+<section id="helpful-vibe-coding-resources" class="level2" data-number="24.1">
+<h2 data-number="24.1" class="anchored" data-anchor-id="helpful-vibe-coding-resources"><span class="header-section-number">24.1</span> Helpful Vibe Coding Resources</h2>
+<section id="google-ai-studio" class="level3" data-number="24.1.1">
+<h3 data-number="24.1.1" class="anchored" data-anchor-id="google-ai-studio"><span class="header-section-number">24.1.1</span> <a href="https://blog.google/technology/developers/introducing-vibe-coding-in-google-ai-studio/">Google AI Studio</a></h3>
+<ul>
+<li>Environment specifically designed to facilitate vibe coding apps.</li>
+</ul>
+</section>
+<section id="shinychat" class="level3" data-number="24.1.2">
+<h3 data-number="24.1.2" class="anchored" data-anchor-id="shinychat"><span class="header-section-number">24.1.2</span> <code>shinychat</code></h3>
+<p>Unsurprisingly (again), Posit has created an interface to help you add an AI chatbot to a Shiny app. That package is called <a href="https://posit-dev.github.io/shinychat/" target="_blank"><code>shinychat</code>.</a> I haven’t extensively worked with this, but wanted to suggest it for those ambitious workshop participants that might want to integrate an AI chatbot in their Shiny app.</p>
 
 
 <!-- -->
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -882,30 +905,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03-test-connect.html" class="pagination-link" aria-label="Testing API Connection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span>
+      <a href="./23-shiny.html" class="pagination-link" aria-label="R Shiny">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R Shiny</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-api-keys.html" class="pagination-link" aria-label="API Keys">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./25-shiny-integration.html" class="pagination-link" aria-label="Vibe Coding R Shiny Apps">
+        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Implementation</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># "Vibe Coding" {#sec-vibe-coding}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The chatbot interface is probably the most common method people first use to interact with a generative AI model.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging.</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the _n_ number of times needed to complete a task. In these instances, it may be better to interact with a model via an **application programming interface (API).**</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>_Vibe Coding_ is the recent term of the art for using an LLM to help you write syntax, which includes online applications. The term was coined by Andrej Karpathy in a tweet on February 2, 2025 <span class="co">[</span><span class="ot">(ars technica article)</span><span class="co">](https://arstechnica.com/ai/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/)</span>{target="_blank"}, and is increasingly increasingly used to describe a style of working with generative AI models to build code collaboratively.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Rather than prompting for one-off answers, vibe coding is iterative, conversational, and adaptive. </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>The goal isn’t to have the AI generate a complete script for you, but to engage in a process of co-development—exploring options, refining syntax, and solving problems together. </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>For R users, this means moving beyond “write me an app” to something more like “help me build a Shiny app that allows users to visualize item difficulty by grade level.”</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>In this framework, the AI functions as a thought partner and syntax generator, helping translate your intent (“vibe”) into working R code. </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>You might start with a broad goal (“I want users to upload a CSV and filter items by domain”) and then ask the model to scaffold the basic UI layout. </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>As you test and refine, you can return to the model for troubleshooting (“I’m getting a reactive context error—how do I fix it?”) or optimization (“How can I make this app load faster?”). The iterative nature of vibe coding encourages exploration and experimentation—key skills for both creative developers and educational measurement professionals who often need to prototype analytic tools quickly.</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>An API is a structured way for one piece of software to communicate with another.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Vibe coding also helps lower the barrier to entry for complex frameworks like Shiny. </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Because reactivity and UI design can feel conceptually distant from typical R scripting, working with an AI assistant can make the process more approachable. </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>The model can explain why certain elements belong in the server versus ui sections, or how to use reactive() and observeEvent() correctly. </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Over time, you develop a sense of how Shiny feels—its rhythms, its syntax, its underlying logic—by co-creating with an AI partner that provides just-in-time feedback and examples.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>No specific AI model is required for vibe coding. </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>While Claude has shown strength in R-specific support, many others (ChatGPT, Gemini, Copilot) can perform well depending on your workflow. </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>The key is to maintain the vibe—a rhythm of asking, testing, refining, and learning. </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>This approach not only accelerates development but also deepens understanding, helping you bridge the gap between concept and implementation in a way that feels intuitive and creative.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Helpful Vibe Coding Resources</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Google AI Studio](https://blog.google/technology/developers/introducing-vibe-coding-in-google-ai-studio/)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Environment specifically designed to facilitate vibe coding apps.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### `shinychat`</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Unsurprisingly (again), Posit has created an interface to help you add an AI chatbot to a Shiny app.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>That package is called <span class="co">[</span><span class="ot">`shinychat`.</span><span class="co">](https://posit-dev.github.io/shinychat/)</span>{target="_blank"}</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>I haven't extensively worked with this, but wanted to suggest it for those ambitious workshop participants that might want to integrate an AI chatbot in their Shiny app.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

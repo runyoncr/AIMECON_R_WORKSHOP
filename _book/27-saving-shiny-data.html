@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; API Implementation – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>27&nbsp; Saving R Shiny Data – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-api-keys.html" rel="next">
-<link href="./03-test-connect.html" rel="prev">
+<link href="./28-reference-materials.html" rel="next">
+<link href="./26-activity-make-llm-shiny-app.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-shiny.html">Vibe Coding with Shiny</a></li><li class="breadcrumb-item"><a href="./27-saving-shiny-data.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,13 +152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Setup</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
@@ -317,13 +317,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Vibe Coding with Shiny</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./23-shiny.html" class="sidebar-item-text sidebar-link">
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./27-saving-shiny-data.html" class="sidebar-item-text sidebar-link">
+  <a href="./27-saving-shiny-data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></a>
   </div>
 </li>
@@ -390,15 +390,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#r-packages-for-saving-shiny-outputs" id="toc-r-packages-for-saving-shiny-outputs" class="nav-link active" data-scroll-target="#r-packages-for-saving-shiny-outputs"><span class="header-section-number">27.1</span> R Packages for Saving Shiny Outputs</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-shiny.html">Vibe Coding with Shiny</a></li><li class="breadcrumb-item"><a href="./27-saving-shiny-data.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -415,14 +421,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The chatbot interface is probably the most common method people first use to interact with a generative AI model. These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging. There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</p>
-<p>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</p>
-<p>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the <em>n</em> number of times needed to complete a task. In these instances, it may be better to interact with a model via an <strong>application programming interface (API).</strong></p>
-<p>An API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/under-construction-data.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></p>
+</figure>
+</div>
+<p>Although Shiny is built around reactivity, you can also treat it like a front end for data collection. Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. In simple setups that storage might be a local file; in production it’s typically a database or object store. In your case, your organization exposes an API that writes to an S3 bucket, so Shiny acts as the UI, and your API is the bridge to persistent storage.</p>
+<p>A good first step is to define what you’ll save and when you’ll save it. Decide on a schema (the fields and their types), including metadata that helps with traceability: timestamps, a unique ID (UUID), the user’s role or identifier (if appropriate), the app version, and the context (e.g., Grade, Subject for MCQ authoring). Then select the save events: “Update” might just refresh the working state, while “Save” or “Submit” creates an immutable record. Thinking this through upfront prevents headaches later when you want to reproduce analyses, audit changes, or join these records with other datasets.</p>
+<p>Because Shiny runs in users’ browsers and on your server, you’ll want validation on both sides. At the UI layer, give people immediate feedback (required fields, consistent formats, one correct answer). On the server side, validate again before sending to storage—never trust only the browser. For reliability, incorporate patterns such as idempotency (use that UUID so repeats don’t create duplicates), debouncing or disabling the save button briefly to avoid double submissions, and friendly messaging that confirms success or explains errors. If the network or API is momentarily unavailable, consider lightweight queuing and automatic retries with backoff so users don’t lose work.</p>
+<p>When saving to S3 via your company API, think about security and governance. All traffic should be over HTTPS with short-lived tokens or API keys stored securely (environment variables or a secrets manager—not hard-coded). On the S3 side, enforce least-privilege access (the API writes only to the specific bucket/prefix it needs), encrypt data at rest, and document retention rules. Educational measurement often intersects with sensitive information; even if you’re not storing PII, adopt a “privacy by design” posture: collect only what you need, label datasets clearly, and maintain a simple data catalog so others know what’s in each object or table. If you operate under IRB/FERPA/GDPR constraints, align your consent, retention, and access controls with those policies.</p>
+<p>Finally, plan for operational clarity. Separate environments (dev/staging/prod) and use clear S3 prefixes or folders so test data never mingles with real submissions. Standardize formats (CSV/JSON/Parquet) and include a minimal, consistent header/metadata block so downstream teams can parse files reliably. Log every save event (who/when/what app version) and expose a simple status indicator in the UI so users know where their data went. In practice, these small investments transform Shiny from “an interactive report” into a dependable data-collection front end—flexible enough to replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.</p>
+<hr>
+<p><strong>Note:</strong> The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</p>
+<hr>
+<section id="r-packages-for-saving-shiny-outputs" class="level2" data-number="27.1">
+<h2 data-number="27.1" class="anchored" data-anchor-id="r-packages-for-saving-shiny-outputs"><span class="header-section-number">27.1</span> R Packages for Saving Shiny Outputs</h2>
+<p>List them!</p>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -882,30 +901,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03-test-connect.html" class="pagination-link" aria-label="Testing API Connection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span>
+      <a href="./26-activity-make-llm-shiny-app.html" class="pagination-link" aria-label="Activity: Making a Shiny App">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Activity: Making a Shiny App</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-api-keys.html" class="pagination-link" aria-label="API Keys">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./28-reference-materials.html" class="pagination-link" aria-label="Reference Materials">
+        <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Reference Materials</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Implementation</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Saving R Shiny Data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The chatbot interface is probably the most common method people first use to interact with a generative AI model.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging.</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/under-construction-data.png)</span>{fig-align="center" width=25%}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Although Shiny is built around reactivity, you can also treat it like a front end for data collection. </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>In simple setups that storage might be a local file; in production it’s typically a database or object store. </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>In your case, your organization exposes an API that writes to an S3 bucket, so Shiny acts as the UI, and your API is the bridge to persistent storage.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the _n_ number of times needed to complete a task. In these instances, it may be better to interact with a model via an **application programming interface (API).**</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>An API is a structured way for one piece of software to communicate with another.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>A good first step is to define what you’ll save and when you’ll save it. </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Decide on a schema (the fields and their types), including metadata that helps with traceability: timestamps, a unique ID (UUID), the user’s role or identifier (if appropriate), the app version, and the context (e.g., Grade, Subject for MCQ authoring). </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Then select the save events: “Update” might just refresh the working state, while “Save” or “Submit” creates an immutable record. </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Thinking this through upfront prevents headaches later when you want to reproduce analyses, audit changes, or join these records with other datasets.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Because Shiny runs in users’ browsers and on your server, you’ll want validation on both sides. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>At the UI layer, give people immediate feedback (required fields, consistent formats, one correct answer). </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>On the server side, validate again before sending to storage—never trust only the browser. </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>For reliability, incorporate patterns such as idempotency (use that UUID so repeats don’t create duplicates), debouncing or disabling the save button briefly to avoid double submissions, and friendly messaging that confirms success or explains errors. </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>If the network or API is momentarily unavailable, consider lightweight queuing and automatic retries with backoff so users don’t lose work.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>When saving to S3 via your company API, think about security and governance. </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>All traffic should be over HTTPS with short-lived tokens or API keys stored securely (environment variables or a secrets manager—not hard-coded). </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>On the S3 side, enforce least-privilege access (the API writes only to the specific bucket/prefix it needs), encrypt data at rest, and document retention rules. </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>Educational measurement often intersects with sensitive information; even if you’re not storing PII, adopt a “privacy by design” posture: collect only what you need, label datasets clearly, and maintain a simple data catalog so others know what’s in each object or table. </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>If you operate under IRB/FERPA/GDPR constraints, align your consent, retention, and access controls with those policies.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Finally, plan for operational clarity. </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Separate environments (dev/staging/prod) and use clear S3 prefixes or folders so test data never mingles with real submissions. </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Standardize formats (CSV/JSON/Parquet) and include a minimal, consistent header/metadata block so downstream teams can parse files reliably. </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Log every save event (who/when/what app version) and expose a simple status indicator in the UI so users know where their data went. </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>In practice, these small investments transform Shiny from “an interactive report” into a dependable data-collection front end—flexible enough to replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**Note:** The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## R Packages for Saving Shiny Outputs</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>List them!</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

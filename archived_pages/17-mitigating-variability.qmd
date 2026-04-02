@@ -1,0 +1,59 @@
+# Mitigating Output Variability
+
+An important aspect of using generative AI models for educational tasks is managing output variability.
+As we have seen (and demonstrated) several times so far, when using a model with default parameter settings, you should expect slightly different responses from the model, even when using the _exact same prompt_.
+These models are not deterministic in the same way as regression models or many other statistical techniques. 
+Instead, generative models produce a probability distribution over possible next tokens and then sample from that distribution.
+
+Sometimes, the differences are minor. 
+Word choices or sentence structure may vary, but the semantic meaning is generally the same. 
+However, sometimes the variation can subtly shift the meaning. 
+For example, if you are summarizing notes about a student’s performance that equally highlight both knowledge and engagement, one summary might emphasize knowledge, another might focus more on engagement, and a third might balance both equally.
+
+There are several factors that influence response variability. 
+The first is output length; longer responses usually[^1] tend to show more variation.
+Second is prompting method—reasoning models, or prompting methods that encourage more extensive reasoning, may introduce more response variability. 
+Another factor is task complexity—the more complex the task, the more room there is for variation in the model’s response. 
+For example, “Write a paragraph on symptom overlap between cardiological and respiratory illnesses” will likely show more variation than “Identify the correct multiple-choice option.”
+
+This variability is not inherently bad. 
+In fact, it is beneficial for creative tasks like brainstorming or ideation. 
+But it can be problematic for scoring tasks, where consistency is critical.
+
+I developed a 3-part framework that helps me think about sources of variability in model responses:
+
+- Model-based strategies
+- Prompt-based strategies
+- Materials-based strategies
+
+## Model-based strategies
+
+These strategies are specifically focused on changing the model's generation parameters. 
+As we [discussed earlier](08-gen-ai-parameters.qmd#sec-gen-params) and [experimented with in an activity](activity-parameter-testing.qmd#sec-act-parameter), lowering the `temperature` can encourage the model to select the same or similar tokens when generating a response.
+
+## Prompt-based strategies
+
+These strategies focus on how you structure your prompts and workflow. 
+Certain prompting techniques, such as using examples, using punctuation or formatting to separate sections, or breaking tasks into steps, can all lead to more consistent outputs.
+
+## Materials-based strategies
+
+These strategies relate to the content within your prompt. While closely related to prompt-based strategies, I find it useful to treat them as a separate category. This includes things like providing more context (filling in the Mad Lib blanks) and clarifying or editing the materials included in the prompt.
+
+I have found that this also highlights another good use of generative models: **rubric refinement**.
+The model can serve as a proxy for how a reasonably intelligent reader might interpret the rubric, so passing an assessment artifact and rubric through the model several times can help identify potential ambiguity or places in need of clarification.
+
+I observed this in some of my own research.
+In one study, I had an analytic rubric element that read: "Tenderness to deep palpation on the right medial heel: 1 point."
+In one of the notes created to see how well the model could detect this concept, I wrote: "A musculoskeletal exam revealed some pain during a deep palpation on the right heel." I intended this to fully represent the concept.
+I found that the model applied the rubric in 3 different ways (paraphrasing the model's rationales):
+
+- Full credit; 1 point.
+- Learner did not say "medial"; 0.5 points (which was not part of the rubric, although other elements had partial credit).
+- Learner did not say "medial"; 0 points.
+
+This can easily be corrected by changing the rubric to include guidance for this edge case: "Tenderness to deep palpation on the right medial heel: 1 point. It is not necessary for the learner to include the word 'medial.'"
+
+***
+
+[^1]: I liberally use the "usually" qualifier because, as models improve, these factors influencing variability may become less of an issue.

@@ -1,0 +1,38 @@
+# Activity: Making a Shiny App
+
+Now that you've learned a bit about Shiny and vibe coding, we can combine that - _and_ our knowledge of how to call LLMs - to make Shiny apps.
+
+For ease of example (and in case we're running short on time), I've pasted below the prompt that I submitted to Claude Sonnet 4.6 via it's chatbot interface.
+I attached the `activity-prompt-chaining.qmd` when I submitted the prompt.
+It took a few minutes to respond (I had extended thinking turned on), but when it was done it provided a complete app!
+I needed to have the model make a few tweaks (cut-and-pasted the error codes from the R Console), but it took probably 10 minutes to make the app.
+(Not counting the amount of time to make the .qmd file and all of the other supporting materials, which was _much_ longer, but you get the point.)
+
+<u>Here's my prompt:</u>
+
+---
+
+I am designing a workshop on integrating LLMs into R workflows. I want to show my participants how they can build a shiny app with the help of vibe-coding with an LLM, and how to incorporate an LLM call into the process.
+
+I've attached the qmd file for a completed activity that I'd like to transform into a shiny app. The shiny app should proceed in the following steps:
+
+* The user identifies an appropriate science learning objective (or lets AI select one)
+* Once complete, the AI will select the two best writing learning objectives - but the user can change them if they'd like.
+* Once complete, the model will develop an essay prompt. This should be returned into a text field that can be modifiable, with 3 options: "keep" "save edits" and "try again".
+* Once complete, the LLM will identify the PLDs for each of the learning objectives.
+* Once complete, there should be a large text box where the user can type an essay, paste an essay, or have the model generate one (using the same parameters in the function)
+* Once complete, there should be a button to "score" the essay via an LLM call, which also produces the feedback in the same step.
+
+There are a lot of steps to complete in this Shiny app build, so please review everything carefully and take your time.
+
+---
+
+As you'll see in a second, the app is _great_ for a first-pass. There are some design considerations that I'd change and additional functionality that I would implement, but I think it does a nice job of showing off the power of vibe coding and building LLM-supported apps. Think about how these apps could be helpful for you - for teaching, easing bottlenecks around tedious practices, content creation, to faciliate expert scoring, etc. - the limit is your imagination![^1]
+
+<a href="downloads/sab_test.R" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  📥 Download `sab_test.R`
+</a>
+
+<br>
+
+[^1]: And data privacy concerns, internal security measures, API costs, and more, but you get the idea.

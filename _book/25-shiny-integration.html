@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; API Implementation – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
+<title>25&nbsp; Vibe Coding R Shiny Apps – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-api-keys.html" rel="next">
-<link href="./03-test-connect.html" rel="prev">
+<link href="./26-activity-make-llm-shiny-app.html" rel="next">
+<link href="./24-vibe-coding.html" rel="prev">
 <link href="./therefore.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-shiny.html">Vibe Coding with Shiny</a></li><li class="breadcrumb-item"><a href="./25-shiny-integration.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,13 +152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Setup</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04-api-implementation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></span></a>
   </div>
 </li>
@@ -317,13 +317,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Vibe Coding with Shiny</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./23-shiny.html" class="sidebar-item-text sidebar-link">
@@ -338,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./25-shiny-integration.html" class="sidebar-item-text sidebar-link">
+  <a href="./25-shiny-integration.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></span></a>
   </div>
 </li>
@@ -396,9 +396,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-R-setup.html">Setup</a></li><li class="breadcrumb-item"><a href="./04-api-implementation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-shiny.html">Vibe Coding with Shiny</a></li><li class="breadcrumb-item"><a href="./25-shiny-integration.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">API Implementation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Vibe Coding R Shiny Apps</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -415,10 +415,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The chatbot interface is probably the most common method people first use to interact with a generative AI model. These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging. There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</p>
-<p>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction. It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</p>
-<p>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the <em>n</em> number of times needed to complete a task. In these instances, it may be better to interact with a model via an <strong>application programming interface (API).</strong></p>
-<p>An API is a structured way for one piece of software to communicate with another. When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale. Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</p>
+<p>R Shiny and vibe coding naturally complement each other. Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. Vibe coding provides a structured way to navigate that complexity by letting you work through it iteratively. You might begin by prompting the model to create a simple Shiny scaffold—just a sidebar and a plot area—and then refine from there. As you test locally, you can describe what’s working or not, and have the model adjust accordingly.</p>
+<p>This collaborative approach turns what might otherwise be a steep learning curve into an engaging design conversation. The AI helps you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery. You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. The iterative process reinforces your understanding of how reactive elements flow through the app.</p>
+<p>In an educational measurement context, vibe coding can accelerate the development of prototype tools that might otherwise take days or weeks to produce. For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. Starting from a few conversational prompts, you can build functional prototypes that help communicate ideas to colleagues or test usability with end users before formal deployment.</p>
+<p>Ultimately, integrating vibe coding into Shiny development reframes programming as a creative partnership. Instead of coding alone in isolation, you’re working with a model that mirrors your thought process, helping you move from vague intent to concrete implementation. This approach doesn’t replace technical learning—it enhances it. By externalizing your reasoning and iteratively refining your code with feedback from an AI partner, you develop a deeper, more intuitive grasp of both Shiny and R as expressive tools for educational measurement.</p>
+<p>Although no Shiny training is needed to vibe code a Shiny app, being able to use certain terminology or provide webpages to the model can help you more quickly achieve your goals. Below are some quick Shiny references that can be helpful:</p>
+<ul>
+<li><a href="https://shiny.posit.co/r/layouts/">R Shiny Layouts</a> : Offical layouts supported by Posit
+<ul>
+<li>If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. This is especially helpful when you have a sophisticated app layout with multiple steps - having a Navbar, Sidebar, or using a <a href="https://rstudio.github.io/shinydashboard/">Dashboard</a> layout may be helpful.</li>
+</ul></li>
+<li><a href="https://shiny.posit.co/r/components/">R Shiny Components</a> : Offical widgets supported by Posit
+<ul>
+<li>These are a subset of possible tasks that could be included in your Shiny app. Think of them like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey, although you can develop your own novel tasks by combining these widgets or installing an R package that can extend Shiny’s functionality (see below).</li>
+</ul></li>
+<li><a href="https://github.com/nanxstats/awesome-shiny-extensions">Awesome Shiny Extensions</a> : Curated GitHub page with links to <em>many</em> more packages that extend the R Shiny functionality. One we often use is <a href="https://deanattali.com/shinyjs/">shinyjs</a>. This isn’t an exhuastive list - nor it is the list of <em>best</em> packages that extend Shiny functionality - but it’s a good start. I always recommend Google for searching for new / specific packages (or just ask the LLM!).</li>
+</ul>
 
 
 <!-- -->
@@ -882,30 +894,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03-test-connect.html" class="pagination-link" aria-label="Testing API Connection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Testing API Connection</span></span>
+      <a href="./24-vibe-coding.html" class="pagination-link" aria-label="&quot;Vibe Coding&quot;">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">“Vibe Coding”</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-api-keys.html" class="pagination-link" aria-label="API Keys">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">API Keys</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./26-activity-make-llm-shiny-app.html" class="pagination-link" aria-label="Activity: Making a Shiny App">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Activity: Making a Shiny App</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># API Implementation</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The chatbot interface is probably the most common method people first use to interact with a generative AI model.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging.</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the _n_ number of times needed to complete a task. In these instances, it may be better to interact with a model via an **application programming interface (API).**</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>An API is a structured way for one piece of software to communicate with another.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Vibe Coding R Shiny Apps</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>R Shiny and vibe coding naturally complement each other. </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Vibe coding provides a structured way to navigate that complexity by letting you work through it iteratively. </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>You might begin by prompting the model to create a simple Shiny scaffold—just a sidebar and a plot area—and then refine from there. </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>As you test locally, you can describe what’s working or not, and have the model adjust accordingly.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>This collaborative approach turns what might otherwise be a steep learning curve into an engaging design conversation. </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>The AI helps you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery. </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The iterative process reinforces your understanding of how reactive elements flow through the app.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>In an educational measurement context, vibe coding can accelerate the development of prototype tools that might otherwise take days or weeks to produce. </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Starting from a few conversational prompts, you can build functional prototypes that help communicate ideas to colleagues or test usability with end users before formal deployment.</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Ultimately, integrating vibe coding into Shiny development reframes programming as a creative partnership. </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Instead of coding alone in isolation, you’re working with a model that mirrors your thought process, helping you move from vague intent to concrete implementation. </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>This approach doesn’t replace technical learning—it enhances it. </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>By externalizing your reasoning and iteratively refining your code with feedback from an AI partner, you develop a deeper, more intuitive grasp of both Shiny and R as expressive tools for educational measurement.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Although no Shiny training is needed to vibe code a Shiny app, being able to use certain terminology or provide webpages to the model can help you more quickly achieve your goals. Below are some quick Shiny references that can be helpful:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R Shiny Layouts</span><span class="co">](https://shiny.posit.co/r/layouts/)</span> : Offical layouts supported by Posit</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. This is especially helpful when you have a sophisticated app layout with multiple steps - having a Navbar, Sidebar, or using a <span class="co">[</span><span class="ot">Dashboard</span><span class="co">](https://rstudio.github.io/shinydashboard/)</span> layout may be helpful.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R Shiny Components</span><span class="co">](https://shiny.posit.co/r/components/)</span> : Offical widgets supported by Posit</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>These are a subset of possible tasks that could be included in your Shiny app. Think of them like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey, although you can develop your own novel tasks by combining these widgets or installing an R package that can extend Shiny's functionality (see below).</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Awesome Shiny Extensions</span><span class="co">](https://github.com/nanxstats/awesome-shiny-extensions)</span> : Curated GitHub page with links to _many_ more packages that extend the R Shiny functionality. One we often use is [shinyjs](https://deanattali.com/shinyjs/). This isn't an exhuastive list - nor it is the list of _best_ packages that extend Shiny functionality - but it's a good start. I always recommend Google for searching for new / specific packages (or just ask the LLM!).</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

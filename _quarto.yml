@@ -33,57 +33,58 @@ book:
         - 06-gen-ai-fundamentals.qmd
         - 07-gen-ai-basics.qmd
         - 08-gen-ai-parameters.qmd
+        - 09-activity-temp-tester.qmd #09
         # Activity: Parameter Testing App
 
     - part: "LLM Workflows with R"
       chapters: 
-        - num-sample-workflow.qmd
-        - num-practical-tools.qmd
-        - 10-integration.qmd
-        - 11-conversations-via-api.qmd
-        - num-activity-conversations-via-api.qmd
+        - 10-sample-workflow.qmd #10
+        - 11-practical-tools.qmd #11
+        - 12-integration.qmd #12
+        - 13-conversations-via-api.qmd #13
+        - 14-activity-conversations-via-api.qmd #14
         # Activity: `ellmer`
-        - 13-single-interactions-via-api.qmd
-        - 17-mitigating-variability.qmd
-        - num-activity-iterative-prompt-development.qmd
+        - 15-single-interactions-via-api.qmd #15
+        - 16-activity-iterative-prompt-development.qmd #16
         # Activity: Prompt development & refinement
-        - 18-batch-processing.qmd
-        - num-activity-batch-processing.qmd
+        - 17-batch-processing.qmd #17
+        - 18-activity-batch-processing.qmd #18
         # Activity: Batch processing
-        - 21-chained-workflows.qmd
-        - num-activity-prompt-chaining.qmd
+        - 19-mitigating-variability.qmd #19
+        - 20-chained-workflows.qmd #20
+        - 21-activity-prompt-chaining.qmd #21
         # Activity: Simple chained workflows
-        - 23-calling-other-llms.qmd
+        - 22-calling-other-llms.qmd #22
 
     - part: "Vibe Coding with Shiny"
       chapters: 
-        - 25-shiny.qmd
-        - 26-vibe-coding.qmd
-        - 27-shiny-integration.qmd
-        - num-make-llm-shiny-app.qmd
+        - 23-shiny.qmd #23
+        - 24-vibe-coding.qmd #24
+        - 25-shiny-integration.qmd #25
+        - 26-activity-make-llm-shiny-app.qmd #26
         # Activity: Make Shiny App with LLM Call
-        - 29-saving-shiny-data.qmd
-        
+        - 27-saving-shiny-data.qmd #27
+
     - part: "Resources"
       chapters: 
-        - 30-reference-materials.qmd
-        - 31-acknowledgements.qmd
-        - 32-references.qmd
+        - 28-reference-materials.qmd #28
+        - 29-acknowledgements.qmd #29
+        - 30-references.qmd #30
         
-    - part: "Retired Pages"
-      chapters: 
-        - ret-intro.qmd
-        - activity-parameter-testing.qmd
-        - 14-prompt-engineering.qmd
-        - 15-prompt-formulas.qmd
-        - activity-prompt-engineering.qmd
-        - activity-chained-workflows.qmd
-        - activity-content-development-revision.qmd
-        - 19-rubric-scoring.qmd
-        - activity-scoring-with-rubrics.qmd
-        - activity-chained-workflows.qmd
-        - activity-shiny-app-development.qmd
-        - 24-rag-models.qmd
+    # - part: "Retired Pages"
+    #   chapters: 
+    #     - ret-intro.qmd
+    #     - activity-parameter-testing.qmd
+    #     - 14-prompt-engineering.qmd
+    #     - 15-prompt-formulas.qmd
+    #     - activity-prompt-engineering.qmd
+    #     - activity-chained-workflows.qmd
+    #     - activity-content-development-revision.qmd
+    #     - 19-rubric-scoring.qmd
+    #     - activity-scoring-with-rubrics.qmd
+    #     - activity-chained-workflows.qmd
+    #     - activity-shiny-app-development.qmd
+    #     - 24-rag-models.qmd
 
   
   sidebar:

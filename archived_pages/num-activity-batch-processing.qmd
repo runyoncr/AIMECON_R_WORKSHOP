@@ -1,0 +1,459 @@
+# Activity: Batch Processing
+
+### Batch Scoring
+
+Now that we're repeating the same task across a batch of essays, it's a great time to introduce batch scoring!
+This generally works as you'd think - you submit multiple tasks at once to the API to complete in parallel - with the one wrinkle that Anthropic requires that the requests be in the JSONL format.
+In addition to being able to submit multiple requests at once, it's also cheaper to use than single-call API interactions.
+As of this writing (Oct 19, 2025), you save 50% with batch pricing. 
+This drops input costs from \$3 per 1M tokens to \$1.50 per 1M token, and output costs from \$15 per 1M tokens to \$7.50 per 1M tokens.
+
+#### Creating Batch Requests
+
+```{r, eval = FALSE}
+
+# Step 1: Read essays and create batch requests
+create_batch_requests <- function(essays_df, n_repetitions = 20){
+
+  # Create a list to store batch requests
+  batch_requests <- list()
+  request_counter <- 1
+  
+  # Create n_repetitions requests for each essay (grouped by essay)
+  for(i in 1:nrow(essays_df)){
+    essay_prompt <- claude_all_rubric_prompt(essays_df$prompt[i], essays_df$essay[i])
+    
+    # Create 20 requests for this essay
+    for(rep in 1:n_repetitions){
+      request <- list(
+        custom_id = paste0("essay_", essays_df$id[i], "_rep_", rep),
+        params = list(
+          model = "claude-sonnet-4-20250514",
+          max_tokens = 1024,
+          messages = list(
+            list(
+              role = "user",
+              content = essay_prompt
+            )
+          )
+        )
+      )
+      
+      batch_requests[[request_counter]] <- request
+      request_counter <- request_counter + 1
+    }
+  }
+  
+  cat("Created", length(batch_requests), "batch requests for", nrow(essays_df), "essays\n")
+  
+  return(batch_requests)
+}
+
+essay_batch_requests <- create_batch_requests(student_essays)
+
+```
+
+#### Writing Requests to JSONL
+
+```{r, eval = FALSE}
+
+# Step 2: Write requests to JSONL file
+write_batch_file <- function(batch_requests, output_file = "batch_requests.jsonl"){
+  # Write each request as a JSON line
+  jsonl_lines <- sapply(batch_requests, function(req){
+    toJSON(req, auto_unbox = TRUE)
+  })
+  
+  writeLines(jsonl_lines, output_file)
+  return(output_file)
+}
+
+essay_batch_jsonl <- write_batch_file(essay_batch_requests)
+
+```
+
+#### Submitting Batch Request
+
+```{r, eval = FALSE}
+
+# Step 3: Submit batch job to Anthropic
+submit_batch <- function(jsonl_file){
+  # Read and parse each line of the JSONL file
+  jsonl_lines <- readLines(jsonl_file)
+  
+  # Parse each JSON line into a list
+  requests_list <- lapply(jsonl_lines, function(line){
+    fromJSON(line, simplifyVector = FALSE)
+  })
+  
+  # Create batch
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages/batches",
+    add_headers(
+      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
+      "anthropic-version" = "2023-06-01",
+      "content-type" = "application/json"
+    ),
+    body = toJSON(list(
+      requests = requests_list
+    ), auto_unbox = TRUE),
+    encode = "json"
+  )
+  
+  if(status_code(response) != 200){
+    stop("Error submitting batch: ", content(response, "text"))
+  }
+  
+  result <- content(response, "parsed")
+  cat("Batch submitted successfully!\n")
+  cat("Batch ID:", result$id, "\n")
+  
+  return(result)
+}
+
+essay_batch_info <- submit_batch(essay_batch_jsonl)
+
+# Batch submitted successfully!
+# Batch ID: msgbatch_018m5hGS9Lm3Gi28UorfsVTS
+
+```
+
+#### Checking Batch Status
+
+```{r, eval = FALSE}
+
+# Step 4: Check batch status
+check_batch_status <- function(batch_id){
+  response <- GET(
+    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id),
+    add_headers(
+      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
+      "anthropic-version" = "2023-06-01"
+    )
+  )
+  
+  if(status_code(response) != 200){
+    stop("Error checking batch status: ", content(response, "text"))
+  }
+  
+  result <- content(response, "parsed")
+  return(result)
+}
+
+essay_status <- check_batch_status(essay_batch_info$id)
+# Finished!
+
+library(lubridate)
+batch_start_time <- ymd_hms(essay_status$created_at)
+batch_stop_time <- ymd_hms(essay_status$ended_at)
+batch_run_time <- as.numeric(batch_stop_time - batch_start_time)
+# Time difference of 1.644671 mins
+# Less than 2 minutes to score 200 essays!
+
+```
+
+#### Saving Batch Results
+
+```{r, eval = FALSE}
+
+# Step 5: Saving Batch Results
+
+get_batch_results <- function(batch_id){
+  response <- GET(
+    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id, "/results"),
+    add_headers(
+      "x-api-key" = Sys.getenv("ANTHROPIC_API_KEY"),
+      "anthropic-version" = "2023-06-01"
+    )
+  )
+  
+  if(status_code(response) != 200){
+    stop("Error retrieving results: ", content(response, "text"))
+  }
+  
+  # Parse JSONL results
+  results_text <- content(response, "text", encoding = "UTF-8")
+  results_lines <- strsplit(results_text, "\n")[[1]]
+  results_list <- lapply(results_lines[results_lines != ""], fromJSON)
+  
+  return(results_list)
+}
+
+essay_batch_results <- get_batch_results(essay_batch_info$id)
+save(essay_batch_results, file = "data/essay_batch_results.Rdata")
+
+```
+
+#### Extracting Score from Results
+
+```{r, eval = FALSE}
+
+# Step 6: Extract scores from batch results
+extract_batch_scores <- function(results_list, debug = FALSE){
+  scores_df <- data.frame(
+    essay_id = character(),
+    repetition = integer(),
+    content = numeric(),
+    organization = numeric(),
+    language = numeric(),
+    total = numeric(),
+    stringsAsFactors = FALSE
+  )
+  
+  for(i in seq_along(results_list)){
+    result <- results_list[[i]]
+    
+    if(result$result$type == "succeeded"){
+      # Extract the response text - handle different possible structures
+      message_content <- result$result$message$content
+      
+      # Debug: Print structure if requested
+      if(debug && i == 1){
+        cat("=== DEBUG: First result structure ===\n")
+        cat("Content class:", class(message_content), "\n")
+        cat("Content length:", length(message_content), "\n")
+        if(is.list(message_content) && length(message_content) > 0){
+          cat("First element class:", class(message_content[[1]]), "\n")
+          print(str(message_content[[1]]))
+        }
+      }
+      
+      # Extract text from various possible structures
+      response_text <- NULL
+      
+      if(is.data.frame(message_content)){
+        # If it's a data frame, look for a 'text' column
+        if("text" %in% names(message_content)){
+          response_text <- message_content$text[1]
+        }
+      } else if(is.list(message_content) && length(message_content) > 0){
+        first_elem <- message_content[[1]]
+        
+        if(is.list(first_elem)){
+          # Check for $text field
+          if(!is.null(first_elem$text)){
+            response_text <- first_elem$text
+          } else if(!is.null(first_elem$type) && first_elem$type == "text" && !is.null(first_elem$text)){
+            response_text <- first_elem$text
+          }
+        } else if(is.character(first_elem)){
+          response_text <- first_elem
+        }
+      } else if(is.character(message_content)){
+        response_text <- message_content
+      }
+      
+      # If we still don't have text, try to extract it more aggressively
+      if(is.null(response_text) || length(response_text) == 0){
+        # Try to find any 'text' field in the structure
+        if(is.list(message_content)){
+          text_fields <- unlist(lapply(message_content, function(x) {
+            if(is.list(x) && "text" %in% names(x)) x$text else NULL
+          }))
+          if(length(text_fields) > 0) response_text <- text_fields[1]
+        }
+      }
+      
+      if(is.null(response_text) || length(response_text) == 0){
+        warning("Could not extract text for ", result$custom_id)
+        if(debug){
+          cat("=== Full structure for ", result$custom_id, " ===\n")
+          print(str(message_content))
+        }
+        next
+      }
+      
+      # Debug: Print first response text
+      if(debug && i == 1){
+        cat("\n=== First response text (first 500 chars) ===\n")
+        cat(substr(response_text, 1, 500), "\n\n")
+      }
+      
+      # Extract scores using our previous function
+      scores <- extract_scores(response_text, debug = debug && i == 1)
+      
+      # Debug: Check if scores were extracted
+      if(debug && i == 1){
+        cat("=== Extracted scores ===\n")
+        print(scores)
+      }
+      
+      # Parse custom_id to extract essay_id and repetition
+      # Format: essay_2001_rep_1
+      custom_id_parts <- strsplit(result$custom_id, "_")[[1]]
+      essay_id <- custom_id_parts[2]
+      repetition <- as.integer(custom_id_parts[4])
+      
+      scores_df <- rbind(scores_df, data.frame(
+        essay_id = essay_id,
+        repetition = repetition,
+        content = scores["content"],
+        organization = scores["organization"],
+        language = scores["language"],
+        total = scores["total"]
+      ))
+    } else {
+      warning("Request ", result$custom_id, " failed: ", result$result$error$message)
+    }
+  }
+  
+  return(scores_df)
+}
+
+
+essay_batch_df <- extract_batch_scores(essay_batch_results, debug = TRUE)
+```
+```{r, eval = FALSE, echo = FALSE}
+save(essay_batch_df, file = 'data/essay_batch_df.Rdata')
+```
+```{r, echo = FALSE}
+load('data/essay_batch_df.Rdata')
+```
+```{r}
+library(dplyr)
+library(DT)
+
+essay_summary_detailed <- essay_batch_df %>%
+  group_by(essay_id) %>%
+  summarise(
+    n = n(),
+    # Content
+    content_mean = mean(content, na.rm = TRUE),
+    content_sd = sd(content, na.rm = TRUE),
+    content_min = min(content, na.rm = TRUE),
+    content_max = max(content, na.rm = TRUE),
+    # Organization
+    org_mean = mean(organization, na.rm = TRUE),
+    org_sd = sd(organization, na.rm = TRUE),
+    org_min = min(organization, na.rm = TRUE),
+    org_max = max(organization, na.rm = TRUE),
+    # Language
+    lang_mean = mean(language, na.rm = TRUE),
+    lang_sd = sd(language, na.rm = TRUE),
+    lang_min = min(language, na.rm = TRUE),
+    lang_max = max(language, na.rm = TRUE),
+    # Total
+    total_mean = mean(total, na.rm = TRUE),
+    total_sd = sd(total, na.rm = TRUE),
+    total_min = min(total, na.rm = TRUE),
+    total_max = max(total, na.rm = TRUE),
+  ) %>%
+  arrange(total_mean)
+
+essay_summary_detailed <- essay_summary_detailed %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+datatable(essay_summary_detailed, 
+          options = list(pageLength = 10, scrollX = TRUE),
+          caption = "Summary Statistics by Essay (20 repetitions each)")
+
+
+```
+
+So we did see some variation, but I also used the default temperature. 
+
+### Batch Scoring (`Temp = 0`)
+
+Let's redo the batch call with `temperature = 0`. 
+
+```{r, eval = FALSE}
+
+create_lowtemp_requests <- function(essays_df, n_repetitions = 20){
+
+  # Create a list to store batch requests
+  batch_requests <- list()
+  request_counter <- 1
+  
+  # Create n_repetitions requests for each essay (grouped by essay)
+  for(i in 1:nrow(essays_df)){
+    essay_prompt <- claude_all_rubric_prompt(essays_df$prompt[i], essays_df$essay[i])
+    
+    # Create 20 requests for this essay
+    for(rep in 1:n_repetitions){
+      request <- list(
+        custom_id = paste0("essay_", essays_df$id[i], "_rep_", rep),
+        params = list(
+          model = "claude-sonnet-4-20250514",
+          max_tokens = 1024,
+          temperature = 0, # added low temp
+          messages = list(
+            list(
+              role = "user",
+              content = essay_prompt
+            )
+          )
+        )
+      )
+      
+      batch_requests[[request_counter]] <- request
+      request_counter <- request_counter + 1
+    }
+  }
+  
+  cat("Created", length(batch_requests), "batch requests for", nrow(essays_df), "essays\n")
+  
+  return(batch_requests)
+}
+
+lowtemp_batch_requests <- create_lowtemp_requests(student_essays)
+lowtemp_batch_jsonl <- write_batch_file(lowtemp_batch_requests)
+lowtemp_batch_info <- submit_batch(lowtemp_batch_jsonl)
+# Batch submitted successfully!
+# Batch ID: msgbatch_0184nJ7Kui9v6WVVh47939mn 
+
+lowtemp_status <- check_batch_status(lowtemp_batch_info$id)
+lowtemp_start_time <- ymd_hms(lowtemp_status$created_at)
+lowtemp_stop_time <- ymd_hms(lowtemp_status$ended_at)
+lowtemp_run_time <- as.numeric(lowtemp_stop_time - lowtemp_start_time)
+# Time difference of 1.473892 mins
+
+lowtemp_batch_results <- get_batch_results(lowtemp_batch_info$id)
+save(lowtemp_batch_results, file = "data/lowtemp_batch_results.Rdata")
+
+lowtemp_batch_df <- extract_batch_scores(lowtemp_batch_results)
+```
+```{r, eval = FALSE, echo = FALSE}
+save(lowtemp_batch_df, file = 'data/lowtemp_batch_df.Rdata')
+```
+```{r, echo = FALSE}
+load('data/lowtemp_batch_df.Rdata')
+```
+```{r}
+lowtemp_summary_detailed <- lowtemp_batch_df %>%
+  group_by(essay_id) %>%
+  summarise(
+    n = n(),
+    # Content
+    content_mean = mean(content, na.rm = TRUE),
+    content_sd = sd(content, na.rm = TRUE),
+    content_min = min(content, na.rm = TRUE),
+    content_max = max(content, na.rm = TRUE),
+    # Organization
+    org_mean = mean(organization, na.rm = TRUE),
+    org_sd = sd(organization, na.rm = TRUE),
+    org_min = min(organization, na.rm = TRUE),
+    org_max = max(organization, na.rm = TRUE),
+    # Language
+    lang_mean = mean(language, na.rm = TRUE),
+    lang_sd = sd(language, na.rm = TRUE),
+    lang_min = min(language, na.rm = TRUE),
+    lang_max = max(language, na.rm = TRUE),
+    # Total
+    total_mean = mean(total, na.rm = TRUE),
+    total_sd = sd(total, na.rm = TRUE),
+    total_min = min(total, na.rm = TRUE),
+    total_max = max(total, na.rm = TRUE),
+  ) %>%
+  arrange(total_mean)
+
+lowtemp_summary_detailed <- lowtemp_summary_detailed %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+datatable(lowtemp_summary_detailed, 
+          options = list(pageLength = 10, scrollX = TRUE),
+          caption = "Summary Statistics by Essay (20 repetitions each) - Temperature = 0")
+
+```
+
+Now we're seeing more consistent scores, and it took _less than 90 seconds_ to process all 200 requests.
+

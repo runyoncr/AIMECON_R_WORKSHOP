@@ -250,5 +250,74 @@
   },
   "num-make-llm-shiny-app.qmd": {
     "num-make-llm-shiny-app.html": "316ce6da"
+  },
+  "num-activity-temp-tester.qmd": {
+    "num-activity-temp-tester.html": "1db6bc42"
+  },
+  "09-activity-temp-tester.qmd": {
+    "09-activity-temp-tester.html": "11721b00"
+  },
+  "10-sample-workflow.qmd": {
+    "10-sample-workflow.html": "e4f37e56"
+  },
+  "11-practical-tools.qmd": {
+    "11-practical-tools.html": "d228789a"
+  },
+  "12-integration.qmd": {
+    "12-integration.html": "6f85ae2f"
+  },
+  "13-conversations-via-api.qmd": {
+    "13-conversations-via-api.html": "30cdc53d"
+  },
+  "14-activity-conversations-via-api.qmd": {
+    "14-activity-conversations-via-api.html": "22b79b53"
+  },
+  "15-single-interactions-via-api.qmd": {
+    "15-single-interactions-via-api.html": "b6ac4b8a"
+  },
+  "16-activity-iterative-prompt-development.qmd": {
+    "16-activity-iterative-prompt-development.html": "4ef3a130"
+  },
+  "17-batch-processing.qmd": {
+    "17-batch-processing.html": "244a927a"
+  },
+  "18-activity-batch-processing.qmd": {
+    "18-activity-batch-processing.html": "b8f87cc0"
+  },
+  "19-mitigating-variability.qmd": {
+    "19-mitigating-variability.html": "136094de"
+  },
+  "20-chained-workflows.qmd": {
+    "20-chained-workflows.html": "0e394c4d"
+  },
+  "21-activity-prompt-chaining.qmd": {
+    "21-activity-prompt-chaining.html": "ac5e8bf2"
+  },
+  "22-calling-other-llms.qmd": {
+    "22-calling-other-llms.html": "810e74d1"
+  },
+  "23-shiny.qmd": {
+    "23-shiny.html": "8816780e"
+  },
+  "24-vibe-coding.qmd": {
+    "24-vibe-coding.html": "15ffcf1a"
+  },
+  "25-shiny-integration.qmd": {
+    "25-shiny-integration.html": "a5f3234f"
+  },
+  "26-activity-make-llm-shiny-app.qmd": {
+    "26-activity-make-llm-shiny-app.html": "29864ea8"
+  },
+  "27-saving-shiny-data.qmd": {
+    "27-saving-shiny-data.html": "7efe6946"
+  },
+  "28-reference-materials.qmd": {
+    "28-reference-materials.html": "890506b8"
+  },
+  "29-acknowledgements.qmd": {
+    "29-acknowledgements.html": "8c5583dd"
+  },
+  "30-references.qmd": {
+    "30-references.html": "e15f166a"
   }
 }
