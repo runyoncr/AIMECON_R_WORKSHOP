@@ -14,7 +14,9 @@ library(dplyr)
 library(purrr)
 library(glue)
 
-Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+}
 
 # Load student essay data
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"))
@@ -70,15 +72,11 @@ The full dataset is available after filling out a [consent form](https://docs.go
 
 The following rubric was developed for their analysis:
 
-| **Criteria** | **Description** |
-|---|---|
-| Content | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples. |
-| Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. |
-| Language | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper. |
+* **Content:** Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.
+* **Organization:** The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.
+* **Language:** The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper. 
 
 The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for _each_ of the criteria.
-
----
 
 ## First Prompt
 

@@ -1,33 +1,97 @@
+---
+title: "Activity: Prompt Chaining"
+output: html_notebook
+---
+
+## Setup
+
+Run this chunk first to load required packages, set your API key, and define the shared helper functions used throughout this activity.
+
+```{r setup}
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(glue)
+
+if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+}
+
+call_claude <- function(prompt,
+                        model = "claude-sonnet-4-6",
+                        system = NULL,
+                        temperature = 0.5,
+                        max_tokens = 4096,
+                        effort = "low") {
+  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+  messages <- list(list(role = "user", content = prompt))
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = max_tokens,
+    temperature = temperature,
+    output_config = list(effort = effort)
+  )
+  if (!is.null(system)) {
+    request_body$system <- system
+  }
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    "anthropic-version" = "2023-06-01",
+    "content-type" = "application/json"
+  )
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages",
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message,
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(result$content$text)
+}
+
+clean_json <- function(x) {
+  x <- gsub("```[a-zA-Z]*\\n?", "", x)
+  x <- gsub("`", "", x)
+  x <- trimws(x)
+  json_match <- regmatches(x, regexpr("(\\{[\\s\\S]*\\}|\\[[\\s\\S]*\\])", x, perl = TRUE))
+  if (length(json_match) > 0) {
+    x <- json_match
+  }
+  parsed <- tryCatch(
+    jsonlite::fromJSON(x),
+    error = function(e) {
+      stop("Could not parse JSON after cleaning. Raw content:\n", x, "\nError: ", e$message)
+    }
+  )
+  return(x)
+}
+```
+
+---
+
 # Activity: Prompt Chaining
 
-Download the notebook for this activity:
-<a href="downloads/activity-prompt-chaining.Rmd" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
-  📥 Download `activity-prompt-chaining.Rmd`
-</a>
+This activity will allow you to practice developing a workflow that involves prompts at several stages. This workflow can be useful when you need to develop a large item pool with extensive construct coverage.
 
+The example that we'll use for this activity is developing essay prompts for a formative middle school science quiz. This will include developing the entire ecosystem for the item, from initial development to providing feedback aligned with performance-level descriptors.
 
-This activity will allow you to practice developing a workflow that involves prompts at several stages.
-This workflow can be useful when you need to develop a large item pool with extensive construct coverage.
+This is a simple and artificial example, but will serve to help you get thinking about developing complex workflows for your own purposes. All of the materials we'll be working with were created with an LLM. In your own setting these materials would likely be created in collaboration with instructional designers, test development, subject-matter experts, etc., but the idea is the same: you can pull in important instructions or guiding materials at each step to improve the model performance. Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similar materials, preserving your workflow.
 
-The example that we'll use for this activity is developing essay prompts for a formative middle school science quiz.
-This will include developing the entire ecosystem for the item, from initial development to providing feedback aligned with performance-level descriptors.
+---
 
-This is a simple and artificial example, but will serve to help you get thinking about developing complex workflows for your own purposes. 
-All of these materials we'll be working with were all created with an LLM.
-In your own setting these materials would likely be created in collaboration with instructional designers, test development, subject-matter experts, etc., but the idea is the same: you can pull in important instructions or guiding materials at each step to improve the model performance.
-Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similiar materials, preserving your workflow.
-
-## Step 1: Selecting Guiding Learning Objective
+## Step 1: Select a Guiding Learning Objective
 
 In this step, we will be pulling in a large list of candidate topics and learning objectives, much like you might have with a content blueprint.
 
-```{r, eval = FALSE}
-library(dplyr)
-
-# Download the data
+```{r step1-setup}
+# Load science learning objectives
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/science_los.Rdata"))
 
-# Converting to text to paste into a prompt; could also make it JSON
+# Convert to text to paste into a prompt
 science_lo_text <- science_los %>%
   mutate(
     entry = paste0(
@@ -53,18 +117,19 @@ choose_topic_prompt <- function(science_lo_text) {
     Do not include any additional text - only the selected sub-domain and learning objective."
   )
 }
-
 ```
 
-```{r, eval = FALSE}
+```{r step1-call}
 step1_res <- call_claude(choose_topic_prompt(science_lo_text))
+cat(step1_res)
 ```
+
+---
 
 ## Step 2: Choose Writing Learning Objectives
 
-```{r, eval = FALSE}
-
-# Download the data
+```{r step2-setup}
+# Load writing learning objectives
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/writing_los.Rdata"))
 
 writing_lo_text <- writing_los %>%
@@ -76,7 +141,6 @@ writing_lo_text <- writing_los %>%
   ) %>%
   pull(entry) %>%
   paste(collapse = "\n\n")
-
 
 pick_writing_los <- function(science_topic, writing_lo_text){
   glue(
@@ -123,20 +187,19 @@ pick_writing_los <- function(science_topic, writing_lo_text){
 }
 ```
 
-```{r, eval = FALSE} 
+```{r step2-call}
 step2_res <- call_claude(pick_writing_los(science_topic = step1_res,
                                           writing_lo_text))
-
 cat(step2_res)
 ```
+
+---
 
 ## Step 3: Write Item Stem
 
 Now we have guidelines in place to write the item stem.
 
-```{r, eval = FALSE}
-library(jsonlite)
-
+```{r step3-setup}
 write_essay_prompt <- function(guiding_los) {
   glue(
   "You are assisting with the development of a constructed-response item
@@ -184,58 +247,25 @@ write_essay_prompt <- function(guiding_los) {
   Do not include any text outside of the JSON object."
   )
 }
-
-# Helper function to prepare the step 2 output as string text:
-
-clean_json <- function(x) {
-  
-  # Strip markdown code fencing (```json, ```JSON, ``` alone, etc.)
-  x <- gsub("```[a-zA-Z]*\\n?", "", x)
-  
-  # Remove any remaining backticks
-  x <- gsub("`", "", x)
-  
-  # Trim leading/trailing whitespace and newlines
-  x <- trimws(x)
-  
-  # Attempt to extract a JSON object or array if there's surrounding text
-  # Matches the outermost { } or [ ] block
-  json_match <- regmatches(x, regexpr("(\\{[\\s\\S]*\\}|\\[[\\s\\S]*\\])", x, perl = TRUE))
-  if (length(json_match) > 0) {
-    x <- json_match
-  }
-  
-  # Validate
-  parsed <- tryCatch(
-    jsonlite::fromJSON(x),
-    error = function(e) {
-      stop("Could not parse JSON after cleaning. Raw content:\n", x, "\nError: ", e$message)
-    }
-  )
-  
-  return(x)
-  
-}
 ```
 
-```{r, eval = FALSE}
+```{r step3-call}
 string_guiding_los <- clean_json(step2_res)
 
 step3_res <- call_claude(write_essay_prompt(string_guiding_los))
-
 cat(step3_res)
 ```
 
-## Step 4:
+---
 
+## Step 4: Develop Analytic Rubric with PLDs
 
-```{r, eval = FALSE}
-# Loading PLD guidance essay
+```{r step4-setup}
+# Load PLD guidance
 pld_guidance <- paste(
   readLines("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/pld_guidance.txt"),
   collapse = "\n"
 )
-
 
 make_pld_rubric <- function(item_components, pld_guidance) {
   glue(
@@ -298,10 +328,9 @@ The \"rubric\" field must use this structure:
 }}"
   )
 }
-
 ```
 
-```{r, eval = FALSE}
+```{r step4-call}
 string_step3_res <- clean_json(step3_res)
 
 step4_res <- call_claude(make_pld_rubric(item_components = string_step3_res,
@@ -309,14 +338,13 @@ step4_res <- call_claude(make_pld_rubric(item_components = string_step3_res,
 cat(step4_res)
 ```
 
+---
+
 ## Step 5: Scoring a Writing Sample
 
-This is where you'd normally include a real writing sample.
-For the sake of demonstration, we're going to have Claude generate one for us.
-I've skipped the step
+This is where you'd normally include a real writing sample. For the sake of demonstration, we're going to have Claude generate one for us.
 
-```{r, eval = FALSE}
-
+```{r step5-setup}
 build_synthetic_essay_prompt <- function(
     rubric_json,
     science_lo  = c("weak", "developing", "competent"),
@@ -377,30 +405,6 @@ called \"student_essay\". Do not include any text outside of the JSON object.
   )
 }
 
-```
-
-```{r, eval = FALSE}
-
-rubric_w_plds <- clean_json(step4_res)
-
-essay_specs <- build_synthetic_essay_prompt(rubric_json = rubric_w_plds,
-                                            science_lo = "developing",
-                                            writing_lo1 = "competent",
-                                            writing_lo2 = "weak")
-
-sample_essay <- call_claude(essay_specs)
-cat(sample_essay)
-
-```
-
-### Scoring the Essay
-
-Now we'll score the essay. 
-It will be interesting to see if Claude provides the same judgments of the performance-level descriptors in _scoring_ the essay that were used in _generating_ the essay. 
-For our purposes, this isn't something we need to worry about at this time - we just want a scored essay for the final step.
-
-```{r, eval = FALSE}
-
 build_scoring_prompt <- function(essay_json) {
   glue(
 "You are scoring a middle-school student's essay response to a science \
@@ -437,25 +441,42 @@ Do not include any text outside of the JSON object.
 }}"
   )
 }
-
 ```
 
-```{r, eval = FALSE}
+```{r step5-generate-essay}
+rubric_w_plds <- clean_json(step4_res)
+
+essay_specs <- build_synthetic_essay_prompt(rubric_json = rubric_w_plds,
+                                            science_lo  = "developing",
+                                            writing_lo1 = "competent",
+                                            writing_lo2 = "weak")
+
+sample_essay <- call_claude(essay_specs)
+cat(sample_essay)
+```
+
+### Scoring the Essay
+
+Now we'll score the essay. 
+It will be interesting to see if Claude provides the same judgments of the performance-level descriptors in _scoring_ the essay that were used in _generating_ the essay. 
+For our purposes, this isn't something we need to worry about at this time — we just want a scored essay for the final step.
+
+```{r step5-score-essay}
 string_sample_essay <- clean_json(sample_essay)
 
 scored_essay <- call_claude(build_scoring_prompt(string_sample_essay))
-
 cat(scored_essay)
 ```
 
+---
 
 ## Step 6: Generate Student Feedback Aligned to Rubric
 
-This step helps to ensure that feedback provided to students is appropriately grounded in the learning objectives and performance-level descriptors.
+This step helps to ensure that feedback provided to students is appropriately grounded in the learning objectives and performance-level descriptors. 
 Note that I'm again pulling in external instructions to help with this step to mirror specific use-case instructions you might have for your task.
 
-```{r, eval = FALSE}
-
+```{r step6-setup}
+# Load feedback guidance
 feedback_guidance <- paste(
   readLines("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.txt"),
   collapse = "\n"
@@ -513,16 +534,15 @@ The \"student_feedback\" field must use this structure:
 }}"
   )
 }
-
 ```
 
-```{r, eval = FALSE}
+```{r step6-call}
 string_scored_essay <- clean_json(scored_essay)
 
 essay_w_feedback <- call_claude(feedback_prompt(string_scored_essay, feedback_guidance))
-
 cat(essay_w_feedback)
 ```
 
+---
 
 Look how far we've come! From the simple starting place of choosing a learning objective from a pre-determined list, we've gone all the way to developing an essay question, a rubric with performance-level descriptors, _and_ provided feedback to the student on their performance. How cool!

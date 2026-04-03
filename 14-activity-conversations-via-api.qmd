@@ -2,7 +2,7 @@
 
 Download the notebook for this activity:
 <a href="downloads/activity-conversations-via-api.Rmd" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
-  📥 Download `activity-conversations-via-api`
+  📥 Download `activity-conversations-via-api.Rmd`
 </a>
 
 Now it's time to practice a conversational interaction with an API.

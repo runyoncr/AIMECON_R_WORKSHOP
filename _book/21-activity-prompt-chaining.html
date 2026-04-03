@@ -409,7 +409,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>This activity will allow you to practice developing a workflow that involves prompts at several stages. This workflow can be useful when you need to develop a large item pool with extensive construct coverage.</p>
+</header><p>Download the notebook for this activity: <a href="downloads/activity-prompt-chaining.Rmd" download="" style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;"> 📥 Download <code>activity-prompt-chaining.Rmd</code> </a></p>
+<p>This activity will allow you to practice developing a workflow that involves prompts at several stages. This workflow can be useful when you need to develop a large item pool with extensive construct coverage.</p>
 <p>The example that we’ll use for this activity is developing essay prompts for a formative middle school science quiz. This will include developing the entire ecosystem for the item, from initial development to providing feedback aligned with performance-level descriptors.</p>
 <p>This is a simple and artificial example, but will serve to help you get thinking about developing complex workflows for your own purposes. All of these materials we’ll be working with were all created with an LLM. In your own setting these materials would likely be created in collaboration with instructional designers, test development, subject-matter experts, etc., but the idea is the same: you can pull in important instructions or guiding materials at each step to improve the model performance. Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similiar materials, preserving your workflow.</p>
 <section id="step-1-selecting-guiding-learning-objective" class="level2" data-number="21.1"><h2 data-number="21.1" class="anchored" data-anchor-id="step-1-selecting-guiding-learning-objective">
@@ -1368,526 +1369,532 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Activity: Prompt Chaining</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>This activity will allow you to practice developing a workflow that involves prompts at several stages.</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>This workflow can be useful when you need to develop a large item pool with extensive construct coverage.</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>The example that we'll use for this activity is developing essay prompts for a formative middle school science quiz.</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>This will include developing the entire ecosystem for the item, from initial development to providing feedback aligned with performance-level descriptors.</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>Download the notebook for this activity:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">"downloads/activity-prompt-chaining.Rmd"</span><span class="ot"> download style</span><span class="op">=</span><span class="st">"display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;"</span><span class="dt">&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  📥 Download <span class="in">`activity-prompt-chaining.Rmd`</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>This is a simple and artificial example, but will serve to help you get thinking about developing complex workflows for your own purposes. </span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>All of these materials we'll be working with were all created with an LLM.</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>In your own setting these materials would likely be created in collaboration with instructional designers, test development, subject-matter experts, etc., but the idea is the same: you can pull in important instructions or guiding materials at each step to improve the model performance.</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similiar materials, preserving your workflow.</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 1: Selecting Guiding Learning Objective</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>In this step, we will be pulling in a large list of candidate topics and learning objectives, much like you might have with a content blueprint.</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/science_los.Rdata"</span>))</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>This activity will allow you to practice developing a workflow that involves prompts at several stages.</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>This workflow can be useful when you need to develop a large item pool with extensive construct coverage.</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>The example that we'll use for this activity is developing essay prompts for a formative middle school science quiz.</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>This will include developing the entire ecosystem for the item, from initial development to providing feedback aligned with performance-level descriptors.</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>This is a simple and artificial example, but will serve to help you get thinking about developing complex workflows for your own purposes. </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>All of these materials we'll be working with were all created with an LLM.</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>In your own setting these materials would likely be created in collaboration with instructional designers, test development, subject-matter experts, etc., but the idea is the same: you can pull in important instructions or guiding materials at each step to improve the model performance.</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similiar materials, preserving your workflow.</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 1: Selecting Guiding Learning Objective</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>In this step, we will be pulling in a large list of candidate topics and learning objectives, much like you might have with a content blueprint.</span>
 <span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting to text to paste into a prompt; could also make it JSON</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>science_lo_text <span class="ot">&lt;-</span> science_los <span class="sc">%&gt;%</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">entry =</span> <span class="fu">paste0</span>(</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>      <span class="st">"[Sub-domain] "</span>, sub_domain, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>      <span class="st">"[Learning Objective] "</span>, learning_objective</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(entry) <span class="sc">%&gt;%</span></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>choose_topic_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(science_lo_text) {</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are developing a constructed-response item for a middle-school science assessment.</span></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="st">    Below is the approved list of science sub-domains and learning objectives.</span></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="st">    You may ONLY select from these options.</span></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="st">    {science_lo_text}</span></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="st">    TASK:</span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="st">    Select ONE sub-domain and ONE learning objective from the list above.</span></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="st">    Do not invent or rephrase learning objectives; return them exactly as they are written.</span></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="st">    Do not include any additional text - only the selected sub-domain and learning objective."</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>step1_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">choose_topic_prompt</span>(science_lo_text))</span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/science_los.Rdata"</span>))</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting to text to paste into a prompt; could also make it JSON</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>science_lo_text <span class="ot">&lt;-</span> science_los <span class="sc">%&gt;%</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">entry =</span> <span class="fu">paste0</span>(</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>      <span class="st">"[Sub-domain] "</span>, sub_domain, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>      <span class="st">"[Learning Objective] "</span>, learning_objective</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(entry) <span class="sc">%&gt;%</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>choose_topic_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(science_lo_text) {</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are developing a constructed-response item for a middle-school science assessment.</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="st">    Below is the approved list of science sub-domains and learning objectives.</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="st">    You may ONLY select from these options.</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="st">    {science_lo_text}</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="st">    TASK:</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="st">    Select ONE sub-domain and ONE learning objective from the list above.</span></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="st">    Do not invent or rephrase learning objectives; return them exactly as they are written.</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="st">    Do not include any additional text - only the selected sub-domain and learning objective."</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 2: Choose Writing Learning Objectives</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/writing_los.Rdata"</span>))</span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>writing_lo_text <span class="ot">&lt;-</span> writing_los <span class="sc">%&gt;%</span></span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">entry =</span> <span class="fu">paste0</span>(</span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>      <span class="st">"[Writing Learning Objective] "</span>,</span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>      writing_learning_objective</span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(entry) <span class="sc">%&gt;%</span></span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>pick_writing_los <span class="ot">&lt;-</span> <span class="cf">function</span>(science_topic, writing_lo_text){</span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You are assisting with the development of a constructed-response item</span></span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="st">  for a middle-school science assessment.</span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>step1_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">choose_topic_prompt</span>(science_lo_text))</span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 2: Choose Writing Learning Objectives</span></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/writing_los.Rdata"</span>))</span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>writing_lo_text <span class="ot">&lt;-</span> writing_los <span class="sc">%&gt;%</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">entry =</span> <span class="fu">paste0</span>(</span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>      <span class="st">"[Writing Learning Objective] "</span>,</span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>      writing_learning_objective</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(entry) <span class="sc">%&gt;%</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
 <span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a><span class="st">  ASSESSMENT PURPOSE:</span></span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a><span class="st">  This assessment is designed for middle-school students to:</span></span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="st">  - Demonstrate their understanding of scientific concepts, AND</span></span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="st">  - Practice key writing skills appropriate for explaining scientific ideas in writing.</span></span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="st">  Step 1 has already been completed.</span></span>
-<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a><span class="st">  The selected science context is: {science_topic}</span></span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="st">  Below is the approved list of candidate WRITING learning objectives.</span></span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="st">  These objectives focus on writing quality and expression, not science content.</span></span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a><span class="st">  You may ONLY select from this list.</span></span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a><span class="st">  {writing_lo_text}</span></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>pick_writing_los <span class="ot">&lt;-</span> <span class="cf">function</span>(science_topic, writing_lo_text){</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You are assisting with the development of a constructed-response item</span></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="st">  for a middle-school science assessment.</span></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a><span class="st">  ASSESSMENT PURPOSE:</span></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="st">  This assessment is designed for middle-school students to:</span></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="st">  - Demonstrate their understanding of scientific concepts, AND</span></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="st">  - Practice key writing skills appropriate for explaining scientific ideas in writing.</span></span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a><span class="st">  Step 1 has already been completed.</span></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a><span class="st">  The selected science context is: {science_topic}</span></span>
 <span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="st">  TASK:</span></span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="st">  Review the selected science sub-domain and learning objective above.</span></span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="st">  Then select TWO writing learning objectives from the candidate list</span></span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a><span class="st">  that are MOST appropriate for assessing students' written responses</span></span>
-<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="st">  to a science prompt aligned with this content.</span></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="st">  Below is the approved list of candidate WRITING learning objectives.</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="st">  These objectives focus on writing quality and expression, not science content.</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="st">  You may ONLY select from this list.</span></span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="st">  {writing_lo_text}</span></span>
 <span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECTION GUIDELINES:</span></span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="st">  - Selected writing objectives should support clear explanation of scientific ideas.</span></span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a><span class="st">  - Avoid objectives that are redundant or not well-suited to a short written response.</span></span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="st">  - Do NOT rephrase, invent, or combine learning objectives.</span></span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="st">  OUTPUT FORMAT:</span></span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="st">  Return your response as a JSON object with the following structure ONLY:</span></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a><span class="st">  {{</span></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">subdomain</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;selected sub-domain&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">lo</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;selected science learning objective&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo1</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;first selected writing learning objective&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo2</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;second selected writing learning objective&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="st">  Do not include any explanatory text outside of the JSON object."</span></span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE} </span></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>step2_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">pick_writing_los</span>(<span class="at">science_topic =</span> step1_res,</span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>                                          writing_lo_text))</span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(step2_res)</span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 3: Write Item Stem</span></span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>Now we have guidelines in place to write the item stem.</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>write_essay_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(guiding_los) {</span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You are assisting with the development of a constructed-response item</span></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="st">  for a middle-school science assessment.</span></span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="st">  Below is the approved context and learning objectives for this item,</span></span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a><span class="st">  provided as a JSON object. These values must be preserved exactly.</span></span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="st">  {guiding_los}</span></span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="st">  ASSESSMENT CONTEXT:</span></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="st">  - Target students: Middle-school students (approximately grades 6-8)</span></span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="st">  - Purpose: To assess students' understanding of scientific concepts</span></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a><span class="st">    while giving them practice explaining ideas clearly in writing.</span></span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a><span class="st">  TASK:</span></span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="st">  Using the science and writing learning objectives provided in the JSON</span></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a><span class="st">  above, write ONE constructed-response item stem that students will</span></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="st">  respond to in writing.</span></span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a><span class="st">  ITEM STEM REQUIREMENTS:</span></span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a><span class="st">  - Align directly with the science learning objective.</span></span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="st">  - Encourage explanation of scientific ideas without explicitly mentioning</span></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a><span class="st">    writing skills, rubrics, or scoring criteria.</span></span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="st">  - Use language appropriate for middle-school reading level or slightly below:</span></span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="st">    clear, simple sentences and familiar vocabulary with minimal technical jargon.</span></span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="st">  - Be answerable in one short paragraph (approximately 5-8 sentences).</span></span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a><span class="st">  DO NOT:</span></span>
-<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="st">  - Modify, remove, or rename any existing fields in the JSON.</span></span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a><span class="st">  - Add commentary or explanatory text outside the JSON object.</span></span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a><span class="st">  - Include scoring guidance, rubrics, or example responses.</span></span>
-<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="st">  OUTPUT FORMAT:</span></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a><span class="st">  Return the SAME JSON object provided above with ONE additional field:</span></span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a><span class="st">  {{</span></span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">subdomain</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">lo</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo1</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo2</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">item_stem</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;item stem written for students&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="st">  Do not include any text outside of the JSON object."</span></span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper function to prepare the step 2 output as string text:</span></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="st">  TASK:</span></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="st">  Review the selected science sub-domain and learning objective above.</span></span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a><span class="st">  Then select TWO writing learning objectives from the candidate list</span></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="st">  that are MOST appropriate for assessing students' written responses</span></span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="st">  to a science prompt aligned with this content.</span></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECTION GUIDELINES:</span></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a><span class="st">  - Selected writing objectives should support clear explanation of scientific ideas.</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a><span class="st">  - Avoid objectives that are redundant or not well-suited to a short written response.</span></span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="st">  - Do NOT rephrase, invent, or combine learning objectives.</span></span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="st">  OUTPUT FORMAT:</span></span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a><span class="st">  Return your response as a JSON object with the following structure ONLY:</span></span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a><span class="st">  {{</span></span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">subdomain</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;selected sub-domain&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">lo</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;selected science learning objective&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo1</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;first selected writing learning objective&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo2</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;second selected writing learning objective&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a><span class="st">  Do not include any explanatory text outside of the JSON object."</span></span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE} </span></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>step2_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">pick_writing_los</span>(<span class="at">science_topic =</span> step1_res,</span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>                                          writing_lo_text))</span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(step2_res)</span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 3: Write Item Stem</span></span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>Now we have guidelines in place to write the item stem.</span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a>write_essay_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(guiding_los) {</span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You are assisting with the development of a constructed-response item</span></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="st">  for a middle-school science assessment.</span></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="st">  Below is the approved context and learning objectives for this item,</span></span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="st">  provided as a JSON object. These values must be preserved exactly.</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="st">  {guiding_los}</span></span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="st">  ASSESSMENT CONTEXT:</span></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a><span class="st">  - Target students: Middle-school students (approximately grades 6-8)</span></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="st">  - Purpose: To assess students' understanding of scientific concepts</span></span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="st">    while giving them practice explaining ideas clearly in writing.</span></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a><span class="st">  TASK:</span></span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="st">  Using the science and writing learning objectives provided in the JSON</span></span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a><span class="st">  above, write ONE constructed-response item stem that students will</span></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="st">  respond to in writing.</span></span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="st">  ITEM STEM REQUIREMENTS:</span></span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="st">  - Align directly with the science learning objective.</span></span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a><span class="st">  - Encourage explanation of scientific ideas without explicitly mentioning</span></span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="st">    writing skills, rubrics, or scoring criteria.</span></span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a><span class="st">  - Use language appropriate for middle-school reading level or slightly below:</span></span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a><span class="st">    clear, simple sentences and familiar vocabulary with minimal technical jargon.</span></span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a><span class="st">  - Be answerable in one short paragraph (approximately 5-8 sentences).</span></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a><span class="st">  DO NOT:</span></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a><span class="st">  - Modify, remove, or rename any existing fields in the JSON.</span></span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a><span class="st">  - Add commentary or explanatory text outside the JSON object.</span></span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="st">  - Include scoring guidance, rubrics, or example responses.</span></span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="st">  OUTPUT FORMAT:</span></span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="st">  Return the SAME JSON object provided above with ONE additional field:</span></span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="st">  {{</span></span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">subdomain</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">lo</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo1</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_lo2</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">...</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">item_stem</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;item stem written for students&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
 <span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a>clean_json <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Strip markdown code fencing (```json, ```JSON, ``` alone, etc.)</span></span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```[a-zA-Z]*</span><span class="sc">\\</span><span class="st">n?"</span>, <span class="st">""</span>, x)</span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove any remaining backticks</span></span>
-<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"`"</span>, <span class="st">""</span>, x)</span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="st">  Do not include any text outside of the JSON object."</span></span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper function to prepare the step 2 output as string text:</span></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a>clean_json <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Trim leading/trailing whitespace and newlines</span></span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">trimws</span>(x)</span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Strip markdown code fencing (```json, ```JSON, ``` alone, etc.)</span></span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```[a-zA-Z]*</span><span class="sc">\\</span><span class="st">n?"</span>, <span class="st">""</span>, x)</span>
 <span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Attempt to extract a JSON object or array if there's surrounding text</span></span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Matches the outermost { } or [ ] block</span></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>  json_match <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(x, <span class="fu">regexpr</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">{[</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">S]*</span><span class="sc">\\</span><span class="st">}|</span><span class="sc">\\</span><span class="st">[[</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">S]*</span><span class="sc">\\</span><span class="st">])"</span>, x, <span class="at">perl =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(json_match) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> json_match</span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validate</span></span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>  parsed <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a>    jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(x),</span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
-<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"Could not parse JSON after cleaning. Raw content:</span><span class="sc">\n</span><span class="st">"</span>, x, <span class="st">"</span><span class="sc">\n</span><span class="st">Error: "</span>, e<span class="sc">$</span>message)</span>
-<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a>string_guiding_los <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(step2_res)</span>
-<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a>step3_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">write_essay_prompt</span>(string_guiding_los))</span>
-<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(step3_res)</span>
-<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 4:</span></span>
-<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove any remaining backticks</span></span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"`"</span>, <span class="st">""</span>, x)</span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Trim leading/trailing whitespace and newlines</span></span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">trimws</span>(x)</span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Attempt to extract a JSON object or array if there's surrounding text</span></span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Matches the outermost { } or [ ] block</span></span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>  json_match <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(x, <span class="fu">regexpr</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">{[</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">S]*</span><span class="sc">\\</span><span class="st">}|</span><span class="sc">\\</span><span class="st">[[</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">S]*</span><span class="sc">\\</span><span class="st">])"</span>, x, <span class="at">perl =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(json_match) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> json_match</span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validate</span></span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a>  parsed <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>    jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(x),</span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"Could not parse JSON after cleaning. Raw content:</span><span class="sc">\n</span><span class="st">"</span>, x, <span class="st">"</span><span class="sc">\n</span><span class="st">Error: "</span>, e<span class="sc">$</span>message)</span>
+<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a>string_guiding_los <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(step2_res)</span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a>step3_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">write_essay_prompt</span>(string_guiding_los))</span>
 <span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading PLD guidance essay</span></span>
-<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a>pld_guidance <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
-<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readLines</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/pld_guidance.txt"</span>),</span>
-<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
-<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a>make_pld_rubric <span class="ot">&lt;-</span> <span class="cf">function</span>(item_components, pld_guidance) {</span>
-<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a><span class="st">"You are assisting with the development of an analytic scoring rubric for a \</span></span>
-<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a><span class="st">middle-school science assessment.</span></span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(step3_res)</span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 4:</span></span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading PLD guidance essay</span></span>
+<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a>pld_guidance <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readLines</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/pld_guidance.txt"</span>),</span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM SPECIFICATION:</span></span>
-<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON object contains the current item specification. \</span></span>
-<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a><span class="st">All existing fields must be preserved exactly in your output.</span></span>
-<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a><span class="st">{item_components}</span></span>
+<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a>make_pld_rubric <span class="ot">&lt;-</span> <span class="cf">function</span>(item_components, pld_guidance) {</span>
+<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a><span class="st">"You are assisting with the development of an analytic scoring rubric for a \</span></span>
+<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a><span class="st">middle-school science assessment.</span></span>
 <span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a><span class="st">ASSESSMENT CONTEXT:</span></span>
-<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a><span class="st">- Target students: Middle-school students (grades 6-8)</span></span>
-<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a><span class="st">- The item assesses both students' understanding of a specific science concept \</span></span>
-<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a><span class="st">and their ability to explain ideas clearly in writing.</span></span>
-<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a><span class="st">GUIDANCE ON PERFORMANCE LEVEL DESCRIPTORS:</span></span>
-<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a><span class="st">{pld_guidance}</span></span>
-<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
-<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a><span class="st">Using the learning objectives in the JSON above, write performance level \</span></span>
-<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a><span class="st">descriptors for each learning objective. The rubric must include:</span></span>
-<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a><span class="st">- One criterion for the science learning objective</span></span>
-<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a><span class="st">- One criterion for each of the two writing learning objectives</span></span>
+<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM SPECIFICATION:</span></span>
+<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON object contains the current item specification. \</span></span>
+<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a><span class="st">All existing fields must be preserved exactly in your output.</span></span>
+<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a><span class="st">{item_components}</span></span>
+<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a><span class="st">ASSESSMENT CONTEXT:</span></span>
+<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a><span class="st">- Target students: Middle-school students (grades 6-8)</span></span>
+<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="st">- The item assesses both students' understanding of a specific science concept \</span></span>
+<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a><span class="st">and their ability to explain ideas clearly in writing.</span></span>
+<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a><span class="st">GUIDANCE ON PERFORMANCE LEVEL DESCRIPTORS:</span></span>
+<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a><span class="st">{pld_guidance}</span></span>
 <span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a><span class="st">For each criterion, define three performance levels: Weak, Developing, and Competent.</span></span>
-<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a><span class="st">CONSTRAINTS:</span></span>
-<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not refer to specific scores or point values.</span></span>
-<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not include feedback directed at the student.</span></span>
-<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not change the wording of any learning objective.</span></span>
-<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not add or remove learning objectives.</span></span>
-<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a><span class="st">- Write descriptors in clear, practical language appropriate for educators.</span></span>
-<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
-<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with one additional top-level field \</span></span>
-<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a><span class="st">called </span><span class="sc">\"</span><span class="st">rubric</span><span class="sc">\"</span><span class="st">. Do not include any text outside of the JSON object.</span></span>
-<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a><span class="st">The </span><span class="sc">\"</span><span class="st">rubric</span><span class="sc">\"</span><span class="st"> field must use this structure:</span></span>
+<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
+<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a><span class="st">Using the learning objectives in the JSON above, write performance level \</span></span>
+<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a><span class="st">descriptors for each learning objective. The rubric must include:</span></span>
+<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a><span class="st">- One criterion for the science learning objective</span></span>
+<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a><span class="st">- One criterion for each of the two writing learning objectives</span></span>
+<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a><span class="st">For each criterion, define three performance levels: Weak, Developing, and Competent.</span></span>
+<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a><span class="st">CONSTRAINTS:</span></span>
+<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not refer to specific scores or point values.</span></span>
+<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not include feedback directed at the student.</span></span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not change the wording of any learning objective.</span></span>
+<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not add or remove learning objectives.</span></span>
+<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a><span class="st">- Write descriptors in clear, practical language appropriate for educators.</span></span>
 <span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
-<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">rubric</span><span class="sc">\"</span><span class="st">: {{</span></span>
-<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">science_learning_objective</span><span class="sc">\"</span><span class="st">: {{</span></span>
-<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">weak</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">developing</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">competent</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="st">    }},</span></span>
-<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_1</span><span class="sc">\"</span><span class="st">: {{</span></span>
-<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">weak</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">developing</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">competent</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a><span class="st">    }},</span></span>
-<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_2</span><span class="sc">\"</span><span class="st">: {{</span></span>
-<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">weak</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">developing</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">competent</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a><span class="st">    }}</span></span>
-<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
-<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
-<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a>string_step3_res <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(step3_res)</span>
-<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a>step4_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">make_pld_rubric</span>(<span class="at">item_components =</span> string_step3_res,</span>
-<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a>                                         pld_guidance))</span>
-<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(step4_res)</span>
-<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 5: Scoring a Writing Sample</span></span>
-<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a>This is where you'd normally include a real writing sample.</span>
-<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a>For the sake of demonstration, we're going to have Claude generate one for us.</span>
-<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a>I've skipped the step</span>
+<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with one additional top-level field \</span></span>
+<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="st">called </span><span class="sc">\"</span><span class="st">rubric</span><span class="sc">\"</span><span class="st">. Do not include any text outside of the JSON object.</span></span>
+<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a><span class="st">The </span><span class="sc">\"</span><span class="st">rubric</span><span class="sc">\"</span><span class="st"> field must use this structure:</span></span>
+<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
+<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">rubric</span><span class="sc">\"</span><span class="st">: {{</span></span>
+<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">science_learning_objective</span><span class="sc">\"</span><span class="st">: {{</span></span>
+<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">weak</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">developing</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">competent</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a><span class="st">    }},</span></span>
+<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_1</span><span class="sc">\"</span><span class="st">: {{</span></span>
+<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">weak</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">developing</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">competent</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a><span class="st">    }},</span></span>
+<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_2</span><span class="sc">\"</span><span class="st">: {{</span></span>
+<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">weak</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">developing</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\"</span><span class="st">competent</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;description&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a><span class="st">    }}</span></span>
+<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
+<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
+<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a>string_step3_res <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(step3_res)</span>
+<span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a>step4_res <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">make_pld_rubric</span>(<span class="at">item_components =</span> string_step3_res,</span>
+<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a>                                         pld_guidance))</span>
+<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(step4_res)</span>
+<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 5: Scoring a Writing Sample</span></span>
 <span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a>build_synthetic_essay_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>    rubric_json,</span>
-<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>    <span class="at">science_lo  =</span> <span class="fu">c</span>(<span class="st">"weak"</span>, <span class="st">"developing"</span>, <span class="st">"competent"</span>),</span>
-<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a>    <span class="at">writing_lo1 =</span> <span class="fu">c</span>(<span class="st">"weak"</span>, <span class="st">"developing"</span>, <span class="st">"competent"</span>),</span>
-<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a>    <span class="at">writing_lo2 =</span> <span class="fu">c</span>(<span class="st">"weak"</span>, <span class="st">"developing"</span>, <span class="st">"competent"</span>)</span>
-<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a>) {</span>
-<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a>  science_lo  <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(science_lo)</span>
-<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a>  writing_lo1 <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(writing_lo1)</span>
-<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a>  writing_lo2 <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(writing_lo2)</span>
-<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a><span class="st">"You are generating a realistic synthetic essay written by a middle-school student \</span></span>
-<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a><span class="st">in response to a science constructed-response item.</span></span>
-<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM RECORD:</span></span>
-<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON contains the item stem, learning objectives, and analytic rubric \</span></span>
-<span id="cb15-330"><a href="#cb15-330" aria-hidden="true" tabindex="-1"></a><span class="st">with performance-level descriptors for each criterion.</span></span>
-<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a><span class="st">{rubric_json}</span></span>
+<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a>This is where you'd normally include a real writing sample.</span>
+<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>For the sake of demonstration, we're going to have Claude generate one for us.</span>
+<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>I've skipped the step</span>
+<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a>build_synthetic_essay_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a>    rubric_json,</span>
+<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a>    <span class="at">science_lo  =</span> <span class="fu">c</span>(<span class="st">"weak"</span>, <span class="st">"developing"</span>, <span class="st">"competent"</span>),</span>
+<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a>    <span class="at">writing_lo1 =</span> <span class="fu">c</span>(<span class="st">"weak"</span>, <span class="st">"developing"</span>, <span class="st">"competent"</span>),</span>
+<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a>    <span class="at">writing_lo2 =</span> <span class="fu">c</span>(<span class="st">"weak"</span>, <span class="st">"developing"</span>, <span class="st">"competent"</span>)</span>
+<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a>  science_lo  <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(science_lo)</span>
+<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a>  writing_lo1 <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(writing_lo1)</span>
+<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a>  writing_lo2 <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(writing_lo2)</span>
+<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-330"><a href="#cb15-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a><span class="st">"You are generating a realistic synthetic essay written by a middle-school student \</span></span>
+<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a><span class="st">in response to a science constructed-response item.</span></span>
 <span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a><span class="st">ASSIGNED PERFORMANCE LEVELS:</span></span>
-<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a><span class="st">The essay you write must reflect the following performance levels:</span></span>
-<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a><span class="st">- Science learning objective:     {science_lo}</span></span>
-<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a><span class="st">- Writing learning objective 1:   {writing_lo1}</span></span>
-<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a><span class="st">- Writing learning objective 2:   {writing_lo2}</span></span>
+<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM RECORD:</span></span>
+<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON contains the item stem, learning objectives, and analytic rubric \</span></span>
+<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a><span class="st">with performance-level descriptors for each criterion.</span></span>
+<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a><span class="st">{rubric_json}</span></span>
 <span id="cb15-339"><a href="#cb15-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
-<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a><span class="st">Write a student essay response to the item stem above. \</span></span>
-<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a><span class="st">The essay must authentically reflect the performance-level descriptor \</span></span>
-<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a><span class="st">for each learning objective at its assigned level.</span></span>
-<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a><span class="st">The three performance dimensions are independent. A student may demonstrate \</span></span>
-<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a><span class="st">competent scientific reasoning while using weak scientific terminology, or may \</span></span>
-<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="st">show strong cause-and-effect writing while only partially addressing the science. \</span></span>
-<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a><span class="st">Write the essay so that each dimension is clearly at its assigned level without \</span></span>
-<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a><span class="st">artificially inflating or deflating the others.</span></span>
+<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a><span class="st">ASSIGNED PERFORMANCE LEVELS:</span></span>
+<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a><span class="st">The essay you write must reflect the following performance levels:</span></span>
+<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a><span class="st">- Science learning objective:     {science_lo}</span></span>
+<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a><span class="st">- Writing learning objective 1:   {writing_lo1}</span></span>
+<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a><span class="st">- Writing learning objective 2:   {writing_lo2}</span></span>
+<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
+<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="st">Write a student essay response to the item stem above. \</span></span>
+<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a><span class="st">The essay must authentically reflect the performance-level descriptor \</span></span>
+<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a><span class="st">for each learning objective at its assigned level.</span></span>
 <span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a><span class="st">REALISM GUIDELINES:</span></span>
-<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a><span class="st">- Write as a genuine middle-school student would — not as a model answer and not \</span></span>
-<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a><span class="st">as a caricature of a poor student. Voice, sentence structure, and vocabulary \</span></span>
-<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a><span class="st">should be plausible for a grade 6-8 student.</span></span>
-<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a><span class="st">- Weak performance should reflect genuine misunderstanding or omission, \</span></span>
-<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a><span class="st">not obvious carelessness or random content.</span></span>
-<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a><span class="st">- Developing performance should reflect a student with partial knowledge \</span></span>
-<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a><span class="st">making a real attempt, not one who simply wrote less.</span></span>
-<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a><span class="st">- Competent performance should reflect a student who meets expectations for \</span></span>
-<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a><span class="st">this grade level, not one who writes at a high school or adult level.</span></span>
-<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not include any meta-commentary, labels, or signals that reveal the \</span></span>
-<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a><span class="st">intended performance levels.</span></span>
-<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
-<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with one additional top-level field \</span></span>
-<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a><span class="st">called </span><span class="sc">\"</span><span class="st">student_essay</span><span class="sc">\"</span><span class="st">. Do not include any text outside of the JSON object.</span></span>
-<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
-<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">student_essay</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;essay text&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
-<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a><span class="st">The three performance dimensions are independent. A student may demonstrate \</span></span>
+<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a><span class="st">competent scientific reasoning while using weak scientific terminology, or may \</span></span>
+<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a><span class="st">show strong cause-and-effect writing while only partially addressing the science. \</span></span>
+<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a><span class="st">Write the essay so that each dimension is clearly at its assigned level without \</span></span>
+<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a><span class="st">artificially inflating or deflating the others.</span></span>
+<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a><span class="st">REALISM GUIDELINES:</span></span>
+<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a><span class="st">- Write as a genuine middle-school student would — not as a model answer and not \</span></span>
+<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a><span class="st">as a caricature of a poor student. Voice, sentence structure, and vocabulary \</span></span>
+<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a><span class="st">should be plausible for a grade 6-8 student.</span></span>
+<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a><span class="st">- Weak performance should reflect genuine misunderstanding or omission, \</span></span>
+<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a><span class="st">not obvious carelessness or random content.</span></span>
+<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a><span class="st">- Developing performance should reflect a student with partial knowledge \</span></span>
+<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a><span class="st">making a real attempt, not one who simply wrote less.</span></span>
+<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="st">- Competent performance should reflect a student who meets expectations for \</span></span>
+<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a><span class="st">this grade level, not one who writes at a high school or adult level.</span></span>
+<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not include any meta-commentary, labels, or signals that reveal the \</span></span>
+<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a><span class="st">intended performance levels.</span></span>
+<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
+<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with one additional top-level field \</span></span>
+<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a><span class="st">called </span><span class="sc">\"</span><span class="st">student_essay</span><span class="sc">\"</span><span class="st">. Do not include any text outside of the JSON object.</span></span>
 <span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a>rubric_w_plds <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(step4_res)</span>
+<span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
+<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">student_essay</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;essay text&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
+<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a>essay_specs <span class="ot">&lt;-</span> <span class="fu">build_synthetic_essay_prompt</span>(<span class="at">rubric_json =</span> rubric_w_plds,</span>
-<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">science_lo =</span> <span class="st">"developing"</span>,</span>
-<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">writing_lo1 =</span> <span class="st">"competent"</span>,</span>
-<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">writing_lo2 =</span> <span class="st">"weak"</span>)</span>
-<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a>sample_essay <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(essay_specs)</span>
-<span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(sample_essay)</span>
-<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scoring the Essay</span></span>
-<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a>Now we'll score the essay. </span>
-<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a>It will be interesting to see if Claude provides the same judgments of the performance-level descriptors in _scoring_ the essay that were used in _generating_ the essay. </span>
-<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a>For our purposes, this isn't something we need to worry about at this time - we just want a scored essay for the final step.</span>
+<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a>rubric_w_plds <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(step4_res)</span>
+<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a>essay_specs <span class="ot">&lt;-</span> <span class="fu">build_synthetic_essay_prompt</span>(<span class="at">rubric_json =</span> rubric_w_plds,</span>
+<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">science_lo =</span> <span class="st">"developing"</span>,</span>
+<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">writing_lo1 =</span> <span class="st">"competent"</span>,</span>
+<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">writing_lo2 =</span> <span class="st">"weak"</span>)</span>
+<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a>sample_essay <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(essay_specs)</span>
+<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(sample_essay)</span>
+<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scoring the Essay</span></span>
 <span id="cb15-397"><a href="#cb15-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a>build_scoring_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(essay_json) {</span>
-<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a><span class="st">"You are scoring a middle-school student's essay response to a science \</span></span>
-<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a><span class="st">constructed-response item.</span></span>
-<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM RECORD:</span></span>
-<span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON contains the item stem, learning objectives, analytic rubric \</span></span>
-<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a><span class="st">with performance-level descriptors, and the student's written response.</span></span>
-<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a><span class="st">{essay_json}</span></span>
+<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a>Now we'll score the essay. </span>
+<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a>It will be interesting to see if Claude provides the same judgments of the performance-level descriptors in _scoring_ the essay that were used in _generating_ the essay. </span>
+<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a>For our purposes, this isn't something we need to worry about at this time - we just want a scored essay for the final step.</span>
+<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a>build_scoring_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(essay_json) {</span>
+<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a><span class="st">"You are scoring a middle-school student's essay response to a science \</span></span>
+<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a><span class="st">constructed-response item.</span></span>
 <span id="cb15-408"><a href="#cb15-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
-<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a><span class="st">Assign a performance level for each learning objective criterion based on the \</span></span>
-<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a><span class="st">student's essay and the rubric descriptors in the JSON above.</span></span>
+<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM RECORD:</span></span>
+<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON contains the item stem, learning objectives, analytic rubric \</span></span>
+<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a><span class="st">with performance-level descriptors, and the student's written response.</span></span>
 <span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a><span class="st">SCORING GUIDELINES:</span></span>
-<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a><span class="st">- Score each criterion independently. The student's performance on one dimension \</span></span>
-<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a><span class="st">should not influence your rating of another.</span></span>
-<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a><span class="st">- Base each rating entirely on what is present in the student's essay — \</span></span>
-<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a><span class="st">not on what is absent, implied, or possible to infer charitably.</span></span>
-<span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a><span class="st">- Select the performance level whose descriptor best characterizes the response \</span></span>
-<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a><span class="st">as written. If the response falls between two levels, select the lower level.</span></span>
-<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not adjust ratings based on the student's apparent effort, grade level, \</span></span>
-<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a><span class="st">or the difficulty of the item.</span></span>
-<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
-<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with three additional top-level fields. \</span></span>
-<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a><span class="st">Do not include any text outside of the JSON object.</span></span>
-<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
-<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">science_learning_objective_rating</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;weak | developing | competent&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">writing_learning_objective_1_rating</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;weak | developing | competent&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">writing_learning_objective_2_rating</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;weak | developing | competent&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
-<span id="cb15-432"><a href="#cb15-432" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-434"><a href="#cb15-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a>string_sample_essay <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(sample_essay)</span>
-<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a>scored_essay <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">build_scoring_prompt</span>(string_sample_essay))</span>
-<span id="cb15-441"><a href="#cb15-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(scored_essay)</span>
-<span id="cb15-443"><a href="#cb15-443" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-444"><a href="#cb15-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a><span class="st">{essay_json}</span></span>
+<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
+<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a><span class="st">Assign a performance level for each learning objective criterion based on the \</span></span>
+<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a><span class="st">student's essay and the rubric descriptors in the JSON above.</span></span>
+<span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a><span class="st">SCORING GUIDELINES:</span></span>
+<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a><span class="st">- Score each criterion independently. The student's performance on one dimension \</span></span>
+<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a><span class="st">should not influence your rating of another.</span></span>
+<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a><span class="st">- Base each rating entirely on what is present in the student's essay — \</span></span>
+<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a><span class="st">not on what is absent, implied, or possible to infer charitably.</span></span>
+<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a><span class="st">- Select the performance level whose descriptor best characterizes the response \</span></span>
+<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a><span class="st">as written. If the response falls between two levels, select the lower level.</span></span>
+<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not adjust ratings based on the student's apparent effort, grade level, \</span></span>
+<span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a><span class="st">or the difficulty of the item.</span></span>
+<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
+<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with three additional top-level fields. \</span></span>
+<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a><span class="st">Do not include any text outside of the JSON object.</span></span>
+<span id="cb15-432"><a href="#cb15-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
+<span id="cb15-434"><a href="#cb15-434" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">science_learning_objective_rating</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;weak | developing | competent&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">writing_learning_objective_1_rating</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;weak | developing | competent&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">writing_learning_objective_2_rating</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;weak | developing | competent&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
+<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-441"><a href="#cb15-441" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-443"><a href="#cb15-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-444"><a href="#cb15-444" aria-hidden="true" tabindex="-1"></a>string_sample_essay <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(sample_essay)</span>
 <span id="cb15-445"><a href="#cb15-445" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 6: Generate Student Feedback Aligned to Rubric</span></span>
+<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a>scored_essay <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">build_scoring_prompt</span>(string_sample_essay))</span>
 <span id="cb15-447"><a href="#cb15-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-448"><a href="#cb15-448" aria-hidden="true" tabindex="-1"></a>This step helps to ensure that feedback provided to students is appropriately grounded in the learning objectives and performance-level descriptors.</span>
-<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a>Note that I'm again pulling in external instructions to help with this step to mirror specific use-case instructions you might have for your task.</span>
+<span id="cb15-448"><a href="#cb15-448" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(scored_essay)</span>
+<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-450"><a href="#cb15-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a>feedback_guidance <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
-<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readLines</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.txt"</span>),</span>
-<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
-<span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a>feedback_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(scored_essay, feedback_guidance) {</span>
-<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
-<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a><span class="st">"You are assisting with the generation of written feedback for a middle-school \</span></span>
-<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a><span class="st">student based on their performance on a constructed-response science item.</span></span>
-<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM RECORD:</span></span>
-<span id="cb15-464"><a href="#cb15-464" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON object contains the complete item record. \</span></span>
-<span id="cb15-465"><a href="#cb15-465" aria-hidden="true" tabindex="-1"></a><span class="st">All fields should be treated as final and authoritative.</span></span>
-<span id="cb15-466"><a href="#cb15-466" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-467"><a href="#cb15-467" aria-hidden="true" tabindex="-1"></a><span class="st">It includes:</span></span>
-<span id="cb15-468"><a href="#cb15-468" aria-hidden="true" tabindex="-1"></a><span class="st">- the item context and learning objectives</span></span>
-<span id="cb15-469"><a href="#cb15-469" aria-hidden="true" tabindex="-1"></a><span class="st">- the analytic rubric with performance-level descriptors</span></span>
-<span id="cb15-470"><a href="#cb15-470" aria-hidden="true" tabindex="-1"></a><span class="st">- the student's written response</span></span>
-<span id="cb15-471"><a href="#cb15-471" aria-hidden="true" tabindex="-1"></a><span class="st">- the performance level already assigned for each learning objective</span></span>
+<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 6: Generate Student Feedback Aligned to Rubric</span></span>
+<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a>This step helps to ensure that feedback provided to students is appropriately grounded in the learning objectives and performance-level descriptors.</span>
+<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a>Note that I'm again pulling in external instructions to help with this step to mirror specific use-case instructions you might have for your task.</span>
+<span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a>feedback_guidance <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readLines</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.txt"</span>),</span>
+<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-464"><a href="#cb15-464" aria-hidden="true" tabindex="-1"></a>feedback_prompt <span class="ot">&lt;-</span> <span class="cf">function</span>(scored_essay, feedback_guidance) {</span>
+<span id="cb15-465"><a href="#cb15-465" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue</span>(</span>
+<span id="cb15-466"><a href="#cb15-466" aria-hidden="true" tabindex="-1"></a><span class="st">"You are assisting with the generation of written feedback for a middle-school \</span></span>
+<span id="cb15-467"><a href="#cb15-467" aria-hidden="true" tabindex="-1"></a><span class="st">student based on their performance on a constructed-response science item.</span></span>
+<span id="cb15-468"><a href="#cb15-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-469"><a href="#cb15-469" aria-hidden="true" tabindex="-1"></a><span class="st">ITEM RECORD:</span></span>
+<span id="cb15-470"><a href="#cb15-470" aria-hidden="true" tabindex="-1"></a><span class="st">The following JSON object contains the complete item record. \</span></span>
+<span id="cb15-471"><a href="#cb15-471" aria-hidden="true" tabindex="-1"></a><span class="st">All fields should be treated as final and authoritative.</span></span>
 <span id="cb15-472"><a href="#cb15-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-473"><a href="#cb15-473" aria-hidden="true" tabindex="-1"></a><span class="st">{scored_essay}</span></span>
-<span id="cb15-474"><a href="#cb15-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-475"><a href="#cb15-475" aria-hidden="true" tabindex="-1"></a><span class="st">GUIDANCE ON WRITING STUDENT FEEDBACK:</span></span>
-<span id="cb15-476"><a href="#cb15-476" aria-hidden="true" tabindex="-1"></a><span class="st">{feedback_guidance}</span></span>
-<span id="cb15-477"><a href="#cb15-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-478"><a href="#cb15-478" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
-<span id="cb15-479"><a href="#cb15-479" aria-hidden="true" tabindex="-1"></a><span class="st">Using the student's response, the rubric, and the assigned performance levels \</span></span>
-<span id="cb15-480"><a href="#cb15-480" aria-hidden="true" tabindex="-1"></a><span class="st">in the JSON above, write specific, constructive feedback for the student. \</span></span>
-<span id="cb15-481"><a href="#cb15-481" aria-hidden="true" tabindex="-1"></a><span class="st">Provide a separate feedback comment for each learning objective.</span></span>
-<span id="cb15-482"><a href="#cb15-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-483"><a href="#cb15-483" aria-hidden="true" tabindex="-1"></a><span class="st">CONSTRAINTS:</span></span>
-<span id="cb15-484"><a href="#cb15-484" aria-hidden="true" tabindex="-1"></a><span class="st">- Write directly to the student in age-appropriate language.</span></span>
-<span id="cb15-485"><a href="#cb15-485" aria-hidden="true" tabindex="-1"></a><span class="st">- Base each comment on what is actually present in the student's response, \</span></span>
-<span id="cb15-486"><a href="#cb15-486" aria-hidden="true" tabindex="-1"></a><span class="st">not on a generic description of the performance level.</span></span>
-<span id="cb15-487"><a href="#cb15-487" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not name or imply the performance level label (weak, developing, competent).</span></span>
-<span id="cb15-488"><a href="#cb15-488" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not restate rubric descriptor language verbatim.</span></span>
-<span id="cb15-489"><a href="#cb15-489" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not question or revise the assigned performance levels.</span></span>
-<span id="cb15-490"><a href="#cb15-490" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not introduce new learning objectives or scoring criteria.</span></span>
-<span id="cb15-491"><a href="#cb15-491" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not include grades, points, or score values.</span></span>
-<span id="cb15-492"><a href="#cb15-492" aria-hidden="true" tabindex="-1"></a><span class="st">- Each comment should identify one specific, actionable suggestion for improvement \</span></span>
-<span id="cb15-493"><a href="#cb15-493" aria-hidden="true" tabindex="-1"></a><span class="st">where relevant.</span></span>
-<span id="cb15-494"><a href="#cb15-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-495"><a href="#cb15-495" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
-<span id="cb15-496"><a href="#cb15-496" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with one additional top-level field \</span></span>
-<span id="cb15-497"><a href="#cb15-497" aria-hidden="true" tabindex="-1"></a><span class="st">called </span><span class="sc">\"</span><span class="st">student_feedback</span><span class="sc">\"</span><span class="st">. Do not include any text outside of the JSON object.</span></span>
-<span id="cb15-498"><a href="#cb15-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-499"><a href="#cb15-499" aria-hidden="true" tabindex="-1"></a><span class="st">The </span><span class="sc">\"</span><span class="st">student_feedback</span><span class="sc">\"</span><span class="st"> field must use this structure:</span></span>
+<span id="cb15-473"><a href="#cb15-473" aria-hidden="true" tabindex="-1"></a><span class="st">It includes:</span></span>
+<span id="cb15-474"><a href="#cb15-474" aria-hidden="true" tabindex="-1"></a><span class="st">- the item context and learning objectives</span></span>
+<span id="cb15-475"><a href="#cb15-475" aria-hidden="true" tabindex="-1"></a><span class="st">- the analytic rubric with performance-level descriptors</span></span>
+<span id="cb15-476"><a href="#cb15-476" aria-hidden="true" tabindex="-1"></a><span class="st">- the student's written response</span></span>
+<span id="cb15-477"><a href="#cb15-477" aria-hidden="true" tabindex="-1"></a><span class="st">- the performance level already assigned for each learning objective</span></span>
+<span id="cb15-478"><a href="#cb15-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-479"><a href="#cb15-479" aria-hidden="true" tabindex="-1"></a><span class="st">{scored_essay}</span></span>
+<span id="cb15-480"><a href="#cb15-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-481"><a href="#cb15-481" aria-hidden="true" tabindex="-1"></a><span class="st">GUIDANCE ON WRITING STUDENT FEEDBACK:</span></span>
+<span id="cb15-482"><a href="#cb15-482" aria-hidden="true" tabindex="-1"></a><span class="st">{feedback_guidance}</span></span>
+<span id="cb15-483"><a href="#cb15-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-484"><a href="#cb15-484" aria-hidden="true" tabindex="-1"></a><span class="st">TASK:</span></span>
+<span id="cb15-485"><a href="#cb15-485" aria-hidden="true" tabindex="-1"></a><span class="st">Using the student's response, the rubric, and the assigned performance levels \</span></span>
+<span id="cb15-486"><a href="#cb15-486" aria-hidden="true" tabindex="-1"></a><span class="st">in the JSON above, write specific, constructive feedback for the student. \</span></span>
+<span id="cb15-487"><a href="#cb15-487" aria-hidden="true" tabindex="-1"></a><span class="st">Provide a separate feedback comment for each learning objective.</span></span>
+<span id="cb15-488"><a href="#cb15-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-489"><a href="#cb15-489" aria-hidden="true" tabindex="-1"></a><span class="st">CONSTRAINTS:</span></span>
+<span id="cb15-490"><a href="#cb15-490" aria-hidden="true" tabindex="-1"></a><span class="st">- Write directly to the student in age-appropriate language.</span></span>
+<span id="cb15-491"><a href="#cb15-491" aria-hidden="true" tabindex="-1"></a><span class="st">- Base each comment on what is actually present in the student's response, \</span></span>
+<span id="cb15-492"><a href="#cb15-492" aria-hidden="true" tabindex="-1"></a><span class="st">not on a generic description of the performance level.</span></span>
+<span id="cb15-493"><a href="#cb15-493" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not name or imply the performance level label (weak, developing, competent).</span></span>
+<span id="cb15-494"><a href="#cb15-494" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not restate rubric descriptor language verbatim.</span></span>
+<span id="cb15-495"><a href="#cb15-495" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not question or revise the assigned performance levels.</span></span>
+<span id="cb15-496"><a href="#cb15-496" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not introduce new learning objectives or scoring criteria.</span></span>
+<span id="cb15-497"><a href="#cb15-497" aria-hidden="true" tabindex="-1"></a><span class="st">- Do not include grades, points, or score values.</span></span>
+<span id="cb15-498"><a href="#cb15-498" aria-hidden="true" tabindex="-1"></a><span class="st">- Each comment should identify one specific, actionable suggestion for improvement \</span></span>
+<span id="cb15-499"><a href="#cb15-499" aria-hidden="true" tabindex="-1"></a><span class="st">where relevant.</span></span>
 <span id="cb15-500"><a href="#cb15-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-501"><a href="#cb15-501" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
-<span id="cb15-502"><a href="#cb15-502" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">student_feedback</span><span class="sc">\"</span><span class="st">: {{</span></span>
-<span id="cb15-503"><a href="#cb15-503" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">science_learning_objective</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;feedback text&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-504"><a href="#cb15-504" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_1</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;feedback text&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb15-505"><a href="#cb15-505" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_2</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;feedback text&gt;</span><span class="sc">\"</span></span>
-<span id="cb15-506"><a href="#cb15-506" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
-<span id="cb15-507"><a href="#cb15-507" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
-<span id="cb15-508"><a href="#cb15-508" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-509"><a href="#cb15-509" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-510"><a href="#cb15-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-511"><a href="#cb15-511" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-512"><a href="#cb15-512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-513"><a href="#cb15-513" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-514"><a href="#cb15-514" aria-hidden="true" tabindex="-1"></a>string_scored_essay <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(scored_essay)</span>
-<span id="cb15-515"><a href="#cb15-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-516"><a href="#cb15-516" aria-hidden="true" tabindex="-1"></a>essay_w_feedback <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">feedback_prompt</span>(string_scored_essay, feedback_guidance))</span>
-<span id="cb15-517"><a href="#cb15-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-518"><a href="#cb15-518" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(essay_w_feedback)</span>
-<span id="cb15-519"><a href="#cb15-519" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-520"><a href="#cb15-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-501"><a href="#cb15-501" aria-hidden="true" tabindex="-1"></a><span class="st">OUTPUT FORMAT:</span></span>
+<span id="cb15-502"><a href="#cb15-502" aria-hidden="true" tabindex="-1"></a><span class="st">Return the same JSON object provided above with one additional top-level field \</span></span>
+<span id="cb15-503"><a href="#cb15-503" aria-hidden="true" tabindex="-1"></a><span class="st">called </span><span class="sc">\"</span><span class="st">student_feedback</span><span class="sc">\"</span><span class="st">. Do not include any text outside of the JSON object.</span></span>
+<span id="cb15-504"><a href="#cb15-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-505"><a href="#cb15-505" aria-hidden="true" tabindex="-1"></a><span class="st">The </span><span class="sc">\"</span><span class="st">student_feedback</span><span class="sc">\"</span><span class="st"> field must use this structure:</span></span>
+<span id="cb15-506"><a href="#cb15-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-507"><a href="#cb15-507" aria-hidden="true" tabindex="-1"></a><span class="st">{{</span></span>
+<span id="cb15-508"><a href="#cb15-508" aria-hidden="true" tabindex="-1"></a><span class="st">  </span><span class="sc">\"</span><span class="st">student_feedback</span><span class="sc">\"</span><span class="st">: {{</span></span>
+<span id="cb15-509"><a href="#cb15-509" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">science_learning_objective</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;feedback text&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-510"><a href="#cb15-510" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_1</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;feedback text&gt;</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb15-511"><a href="#cb15-511" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\"</span><span class="st">writing_learning_objective_2</span><span class="sc">\"</span><span class="st">: </span><span class="sc">\"</span><span class="st">&lt;feedback text&gt;</span><span class="sc">\"</span></span>
+<span id="cb15-512"><a href="#cb15-512" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
+<span id="cb15-513"><a href="#cb15-513" aria-hidden="true" tabindex="-1"></a><span class="st">}}"</span></span>
+<span id="cb15-514"><a href="#cb15-514" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-515"><a href="#cb15-515" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-516"><a href="#cb15-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-517"><a href="#cb15-517" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-518"><a href="#cb15-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-519"><a href="#cb15-519" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-520"><a href="#cb15-520" aria-hidden="true" tabindex="-1"></a>string_scored_essay <span class="ot">&lt;-</span> <span class="fu">clean_json</span>(scored_essay)</span>
 <span id="cb15-521"><a href="#cb15-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-522"><a href="#cb15-522" aria-hidden="true" tabindex="-1"></a>Look how far we've come! From the simple starting place of choosing a learning objective from a pre-determined list, we've gone all the way to developing an essay question, a rubric with performance-level descriptors, _and_ provided feedback to the student on their performance. How cool!</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb15-522"><a href="#cb15-522" aria-hidden="true" tabindex="-1"></a>essay_w_feedback <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">feedback_prompt</span>(string_scored_essay, feedback_guidance))</span>
+<span id="cb15-523"><a href="#cb15-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-524"><a href="#cb15-524" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(essay_w_feedback)</span>
+<span id="cb15-525"><a href="#cb15-525" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-526"><a href="#cb15-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-527"><a href="#cb15-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-528"><a href="#cb15-528" aria-hidden="true" tabindex="-1"></a>Look how far we've come! From the simple starting place of choosing a learning objective from a pre-determined list, we've gone all the way to developing an essay question, a rubric with performance-level descriptors, _and_ provided feedback to the student on their performance. How cool!</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">

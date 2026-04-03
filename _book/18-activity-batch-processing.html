@@ -845,7 +845,7 @@ What to look for
 <p>A few things worth reflecting on from a measurement standpoint:</p>
 <ul>
 <li>
-<strong>Determinism vs.&nbsp;reliability.</strong> Zero variance at <code>temperature = 0</code> might look like perfect reliability, but it’s better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn’t necessarily converged on the <em>correct</em> score.</li>
+<strong>Determinism vs.&nbsp;reliability.</strong> Zero variance at <code>temperature = 0</code> might look like perfect reliability, but it’s better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn’t necessarily converged on the <em>correct</em> score. And remember, even under conditions of <code>temperature = 0</code>, this does not <em>guarantee</em> that the model will provide the same score every time.</li>
 <li>
 <strong>Score distributions.</strong> Compare the rank ordering of essays between the two conditions. If the rankings are stable but the variances differ, the temperature parameter is affecting precision rather than validity.</li>
 <li>
@@ -1348,468 +1348,468 @@ What to look for
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>The <span class="in">`score_essay()`</span> prompt instructs the model to return a JSON object with six fields (three scores and three justifications) plus a <span class="in">`total_score`</span>.</span>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>The function below handles the extraction, including stripping any markdown fencing the model might add despite being asked not to.</span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>parse_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(response_text) {</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Strip markdown fencing if present (```json ... ```)</span></span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  clean <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```(?:json)?</span><span class="sc">\\</span><span class="st">s*|```"</span>, <span class="st">""</span>, response_text, <span class="at">perl =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>  clean <span class="ot">&lt;-</span> <span class="fu">trimws</span>(clean)</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>({</span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(clean)</span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">content      =</span> scores<span class="sc">$</span>content_score,</span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">organization =</span> scores<span class="sc">$</span>organization_score,</span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">language     =</span> scores<span class="sc">$</span>language_score,</span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">total        =</span> scores<span class="sc">$</span>total_score,</span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"Could not parse response: "</span>, e<span class="sc">$</span>message)</span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">content =</span> <span class="cn">NA_real_</span>, <span class="at">organization =</span> <span class="cn">NA_real_</span>,</span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>               <span class="at">language =</span> <span class="cn">NA_real_</span>, <span class="at">total =</span> <span class="cn">NA_real_</span>)</span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>You can verify it works on the essay you already scored:</span>
-<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_scores</span>(student_essays<span class="sc">$</span>scoring_ouptut[<span class="dv">1</span>])</span>
-<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Running the Full Loop</span></span>
-<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>With <span class="in">`parse_scores()`</span> in hand, we can score all essays using <span class="in">`purrr::map()`</span>.</span>
-<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>We'll time the run so we have a concrete reference point for the batch comparison coming up.</span>
-<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>loop_results <span class="ot">&lt;-</span> student_essays <span class="sc">|&gt;</span></span>
-<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_response =</span> <span class="fu">map_chr</span>(scoring_prompt, call_claude),</span>
-<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">scores       =</span> <span class="fu">map</span>(raw_response, parse_scores)</span>
-<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(scores)</span>
-<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>end_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Essays scored:"</span>, <span class="fu">nrow</span>(loop_results), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Time elapsed: "</span>, <span class="fu">round</span>(<span class="fu">difftime</span>(end_time, start_time, <span class="at">units =</span> <span class="st">"secs"</span>), <span class="dv">1</span>), <span class="st">"seconds</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>Because each <span class="in">`map_chr()`</span> call waits for a response before moving to the next, the total runtime grows linearly with the number of essays.</span>
-<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>For a small dataset like this one it's perfectly fine, but for hundreds (or thousands!) of records it becomes the bottleneck that motivates everything in Part 2.</span>
-<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inspecting the Results</span></span>
-<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a>loop_results <span class="sc">|&gt;</span></span>
-<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, content, organization, language, total) <span class="sc">|&gt;</span></span>
-<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(total) <span class="sc">|&gt;</span></span>
-<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>),</span>
-<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a>            <span class="at">caption =</span> <span class="st">"Loop-based scores — one call per essay"</span>)</span>
-<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: Batch Processing</span></span>
-<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a>The loop above works, but it has two limitations worth addressing as you scale up.</span>
-<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a>First, it's slow: requests are sequential, so the total time is the sum of every individual API round-trip.</span>
-<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a>Second, it costs more: Anthropic's Batch API reduces both input and output token prices by 50%, so for identical work, a batch job costs half as much as the same number of sequential calls.</span>
-<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a>The trade-off is that batch jobs aren't instantaneous — they're queued and processed asynchronously, with most completing within an hour.</span>
-<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a>For any scoring or evaluation task that doesn't require real-time results, that's an easy trade to make.</span>
-<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a>The five steps below mirror the structure described in the overview chapter: create the request objects, write them to JSONL, submit the job, poll for completion, and retrieve and parse the results.</span>
-<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-122"><a href="#cb19-122" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 1: Create Batch Requests</span></span>
-<span id="cb19-123"><a href="#cb19-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a>Each request in a batch is a JSON object that contains a <span class="in">`custom_id`</span> (your identifier, returned with the result so you can match responses back to inputs) and a <span class="in">`params`</span> block that mirrors the body of a standard <span class="in">`/v1/messages`</span> call.</span>
-<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-128"><a href="#cb19-128" aria-hidden="true" tabindex="-1"></a>create_batch_requests <span class="ot">&lt;-</span> <span class="cf">function</span>(essays_df) {</span>
-<span id="cb19-129"><a href="#cb19-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(essays_df)), <span class="cf">function</span>(i) {</span>
-<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
-<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a>      <span class="at">custom_id =</span> <span class="fu">paste0</span>(<span class="st">"essay_"</span>, essays_df<span class="sc">$</span>id[i]),</span>
-<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a>      <span class="at">params =</span> <span class="fu">list</span>(</span>
-<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a>        <span class="at">model      =</span> <span class="st">"claude-sonnet-4-20250514"</span>,</span>
-<span id="cb19-134"><a href="#cb19-134" aria-hidden="true" tabindex="-1"></a>        <span class="at">max_tokens =</span> <span class="dv">1024</span>,</span>
-<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a>        <span class="at">messages   =</span> <span class="fu">list</span>(</span>
-<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> essays_df<span class="sc">$</span>scoring_prompt[i])</span>
-<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a>batch_requests <span class="ot">&lt;-</span> <span class="fu">create_batch_requests</span>(student_essays)</span>
-<span id="cb19-144"><a href="#cb19-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-145"><a href="#cb19-145" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Requests created:"</span>, <span class="fu">length</span>(batch_requests), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-146"><a href="#cb19-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-147"><a href="#cb19-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-148"><a href="#cb19-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-149"><a href="#cb19-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 2: Write Requests to JSONL</span></span>
-<span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a>The Batch API expects requests in JSONL format — one JSON object per line, no surrounding array.</span>
-<span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a><span class="in">`toJSON()`</span> with <span class="in">`auto_unbox = TRUE`</span> handles the serialization; <span class="in">`writeLines()`</span> handles the one-per-line format.</span>
-<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-155"><a href="#cb19-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a>write_batch_file <span class="ot">&lt;-</span> <span class="cf">function</span>(batch_requests, <span class="at">output_file =</span> <span class="st">"batch_requests.jsonl"</span>) {</span>
-<span id="cb19-157"><a href="#cb19-157" aria-hidden="true" tabindex="-1"></a>  jsonl_lines <span class="ot">&lt;-</span> <span class="fu">sapply</span>(batch_requests, <span class="cf">function</span>(req) {</span>
-<span id="cb19-158"><a href="#cb19-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">toJSON</span>(req, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-159"><a href="#cb19-159" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb19-160"><a href="#cb19-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(jsonl_lines, output_file)</span>
-<span id="cb19-161"><a href="#cb19-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Written to:"</span>, output_file, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-162"><a href="#cb19-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(output_file)</span>
-<span id="cb19-163"><a href="#cb19-163" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-164"><a href="#cb19-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-165"><a href="#cb19-165" aria-hidden="true" tabindex="-1"></a>batch_jsonl <span class="ot">&lt;-</span> <span class="fu">write_batch_file</span>(batch_requests)</span>
-<span id="cb19-166"><a href="#cb19-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-167"><a href="#cb19-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-168"><a href="#cb19-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-169"><a href="#cb19-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 3: Submit the Batch Job</span></span>
-<span id="cb19-170"><a href="#cb19-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-171"><a href="#cb19-171" aria-hidden="true" tabindex="-1"></a>Submitting sends the JSONL contents as the <span class="in">`requests`</span> field of a POST to <span class="in">`/v1/messages/batches`</span>.</span>
-<span id="cb19-172"><a href="#cb19-172" aria-hidden="true" tabindex="-1"></a>The response includes a batch ID that you'll use to check status and retrieve results.</span>
-<span id="cb19-173"><a href="#cb19-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-174"><a href="#cb19-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-175"><a href="#cb19-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-176"><a href="#cb19-176" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb19-177"><a href="#cb19-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-178"><a href="#cb19-178" aria-hidden="true" tabindex="-1"></a>submit_batch <span class="ot">&lt;-</span> <span class="cf">function</span>(jsonl_file) {</span>
-<span id="cb19-179"><a href="#cb19-179" aria-hidden="true" tabindex="-1"></a>  jsonl_lines    <span class="ot">&lt;-</span> <span class="fu">readLines</span>(jsonl_file)</span>
-<span id="cb19-180"><a href="#cb19-180" aria-hidden="true" tabindex="-1"></a>  requests_list  <span class="ot">&lt;-</span> <span class="fu">lapply</span>(jsonl_lines, fromJSON, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-181"><a href="#cb19-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-182"><a href="#cb19-182" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
-<span id="cb19-183"><a href="#cb19-183" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://api.anthropic.com/v1/messages/batches"</span>,</span>
-<span id="cb19-184"><a href="#cb19-184" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(</span>
-<span id="cb19-185"><a href="#cb19-185" aria-hidden="true" tabindex="-1"></a>      <span class="st">"x-api-key"</span>         <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
-<span id="cb19-186"><a href="#cb19-186" aria-hidden="true" tabindex="-1"></a>      <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span>,</span>
-<span id="cb19-187"><a href="#cb19-187" aria-hidden="true" tabindex="-1"></a>      <span class="st">"content-type"</span>      <span class="ot">=</span> <span class="st">"application/json"</span></span>
-<span id="cb19-188"><a href="#cb19-188" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb19-189"><a href="#cb19-189" aria-hidden="true" tabindex="-1"></a>    <span class="at">body   =</span> <span class="fu">toJSON</span>(<span class="fu">list</span>(<span class="at">requests =</span> requests_list), <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-190"><a href="#cb19-190" aria-hidden="true" tabindex="-1"></a>    <span class="at">encode =</span> <span class="st">"json"</span></span>
-<span id="cb19-191"><a href="#cb19-191" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-192"><a href="#cb19-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-193"><a href="#cb19-193" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
-<span id="cb19-194"><a href="#cb19-194" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Batch submission failed: "</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>))</span>
-<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb19-196"><a href="#cb19-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"parsed"</span>)</span>
-<span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Batch submitted successfully!</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-199"><a href="#cb19-199" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Batch ID:"</span>, result<span class="sc">$</span>id, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-200"><a href="#cb19-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Status:  "</span>, result<span class="sc">$</span>processing_status, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(result)</span>
-<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a>batch_info <span class="ot">&lt;-</span> <span class="fu">submit_batch</span>(batch_jsonl)</span>
-<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-207"><a href="#cb19-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-208"><a href="#cb19-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 4: Check Batch Status</span></span>
-<span id="cb19-209"><a href="#cb19-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-210"><a href="#cb19-210" aria-hidden="true" tabindex="-1"></a>Batches process asynchronously. Poll this endpoint until <span class="in">`processing_status`</span> is <span class="in">`"ended"`</span>.</span>
-<span id="cb19-211"><a href="#cb19-211" aria-hidden="true" tabindex="-1"></a>For a small job like this one, it typically takes under two minutes.</span>
-<span id="cb19-212"><a href="#cb19-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-214"><a href="#cb19-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-215"><a href="#cb19-215" aria-hidden="true" tabindex="-1"></a>check_batch_status <span class="ot">&lt;-</span> <span class="cf">function</span>(batch_id) {</span>
-<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
-<span id="cb19-217"><a href="#cb19-217" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="fu">paste0</span>(<span class="st">"https://api.anthropic.com/v1/messages/batches/"</span>, batch_id),</span>
-<span id="cb19-218"><a href="#cb19-218" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(</span>
-<span id="cb19-219"><a href="#cb19-219" aria-hidden="true" tabindex="-1"></a>      <span class="st">"x-api-key"</span>         <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
-<span id="cb19-220"><a href="#cb19-220" aria-hidden="true" tabindex="-1"></a>      <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span></span>
-<span id="cb19-221"><a href="#cb19-221" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-222"><a href="#cb19-222" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-223"><a href="#cb19-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-224"><a href="#cb19-224" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
-<span id="cb19-225"><a href="#cb19-225" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Status check failed: "</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>))</span>
-<span id="cb19-226"><a href="#cb19-226" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb19-227"><a href="#cb19-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-228"><a href="#cb19-228" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"parsed"</span>)</span>
-<span id="cb19-229"><a href="#cb19-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Status:     "</span>, result<span class="sc">$</span>processing_status, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-230"><a href="#cb19-230" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Succeeded:  "</span>, result<span class="sc">$</span>request_counts<span class="sc">$</span>succeeded, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-231"><a href="#cb19-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Errored:    "</span>, result<span class="sc">$</span>request_counts<span class="sc">$</span>errored, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-232"><a href="#cb19-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(result)</span>
-<span id="cb19-233"><a href="#cb19-233" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-234"><a href="#cb19-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-235"><a href="#cb19-235" aria-hidden="true" tabindex="-1"></a>batch_status <span class="ot">&lt;-</span> <span class="fu">check_batch_status</span>(batch_info<span class="sc">$</span>id)</span>
-<span id="cb19-236"><a href="#cb19-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-237"><a href="#cb19-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-238"><a href="#cb19-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-239"><a href="#cb19-239" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb19-240"><a href="#cb19-240" aria-hidden="true" tabindex="-1"></a>For jobs you'll leave running while you move on to other work, you can wrap <span class="in">`check_batch_status()`</span> in a polling loop that checks every 30 seconds and prints a message when the job finishes.</span>
-<span id="cb19-241"><a href="#cb19-241" aria-hidden="true" tabindex="-1"></a>For our workshop setting, we'll just call it manually a minute or two after submitting.</span>
-<span id="cb19-242"><a href="#cb19-242" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb19-243"><a href="#cb19-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-244"><a href="#cb19-244" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 5: Retrieve and Parse Results</span></span>
-<span id="cb19-245"><a href="#cb19-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-246"><a href="#cb19-246" aria-hidden="true" tabindex="-1"></a>Once <span class="in">`processing_status`</span> is <span class="in">`"ended"`</span>, fetch the results.</span>
-<span id="cb19-247"><a href="#cb19-247" aria-hidden="true" tabindex="-1"></a>The response is JSONL again — one result object per line — so we split, parse, and extract the score from each.</span>
-<span id="cb19-248"><a href="#cb19-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-249"><a href="#cb19-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-250"><a href="#cb19-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-251"><a href="#cb19-251" aria-hidden="true" tabindex="-1"></a>get_batch_results <span class="ot">&lt;-</span> <span class="cf">function</span>(batch_id) {</span>
-<span id="cb19-252"><a href="#cb19-252" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
-<span id="cb19-253"><a href="#cb19-253" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="fu">paste0</span>(<span class="st">"https://api.anthropic.com/v1/messages/batches/"</span>, batch_id, <span class="st">"/results"</span>),</span>
-<span id="cb19-254"><a href="#cb19-254" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(</span>
-<span id="cb19-255"><a href="#cb19-255" aria-hidden="true" tabindex="-1"></a>      <span class="st">"x-api-key"</span>         <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
-<span id="cb19-256"><a href="#cb19-256" aria-hidden="true" tabindex="-1"></a>      <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span></span>
-<span id="cb19-257"><a href="#cb19-257" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-258"><a href="#cb19-258" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-259"><a href="#cb19-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-260"><a href="#cb19-260" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
-<span id="cb19-261"><a href="#cb19-261" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Result retrieval failed: "</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>))</span>
-<span id="cb19-262"><a href="#cb19-262" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb19-263"><a href="#cb19-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-264"><a href="#cb19-264" aria-hidden="true" tabindex="-1"></a>  results_text  <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
-<span id="cb19-265"><a href="#cb19-265" aria-hidden="true" tabindex="-1"></a>  results_lines <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(results_text, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb19-266"><a href="#cb19-266" aria-hidden="true" tabindex="-1"></a>  results_lines <span class="ot">&lt;-</span> results_lines[<span class="fu">nzchar</span>(results_lines)]</span>
-<span id="cb19-267"><a href="#cb19-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(results_lines, fromJSON, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-268"><a href="#cb19-268" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>parse_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(response_text) {</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Strip markdown fencing if present (```json ... ```)</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>  clean <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```(?:json)?</span><span class="sc">\\</span><span class="st">s*|```"</span>, <span class="st">""</span>, response_text, <span class="at">perl =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  clean <span class="ot">&lt;-</span> <span class="fu">trimws</span>(clean)</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>({</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(clean)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">content      =</span> scores<span class="sc">$</span>content_score,</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">organization =</span> scores<span class="sc">$</span>organization_score,</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">language     =</span> scores<span class="sc">$</span>language_score,</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">total        =</span> scores<span class="sc">$</span>total_score,</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"Could not parse response: "</span>, e<span class="sc">$</span>message)</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">content =</span> <span class="cn">NA_real_</span>, <span class="at">organization =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>               <span class="at">language =</span> <span class="cn">NA_real_</span>, <span class="at">total =</span> <span class="cn">NA_real_</span>)</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>You can verify it works on the essay you already scored:</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_scores</span>(student_essays<span class="sc">$</span>scoring_ouptut[<span class="dv">1</span>])</span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Running the Full Loop</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>With <span class="in">`parse_scores()`</span> in hand, we can score all essays using <span class="in">`purrr::map()`</span>.</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>We'll time the run so we have a concrete reference point for the batch comparison coming up.</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a>loop_results <span class="ot">&lt;-</span> student_essays <span class="sc">|&gt;</span></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">raw_response =</span> <span class="fu">map_chr</span>(scoring_prompt, call_claude),</span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">scores       =</span> <span class="fu">map</span>(raw_response, parse_scores)</span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(scores)</span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>end_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Essays scored:"</span>, <span class="fu">nrow</span>(loop_results), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Time elapsed: "</span>, <span class="fu">round</span>(<span class="fu">difftime</span>(end_time, start_time, <span class="at">units =</span> <span class="st">"secs"</span>), <span class="dv">1</span>), <span class="st">"seconds</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>Because each <span class="in">`map_chr()`</span> call waits for a response before moving to the next, the total runtime grows linearly with the number of essays.</span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>For a small dataset like this one it's perfectly fine, but for hundreds (or thousands!) of records it becomes the bottleneck that motivates everything in Part 2.</span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inspecting the Results</span></span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a>loop_results <span class="sc">|&gt;</span></span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, content, organization, language, total) <span class="sc">|&gt;</span></span>
+<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(total) <span class="sc">|&gt;</span></span>
+<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>),</span>
+<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a>            <span class="at">caption =</span> <span class="st">"Loop-based scores — one call per essay"</span>)</span>
+<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: Batch Processing</span></span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a>The loop above works, but it has two limitations worth addressing as you scale up.</span>
+<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a>First, it's slow: requests are sequential, so the total time is the sum of every individual API round-trip.</span>
+<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a>Second, it costs more: Anthropic's Batch API reduces both input and output token prices by 50%, so for identical work, a batch job costs half as much as the same number of sequential calls.</span>
+<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a>The trade-off is that batch jobs aren't instantaneous — they're queued and processed asynchronously, with most completing within an hour.</span>
+<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a>For any scoring or evaluation task that doesn't require real-time results, that's an easy trade to make.</span>
+<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a>The five steps below mirror the structure described in the overview chapter: create the request objects, write them to JSONL, submit the job, poll for completion, and retrieve and parse the results.</span>
+<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 1: Create Batch Requests</span></span>
+<span id="cb19-122"><a href="#cb19-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-123"><a href="#cb19-123" aria-hidden="true" tabindex="-1"></a>Each request in a batch is a JSON object that contains a <span class="in">`custom_id`</span> (your identifier, returned with the result so you can match responses back to inputs) and a <span class="in">`params`</span> block that mirrors the body of a standard <span class="in">`/v1/messages`</span> call.</span>
+<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a>create_batch_requests <span class="ot">&lt;-</span> <span class="cf">function</span>(essays_df) {</span>
+<span id="cb19-128"><a href="#cb19-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(essays_df)), <span class="cf">function</span>(i) {</span>
+<span id="cb19-129"><a href="#cb19-129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a>      <span class="at">custom_id =</span> <span class="fu">paste0</span>(<span class="st">"essay_"</span>, essays_df<span class="sc">$</span>id[i]),</span>
+<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a>      <span class="at">params =</span> <span class="fu">list</span>(</span>
+<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a>        <span class="at">model      =</span> <span class="st">"claude-sonnet-4-20250514"</span>,</span>
+<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a>        <span class="at">max_tokens =</span> <span class="dv">1024</span>,</span>
+<span id="cb19-134"><a href="#cb19-134" aria-hidden="true" tabindex="-1"></a>        <span class="at">messages   =</span> <span class="fu">list</span>(</span>
+<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> essays_df<span class="sc">$</span>scoring_prompt[i])</span>
+<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a>batch_requests <span class="ot">&lt;-</span> <span class="fu">create_batch_requests</span>(student_essays)</span>
+<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-144"><a href="#cb19-144" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Requests created:"</span>, <span class="fu">length</span>(batch_requests), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-145"><a href="#cb19-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-146"><a href="#cb19-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-147"><a href="#cb19-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-148"><a href="#cb19-148" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 2: Write Requests to JSONL</span></span>
+<span id="cb19-149"><a href="#cb19-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a>The Batch API expects requests in JSONL format — one JSON object per line, no surrounding array.</span>
+<span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a><span class="in">`toJSON()`</span> with <span class="in">`auto_unbox = TRUE`</span> handles the serialization; <span class="in">`writeLines()`</span> handles the one-per-line format.</span>
+<span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-155"><a href="#cb19-155" aria-hidden="true" tabindex="-1"></a>write_batch_file <span class="ot">&lt;-</span> <span class="cf">function</span>(batch_requests, <span class="at">output_file =</span> <span class="st">"batch_requests.jsonl"</span>) {</span>
+<span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a>  jsonl_lines <span class="ot">&lt;-</span> <span class="fu">sapply</span>(batch_requests, <span class="cf">function</span>(req) {</span>
+<span id="cb19-157"><a href="#cb19-157" aria-hidden="true" tabindex="-1"></a>    <span class="fu">toJSON</span>(req, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-158"><a href="#cb19-158" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb19-159"><a href="#cb19-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(jsonl_lines, output_file)</span>
+<span id="cb19-160"><a href="#cb19-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Written to:"</span>, output_file, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-161"><a href="#cb19-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(output_file)</span>
+<span id="cb19-162"><a href="#cb19-162" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-163"><a href="#cb19-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-164"><a href="#cb19-164" aria-hidden="true" tabindex="-1"></a>batch_jsonl <span class="ot">&lt;-</span> <span class="fu">write_batch_file</span>(batch_requests)</span>
+<span id="cb19-165"><a href="#cb19-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-166"><a href="#cb19-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-167"><a href="#cb19-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-168"><a href="#cb19-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 3: Submit the Batch Job</span></span>
+<span id="cb19-169"><a href="#cb19-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-170"><a href="#cb19-170" aria-hidden="true" tabindex="-1"></a>Submitting sends the JSONL contents as the <span class="in">`requests`</span> field of a POST to <span class="in">`/v1/messages/batches`</span>.</span>
+<span id="cb19-171"><a href="#cb19-171" aria-hidden="true" tabindex="-1"></a>The response includes a batch ID that you'll use to check status and retrieve results.</span>
+<span id="cb19-172"><a href="#cb19-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-173"><a href="#cb19-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-174"><a href="#cb19-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-175"><a href="#cb19-175" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb19-176"><a href="#cb19-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-177"><a href="#cb19-177" aria-hidden="true" tabindex="-1"></a>submit_batch <span class="ot">&lt;-</span> <span class="cf">function</span>(jsonl_file) {</span>
+<span id="cb19-178"><a href="#cb19-178" aria-hidden="true" tabindex="-1"></a>  jsonl_lines    <span class="ot">&lt;-</span> <span class="fu">readLines</span>(jsonl_file)</span>
+<span id="cb19-179"><a href="#cb19-179" aria-hidden="true" tabindex="-1"></a>  requests_list  <span class="ot">&lt;-</span> <span class="fu">lapply</span>(jsonl_lines, fromJSON, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-180"><a href="#cb19-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-181"><a href="#cb19-181" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
+<span id="cb19-182"><a href="#cb19-182" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://api.anthropic.com/v1/messages/batches"</span>,</span>
+<span id="cb19-183"><a href="#cb19-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(</span>
+<span id="cb19-184"><a href="#cb19-184" aria-hidden="true" tabindex="-1"></a>      <span class="st">"x-api-key"</span>         <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
+<span id="cb19-185"><a href="#cb19-185" aria-hidden="true" tabindex="-1"></a>      <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span>,</span>
+<span id="cb19-186"><a href="#cb19-186" aria-hidden="true" tabindex="-1"></a>      <span class="st">"content-type"</span>      <span class="ot">=</span> <span class="st">"application/json"</span></span>
+<span id="cb19-187"><a href="#cb19-187" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb19-188"><a href="#cb19-188" aria-hidden="true" tabindex="-1"></a>    <span class="at">body   =</span> <span class="fu">toJSON</span>(<span class="fu">list</span>(<span class="at">requests =</span> requests_list), <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-189"><a href="#cb19-189" aria-hidden="true" tabindex="-1"></a>    <span class="at">encode =</span> <span class="st">"json"</span></span>
+<span id="cb19-190"><a href="#cb19-190" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-191"><a href="#cb19-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-192"><a href="#cb19-192" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
+<span id="cb19-193"><a href="#cb19-193" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Batch submission failed: "</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>))</span>
+<span id="cb19-194"><a href="#cb19-194" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-196"><a href="#cb19-196" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"parsed"</span>)</span>
+<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Batch submitted successfully!</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Batch ID:"</span>, result<span class="sc">$</span>id, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-199"><a href="#cb19-199" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Status:  "</span>, result<span class="sc">$</span>processing_status, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-200"><a href="#cb19-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(result)</span>
+<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a>batch_info <span class="ot">&lt;-</span> <span class="fu">submit_batch</span>(batch_jsonl)</span>
+<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-207"><a href="#cb19-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 4: Check Batch Status</span></span>
+<span id="cb19-208"><a href="#cb19-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-209"><a href="#cb19-209" aria-hidden="true" tabindex="-1"></a>Batches process asynchronously. Poll this endpoint until <span class="in">`processing_status`</span> is <span class="in">`"ended"`</span>.</span>
+<span id="cb19-210"><a href="#cb19-210" aria-hidden="true" tabindex="-1"></a>For a small job like this one, it typically takes under two minutes.</span>
+<span id="cb19-211"><a href="#cb19-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-212"><a href="#cb19-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-214"><a href="#cb19-214" aria-hidden="true" tabindex="-1"></a>check_batch_status <span class="ot">&lt;-</span> <span class="cf">function</span>(batch_id) {</span>
+<span id="cb19-215"><a href="#cb19-215" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
+<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="fu">paste0</span>(<span class="st">"https://api.anthropic.com/v1/messages/batches/"</span>, batch_id),</span>
+<span id="cb19-217"><a href="#cb19-217" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(</span>
+<span id="cb19-218"><a href="#cb19-218" aria-hidden="true" tabindex="-1"></a>      <span class="st">"x-api-key"</span>         <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
+<span id="cb19-219"><a href="#cb19-219" aria-hidden="true" tabindex="-1"></a>      <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span></span>
+<span id="cb19-220"><a href="#cb19-220" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-221"><a href="#cb19-221" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-222"><a href="#cb19-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-223"><a href="#cb19-223" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
+<span id="cb19-224"><a href="#cb19-224" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Status check failed: "</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>))</span>
+<span id="cb19-225"><a href="#cb19-225" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-226"><a href="#cb19-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-227"><a href="#cb19-227" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"parsed"</span>)</span>
+<span id="cb19-228"><a href="#cb19-228" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Status:     "</span>, result<span class="sc">$</span>processing_status, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-229"><a href="#cb19-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Succeeded:  "</span>, result<span class="sc">$</span>request_counts<span class="sc">$</span>succeeded, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-230"><a href="#cb19-230" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Errored:    "</span>, result<span class="sc">$</span>request_counts<span class="sc">$</span>errored, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-231"><a href="#cb19-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(result)</span>
+<span id="cb19-232"><a href="#cb19-232" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-233"><a href="#cb19-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-234"><a href="#cb19-234" aria-hidden="true" tabindex="-1"></a>batch_status <span class="ot">&lt;-</span> <span class="fu">check_batch_status</span>(batch_info<span class="sc">$</span>id)</span>
+<span id="cb19-235"><a href="#cb19-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-236"><a href="#cb19-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-237"><a href="#cb19-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-238"><a href="#cb19-238" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb19-239"><a href="#cb19-239" aria-hidden="true" tabindex="-1"></a>For jobs you'll leave running while you move on to other work, you can wrap <span class="in">`check_batch_status()`</span> in a polling loop that checks every 30 seconds and prints a message when the job finishes.</span>
+<span id="cb19-240"><a href="#cb19-240" aria-hidden="true" tabindex="-1"></a>For our workshop setting, we'll just call it manually a minute or two after submitting.</span>
+<span id="cb19-241"><a href="#cb19-241" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-242"><a href="#cb19-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-243"><a href="#cb19-243" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 5: Retrieve and Parse Results</span></span>
+<span id="cb19-244"><a href="#cb19-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-245"><a href="#cb19-245" aria-hidden="true" tabindex="-1"></a>Once <span class="in">`processing_status`</span> is <span class="in">`"ended"`</span>, fetch the results.</span>
+<span id="cb19-246"><a href="#cb19-246" aria-hidden="true" tabindex="-1"></a>The response is JSONL again — one result object per line — so we split, parse, and extract the score from each.</span>
+<span id="cb19-247"><a href="#cb19-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-248"><a href="#cb19-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-249"><a href="#cb19-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-250"><a href="#cb19-250" aria-hidden="true" tabindex="-1"></a>get_batch_results <span class="ot">&lt;-</span> <span class="cf">function</span>(batch_id) {</span>
+<span id="cb19-251"><a href="#cb19-251" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
+<span id="cb19-252"><a href="#cb19-252" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="fu">paste0</span>(<span class="st">"https://api.anthropic.com/v1/messages/batches/"</span>, batch_id, <span class="st">"/results"</span>),</span>
+<span id="cb19-253"><a href="#cb19-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(</span>
+<span id="cb19-254"><a href="#cb19-254" aria-hidden="true" tabindex="-1"></a>      <span class="st">"x-api-key"</span>         <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
+<span id="cb19-255"><a href="#cb19-255" aria-hidden="true" tabindex="-1"></a>      <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span></span>
+<span id="cb19-256"><a href="#cb19-256" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-257"><a href="#cb19-257" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-258"><a href="#cb19-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-259"><a href="#cb19-259" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
+<span id="cb19-260"><a href="#cb19-260" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Result retrieval failed: "</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>))</span>
+<span id="cb19-261"><a href="#cb19-261" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-262"><a href="#cb19-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-263"><a href="#cb19-263" aria-hidden="true" tabindex="-1"></a>  results_text  <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb19-264"><a href="#cb19-264" aria-hidden="true" tabindex="-1"></a>  results_lines <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(results_text, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb19-265"><a href="#cb19-265" aria-hidden="true" tabindex="-1"></a>  results_lines <span class="ot">&lt;-</span> results_lines[<span class="fu">nzchar</span>(results_lines)]</span>
+<span id="cb19-266"><a href="#cb19-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(results_lines, fromJSON, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-267"><a href="#cb19-267" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-268"><a href="#cb19-268" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-269"><a href="#cb19-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-270"><a href="#cb19-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-271"><a href="#cb19-271" aria-hidden="true" tabindex="-1"></a>extract_batch_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(results_list) {</span>
-<span id="cb19-272"><a href="#cb19-272" aria-hidden="true" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">lapply</span>(results_list, <span class="cf">function</span>(result) {</span>
-<span id="cb19-273"><a href="#cb19-273" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (result<span class="sc">$</span>result<span class="sc">$</span>type <span class="sc">!=</span> <span class="st">"succeeded"</span>) {</span>
-<span id="cb19-274"><a href="#cb19-274" aria-hidden="true" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">"Request failed: "</span>, result<span class="sc">$</span>custom_id, <span class="st">" — "</span>, result<span class="sc">$</span>result<span class="sc">$</span>error<span class="sc">$</span>message)</span>
-<span id="cb19-275"><a href="#cb19-275" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb19-276"><a href="#cb19-276" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb19-277"><a href="#cb19-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-278"><a href="#cb19-278" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The content field is a list with one text block</span></span>
-<span id="cb19-279"><a href="#cb19-279" aria-hidden="true" tabindex="-1"></a>    response_text <span class="ot">&lt;-</span> result<span class="sc">$</span>result<span class="sc">$</span>message<span class="sc">$</span>content[[<span class="dv">1</span>]]<span class="sc">$</span>text</span>
-<span id="cb19-280"><a href="#cb19-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-281"><a href="#cb19-281" aria-hidden="true" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">parse_scores</span>(response_text)</span>
-<span id="cb19-282"><a href="#cb19-282" aria-hidden="true" tabindex="-1"></a>    scores<span class="sc">$</span>essay_id <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"^essay_"</span>, <span class="st">""</span>, result<span class="sc">$</span>custom_id)</span>
-<span id="cb19-283"><a href="#cb19-283" aria-hidden="true" tabindex="-1"></a>    scores</span>
-<span id="cb19-284"><a href="#cb19-284" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, <span class="fu">Filter</span>(<span class="fu">Negate</span>(is.null), rows))</span>
-<span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-270"><a href="#cb19-270" aria-hidden="true" tabindex="-1"></a>extract_batch_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(results_list) {</span>
+<span id="cb19-271"><a href="#cb19-271" aria-hidden="true" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">lapply</span>(results_list, <span class="cf">function</span>(result) {</span>
+<span id="cb19-272"><a href="#cb19-272" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (result<span class="sc">$</span>result<span class="sc">$</span>type <span class="sc">!=</span> <span class="st">"succeeded"</span>) {</span>
+<span id="cb19-273"><a href="#cb19-273" aria-hidden="true" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">"Request failed: "</span>, result<span class="sc">$</span>custom_id, <span class="st">" — "</span>, result<span class="sc">$</span>result<span class="sc">$</span>error<span class="sc">$</span>message)</span>
+<span id="cb19-274"><a href="#cb19-274" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb19-275"><a href="#cb19-275" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-276"><a href="#cb19-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-277"><a href="#cb19-277" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The content field is a list with one text block</span></span>
+<span id="cb19-278"><a href="#cb19-278" aria-hidden="true" tabindex="-1"></a>    response_text <span class="ot">&lt;-</span> result<span class="sc">$</span>result<span class="sc">$</span>message<span class="sc">$</span>content[[<span class="dv">1</span>]]<span class="sc">$</span>text</span>
+<span id="cb19-279"><a href="#cb19-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-280"><a href="#cb19-280" aria-hidden="true" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">parse_scores</span>(response_text)</span>
+<span id="cb19-281"><a href="#cb19-281" aria-hidden="true" tabindex="-1"></a>    scores<span class="sc">$</span>essay_id <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"^essay_"</span>, <span class="st">""</span>, result<span class="sc">$</span>custom_id)</span>
+<span id="cb19-282"><a href="#cb19-282" aria-hidden="true" tabindex="-1"></a>    scores</span>
+<span id="cb19-283"><a href="#cb19-283" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb19-284"><a href="#cb19-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, <span class="fu">Filter</span>(<span class="fu">Negate</span>(is.null), rows))</span>
+<span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a>batch_results <span class="ot">&lt;-</span> <span class="fu">get_batch_results</span>(batch_info<span class="sc">$</span>id)</span>
-<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a>batch_scores  <span class="ot">&lt;-</span> <span class="fu">extract_batch_scores</span>(batch_results)</span>
-<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparing Loop and Batch Results</span></span>
-<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a>Since both runs used the same prompt and model, scores should be very similar.</span>
-<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a>Differences, if any, reflect natural sampling variation at the default temperature.</span>
-<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a><span class="co"># How long did the batch take?</span></span>
-<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a>batch_start <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(batch_status<span class="sc">$</span>created_at)</span>
-<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a>batch_end   <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(batch_status<span class="sc">$</span>ended_at)</span>
-<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Batch run time:"</span>, <span class="fu">round</span>(<span class="fu">difftime</span>(batch_end, batch_start, <span class="at">units =</span> <span class="st">"mins"</span>), <span class="dv">2</span>), <span class="st">"minutes</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a><span class="co"># Side-by-side score comparison</span></span>
-<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a>loop_scores <span class="ot">&lt;-</span> loop_results <span class="sc">|&gt;</span></span>
-<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, content, organization, language, total) <span class="sc">|&gt;</span></span>
-<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">essay_id =</span> id)</span>
-<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> loop_scores <span class="sc">|&gt;</span></span>
-<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay_id =</span> <span class="fu">as.character</span>(essay_id)) <span class="sc">|&gt;</span></span>
-<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"loop_"</span>, .x), <span class="sc">-</span>essay_id) <span class="sc">|&gt;</span></span>
-<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a>    batch_scores <span class="sc">|&gt;</span></span>
-<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">essay_id =</span> <span class="fu">as.character</span>(essay_id)) <span class="sc">|&gt;</span></span>
-<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"batch_"</span>, .x), <span class="sc">-</span>essay_id),</span>
-<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"essay_id"</span></span>
-<span id="cb19-322"><a href="#cb19-322" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(comparison <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>))),</span>
-<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a>          <span class="at">options  =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption  =</span> <span class="st">"Loop vs. Batch scores — same prompt, same model"</span>)</span>
-<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extension: Exploring Scoring Consistency</span></span>
-<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a>The loop and batch runs above each scored each essay once.</span>
-<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a>That's appropriate for production scoring, but as measurement professionals you'll rightly ask: how stable are those scores?</span>
-<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a>Does the model arrive at the same score if you ask again, and does that depend on how much randomness is in the sampling process?</span>
-<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a>The <span class="in">`temperature`</span> parameter controls that randomness.</span>
-<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a>At the default value (~1.0), the model samples probabilistically from its output distribution, which means repeated calls can produce different scores for the same essay.</span>
-<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a>At <span class="in">`temperature = 0`</span>, the model is effectively deterministic — it always selects the highest-probability token at each step — so repeated calls should produce identical output.</span>
-<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a>Batch processing makes this kind of multi-rep study cheap and fast.</span>
-<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a>The following code submits 20 calls per essay (200 requests total) at the default temperature and at <span class="in">`temperature = 0`</span>, so we can see whether and how much scores vary.</span>
-<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper: create n_reps requests per essay with a given temperature</span></span>
-<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a>create_multi_rep_requests <span class="ot">&lt;-</span> <span class="cf">function</span>(essays_df, <span class="at">n_reps =</span> <span class="dv">20</span>, <span class="at">temperature =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a>  requests <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
-<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(essays_df))) {</span>
-<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a>    params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a>      <span class="at">model      =</span> <span class="st">"claude-sonnet-4-20250514"</span>,</span>
-<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_tokens =</span> <span class="dv">1024</span>,</span>
-<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a>      <span class="at">messages   =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> essays_df<span class="sc">$</span>scoring_prompt[i]))</span>
-<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(temperature)) params<span class="sc">$</span>temperature <span class="ot">&lt;-</span> temperature</span>
-<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (rep <span class="cf">in</span> <span class="fu">seq_len</span>(n_reps)) {</span>
-<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a>      requests[[k]] <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom_id =</span> <span class="fu">paste0</span>(<span class="st">"essay_"</span>, essays_df<span class="sc">$</span>id[i], <span class="st">"_rep_"</span>, rep),</span>
-<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a>        <span class="at">params    =</span> params</span>
-<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a>      k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Created"</span>, <span class="fu">length</span>(requests), <span class="st">"requests for"</span>,</span>
-<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a>      <span class="fu">nrow</span>(essays_df), <span class="st">"essays ×"</span>, n_reps, <span class="st">"repetitions</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(requests)</span>
-<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a>batch_results <span class="ot">&lt;-</span> <span class="fu">get_batch_results</span>(batch_info<span class="sc">$</span>id)</span>
+<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a>batch_scores  <span class="ot">&lt;-</span> <span class="fu">extract_batch_scores</span>(batch_results)</span>
+<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparing Loop and Batch Results</span></span>
+<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a>Since both runs used the same prompt and model, scores should be very similar.</span>
+<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a>Differences, if any, reflect natural sampling variation at the default temperature.</span>
+<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a><span class="co"># How long did the batch take?</span></span>
+<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a>batch_start <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(batch_status<span class="sc">$</span>created_at)</span>
+<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a>batch_end   <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(batch_status<span class="sc">$</span>ended_at)</span>
+<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Batch run time:"</span>, <span class="fu">round</span>(<span class="fu">difftime</span>(batch_end, batch_start, <span class="at">units =</span> <span class="st">"mins"</span>), <span class="dv">2</span>), <span class="st">"minutes</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Side-by-side score comparison</span></span>
+<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a>loop_scores <span class="ot">&lt;-</span> loop_results <span class="sc">|&gt;</span></span>
+<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, content, organization, language, total) <span class="sc">|&gt;</span></span>
+<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">essay_id =</span> id)</span>
+<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> loop_scores <span class="sc">|&gt;</span></span>
+<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay_id =</span> <span class="fu">as.character</span>(essay_id)) <span class="sc">|&gt;</span></span>
+<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"loop_"</span>, .x), <span class="sc">-</span>essay_id) <span class="sc">|&gt;</span></span>
+<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a>    batch_scores <span class="sc">|&gt;</span></span>
+<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">essay_id =</span> <span class="fu">as.character</span>(essay_id)) <span class="sc">|&gt;</span></span>
+<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"batch_"</span>, .x), <span class="sc">-</span>essay_id),</span>
+<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"essay_id"</span></span>
+<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-322"><a href="#cb19-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(comparison <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>))),</span>
+<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a>          <span class="at">options  =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption  =</span> <span class="st">"Loop vs. Batch scores — same prompt, same model"</span>)</span>
+<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extension: Exploring Scoring Consistency</span></span>
+<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a>The loop and batch runs above each scored each essay once.</span>
+<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a>That's appropriate for production scoring, but as measurement professionals you'll rightly ask: how stable are those scores?</span>
+<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a>Does the model arrive at the same score if you ask again, and does that depend on how much randomness is in the sampling process?</span>
+<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a>The <span class="in">`temperature`</span> parameter controls that randomness.</span>
+<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a>At the default value (~1.0), the model samples probabilistically from its output distribution, which means repeated calls can produce different scores for the same essay.</span>
+<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a>At <span class="in">`temperature = 0`</span>, the model is effectively deterministic — it always selects the highest-probability token at each step — so repeated calls should produce identical output.</span>
+<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a>Batch processing makes this kind of multi-rep study cheap and fast.</span>
+<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a>The following code submits 20 calls per essay (200 requests total) at the default temperature and at <span class="in">`temperature = 0`</span>, so we can see whether and how much scores vary.</span>
+<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper: create n_reps requests per essay with a given temperature</span></span>
+<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a>create_multi_rep_requests <span class="ot">&lt;-</span> <span class="cf">function</span>(essays_df, <span class="at">n_reps =</span> <span class="dv">20</span>, <span class="at">temperature =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a>  requests <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
+<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(essays_df))) {</span>
+<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a>    params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a>      <span class="at">model      =</span> <span class="st">"claude-sonnet-4-20250514"</span>,</span>
+<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_tokens =</span> <span class="dv">1024</span>,</span>
+<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a>      <span class="at">messages   =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> essays_df<span class="sc">$</span>scoring_prompt[i]))</span>
+<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(temperature)) params<span class="sc">$</span>temperature <span class="ot">&lt;-</span> temperature</span>
+<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (rep <span class="cf">in</span> <span class="fu">seq_len</span>(n_reps)) {</span>
+<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a>      requests[[k]] <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom_id =</span> <span class="fu">paste0</span>(<span class="st">"essay_"</span>, essays_df<span class="sc">$</span>id[i], <span class="st">"_rep_"</span>, rep),</span>
+<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a>        <span class="at">params    =</span> params</span>
+<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a>      k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Created"</span>, <span class="fu">length</span>(requests), <span class="st">"requests for"</span>,</span>
+<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a>      <span class="fu">nrow</span>(essays_df), <span class="st">"essays ×"</span>, n_reps, <span class="st">"repetitions</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(requests)</span>
+<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper: extract scores from a multi-rep batch, preserving essay_id and rep</span></span>
-<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a>extract_multirep_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(results_list) {</span>
-<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">lapply</span>(results_list, <span class="cf">function</span>(result) {</span>
-<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (result<span class="sc">$</span>result<span class="sc">$</span>type <span class="sc">!=</span> <span class="st">"succeeded"</span>) {</span>
-<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">"Failed: "</span>, result<span class="sc">$</span>custom_id)</span>
-<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a>    response_text <span class="ot">&lt;-</span> result<span class="sc">$</span>result<span class="sc">$</span>message<span class="sc">$</span>content[[<span class="dv">1</span>]]<span class="sc">$</span>text</span>
-<span id="cb19-384"><a href="#cb19-384" aria-hidden="true" tabindex="-1"></a>    scores        <span class="ot">&lt;-</span> <span class="fu">parse_scores</span>(response_text)</span>
-<span id="cb19-385"><a href="#cb19-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-386"><a href="#cb19-386" aria-hidden="true" tabindex="-1"></a>    <span class="co"># custom_id format: "essay_&lt;id&gt;_rep_&lt;rep&gt;"</span></span>
-<span id="cb19-387"><a href="#cb19-387" aria-hidden="true" tabindex="-1"></a>    parts           <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(result<span class="sc">$</span>custom_id, <span class="st">"_"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb19-388"><a href="#cb19-388" aria-hidden="true" tabindex="-1"></a>    scores<span class="sc">$</span>essay_id  <span class="ot">&lt;-</span> parts[<span class="dv">2</span>]</span>
-<span id="cb19-389"><a href="#cb19-389" aria-hidden="true" tabindex="-1"></a>    scores<span class="sc">$</span>rep       <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(parts[<span class="dv">4</span>])</span>
-<span id="cb19-390"><a href="#cb19-390" aria-hidden="true" tabindex="-1"></a>    scores</span>
-<span id="cb19-391"><a href="#cb19-391" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb19-392"><a href="#cb19-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-393"><a href="#cb19-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, <span class="fu">Filter</span>(<span class="fu">Negate</span>(is.null), rows))</span>
-<span id="cb19-394"><a href="#cb19-394" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-395"><a href="#cb19-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-396"><a href="#cb19-396" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-397"><a href="#cb19-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-398"><a href="#cb19-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-399"><a href="#cb19-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-400"><a href="#cb19-400" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Default temperature ───────────────────────────────────────────────────────</span></span>
-<span id="cb19-401"><a href="#cb19-401" aria-hidden="true" tabindex="-1"></a>default_temp_requests <span class="ot">&lt;-</span> <span class="fu">create_multi_rep_requests</span>(student_essays, <span class="at">n_reps =</span> <span class="dv">20</span>)</span>
-<span id="cb19-402"><a href="#cb19-402" aria-hidden="true" tabindex="-1"></a>default_temp_jsonl    <span class="ot">&lt;-</span> <span class="fu">write_batch_file</span>(default_temp_requests, <span class="st">"batch_default_temp.jsonl"</span>)</span>
-<span id="cb19-403"><a href="#cb19-403" aria-hidden="true" tabindex="-1"></a>default_temp_info     <span class="ot">&lt;-</span> <span class="fu">submit_batch</span>(default_temp_jsonl)</span>
-<span id="cb19-404"><a href="#cb19-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-405"><a href="#cb19-405" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-406"><a href="#cb19-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-407"><a href="#cb19-407" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-408"><a href="#cb19-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-409"><a href="#cb19-409" aria-hidden="true" tabindex="-1"></a><span class="co"># Check when finished, then retrieve</span></span>
-<span id="cb19-410"><a href="#cb19-410" aria-hidden="true" tabindex="-1"></a>default_temp_status  <span class="ot">&lt;-</span> <span class="fu">check_batch_status</span>(default_temp_info<span class="sc">$</span>id)</span>
-<span id="cb19-411"><a href="#cb19-411" aria-hidden="true" tabindex="-1"></a>default_temp_results <span class="ot">&lt;-</span> <span class="fu">get_batch_results</span>(default_temp_info<span class="sc">$</span>id)</span>
-<span id="cb19-412"><a href="#cb19-412" aria-hidden="true" tabindex="-1"></a>default_temp_scores  <span class="ot">&lt;-</span> <span class="fu">extract_multirep_scores</span>(default_temp_results)</span>
-<span id="cb19-413"><a href="#cb19-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-414"><a href="#cb19-414" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-415"><a href="#cb19-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-416"><a href="#cb19-416" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-417"><a href="#cb19-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-418"><a href="#cb19-418" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Temperature = 0 ───────────────────────────────────────────────────────────</span></span>
-<span id="cb19-419"><a href="#cb19-419" aria-hidden="true" tabindex="-1"></a>low_temp_requests <span class="ot">&lt;-</span> <span class="fu">create_multi_rep_requests</span>(student_essays, <span class="at">n_reps =</span> <span class="dv">20</span>, <span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb19-420"><a href="#cb19-420" aria-hidden="true" tabindex="-1"></a>low_temp_jsonl    <span class="ot">&lt;-</span> <span class="fu">write_batch_file</span>(low_temp_requests, <span class="st">"batch_low_temp.jsonl"</span>)</span>
-<span id="cb19-421"><a href="#cb19-421" aria-hidden="true" tabindex="-1"></a>low_temp_info     <span class="ot">&lt;-</span> <span class="fu">submit_batch</span>(low_temp_jsonl)</span>
-<span id="cb19-422"><a href="#cb19-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-423"><a href="#cb19-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-424"><a href="#cb19-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-425"><a href="#cb19-425" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-426"><a href="#cb19-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-427"><a href="#cb19-427" aria-hidden="true" tabindex="-1"></a>low_temp_status  <span class="ot">&lt;-</span> <span class="fu">check_batch_status</span>(low_temp_info<span class="sc">$</span>id)</span>
-<span id="cb19-428"><a href="#cb19-428" aria-hidden="true" tabindex="-1"></a>low_temp_results <span class="ot">&lt;-</span> <span class="fu">get_batch_results</span>(low_temp_info<span class="sc">$</span>id)</span>
-<span id="cb19-429"><a href="#cb19-429" aria-hidden="true" tabindex="-1"></a>low_temp_scores  <span class="ot">&lt;-</span> <span class="fu">extract_multirep_scores</span>(low_temp_results)</span>
-<span id="cb19-430"><a href="#cb19-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-431"><a href="#cb19-431" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-432"><a href="#cb19-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-433"><a href="#cb19-433" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summarising Consistency</span></span>
-<span id="cb19-434"><a href="#cb19-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-435"><a href="#cb19-435" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-436"><a href="#cb19-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-437"><a href="#cb19-437" aria-hidden="true" tabindex="-1"></a>summarise_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(df, label) {</span>
-<span id="cb19-438"><a href="#cb19-438" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
-<span id="cb19-439"><a href="#cb19-439" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(essay_id) <span class="sc">|&gt;</span></span>
-<span id="cb19-440"><a href="#cb19-440" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
-<span id="cb19-441"><a href="#cb19-441" aria-hidden="true" tabindex="-1"></a>      <span class="at">n             =</span> <span class="fu">n</span>(),</span>
-<span id="cb19-442"><a href="#cb19-442" aria-hidden="true" tabindex="-1"></a>      <span class="at">total_mean    =</span> <span class="fu">mean</span>(total,        <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-443"><a href="#cb19-443" aria-hidden="true" tabindex="-1"></a>      <span class="at">total_sd      =</span> <span class="fu">sd</span>(total,          <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-444"><a href="#cb19-444" aria-hidden="true" tabindex="-1"></a>      <span class="at">content_mean  =</span> <span class="fu">mean</span>(content,      <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-445"><a href="#cb19-445" aria-hidden="true" tabindex="-1"></a>      <span class="at">content_sd    =</span> <span class="fu">sd</span>(content,        <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-446"><a href="#cb19-446" aria-hidden="true" tabindex="-1"></a>      <span class="at">org_mean      =</span> <span class="fu">mean</span>(organization, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-447"><a href="#cb19-447" aria-hidden="true" tabindex="-1"></a>      <span class="at">org_sd        =</span> <span class="fu">sd</span>(organization,   <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-448"><a href="#cb19-448" aria-hidden="true" tabindex="-1"></a>      <span class="at">lang_mean     =</span> <span class="fu">mean</span>(language,     <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-449"><a href="#cb19-449" aria-hidden="true" tabindex="-1"></a>      <span class="at">lang_sd       =</span> <span class="fu">sd</span>(language,       <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-450"><a href="#cb19-450" aria-hidden="true" tabindex="-1"></a>      <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb19-451"><a href="#cb19-451" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb19-452"><a href="#cb19-452" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>)),</span>
-<span id="cb19-453"><a href="#cb19-453" aria-hidden="true" tabindex="-1"></a>           <span class="at">condition =</span> label) <span class="sc">|&gt;</span></span>
-<span id="cb19-454"><a href="#cb19-454" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(total_mean)</span>
-<span id="cb19-455"><a href="#cb19-455" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-456"><a href="#cb19-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-457"><a href="#cb19-457" aria-hidden="true" tabindex="-1"></a>default_summary <span class="ot">&lt;-</span> <span class="fu">summarise_scores</span>(default_temp_scores, <span class="st">"Default temperature"</span>)</span>
-<span id="cb19-458"><a href="#cb19-458" aria-hidden="true" tabindex="-1"></a>low_temp_summary <span class="ot">&lt;-</span> <span class="fu">summarise_scores</span>(low_temp_scores, <span class="st">"Temperature = 0"</span>)</span>
-<span id="cb19-459"><a href="#cb19-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-460"><a href="#cb19-460" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-461"><a href="#cb19-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-462"><a href="#cb19-462" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-463"><a href="#cb19-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-464"><a href="#cb19-464" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(default_summary,</span>
-<span id="cb19-465"><a href="#cb19-465" aria-hidden="true" tabindex="-1"></a>          <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-466"><a href="#cb19-466" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption =</span> <span class="st">"Score consistency — default temperature (20 reps per essay)"</span>)</span>
-<span id="cb19-467"><a href="#cb19-467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-468"><a href="#cb19-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-469"><a href="#cb19-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-470"><a href="#cb19-470" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb19-471"><a href="#cb19-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-472"><a href="#cb19-472" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(low_temp_summary,</span>
-<span id="cb19-473"><a href="#cb19-473" aria-hidden="true" tabindex="-1"></a>          <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-474"><a href="#cb19-474" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption =</span> <span class="st">"Score consistency — temperature = 0 (20 reps per essay)"</span>)</span>
-<span id="cb19-475"><a href="#cb19-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-476"><a href="#cb19-476" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-477"><a href="#cb19-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-478"><a href="#cb19-478" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb19-479"><a href="#cb19-479" aria-hidden="true" tabindex="-1"></a><span class="fu">## What to look for</span></span>
-<span id="cb19-480"><a href="#cb19-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-481"><a href="#cb19-481" aria-hidden="true" tabindex="-1"></a>With default temperature you should see meaningful within-essay score variance (non-zero SDs), especially on the Language criterion where small differences in wording can tip a borderline response either way.</span>
-<span id="cb19-482"><a href="#cb19-482" aria-hidden="true" tabindex="-1"></a>At <span class="in">`temperature = 0`</span> the SDs should collapse toward zero — or reach zero entirely — because the model is making the same deterministic choices on every call.</span>
-<span id="cb19-483"><a href="#cb19-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-484"><a href="#cb19-484" aria-hidden="true" tabindex="-1"></a>A few things worth reflecting on from a measurement standpoint:</span>
-<span id="cb19-485"><a href="#cb19-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-486"><a href="#cb19-486" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Determinism vs. reliability.** Zero variance at <span class="in">`temperature = 0`</span> might look like perfect reliability, but it's better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn't necessarily converged on the *correct* score.</span>
-<span id="cb19-487"><a href="#cb19-487" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Score distributions.** Compare the rank ordering of essays between the two conditions. If the rankings are stable but the variances differ, the temperature parameter is affecting precision rather than validity.</span>
-<span id="cb19-488"><a href="#cb19-488" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cost implications.** These 400 requests (20 essays × 20 reps × 2 conditions) would have cost roughly twice as much without batch pricing. For a real inter-rater reliability study at scale, that 50% discount compounds quickly.</span>
-<span id="cb19-489"><a href="#cb19-489" aria-hidden="true" tabindex="-1"></a>:::</span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper: extract scores from a multi-rep batch, preserving essay_id and rep</span></span>
+<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a>extract_multirep_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(results_list) {</span>
+<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">lapply</span>(results_list, <span class="cf">function</span>(result) {</span>
+<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (result<span class="sc">$</span>result<span class="sc">$</span>type <span class="sc">!=</span> <span class="st">"succeeded"</span>) {</span>
+<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">"Failed: "</span>, result<span class="sc">$</span>custom_id)</span>
+<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a>    response_text <span class="ot">&lt;-</span> result<span class="sc">$</span>result<span class="sc">$</span>message<span class="sc">$</span>content[[<span class="dv">1</span>]]<span class="sc">$</span>text</span>
+<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a>    scores        <span class="ot">&lt;-</span> <span class="fu">parse_scores</span>(response_text)</span>
+<span id="cb19-384"><a href="#cb19-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-385"><a href="#cb19-385" aria-hidden="true" tabindex="-1"></a>    <span class="co"># custom_id format: "essay_&lt;id&gt;_rep_&lt;rep&gt;"</span></span>
+<span id="cb19-386"><a href="#cb19-386" aria-hidden="true" tabindex="-1"></a>    parts           <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(result<span class="sc">$</span>custom_id, <span class="st">"_"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb19-387"><a href="#cb19-387" aria-hidden="true" tabindex="-1"></a>    scores<span class="sc">$</span>essay_id  <span class="ot">&lt;-</span> parts[<span class="dv">2</span>]</span>
+<span id="cb19-388"><a href="#cb19-388" aria-hidden="true" tabindex="-1"></a>    scores<span class="sc">$</span>rep       <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(parts[<span class="dv">4</span>])</span>
+<span id="cb19-389"><a href="#cb19-389" aria-hidden="true" tabindex="-1"></a>    scores</span>
+<span id="cb19-390"><a href="#cb19-390" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb19-391"><a href="#cb19-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-392"><a href="#cb19-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, <span class="fu">Filter</span>(<span class="fu">Negate</span>(is.null), rows))</span>
+<span id="cb19-393"><a href="#cb19-393" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-394"><a href="#cb19-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-395"><a href="#cb19-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-396"><a href="#cb19-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-397"><a href="#cb19-397" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-398"><a href="#cb19-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-399"><a href="#cb19-399" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Default temperature ───────────────────────────────────────────────────────</span></span>
+<span id="cb19-400"><a href="#cb19-400" aria-hidden="true" tabindex="-1"></a>default_temp_requests <span class="ot">&lt;-</span> <span class="fu">create_multi_rep_requests</span>(student_essays, <span class="at">n_reps =</span> <span class="dv">20</span>)</span>
+<span id="cb19-401"><a href="#cb19-401" aria-hidden="true" tabindex="-1"></a>default_temp_jsonl    <span class="ot">&lt;-</span> <span class="fu">write_batch_file</span>(default_temp_requests, <span class="st">"batch_default_temp.jsonl"</span>)</span>
+<span id="cb19-402"><a href="#cb19-402" aria-hidden="true" tabindex="-1"></a>default_temp_info     <span class="ot">&lt;-</span> <span class="fu">submit_batch</span>(default_temp_jsonl)</span>
+<span id="cb19-403"><a href="#cb19-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-404"><a href="#cb19-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-405"><a href="#cb19-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-406"><a href="#cb19-406" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-407"><a href="#cb19-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-408"><a href="#cb19-408" aria-hidden="true" tabindex="-1"></a><span class="co"># Check when finished, then retrieve</span></span>
+<span id="cb19-409"><a href="#cb19-409" aria-hidden="true" tabindex="-1"></a>default_temp_status  <span class="ot">&lt;-</span> <span class="fu">check_batch_status</span>(default_temp_info<span class="sc">$</span>id)</span>
+<span id="cb19-410"><a href="#cb19-410" aria-hidden="true" tabindex="-1"></a>default_temp_results <span class="ot">&lt;-</span> <span class="fu">get_batch_results</span>(default_temp_info<span class="sc">$</span>id)</span>
+<span id="cb19-411"><a href="#cb19-411" aria-hidden="true" tabindex="-1"></a>default_temp_scores  <span class="ot">&lt;-</span> <span class="fu">extract_multirep_scores</span>(default_temp_results)</span>
+<span id="cb19-412"><a href="#cb19-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-413"><a href="#cb19-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-414"><a href="#cb19-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-415"><a href="#cb19-415" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-416"><a href="#cb19-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-417"><a href="#cb19-417" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Temperature = 0 ───────────────────────────────────────────────────────────</span></span>
+<span id="cb19-418"><a href="#cb19-418" aria-hidden="true" tabindex="-1"></a>low_temp_requests <span class="ot">&lt;-</span> <span class="fu">create_multi_rep_requests</span>(student_essays, <span class="at">n_reps =</span> <span class="dv">20</span>, <span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb19-419"><a href="#cb19-419" aria-hidden="true" tabindex="-1"></a>low_temp_jsonl    <span class="ot">&lt;-</span> <span class="fu">write_batch_file</span>(low_temp_requests, <span class="st">"batch_low_temp.jsonl"</span>)</span>
+<span id="cb19-420"><a href="#cb19-420" aria-hidden="true" tabindex="-1"></a>low_temp_info     <span class="ot">&lt;-</span> <span class="fu">submit_batch</span>(low_temp_jsonl)</span>
+<span id="cb19-421"><a href="#cb19-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-422"><a href="#cb19-422" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-423"><a href="#cb19-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-424"><a href="#cb19-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-425"><a href="#cb19-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-426"><a href="#cb19-426" aria-hidden="true" tabindex="-1"></a>low_temp_status  <span class="ot">&lt;-</span> <span class="fu">check_batch_status</span>(low_temp_info<span class="sc">$</span>id)</span>
+<span id="cb19-427"><a href="#cb19-427" aria-hidden="true" tabindex="-1"></a>low_temp_results <span class="ot">&lt;-</span> <span class="fu">get_batch_results</span>(low_temp_info<span class="sc">$</span>id)</span>
+<span id="cb19-428"><a href="#cb19-428" aria-hidden="true" tabindex="-1"></a>low_temp_scores  <span class="ot">&lt;-</span> <span class="fu">extract_multirep_scores</span>(low_temp_results)</span>
+<span id="cb19-429"><a href="#cb19-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-430"><a href="#cb19-430" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-431"><a href="#cb19-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-432"><a href="#cb19-432" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summarising Consistency</span></span>
+<span id="cb19-433"><a href="#cb19-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-434"><a href="#cb19-434" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-435"><a href="#cb19-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-436"><a href="#cb19-436" aria-hidden="true" tabindex="-1"></a>summarise_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(df, label) {</span>
+<span id="cb19-437"><a href="#cb19-437" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb19-438"><a href="#cb19-438" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(essay_id) <span class="sc">|&gt;</span></span>
+<span id="cb19-439"><a href="#cb19-439" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb19-440"><a href="#cb19-440" aria-hidden="true" tabindex="-1"></a>      <span class="at">n             =</span> <span class="fu">n</span>(),</span>
+<span id="cb19-441"><a href="#cb19-441" aria-hidden="true" tabindex="-1"></a>      <span class="at">total_mean    =</span> <span class="fu">mean</span>(total,        <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-442"><a href="#cb19-442" aria-hidden="true" tabindex="-1"></a>      <span class="at">total_sd      =</span> <span class="fu">sd</span>(total,          <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-443"><a href="#cb19-443" aria-hidden="true" tabindex="-1"></a>      <span class="at">content_mean  =</span> <span class="fu">mean</span>(content,      <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-444"><a href="#cb19-444" aria-hidden="true" tabindex="-1"></a>      <span class="at">content_sd    =</span> <span class="fu">sd</span>(content,        <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-445"><a href="#cb19-445" aria-hidden="true" tabindex="-1"></a>      <span class="at">org_mean      =</span> <span class="fu">mean</span>(organization, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-446"><a href="#cb19-446" aria-hidden="true" tabindex="-1"></a>      <span class="at">org_sd        =</span> <span class="fu">sd</span>(organization,   <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-447"><a href="#cb19-447" aria-hidden="true" tabindex="-1"></a>      <span class="at">lang_mean     =</span> <span class="fu">mean</span>(language,     <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-448"><a href="#cb19-448" aria-hidden="true" tabindex="-1"></a>      <span class="at">lang_sd       =</span> <span class="fu">sd</span>(language,       <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-449"><a href="#cb19-449" aria-hidden="true" tabindex="-1"></a>      <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb19-450"><a href="#cb19-450" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb19-451"><a href="#cb19-451" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>)),</span>
+<span id="cb19-452"><a href="#cb19-452" aria-hidden="true" tabindex="-1"></a>           <span class="at">condition =</span> label) <span class="sc">|&gt;</span></span>
+<span id="cb19-453"><a href="#cb19-453" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(total_mean)</span>
+<span id="cb19-454"><a href="#cb19-454" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-455"><a href="#cb19-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-456"><a href="#cb19-456" aria-hidden="true" tabindex="-1"></a>default_summary <span class="ot">&lt;-</span> <span class="fu">summarise_scores</span>(default_temp_scores, <span class="st">"Default temperature"</span>)</span>
+<span id="cb19-457"><a href="#cb19-457" aria-hidden="true" tabindex="-1"></a>low_temp_summary <span class="ot">&lt;-</span> <span class="fu">summarise_scores</span>(low_temp_scores, <span class="st">"Temperature = 0"</span>)</span>
+<span id="cb19-458"><a href="#cb19-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-459"><a href="#cb19-459" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-460"><a href="#cb19-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-461"><a href="#cb19-461" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-462"><a href="#cb19-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-463"><a href="#cb19-463" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(default_summary,</span>
+<span id="cb19-464"><a href="#cb19-464" aria-hidden="true" tabindex="-1"></a>          <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-465"><a href="#cb19-465" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption =</span> <span class="st">"Score consistency — default temperature (20 reps per essay)"</span>)</span>
+<span id="cb19-466"><a href="#cb19-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-467"><a href="#cb19-467" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-468"><a href="#cb19-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-469"><a href="#cb19-469" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb19-470"><a href="#cb19-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-471"><a href="#cb19-471" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(low_temp_summary,</span>
+<span id="cb19-472"><a href="#cb19-472" aria-hidden="true" tabindex="-1"></a>          <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-473"><a href="#cb19-473" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption =</span> <span class="st">"Score consistency — temperature = 0 (20 reps per essay)"</span>)</span>
+<span id="cb19-474"><a href="#cb19-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-475"><a href="#cb19-475" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-476"><a href="#cb19-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-477"><a href="#cb19-477" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb19-478"><a href="#cb19-478" aria-hidden="true" tabindex="-1"></a><span class="fu">## What to look for</span></span>
+<span id="cb19-479"><a href="#cb19-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-480"><a href="#cb19-480" aria-hidden="true" tabindex="-1"></a>With default temperature you should see meaningful within-essay score variance (non-zero SDs), especially on the Language criterion where small differences in wording can tip a borderline response either way.</span>
+<span id="cb19-481"><a href="#cb19-481" aria-hidden="true" tabindex="-1"></a>At <span class="in">`temperature = 0`</span> the SDs should collapse toward zero — or reach zero entirely — because the model is making the same deterministic choices on every call.</span>
+<span id="cb19-482"><a href="#cb19-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-483"><a href="#cb19-483" aria-hidden="true" tabindex="-1"></a>A few things worth reflecting on from a measurement standpoint:</span>
+<span id="cb19-484"><a href="#cb19-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-485"><a href="#cb19-485" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Determinism vs. reliability.** Zero variance at <span class="in">`temperature = 0`</span> might look like perfect reliability, but it's better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn't necessarily converged on the *correct* score. And remember, even under conditions of <span class="in">`temperature = 0`</span>, this does not _guarantee_ that the model will provide the same score every time.</span>
+<span id="cb19-486"><a href="#cb19-486" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Score distributions.** Compare the rank ordering of essays between the two conditions. If the rankings are stable but the variances differ, the temperature parameter is affecting precision rather than validity.</span>
+<span id="cb19-487"><a href="#cb19-487" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cost implications.** These 400 requests (20 essays × 20 reps × 2 conditions) would have cost roughly twice as much without batch pricing. For a real inter-rater reliability study at scale, that 50% discount compounds quickly.</span>
+<span id="cb19-488"><a href="#cb19-488" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">

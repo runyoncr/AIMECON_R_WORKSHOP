@@ -24,7 +24,7 @@ Before we can loop across all essays, we need a reliable way to extract scores f
 The `score_essay()` prompt instructs the model to return a JSON object with six fields (three scores and three justifications) plus a `total_score`.
 The function below handles the extraction, including stripping any markdown fencing the model might add despite being asked not to.
 
-```{r}
+```{r, eval = FALSE}
 
 library(jsonlite)
 
@@ -482,7 +482,7 @@ At `temperature = 0` the SDs should collapse toward zero — or reach zero entir
 
 A few things worth reflecting on from a measurement standpoint:
 
-- **Determinism vs. reliability.** Zero variance at `temperature = 0` might look like perfect reliability, but it's better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn't necessarily converged on the *correct* score.
+- **Determinism vs. reliability.** Zero variance at `temperature = 0` might look like perfect reliability, but it's better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn't necessarily converged on the *correct* score. And remember, even under conditions of `temperature = 0`, this does not _guarantee_ that the model will provide the same score every time.
 - **Score distributions.** Compare the rank ordering of essays between the two conditions. If the rankings are stable but the variances differ, the temperature parameter is affecting precision rather than validity.
 - **Cost implications.** These 400 requests (20 essays × 20 reps × 2 conditions) would have cost roughly twice as much without batch pricing. For a real inter-rater reliability study at scale, that 50% discount compounds quickly.
 :::

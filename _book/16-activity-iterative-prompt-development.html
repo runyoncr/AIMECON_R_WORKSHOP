@@ -404,8 +404,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now it’s time to practice the first element of an LLM workflow: iterative prompt development. This is the process of developing and tweaking a prompt until it’s ready to be implemented more widely in your workflow.</p>
 <p>For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the <a href="https://haneul-yoo.github.io/dress/"><code>Dataset for Rubric-based Essay Scoring (DREsS)</code></a> data, which is based on scoring essays from English as a foreign language learner. I used responses for the essay prompt of “Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?” when creating the 10 synthetic essays.”</p>
 <p>The full dataset is available after filling out a <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform">consent form</a>. The essays I generated</p>
-<p>The following rubric was developed for their analysis: | <strong>Criteria</strong> | <strong>Description</strong> | |————–|———————————————————————————————————————————————————————————————————————————————————| | Content | Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples. | | Organization | The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. | | Language | The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper. |</p>
-<p>The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for <em>each</em> of the criteria.</p>
+<p>The following rubric was developed for their analysis:</p>
+<ul>
+<li>
+<strong>Content:</strong> Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.</li>
+<li>
+<strong>Organization:</strong> The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.</li>
+<li>
+<strong>Language:</strong> The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.</li>
+</ul>
+<p>The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for <em>each</em> of the criteria. |</p>
 <section id="first-prompt" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="first-prompt">
 <span class="header-section-number">16.1</span> First prompt</h2>
 <p>The first step is to write an initial prompt to score the essays. I <em>very</em> rarely use an initial prompt I develop with asking an LLM to review the prompt for completeness and organization. To demonstrate this first step, I purposefully have written a vague prompt that I wouldn’t use in practice so we can see what type of guidance a model might provide for us. You can use this prompt, or you can review it and improve it on your before providing it to a model. I’ve also include the outer prompt that I would use when asking an LLM for feedback on a prompt.</p>
@@ -876,11 +884,11 @@ Attaching package: 'purrr'</code></pre>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>{
   "content_score": 2.5,
-  "content_justification": "The essay takes a clear position and offers relatable personal examples (family dinner, friends checking Instagram), but the argument remains underdeveloped with no elaboration beyond surface observations and no broader reasoning beyond personal anecdote.",
+  "content_justification": "The essay takes a clear position and offers relatable personal examples (family dinner, friends checking Instagram), but the argument remains underdeveloped with no elaboration beyond brief observations and no broader reasoning beyond personal anecdote.",
   "organization_score": 2,
-  "organization_justification": "There is a loose progression of ideas but no formal introduction with a thesis, no distinct body paragraphs, and no conclusion; the essay reads as a loosely connected series of observations rather than a structured argument.",
+  "organization_justification": "There is a loose progression of ideas and a minimal concluding statement, but the essay lacks a formal introduction with a thesis, distinct paragraph breaks, and effective transitions between points.",
   "language_score": 2,
-  "language_justification": "Vocabulary is basic and repetitive with limited range (a: 2); grammar errors are frequent throughout—missing articles, incorrect verb forms, and dropped pronouns—sometimes impeding fluency (b: 2); punctuation is minimal and there are minor mechanical issues (c: 2.5), averaging to approximately 2.",
+  "language_justification": "Vocabulary is basic and repetitive with limited range; grammar errors are frequent (e.g., 'everyone looking,' 'instead talking,' 'I with people,' 'each others') and noticeably impede fluency; punctuation and mechanics are inconsistent throughout.",
   "total_score": 6.5
 }</code></pre>
 </div>
@@ -1370,452 +1378,451 @@ Attaching package: 'purrr'</code></pre>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>The full dataset is available after filling out a <span class="co">[</span><span class="ot">consent form</span><span class="co">](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform)</span>. The essays I generated</span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>The following rubric was developed for their analysis:</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Criteria** | **Description**                                                                                                                                                                                                                                         <span class="pp">|</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Content      <span class="pp">|</span> Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.                                                                                                                                                   <span class="pp">|</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Organization <span class="pp">|</span> The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea. <span class="pp">|</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Language     <span class="pp">|</span> The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.                                   <span class="pp">|</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for _each_ of the criteria.</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## First prompt</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>The first step is to write an initial prompt to score the essays. I _very_ rarely use an initial prompt I develop with asking an LLM to review the prompt for completeness and organization. </span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>To demonstrate this first step, I purposefully have written a vague prompt that I wouldn't use in practice so we can see what type of guidance a model might provide for us.</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>You can use this prompt, or you can review it and improve it on your before providing it to a model.</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>I've also include the outer prompt that I would use when asking an LLM for feedback on a prompt.</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>score_rubric_prompt <span class="ot">&lt;-</span> <span class="st">"You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5 (e.g., 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5). The prompt for this essay was 'Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?' </span></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="st">RUBRIC:</span></span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="st">**Content (1-5):**</span></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="st">Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.</span></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="st">**Organization (1-5):**</span></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="st">The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.</span></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="st">**Language (1-5):**</span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="st">The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.</span></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="st">ESSAY: {essay}</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="st">Please provide scores for each criterion and calculate the total score. Format your response as follows:</span></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="st">Content: [score]</span></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="st">Organization: [score]</span></span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="st">Language: [score]</span></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="st">Total: [sum of three scores]</span></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="st">Provide a brief justification (1-2 sentences) for each score."</span></span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>prompt_improvement <span class="ot">&lt;-</span> <span class="cf">function</span>(scoring_prompt){</span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"</span></span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="st">  I am preparing to using an LLM to help with the automated scoring of student essays.</span></span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="st">  Please complete the following tasks:</span></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="st">  1. Review the prompt and identify where more detail may improve the application of the rubric.</span></span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a><span class="st">  2. Review the prompt structure to ensure that the LLM can easily parse the different activities.</span></span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Draft an updated prompt incorporating the changes you suggested in (1) and (2), noting where more detail may need tobe added.</span></span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Include instructions for the output of the prompt to produce a JSON file with with the different score components.</span></span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="st">  4. Wrap the prompt in a function using the `glue` R package so I can easily cycle through the different essays to be scored.</span></span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="st">  Here is the draft of my prompt: {scoring_prompt}</span></span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a><span class="st">  "</span>)</span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>Loading <span class="in">`call_claude`</span> to send the prompt.</span>
-<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r call_claude}</span></span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>call_claude <span class="ot">&lt;-</span> <span class="cf">function</span>(prompt,</span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>                        <span class="at">model =</span> <span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>                        <span class="at">system =</span> <span class="cn">NULL</span>,</span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>                        <span class="at">temperature =</span> <span class="fl">0.5</span>,</span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>                        <span class="at">max_tokens =</span> <span class="dv">4096</span>,</span>
-<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>                        <span class="at">effort =</span> <span class="st">"low"</span>) {</span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>) <span class="sc">==</span> <span class="st">""</span>) {</span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Sys.setenv</span>(<span class="at">ANTHROPIC_API_KEY =</span> rstudioapi<span class="sc">::</span><span class="fu">askForSecret</span>(<span class="st">"Anthropic API Key"</span>))</span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get API key from environment</span></span>
-<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>  api_key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Content:** Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Organization:** The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Language:** The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper. </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for _each_ of the criteria.                      |</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## First prompt</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>The first step is to write an initial prompt to score the essays. I _very_ rarely use an initial prompt I develop with asking an LLM to review the prompt for completeness and organization. </span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>To demonstrate this first step, I purposefully have written a vague prompt that I wouldn't use in practice so we can see what type of guidance a model might provide for us.</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>You can use this prompt, or you can review it and improve it on your before providing it to a model.</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>I've also include the outer prompt that I would use when asking an LLM for feedback on a prompt.</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>score_rubric_prompt <span class="ot">&lt;-</span> <span class="st">"You are an expert essay grader. Score the following student essay based on three criteria: Content, Organization, and Language. Each criterion should be scored from 1 to 5 in increments of 0.5 (e.g., 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5). The prompt for this essay was 'Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?' </span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="st">RUBRIC:</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="st">**Content (1-5):**</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="st">Paragraph is well-developed and relevant to the argument, supported with strong reasons and examples.</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="st">**Organization (1-5):**</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="st">The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="st">**Language (1-5):**</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="st">The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper.</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="st">ESSAY: {essay}</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="st">Please provide scores for each criterion and calculate the total score. Format your response as follows:</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="st">Content: [score]</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="st">Organization: [score]</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="st">Language: [score]</span></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="st">Total: [sum of three scores]</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="st">Provide a brief justification (1-2 sentences) for each score."</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>prompt_improvement <span class="ot">&lt;-</span> <span class="cf">function</span>(scoring_prompt){</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a><span class="st">  I am preparing to using an LLM to help with the automated scoring of student essays.</span></span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a><span class="st">  Please complete the following tasks:</span></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="st">  1. Review the prompt and identify where more detail may improve the application of the rubric.</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="st">  2. Review the prompt structure to ensure that the LLM can easily parse the different activities.</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Draft an updated prompt incorporating the changes you suggested in (1) and (2), noting where more detail may need tobe added.</span></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a><span class="st">  3. Include instructions for the output of the prompt to produce a JSON file with with the different score components.</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="st">  4. Wrap the prompt in a function using the `glue` R package so I can easily cycle through the different essays to be scored.</span></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="st">  Here is the draft of my prompt: {scoring_prompt}</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="st">  "</span>)</span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>Loading <span class="in">`call_claude`</span> to send the prompt.</span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r call_claude}</span></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>call_claude <span class="ot">&lt;-</span> <span class="cf">function</span>(prompt,</span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>                        <span class="at">model =</span> <span class="st">"claude-sonnet-4-6"</span>,</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>                        <span class="at">system =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>                        <span class="at">temperature =</span> <span class="fl">0.5</span>,</span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>                        <span class="at">max_tokens =</span> <span class="dv">4096</span>,</span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>                        <span class="at">effort =</span> <span class="st">"low"</span>) {</span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>) <span class="sc">==</span> <span class="st">""</span>) {</span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Sys.setenv</span>(<span class="at">ANTHROPIC_API_KEY =</span> rstudioapi<span class="sc">::</span><span class="fu">askForSecret</span>(<span class="st">"Anthropic API Key"</span>))</span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get API key from environment</span></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>  api_key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>)</span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert text prompt to required message format</span></span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>  messages <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> prompt))</span>
-<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build request body</span></span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a>  request_body <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> model,</span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> messages,</span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> max_tokens,</span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> temperature,</span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_config =</span> <span class="fu">list</span>(<span class="at">effort =</span> effort)</span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add system prompt if provided</span></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(system)) {</span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>    request_body<span class="sc">$</span>system <span class="ot">&lt;-</span> system</span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set up headers</span></span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>  headers <span class="ot">&lt;-</span> <span class="fu">add_headers</span>(</span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>    <span class="st">"x-api-key"</span> <span class="ot">=</span> api_key,</span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>    <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span>,</span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>    <span class="st">"content-type"</span> <span class="ot">=</span> <span class="st">"application/json"</span></span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make the API request</span></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://api.anthropic.com/v1/messages"</span>,</span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>    headers,</span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a>    <span class="at">body =</span> <span class="fu">toJSON</span>(request_body, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if request was successful</span></span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">http_status</span>(response)<span class="sc">$</span>category <span class="sc">!=</span> <span class="st">"Success"</span>) {</span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">"API request failed:"</span>, <span class="fu">http_status</span>(response)<span class="sc">$</span>message,</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a>               <span class="st">"</span><span class="sc">\n</span><span class="st">Details:"</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)))</span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse response and extract text content</span></span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result<span class="sc">$</span>content<span class="sc">$</span>text)</span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert text prompt to required message format</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>  messages <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> prompt))</span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build request body</span></span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a>  request_body <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> model,</span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> messages,</span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> max_tokens,</span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> temperature,</span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_config =</span> <span class="fu">list</span>(<span class="at">effort =</span> effort)</span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add system prompt if provided</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(system)) {</span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>    request_body<span class="sc">$</span>system <span class="ot">&lt;-</span> system</span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set up headers</span></span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>  headers <span class="ot">&lt;-</span> <span class="fu">add_headers</span>(</span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>    <span class="st">"x-api-key"</span> <span class="ot">=</span> api_key,</span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>    <span class="st">"anthropic-version"</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span>,</span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>    <span class="st">"content-type"</span> <span class="ot">=</span> <span class="st">"application/json"</span></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make the API request</span></span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://api.anthropic.com/v1/messages"</span>,</span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>    headers,</span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>    <span class="at">body =</span> <span class="fu">toJSON</span>(request_body, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if request was successful</span></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">http_status</span>(response)<span class="sc">$</span>category <span class="sc">!=</span> <span class="st">"Success"</span>) {</span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">"API request failed:"</span>, <span class="fu">http_status</span>(response)<span class="sc">$</span>message,</span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>               <span class="st">"</span><span class="sc">\n</span><span class="st">Details:"</span>, <span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)))</span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse response and extract text content</span></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result<span class="sc">$</span>content<span class="sc">$</span>text)</span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a>Asking for feedback on the prompt.</span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a>revised_prompt <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">prompt_improvement</span>(score_rubric_prompt))</span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(revised_prompt)</span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>Asking for feedback on the prompt.</span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a>revised_prompt <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(<span class="fu">prompt_improvement</span>(score_rubric_prompt))</span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(revised_prompt)</span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Expand the LLM Response </span></span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>I'll work through each task systematically.</span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>**Task 1: Areas Where More Detail Would Improve Rubric Application**</span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Content rubric** is vague - "well-developed" and "strong reasons" need anchor descriptions for each score level (1, 2, 3, 4, 5). Without this, the LLM has no basis for distinguishing a 2 from a 3.</span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Organization rubric** doesn't clarify expectations for essay-level structure (intro, body, conclusion) vs. paragraph-level structure.</span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Language rubric** conflates three distinct sub-dimensions (vocabulary, grammar, mechanics) making it hard to arrive at a single score when they conflict (e.g., rich vocabulary but poor spelling).</span>
-<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**No anchor examples** are provided for any score level on any criterion.</span>
-<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**No guidance on how to handle very short essays** or off-topic responses.</span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**Scoring range behavior** is undefined at the extremes — what does a "1" look like vs. a "2"?</span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a>**Task 2: Structural Issues with the Prompt**</span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The rubric criteria run together visually — the LLM may not cleanly separate scoring logic for each.</span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The output format instruction is at the bottom but JSON was not requested (addressed in Task 3).</span>
-<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Instructions for justification length are present but placement after the format block is easy to miss.</span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The essay prompt context is buried mid-paragraph rather than clearly labeled.</span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a>**Tasks 3 &amp; 4: Updated Prompt Wrapped in `glue` Function**</span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a><span class="in">library(glue)</span></span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a><span class="in">score_essay &lt;- function(essay) {</span></span>
-<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="in">  prompt &lt;- glue(</span></span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="in">    "You are an expert essay grader with experience in evaluating argumentative writing</span></span>
-<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="in">    at the secondary and post-secondary level.</span></span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a><span class="in">    ## TASK</span></span>
-<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the student essay provided below using the three criteria in the rubric.</span></span>
-<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="in">    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,</span></span>
-<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a><span class="in">    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.</span></span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a><span class="in">    ## ESSAY PROMPT GIVEN TO STUDENT</span></span>
-<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a><span class="in">    'Do you think that smartphones have destroyed communication among family and friends?</span></span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a><span class="in">    Give specific reasons and details to support your opinion.'</span></span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a><span class="in">    ## SCORING RUBRIC</span></span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="in">    ### CRITERION 1: Content (1-5)</span></span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the degree to which the essay develops a clear argument with relevant reasons</span></span>
-<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a><span class="in">    and specific supporting examples in response to the essay prompt.</span></span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a><span class="in">    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and</span></span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a><span class="in">         concrete examples. All content directly supports the central claim.</span></span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a><span class="in">    - 4: Argument is well-developed with mostly specific reasons and examples. Minor</span></span>
-<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a><span class="in">         gaps in development or relevance.</span></span>
-<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a><span class="in">    - 3: Argument is adequately developed but reasons are sometimes general or examples</span></span>
-<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a><span class="in">         are vague. Some content may be loosely connected to the argument.</span></span>
-<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a><span class="in">    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and</span></span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a><span class="in">         examples are missing or unclear.</span></span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a><span class="in">    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,</span></span>
-<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a><span class="in">         or does not respond to the prompt.</span></span>
-<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a><span class="in">    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls</span></span>
-<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a><span class="in">    between two descriptors.</span></span>
-<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a><span class="in">    ### CRITERION 2: Organization (1-5)</span></span>
-<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the degree to which the essay is logically structured at both the essay level</span></span>
-<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="in">    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence</span></span>
-<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a><span class="in">    devices, single main idea per paragraph).</span></span>
-<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a><span class="in">    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs</span></span>
-<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="in">         each focused on a single idea, and a conclusion. Transitions and coherence</span></span>
-<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="in">         devices are used effectively throughout.</span></span>
-<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a><span class="in">    - 4: Essay structure is clear and mostly effective. Minor issues with transitions</span></span>
-<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a><span class="in">         or paragraph focus.</span></span>
-<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="in">    - 3: Basic structure is present but inconsistently applied. Some paragraphs may</span></span>
-<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a><span class="in">         lack focus or transitions may be absent or mechanical.</span></span>
-<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a><span class="in">    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend</span></span>
-<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a><span class="in">         multiple unrelated ideas. Few or no transitions.</span></span>
-<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a><span class="in">    - 1: No discernible organizational structure. Ideas are presented randomly with no</span></span>
-<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a><span class="in">         paragraph logic.</span></span>
-<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a><span class="in">    ### CRITERION 3: Language (1-5)</span></span>
-<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the overall quality of language use across three equally weighted</span></span>
-<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a><span class="in">    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage</span></span>
-<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a><span class="in">    correctness, and (c) spelling and punctuation accuracy. Average across these three</span></span>
-<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a><span class="in">    sub-dimensions to arrive at a single Language score.</span></span>
-<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a><span class="in">    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar</span></span>
-<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a><span class="in">         and usage are correct throughout; (c) spelling and punctuation are correct</span></span>
-<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a><span class="in">         throughout.</span></span>
-<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a><span class="in">    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct</span></span>
-<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a><span class="in">         grammar with minor errors that do not impede meaning; (c) few spelling or</span></span>
-<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a><span class="in">         punctuation errors.</span></span>
-<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a><span class="in">    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar</span></span>
-<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a><span class="in">         errors are noticeable but meaning is generally clear; (c) some spelling and</span></span>
-<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a><span class="in">         punctuation errors.</span></span>
-<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a><span class="in">    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent</span></span>
-<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a><span class="in">         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.</span></span>
-<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a><span class="in">    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout</span></span>
-<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a><span class="in">         severely impede meaning; (c) spelling and punctuation errors throughout.</span></span>
-<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a><span class="in">    ## HANDLING EDGE CASES</span></span>
-<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a><span class="in">    - If the essay is off-topic or does not respond to the prompt, assign a Content</span></span>
-<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a><span class="in">      score of 1 and note this in the justification.</span></span>
-<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a><span class="in">    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content</span></span>
-<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a><span class="in">      and Organization, and score Language based on what is present.</span></span>
-<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a><span class="in">      [NOTE: Adjust this word threshold based on your assignment expectations.]</span></span>
-<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a><span class="in">    ## STUDENT ESSAY TO SCORE</span></span>
-<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a><span class="in">    {essay}</span></span>
-<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a><span class="in">    ## OUTPUT INSTRUCTIONS</span></span>
-<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a><span class="in">    Return your response ONLY as a valid JSON object with no additional text before or</span></span>
-<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a><span class="in">    after it. Use the following structure exactly:</span></span>
-<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="in">    {{</span></span>
-<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a><span class="in">      'content_score': &lt;number&gt;,</span></span>
-<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a><span class="in">      'content_justification': '&lt;1-2 sentence justification&gt;',</span></span>
-<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a><span class="in">      'organization_score': &lt;number&gt;,</span></span>
-<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a><span class="in">      'organization_justification': '&lt;1-2 sentence justification&gt;',</span></span>
-<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a><span class="in">      'language_score': &lt;number&gt;,</span></span>
-<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="in">      'language_justification': '&lt;1-2 sentence justification referencing vocabulary,</span></span>
-<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="in">                                  grammar, and mechanics&gt;',</span></span>
-<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="in">      'total_score': &lt;sum of three scores&gt;</span></span>
-<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a><span class="in">    }}</span></span>
-<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a><span class="in">    Ensure that 'total_score' equals the sum of the three criterion scores. Do not</span></span>
-<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="in">    include any text outside the JSON object."</span></span>
-<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a><span class="in">  return(prompt)</span></span>
-<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a>Example Usage</span>
-<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a><span class="in"># Single essay</span></span>
-<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a><span class="in">my_essay &lt;- "Smartphones have definitely changed how families communicate..."</span></span>
-<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a><span class="in">prompt_ready &lt;- score_essay(essay = my_essay)</span></span>
-<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a><span class="in"># Cycling through a data frame of essays</span></span>
-<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr)</span></span>
-<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a><span class="in">library(purrr)</span></span>
-<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a><span class="in">essays_df &lt;- tibble(</span></span>
-<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a><span class="in">  student_id = c("S001", "S002", "S003"),</span></span>
-<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a><span class="in">  essay_text = c(</span></span>
-<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a><span class="in">    "Smartphones have changed communication...",</span></span>
-<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a><span class="in">    "I think phones are bad because...",</span></span>
-<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a><span class="in">    "Families used to talk more before smartphones..."</span></span>
-<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a><span class="in">essays_df &lt;- essays_df |&gt;</span></span>
-<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
-<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a><span class="in">    prompt = map_chr(essay_text, ~ score_essay(essay = .x))</span></span>
-<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a><span class="in"># essays_df$prompt can then be passed to your LLM API call</span></span>
-<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a>**Key Notes on Where You Should Add More Detail**</span>
-<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Location <span class="pp">|</span> What to Add <span class="pp">|</span></span>
-<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Content rubric <span class="pp">|</span> Domain-specific examples of what counts as a "specific example" for this prompt <span class="pp">|</span></span>
-<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Word count threshold <span class="pp">|</span> Adjust the 50-word minimum to match your assignment requirements <span class="pp">|</span></span>
-<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Language sub-dimension weights <span class="pp">|</span> Change equal weighting if mechanics matter more/less than grammar in your context <span class="pp">|</span></span>
-<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Edge case handling <span class="pp">|</span> Add rules for plagiarism flags, non-English responses, or AI-generated text if relevant <span class="pp">|</span></span>
-<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> API call <span class="pp">|</span> You will need to add your own LLM API call function to pass <span class="in">`prompt_ready`</span> to the model and parse the returned JSON <span class="pp">|</span></span>
-<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-330"><a href="#cb15-330" aria-hidden="true" tabindex="-1"></a><span class="fu">## Implement Revisions</span></span>
-<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a>As you can see, the LLM identified many areas for improvement - many of which you may have identified yourself as measurement experts!</span>
-<span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a>For the purposes of this workshop, let's blindly adopt the changes the LLM provided.</span>
-<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a>This is normally something I wouldn't do; instead, I would review the suggested edits, keep what was good, and continue refining the prompt based on ideas I received from the initial LLM feedback.</span>
-<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a>I would usually do this a few more times, even if I'm working with subject-matter experts.</span>
-<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a>I've often found that SMEs are impressed by some of the suggestions made by the LLM, and they also like it as a brainstorming partner.</span>
-<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
-<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
-<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"</span>))</span>
-<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a>score_essay <span class="ot">&lt;-</span> <span class="cf">function</span>(essay) {</span>
-<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a>  prompt <span class="ot">&lt;-</span> <span class="fu">glue</span>(</span>
-<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are an expert essay grader with experience in evaluating argumentative writing</span></span>
-<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a><span class="st">    at the secondary and post-secondary level.</span></span>
-<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a><span class="st">    ## TASK</span></span>
-<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the student essay provided below using the three criteria in the rubric.</span></span>
-<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a><span class="st">    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,</span></span>
-<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a><span class="st">    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.</span></span>
-<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a><span class="st">    ## ESSAY PROMPT GIVEN TO STUDENT</span></span>
-<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a><span class="st">    'Do you think that smartphones have destroyed communication among family and friends?</span></span>
-<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a><span class="st">    Give specific reasons and details to support your opinion.'</span></span>
-<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="st">    ## SCORING RUBRIC</span></span>
-<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a><span class="st">    ### CRITERION 1: Content (1-5)</span></span>
-<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the degree to which the essay develops a clear argument with relevant reasons</span></span>
-<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a><span class="st">    and specific supporting examples in response to the essay prompt.</span></span>
-<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a><span class="st">    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and</span></span>
-<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a><span class="st">         concrete examples. All content directly supports the central claim.</span></span>
-<span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a><span class="st">    - 4: Argument is well-developed with mostly specific reasons and examples. Minor</span></span>
-<span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a><span class="st">         gaps in development or relevance.</span></span>
-<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a><span class="st">    - 3: Argument is adequately developed but reasons are sometimes general or examples</span></span>
-<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a><span class="st">         are vague. Some content may be loosely connected to the argument.</span></span>
-<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a><span class="st">    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and</span></span>
-<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a><span class="st">         examples are missing or unclear.</span></span>
-<span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a><span class="st">    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,</span></span>
-<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a><span class="st">         or does not respond to the prompt.</span></span>
-<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a><span class="st">    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls</span></span>
-<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a><span class="st">    between two descriptors.</span></span>
-<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a><span class="st">    ### CRITERION 2: Organization (1-5)</span></span>
-<span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the degree to which the essay is logically structured at both the essay level</span></span>
-<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a><span class="st">    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence</span></span>
-<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a><span class="st">    devices, single main idea per paragraph).</span></span>
-<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a><span class="st">    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs</span></span>
-<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a><span class="st">         each focused on a single idea, and a conclusion. Transitions and coherence</span></span>
-<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a><span class="st">         devices are used effectively throughout.</span></span>
-<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a><span class="st">    - 4: Essay structure is clear and mostly effective. Minor issues with transitions</span></span>
-<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a><span class="st">         or paragraph focus.</span></span>
-<span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a><span class="st">    - 3: Basic structure is present but inconsistently applied. Some paragraphs may</span></span>
-<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a><span class="st">         lack focus or transitions may be absent or mechanical.</span></span>
-<span id="cb15-397"><a href="#cb15-397" aria-hidden="true" tabindex="-1"></a><span class="st">    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend</span></span>
-<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a><span class="st">         multiple unrelated ideas. Few or no transitions.</span></span>
-<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a><span class="st">    - 1: No discernible organizational structure. Ideas are presented randomly with no</span></span>
-<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a><span class="st">         paragraph logic.</span></span>
-<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a><span class="st">    ### CRITERION 3: Language (1-5)</span></span>
-<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the overall quality of language use across three equally weighted</span></span>
-<span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a><span class="st">    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage</span></span>
-<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a><span class="st">    correctness, and (c) spelling and punctuation accuracy. Average across these three</span></span>
-<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a><span class="st">    sub-dimensions to arrive at a single Language score.</span></span>
-<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-408"><a href="#cb15-408" aria-hidden="true" tabindex="-1"></a><span class="st">    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar</span></span>
-<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a><span class="st">         and usage are correct throughout; (c) spelling and punctuation are correct</span></span>
-<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a><span class="st">         throughout.</span></span>
-<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a><span class="st">    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct</span></span>
-<span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a><span class="st">         grammar with minor errors that do not impede meaning; (c) few spelling or</span></span>
-<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a><span class="st">         punctuation errors.</span></span>
-<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a><span class="st">    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar</span></span>
-<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a><span class="st">         errors are noticeable but meaning is generally clear; (c) some spelling and</span></span>
-<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a><span class="st">         punctuation errors.</span></span>
-<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a><span class="st">    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent</span></span>
-<span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a><span class="st">         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.</span></span>
-<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a><span class="st">    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout</span></span>
-<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a><span class="st">         severely impede meaning; (c) spelling and punctuation errors throughout.</span></span>
-<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a><span class="st">    ## HANDLING EDGE CASES</span></span>
-<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a><span class="st">    - If the essay is off-topic or does not respond to the prompt, assign a Content</span></span>
-<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a><span class="st">      score of 1 and note this in the justification.</span></span>
-<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a><span class="st">    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content</span></span>
-<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a><span class="st">      and Organization, and score Language based on what is present.</span></span>
-<span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a><span class="st">      [NOTE: Adjust this word threshold based on your assignment expectations.]</span></span>
-<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a><span class="st">    ## STUDENT ESSAY TO SCORE</span></span>
-<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a><span class="st">    {essay}</span></span>
-<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-432"><a href="#cb15-432" aria-hidden="true" tabindex="-1"></a><span class="st">    ## OUTPUT INSTRUCTIONS</span></span>
-<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a><span class="st">    Return your response ONLY as a valid JSON object with no additional text before or</span></span>
-<span id="cb15-434"><a href="#cb15-434" aria-hidden="true" tabindex="-1"></a><span class="st">    after it. Use the following structure exactly:</span></span>
-<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a><span class="st">    {{</span></span>
-<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a><span class="st">      'content_score': &lt;number&gt;,</span></span>
-<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a><span class="st">      'content_justification': '&lt;1-2 sentence justification&gt;',</span></span>
-<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a><span class="st">      'organization_score': &lt;number&gt;,</span></span>
-<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a><span class="st">      'organization_justification': '&lt;1-2 sentence justification&gt;',</span></span>
-<span id="cb15-441"><a href="#cb15-441" aria-hidden="true" tabindex="-1"></a><span class="st">      'language_score': &lt;number&gt;,</span></span>
-<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a><span class="st">      'language_justification': '&lt;1-2 sentence justification referencing vocabulary,</span></span>
-<span id="cb15-443"><a href="#cb15-443" aria-hidden="true" tabindex="-1"></a><span class="st">                                  grammar, and mechanics&gt;',</span></span>
-<span id="cb15-444"><a href="#cb15-444" aria-hidden="true" tabindex="-1"></a><span class="st">      'total_score': &lt;sum of three scores&gt;</span></span>
-<span id="cb15-445"><a href="#cb15-445" aria-hidden="true" tabindex="-1"></a><span class="st">    }}</span></span>
-<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb15-447"><a href="#cb15-447" aria-hidden="true" tabindex="-1"></a><span class="st">    Ensure that 'total_score' equals the sum of the three criterion scores. Do not</span></span>
-<span id="cb15-448"><a href="#cb15-448" aria-hidden="true" tabindex="-1"></a><span class="st">    include any text outside the JSON object."</span></span>
-<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-450"><a href="#cb15-450" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(prompt)</span>
-<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating new column of prompts to keep it in the same df</span></span>
-<span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a>student_essays<span class="sc">$</span>scoring_prompt <span class="ot">&lt;-</span> <span class="fu">sapply</span>(student_essays<span class="sc">$</span>essay, score_essay)</span>
-<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a><span class="co"># Trying the first one</span></span>
-<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a>student_essays<span class="sc">$</span>scoring_ouptut <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a>student_essays<span class="sc">$</span>scoring_ouptut[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(student_essays<span class="sc">$</span>scoring_prompt[<span class="dv">1</span>])</span>
-<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(student_essays<span class="sc">$</span>scoring_ouptut[<span class="dv">1</span>])</span>
-<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-464"><a href="#cb15-464" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Expand the LLM Response </span></span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>I'll work through each task systematically.</span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a>**Task 1: Areas Where More Detail Would Improve Rubric Application**</span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Content rubric** is vague - "well-developed" and "strong reasons" need anchor descriptions for each score level (1, 2, 3, 4, 5). Without this, the LLM has no basis for distinguishing a 2 from a 3.</span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Organization rubric** doesn't clarify expectations for essay-level structure (intro, body, conclusion) vs. paragraph-level structure.</span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Language rubric** conflates three distinct sub-dimensions (vocabulary, grammar, mechanics) making it hard to arrive at a single score when they conflict (e.g., rich vocabulary but poor spelling).</span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**No anchor examples** are provided for any score level on any criterion.</span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**No guidance on how to handle very short essays** or off-topic responses.</span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**Scoring range behavior** is undefined at the extremes — what does a "1" look like vs. a "2"?</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a>**Task 2: Structural Issues with the Prompt**</span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The rubric criteria run together visually — the LLM may not cleanly separate scoring logic for each.</span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The output format instruction is at the bottom but JSON was not requested (addressed in Task 3).</span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Instructions for justification length are present but placement after the format block is easy to miss.</span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The essay prompt context is buried mid-paragraph rather than clearly labeled.</span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a>**Tasks 3 &amp; 4: Updated Prompt Wrapped in `glue` Function**</span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a><span class="in">library(glue)</span></span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a><span class="in">score_essay &lt;- function(essay) {</span></span>
+<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a><span class="in">  prompt &lt;- glue(</span></span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="in">    "You are an expert essay grader with experience in evaluating argumentative writing</span></span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="in">    at the secondary and post-secondary level.</span></span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a><span class="in">    ## TASK</span></span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the student essay provided below using the three criteria in the rubric.</span></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a><span class="in">    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,</span></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="in">    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.</span></span>
+<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="in">    ## ESSAY PROMPT GIVEN TO STUDENT</span></span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a><span class="in">    'Do you think that smartphones have destroyed communication among family and friends?</span></span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a><span class="in">    Give specific reasons and details to support your opinion.'</span></span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="in">    ## SCORING RUBRIC</span></span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a><span class="in">    ### CRITERION 1: Content (1-5)</span></span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the degree to which the essay develops a clear argument with relevant reasons</span></span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a><span class="in">    and specific supporting examples in response to the essay prompt.</span></span>
+<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a><span class="in">    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and</span></span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a><span class="in">         concrete examples. All content directly supports the central claim.</span></span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a><span class="in">    - 4: Argument is well-developed with mostly specific reasons and examples. Minor</span></span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a><span class="in">         gaps in development or relevance.</span></span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a><span class="in">    - 3: Argument is adequately developed but reasons are sometimes general or examples</span></span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a><span class="in">         are vague. Some content may be loosely connected to the argument.</span></span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a><span class="in">    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and</span></span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a><span class="in">         examples are missing or unclear.</span></span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a><span class="in">    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,</span></span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a><span class="in">         or does not respond to the prompt.</span></span>
+<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a><span class="in">    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls</span></span>
+<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a><span class="in">    between two descriptors.</span></span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a><span class="in">    ### CRITERION 2: Organization (1-5)</span></span>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the degree to which the essay is logically structured at both the essay level</span></span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="in">    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence</span></span>
+<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="in">    devices, single main idea per paragraph).</span></span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="in">    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs</span></span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a><span class="in">         each focused on a single idea, and a conclusion. Transitions and coherence</span></span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="in">         devices are used effectively throughout.</span></span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="in">    - 4: Essay structure is clear and mostly effective. Minor issues with transitions</span></span>
+<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a><span class="in">         or paragraph focus.</span></span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a><span class="in">    - 3: Basic structure is present but inconsistently applied. Some paragraphs may</span></span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="in">         lack focus or transitions may be absent or mechanical.</span></span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a><span class="in">    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend</span></span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a><span class="in">         multiple unrelated ideas. Few or no transitions.</span></span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a><span class="in">    - 1: No discernible organizational structure. Ideas are presented randomly with no</span></span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a><span class="in">         paragraph logic.</span></span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="in">    ### CRITERION 3: Language (1-5)</span></span>
+<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a><span class="in">    Score the overall quality of language use across three equally weighted</span></span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a><span class="in">    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage</span></span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a><span class="in">    correctness, and (c) spelling and punctuation accuracy. Average across these three</span></span>
+<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a><span class="in">    sub-dimensions to arrive at a single Language score.</span></span>
+<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a><span class="in">    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar</span></span>
+<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a><span class="in">         and usage are correct throughout; (c) spelling and punctuation are correct</span></span>
+<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a><span class="in">         throughout.</span></span>
+<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a><span class="in">    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct</span></span>
+<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a><span class="in">         grammar with minor errors that do not impede meaning; (c) few spelling or</span></span>
+<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a><span class="in">         punctuation errors.</span></span>
+<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a><span class="in">    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar</span></span>
+<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a><span class="in">         errors are noticeable but meaning is generally clear; (c) some spelling and</span></span>
+<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a><span class="in">         punctuation errors.</span></span>
+<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a><span class="in">    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent</span></span>
+<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a><span class="in">         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.</span></span>
+<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a><span class="in">    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout</span></span>
+<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a><span class="in">         severely impede meaning; (c) spelling and punctuation errors throughout.</span></span>
+<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="in">    ## HANDLING EDGE CASES</span></span>
+<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a><span class="in">    - If the essay is off-topic or does not respond to the prompt, assign a Content</span></span>
+<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a><span class="in">      score of 1 and note this in the justification.</span></span>
+<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a><span class="in">    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content</span></span>
+<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a><span class="in">      and Organization, and score Language based on what is present.</span></span>
+<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a><span class="in">      [NOTE: Adjust this word threshold based on your assignment expectations.]</span></span>
+<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a><span class="in">    ## STUDENT ESSAY TO SCORE</span></span>
+<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a><span class="in">    {essay}</span></span>
+<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a><span class="in">    ## OUTPUT INSTRUCTIONS</span></span>
+<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a><span class="in">    Return your response ONLY as a valid JSON object with no additional text before or</span></span>
+<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a><span class="in">    after it. Use the following structure exactly:</span></span>
+<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a><span class="in">    {{</span></span>
+<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="in">      'content_score': &lt;number&gt;,</span></span>
+<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a><span class="in">      'content_justification': '&lt;1-2 sentence justification&gt;',</span></span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a><span class="in">      'organization_score': &lt;number&gt;,</span></span>
+<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a><span class="in">      'organization_justification': '&lt;1-2 sentence justification&gt;',</span></span>
+<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a><span class="in">      'language_score': &lt;number&gt;,</span></span>
+<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a><span class="in">      'language_justification': '&lt;1-2 sentence justification referencing vocabulary,</span></span>
+<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="in">                                  grammar, and mechanics&gt;',</span></span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="in">      'total_score': &lt;sum of three scores&gt;</span></span>
+<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="in">    }}</span></span>
+<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a><span class="in">    Ensure that 'total_score' equals the sum of the three criterion scores. Do not</span></span>
+<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a><span class="in">    include any text outside the JSON object."</span></span>
+<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a><span class="in">  return(prompt)</span></span>
+<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a>Example Usage</span>
+<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a><span class="in"># Single essay</span></span>
+<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a><span class="in">my_essay &lt;- "Smartphones have definitely changed how families communicate..."</span></span>
+<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a><span class="in">prompt_ready &lt;- score_essay(essay = my_essay)</span></span>
+<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a><span class="in"># Cycling through a data frame of essays</span></span>
+<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr)</span></span>
+<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a><span class="in">library(purrr)</span></span>
+<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a><span class="in">essays_df &lt;- tibble(</span></span>
+<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a><span class="in">  student_id = c("S001", "S002", "S003"),</span></span>
+<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a><span class="in">  essay_text = c(</span></span>
+<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a><span class="in">    "Smartphones have changed communication...",</span></span>
+<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a><span class="in">    "I think phones are bad because...",</span></span>
+<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a><span class="in">    "Families used to talk more before smartphones..."</span></span>
+<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a><span class="in">essays_df &lt;- essays_df |&gt;</span></span>
+<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
+<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a><span class="in">    prompt = map_chr(essay_text, ~ score_essay(essay = .x))</span></span>
+<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a><span class="in"># essays_df$prompt can then be passed to your LLM API call</span></span>
+<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a>**Key Notes on Where You Should Add More Detail**</span>
+<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Location <span class="pp">|</span> What to Add <span class="pp">|</span></span>
+<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Content rubric <span class="pp">|</span> Domain-specific examples of what counts as a "specific example" for this prompt <span class="pp">|</span></span>
+<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Word count threshold <span class="pp">|</span> Adjust the 50-word minimum to match your assignment requirements <span class="pp">|</span></span>
+<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Language sub-dimension weights <span class="pp">|</span> Change equal weighting if mechanics matter more/less than grammar in your context <span class="pp">|</span></span>
+<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Edge case handling <span class="pp">|</span> Add rules for plagiarism flags, non-English responses, or AI-generated text if relevant <span class="pp">|</span></span>
+<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> API call <span class="pp">|</span> You will need to add your own LLM API call function to pass <span class="in">`prompt_ready`</span> to the model and parse the returned JSON <span class="pp">|</span></span>
+<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## Implement Revisions</span></span>
+<span id="cb15-330"><a href="#cb15-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a>As you can see, the LLM identified many areas for improvement - many of which you may have identified yourself as measurement experts!</span>
+<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a>For the purposes of this workshop, let's blindly adopt the changes the LLM provided.</span>
+<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a>This is normally something I wouldn't do; instead, I would review the suggested edits, keep what was good, and continue refining the prompt based on ideas I received from the initial LLM feedback.</span>
+<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a>I would usually do this a few more times, even if I'm working with subject-matter experts.</span>
+<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a>I've often found that SMEs are impressed by some of the suggestions made by the LLM, and they also like it as a brainstorming partner.</span>
+<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
+<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
+<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"</span>))</span>
+<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a>score_essay <span class="ot">&lt;-</span> <span class="cf">function</span>(essay) {</span>
+<span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a>  prompt <span class="ot">&lt;-</span> <span class="fu">glue</span>(</span>
+<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are an expert essay grader with experience in evaluating argumentative writing</span></span>
+<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a><span class="st">    at the secondary and post-secondary level.</span></span>
+<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a><span class="st">    ## TASK</span></span>
+<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the student essay provided below using the three criteria in the rubric.</span></span>
+<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a><span class="st">    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,</span></span>
+<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a><span class="st">    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.</span></span>
+<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a><span class="st">    ## ESSAY PROMPT GIVEN TO STUDENT</span></span>
+<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a><span class="st">    'Do you think that smartphones have destroyed communication among family and friends?</span></span>
+<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a><span class="st">    Give specific reasons and details to support your opinion.'</span></span>
+<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a><span class="st">    ## SCORING RUBRIC</span></span>
+<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a><span class="st">    ### CRITERION 1: Content (1-5)</span></span>
+<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the degree to which the essay develops a clear argument with relevant reasons</span></span>
+<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a><span class="st">    and specific supporting examples in response to the essay prompt.</span></span>
+<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a><span class="st">    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and</span></span>
+<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a><span class="st">         concrete examples. All content directly supports the central claim.</span></span>
+<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a><span class="st">    - 4: Argument is well-developed with mostly specific reasons and examples. Minor</span></span>
+<span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a><span class="st">         gaps in development or relevance.</span></span>
+<span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a><span class="st">    - 3: Argument is adequately developed but reasons are sometimes general or examples</span></span>
+<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a><span class="st">         are vague. Some content may be loosely connected to the argument.</span></span>
+<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a><span class="st">    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and</span></span>
+<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a><span class="st">         examples are missing or unclear.</span></span>
+<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a><span class="st">    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,</span></span>
+<span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a><span class="st">         or does not respond to the prompt.</span></span>
+<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a><span class="st">    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls</span></span>
+<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a><span class="st">    between two descriptors.</span></span>
+<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a><span class="st">    ### CRITERION 2: Organization (1-5)</span></span>
+<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the degree to which the essay is logically structured at both the essay level</span></span>
+<span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a><span class="st">    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence</span></span>
+<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a><span class="st">    devices, single main idea per paragraph).</span></span>
+<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a><span class="st">    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs</span></span>
+<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a><span class="st">         each focused on a single idea, and a conclusion. Transitions and coherence</span></span>
+<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a><span class="st">         devices are used effectively throughout.</span></span>
+<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a><span class="st">    - 4: Essay structure is clear and mostly effective. Minor issues with transitions</span></span>
+<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a><span class="st">         or paragraph focus.</span></span>
+<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a><span class="st">    - 3: Basic structure is present but inconsistently applied. Some paragraphs may</span></span>
+<span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a><span class="st">         lack focus or transitions may be absent or mechanical.</span></span>
+<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a><span class="st">    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend</span></span>
+<span id="cb15-397"><a href="#cb15-397" aria-hidden="true" tabindex="-1"></a><span class="st">         multiple unrelated ideas. Few or no transitions.</span></span>
+<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a><span class="st">    - 1: No discernible organizational structure. Ideas are presented randomly with no</span></span>
+<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a><span class="st">         paragraph logic.</span></span>
+<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a><span class="st">    ### CRITERION 3: Language (1-5)</span></span>
+<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a><span class="st">    Score the overall quality of language use across three equally weighted</span></span>
+<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a><span class="st">    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage</span></span>
+<span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a><span class="st">    correctness, and (c) spelling and punctuation accuracy. Average across these three</span></span>
+<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a><span class="st">    sub-dimensions to arrive at a single Language score.</span></span>
+<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a><span class="st">    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar</span></span>
+<span id="cb15-408"><a href="#cb15-408" aria-hidden="true" tabindex="-1"></a><span class="st">         and usage are correct throughout; (c) spelling and punctuation are correct</span></span>
+<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a><span class="st">         throughout.</span></span>
+<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a><span class="st">    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct</span></span>
+<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a><span class="st">         grammar with minor errors that do not impede meaning; (c) few spelling or</span></span>
+<span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a><span class="st">         punctuation errors.</span></span>
+<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a><span class="st">    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar</span></span>
+<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a><span class="st">         errors are noticeable but meaning is generally clear; (c) some spelling and</span></span>
+<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a><span class="st">         punctuation errors.</span></span>
+<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a><span class="st">    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent</span></span>
+<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a><span class="st">         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.</span></span>
+<span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a><span class="st">    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout</span></span>
+<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a><span class="st">         severely impede meaning; (c) spelling and punctuation errors throughout.</span></span>
+<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a><span class="st">    ## HANDLING EDGE CASES</span></span>
+<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a><span class="st">    - If the essay is off-topic or does not respond to the prompt, assign a Content</span></span>
+<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a><span class="st">      score of 1 and note this in the justification.</span></span>
+<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a><span class="st">    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content</span></span>
+<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a><span class="st">      and Organization, and score Language based on what is present.</span></span>
+<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a><span class="st">      [NOTE: Adjust this word threshold based on your assignment expectations.]</span></span>
+<span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a><span class="st">    ## STUDENT ESSAY TO SCORE</span></span>
+<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a><span class="st">    {essay}</span></span>
+<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a><span class="st">    ## OUTPUT INSTRUCTIONS</span></span>
+<span id="cb15-432"><a href="#cb15-432" aria-hidden="true" tabindex="-1"></a><span class="st">    Return your response ONLY as a valid JSON object with no additional text before or</span></span>
+<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a><span class="st">    after it. Use the following structure exactly:</span></span>
+<span id="cb15-434"><a href="#cb15-434" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a><span class="st">    {{</span></span>
+<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a><span class="st">      'content_score': &lt;number&gt;,</span></span>
+<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a><span class="st">      'content_justification': '&lt;1-2 sentence justification&gt;',</span></span>
+<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a><span class="st">      'organization_score': &lt;number&gt;,</span></span>
+<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a><span class="st">      'organization_justification': '&lt;1-2 sentence justification&gt;',</span></span>
+<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a><span class="st">      'language_score': &lt;number&gt;,</span></span>
+<span id="cb15-441"><a href="#cb15-441" aria-hidden="true" tabindex="-1"></a><span class="st">      'language_justification': '&lt;1-2 sentence justification referencing vocabulary,</span></span>
+<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a><span class="st">                                  grammar, and mechanics&gt;',</span></span>
+<span id="cb15-443"><a href="#cb15-443" aria-hidden="true" tabindex="-1"></a><span class="st">      'total_score': &lt;sum of three scores&gt;</span></span>
+<span id="cb15-444"><a href="#cb15-444" aria-hidden="true" tabindex="-1"></a><span class="st">    }}</span></span>
+<span id="cb15-445"><a href="#cb15-445" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a><span class="st">    Ensure that 'total_score' equals the sum of the three criterion scores. Do not</span></span>
+<span id="cb15-447"><a href="#cb15-447" aria-hidden="true" tabindex="-1"></a><span class="st">    include any text outside the JSON object."</span></span>
+<span id="cb15-448"><a href="#cb15-448" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-450"><a href="#cb15-450" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(prompt)</span>
+<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating new column of prompts to keep it in the same df</span></span>
+<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a>student_essays<span class="sc">$</span>scoring_prompt <span class="ot">&lt;-</span> <span class="fu">sapply</span>(student_essays<span class="sc">$</span>essay, score_essay)</span>
+<span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a><span class="co"># Trying the first one</span></span>
+<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a>student_essays<span class="sc">$</span>scoring_ouptut <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a>student_essays<span class="sc">$</span>scoring_ouptut[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">call_claude</span>(student_essays<span class="sc">$</span>scoring_prompt[<span class="dv">1</span>])</span>
+<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(student_essays<span class="sc">$</span>scoring_ouptut[<span class="dv">1</span>])</span>
+<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

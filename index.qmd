@@ -24,21 +24,11 @@ Learning Objectives
 [By the end of this workshop, participants will be able to:]{.underline}
 
 -	Explain key LLM architectural features that inform effective integration practices
--	Apply prompt engineering principles to achieve useful outputs in R workflows
--	Implement both conversational and transcational API interactions with LLMs from R
+-	Implement both conversational and transactional API interactions with LLMs from R
 -	Design and deploy simple chained prompt workflows for complex tasks
 -	Build interactive Shiny applications that leverage LLM capabilities for end-user functionality
 
-***
-
-This resource is a living document. Here's what I plan on covering next:
-
-|       **Topic**       | **Expected Completion Date / Completed on Date** | **Link to Section** (when complete) |
-|:---------------------:|:------------------------------------------------:|:-----------------------------------:|
-| File Uploads          | Q2 2025                                          |                                     |
-| Web Search via API    | Q2 2025                                          |                                     |
-| RAG Models / ragnar   | Q2 2025                                          |                                     |
-| Multi-Agentic Systems | Q2 2025                                          |                                     |
+Recent revisions to the book have cut significant background information and instead focused on more workshop activities.
 
 ***
 
