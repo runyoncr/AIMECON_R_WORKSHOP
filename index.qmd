@@ -28,7 +28,11 @@ Learning Objectives
 -	Design and deploy simple chained prompt workflows for complex tasks
 -	Build interactive Shiny applications that leverage LLM capabilities for end-user functionality
 
-Recent revisions to the book have cut significant background information and instead focused on more workshop activities.
+<a href="downloads/workshop-notebooks.zip" download 
+   style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; 
+          color: black; text-decoration: none; border-radius: 5px;">
+  📥 Download All Activity Notebooks
+</a>
 
 ***
 

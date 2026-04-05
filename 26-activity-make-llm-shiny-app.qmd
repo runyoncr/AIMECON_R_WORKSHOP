@@ -1,6 +1,6 @@
 # Activity: Making a Shiny App
 
-Now that you've learned a bit about Shiny and vibe coding, we can combine that - _and_ our knowledge of how to call LLMs - to make Shiny apps.
+Now that you've learned a bit about Shiny and vibe coding, we can combine that - _and_ our knowledge of how to call LLMs - to make interesting Shiny apps.
 
 For ease of example (and in case we're running short on time), I've pasted below the prompt that I submitted to Claude Sonnet 4.6 via it's chatbot interface.
 I attached the `activity-prompt-chaining.qmd` when I submitted the prompt.

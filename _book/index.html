@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Christopher Runyon">
-<meta name="dcterms.date" content="2026-04-03">
+<meta name="dcterms.date" content="2026-04-05">
 <title>Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 3, 2026</p>
+      <p class="date">April 5, 2026</p>
     </div>
   </div>
   
@@ -416,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham’s (free) <a href="https://r4ds.hadley.nz/">R for Data Science</a>.</p>
 <p>This website licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0</a> License.</p>
 <p>Changes to the book last made on:</p>
-<p><strong>2026-04-03 10:04:17</strong> (GMT)</p>
+<p><strong>2026-04-05 09:00:34</strong> (GMT)</p>
 <hr>
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 <p>Learning Objectives</p>
@@ -428,7 +428,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Design and deploy simple chained prompt workflows for complex tasks</li>
 <li>Build interactive Shiny applications that leverage LLM capabilities for end-user functionality</li>
 </ul>
-<p>Recent revisions to the book have cut significant background information and instead focused on more workshop activities.</p>
+<p><a href="downloads/workshop-notebooks.zip" download="" style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; 
+          color: black; text-decoration: none; border-radius: 5px;"> 📥 Download All Activity Notebooks </a></p>
 <hr>
 <div style="font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;">
 <p>⚠️ Privacy Reminder</p>
@@ -935,22 +936,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Design and deploy simple chained prompt workflows for complex tasks</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Build interactive Shiny applications that leverage LLM capabilities for end-user functionality</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Recent revisions to the book have cut significant background information and instead focused on more workshop activities.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;"</span><span class="dt">&gt;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>⚠️ Privacy Reminder</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">"downloads/workshop-notebooks.zip"</span><span class="ot"> download </span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ot">   style</span><span class="op">=</span><span class="st">"display: inline-block; padding: 10px 20px; background-color: #4A90E2; </span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="st">          color: black; text-decoration: none; border-radius: 5px;"</span><span class="dt">&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  📥 Download All Activity Notebooks</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>***</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Please don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;"</span><span class="dt">&gt;</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>⚠️ Privacy Reminder</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;"</span><span class="dt">&gt;</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>⚖️ Legal Disclaimer</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>The information provided in this resource is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Please don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size: 1.75em; font-weight: bold; margin-top: 1em; color: black;"</span><span class="dt">&gt;</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>⚖️ Legal Disclaimer</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>The information provided in this resource is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
