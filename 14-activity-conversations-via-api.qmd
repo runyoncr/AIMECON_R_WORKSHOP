@@ -17,7 +17,9 @@ library(ellmer)
 Also load your API key if you haven't already provided it yet:
 
 ```{r load api key, eval = FALSE}
-Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+}
 ```
 
 And let's specify that we'll be using Claude Sonnet 4.6 for this activity:

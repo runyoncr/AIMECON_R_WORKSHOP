@@ -24,7 +24,11 @@ In this step, we will be pulling in a large list of candidate topics and learnin
 ```{r, eval = FALSE}
 library(dplyr)
 
-# Download the data
+if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+}
+
+# Download the science learning objectives
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/science_los.Rdata"))
 
 # Converting to text to paste into a prompt; could also make it JSON
@@ -48,7 +52,7 @@ choose_topic_prompt <- function(science_lo_text) {
     {science_lo_text}
 
     TASK:
-    Select ONE sub-domain and ONE learning objective from the list above.
+    Select ONE sub-domain and ONE learning objective pair from the list above.
     Do not invent or rephrase learning objectives; return them exactly as they are written.
     Do not include any additional text - only the selected sub-domain and learning objective."
   )
