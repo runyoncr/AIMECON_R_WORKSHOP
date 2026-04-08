@@ -15,6 +15,7 @@ library(shinychat)
 if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
   Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 }
+
 chat <- chat_anthropic(
   system_prompt = "You explain things concisely, focusing on only the most significant parts of the response.",
   model = "claude-sonnet-4-6")

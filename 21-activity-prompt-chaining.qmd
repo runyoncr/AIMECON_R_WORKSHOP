@@ -530,3 +530,98 @@ cat(essay_w_feedback)
 
 
 Look how far we've come! From the simple starting place of choosing a learning objective from a pre-determined list, we've gone all the way to developing an essay question, a rubric with performance-level descriptors, _and_ provided feedback to the student on their performance. How cool!
+
+
+## BONUS: Reading in PDFs
+
+In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. There's a size limit of 32MB and 100 pages, but that should be more than sufficient for most use cases.
+
+I've re-written the main `call_claude` function to include an argument for reading in a pdf. Below is a short test of that function.
+
+```{r, eval = FALSE}
+
+call_claude_pdf <- function(prompt,
+                            pdf_path,
+                            model = "claude-sonnet-4-6",
+                            system = NULL,
+                            temperature = 0.5,
+                            max_tokens = 4096,
+                            effort = "low") {
+  
+  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
+  
+  # Handle URL paths by downloading to a temp file first
+  if (grepl("^https?://", pdf_path)) {
+    tmp <- tempfile(fileext = ".pdf")
+    download.file(pdf_path, tmp, mode = "wb", quiet = TRUE)
+    pdf_path <- tmp
+    on.exit(unlink(tmp))  # Clean up temp file when function exits
+  }
+  
+  pdf_base64 <- base64enc::base64encode(pdf_path)
+  
+  # Read and encode the PDF as base64
+  pdf_base64 <- base64enc::base64encode(pdf_path)
+  
+  # Build message with both the document and the text prompt
+  messages <- list(
+    list(
+      role = "user",
+      content = list(
+        list(
+          type = "document",
+          source = list(
+            type = "base64",
+            media_type = "application/pdf",
+            data = pdf_base64
+          )
+        ),
+        list(
+          type = "text",
+          text = prompt
+        )
+      )
+    )
+  )
+  
+  request_body <- list(
+    model = model,
+    messages = messages,
+    max_tokens = max_tokens,
+    temperature = temperature,
+    output_config = list(effort = effort)
+  )
+  
+  if (!is.null(system)) {
+    request_body$system <- system
+  }
+  
+  headers <- add_headers(
+    "x-api-key" = api_key,
+    "anthropic-version" = "2023-06-01",
+    "content-type" = "application/json"
+  )
+  
+  response <- POST(
+    url = "https://api.anthropic.com/v1/messages",
+    headers,
+    body = toJSON(request_body, auto_unbox = TRUE)
+  )
+  
+  if (http_status(response)$category != "Success") {
+    stop(paste("API request failed:", http_status(response)$message,
+               "\nDetails:", content(response, "text", encoding = "UTF-8")))
+  }
+  
+  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
+  return(result$content$text)
+  
+}
+```
+
+```{r, eval = FALSE}
+pdf_summary <- call_claude_pdf("Summarize the attached document in a single paragraph",
+                               pdf_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf")
+
+cat(pdf_summary)
+```
