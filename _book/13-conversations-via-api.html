@@ -563,45 +563,42 @@ Click to see first prompt and response
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">set_turns</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me about the history of the exploration of the moon"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>## History of Lunar Exploration
+<pre><code>## Exploration of the Moon
 
-### Early Observation
-- Ancient civilizations tracked the Moon's cycles for calendars and navigation
-- Galileo made the first telescopic observations in 1609, mapping mountains and
-craters
-- 18th-19th century astronomers created increasingly detailed maps
+### Early Observations
+- **Ancient times**: Philosophers and astronomers tracked the Moon's phases and
+movements
+- **1609**: Galileo made the first telescopic observations, mapping craters and
+mountains
+- **17th-19th centuries**: Increasingly detailed maps produced by astronomers
 
 ### The Space Race Era (1950s-1960s)
+- **1959**: Soviet Luna 1 became the first spacecraft to reach lunar vicinity; 
+Luna 2 crashed on the surface; Luna 3 photographed the far side
+- **1961**: Kennedy announced the goal of landing humans on the Moon
+- **1966**: Luna 9 made the first soft landing; Surveyor program confirmed the 
+surface could support a lander
+- **1966-67**: Lunar Orbiter missions mapped the surface for Apollo landing 
+sites
 
-**Soviet Firsts:**
-- Luna 1 (1959) – first spacecraft to reach lunar vicinity
-- Luna 2 – first to impact the Moon
-- Luna 3 – first photos of the far side
-- Luna 9 (1966) – first soft landing
+### Apollo Program (1969-1972)
+- **Apollo 11 (1969)**: Neil Armstrong and Buzz Aldrin became the first humans 
+to walk on the Moon
+- **Six successful landings** total, with 12 astronauts walking on the surface
+- **Apollo 13 (1970)**: Famous failure/survival story; never landed
+- Scientists collected **382 kg of samples**
 
-**American Response:**
-- Ranger program crashed probes to photograph the surface
-- Surveyor program achieved soft landings
-- Lunar Orbiter mapped potential Apollo landing sites
+### Later Robotic Missions
+- **1990s-2000s**: Clementine and Lunar Prospector missions found evidence of 
+water ice at the poles
+- **2009**: NASA's LCROSS mission confirmed water ice
+- **Chang'e program**: China landed rovers and returned samples (2013-2020)
 
-### Apollo Program (1961-1972)
-- Apollo 8 (1968) – first crewed lunar orbit
-- **Apollo 11 (July 1969)** – Neil Armstrong and Buzz Aldrin became the first 
-humans on the Moon
-- Six successful landings total, ending with Apollo 17 (1972)
-- Astronauts collected ~382 kg of rock samples
-
-### Post-Apollo Gap (1970s-1990s)
-- Reduced interest and funding slowed missions significantly
-
-### Modern Era
-- Missions from China, India, Japan, and the US resumed exploration
-- China's Chang'e program achieved multiple landings, including the far side 
-(2019)
-- India's Chandrayaan-3 landed near the south pole (2023)
-- NASA's Artemis program aims to return humans to the Moon
-
-Would you like more detail on any particular period?</code></pre>
+### Current and Future Exploration
+- **Artemis program**: NASA aims to return humans to the Moon, including the 
+first woman
+- Multiple nations and private companies have active lunar programs
+- Interest in using the Moon as a stepping stone to Mars</code></pre>
 </div>
 </div>
 </div>
@@ -622,36 +619,37 @@ Click to see follow-up prompt and response
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"What are the most important non-USA exploration missions?"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>## Key Non-US Lunar Missions
+<pre><code>## Notable Non-USA Lunar Missions
 
-### Soviet Union
-The Soviets were actually **pioneers** in many areas:
-- **Luna 2 (1959)** – first human-made object to reach the Moon
-- **Luna 3 (1959)** – first images of the far side
-- **Luna 9 (1966)** – first soft landing
-- **Luna 16 (1970)** – first robotic sample return
-- **Lunokhod 1 (1970)** – first rover to operate on another world, drove ~10km
-- **Lunokhod 2 (1973)** – drove ~40km, a record that stood for decades
+### Soviet Union / Russia
+- **Luna 2 (1959)**: First spacecraft to reach the Moon's surface
+- **Luna 3 (1959)**: First images of the Moon's far side - a major revelation
+- **Luna 9 (1966)**: First successful soft landing, proving the surface was 
+solid
+- **Luna 16 (1970)**: First robotic sample return mission
+- **Lunokhod 1 &amp; 2 (1970, 1973)**: First remote-controlled rovers, covering 
+significant ground
+- The Soviet program was arguably **equal to or ahead of the US** for much of 
+the 1960s
 
-### China (Chang'e Program)
-China has become the most active lunar explorer:
-- **Chang'e 3 (2013)** – first soft landing since 1976
-- **Chang'e 4 (2019)** – first ever landing on the far side of the Moon
-- **Chang'e 5 (2020)** – returned 1.7kg of samples, first since Soviet era
-- Chang'e 6 (2024) returned samples from the far side
+### China (Most Active Current Program)
+- **Chang'e 3 (2013)**: First Chinese soft landing; deployed Yutu rover
+- **Chang'e 4 (2019)**: First ever landing on the **far side** of the Moon - a 
+significant achievement
+- **Chang'e 5 (2020)**: Returned 1.7 kg of samples, first sample return since 
+1976
+- China is widely seen as the **leading current lunar power**
 
-### India
-- **Chandrayaan-1 (2008)** – discovered water ice evidence near the poles
-- **Chandrayaan-3 (2023)** – first successful landing near the lunar south pole
+### Other Nations
+- **Japan**: Kaguya orbiter (2007) produced high-definition mapping
+- **India**: Chandrayaan-1 (2008) contributed to confirming water ice; 
+Chandrayaan-3 (2023) successfully landed near the **south pole**
+- **European Space Agency**: SMART-1 orbiter (2003), primarily a technology 
+demonstrator
 
-### Japan &amp; Europe
-- Japan's **Kaguya orbiter (2007)** produced detailed mapping
-- ESA's **SMART-1 (2003)** tested ion propulsion technology
-
-### Significance
-These missions collectively demonstrated that space exploration is **no longer 
-exclusively American or Soviet**, and China in particular is emerging as a 
-major lunar power.</code></pre>
+### Key Takeaway
+The Soviet Union was the dominant early explorer robotically, while China and 
+India have become the most significant players in the 21st century.</code></pre>
 </div>
 </div>
 </div>
@@ -780,24 +778,28 @@ Since 2000, computer-adaptive testing (CAT) has revolutionized educational asses
 </details><div class="cell-output cell-output-stdout">
 <pre><code>The Rasch model is used to:
 
-1. **Measure latent traits** (like ability, attitude, or health status) on a 
-linear scale from questionnaire or test responses
+1. **Measure on an interval scale** - It converts ordinal data (like test 
+scores or survey responses) into linear measurements where intervals have equal
+meaning
 
-2. **Create interval-level measurements** from ordinal data (like Likert scales
-or correct/incorrect answers), making scores mathematically meaningful
+2. **Separate person ability from item difficulty** - It estimates how 
+skilled/able a person is independently from how hard/easy the items are, 
+placing both on the same scale
 
-3. **Assess item quality** by checking if items fit the model's expectation 
-that easier items are passed by more people and harder items by fewer
+3. **Assess measurement quality** - It tests whether items work consistently 
+and fairly across different groups (item fit) and whether the measurement tool 
+works as intended
 
-4. **Enable fair comparisons** across different tests or subsets of items, 
-since measurements are sample-independent and test-independent
+4. **Enable fair comparisons** - It allows comparing people who answered 
+different items, or comparing items answered by different groups
 
-**Key advantage**: Unlike classical test theory, Rasch produces measurements 
-with consistent meaning—a 10-point difference means the same thing across the 
-scale, and person ability can be separated from item difficulty.
+**Key principle**: The model requires that only one underlying trait 
+(dimension) explains the responses, and that the probability of a 
+correct/positive response depends solely on the difference between person 
+ability and item difficulty.
 
-It's widely used in education testing, health outcomes research 
-(patient-reported outcomes), and psychology.</code></pre>
+Common uses include educational testing, psychological assessments, and health 
+outcome surveys.</code></pre>
 </div>
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## rano &lt;- as.character(rasch_normal)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -813,15 +815,15 @@ It's widely used in education testing, health outcomes research
 </div>
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Briefly tell me the point of using a Rasch model."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>The Rasch model's key insight and goal,
-Is measuring traits on a linear scale whole.
-It separates person ability from item difficulty true,
-Giving objective measurements, through and through.
+<pre><code>A Rasch model's helpful claim to fame,
+Is measuring ability on a single scale's plane.
+It separates the person from the item's degree,
+Making fair comparisons, objective and free!
 
-With equal intervals it does bestow,
-So differences mean the same, high or low.
-For tests and surveys it's quite ideal,
-Making comparisons fair and real!</code></pre>
+Each question's difficulty stands on its own,
+While each person's skill level is precisely shown.
+No matter which questions a test-taker receives,
+The same ability score the model achieves!</code></pre>
 </div>
 </div>
 <hr>

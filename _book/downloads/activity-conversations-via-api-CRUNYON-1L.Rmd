@@ -1,0 +1,90 @@
+---
+title: "Activity: Conversations via API"
+output: html_notebook
+---
+
+## Setup
+
+Run this chunk first to load the required packages and set your API key.
+
+```{r setup}
+library(ellmer)
+library(shiny)
+library(shinychat)
+
+if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+}
+
+chat <- chat_anthropic(
+  system_prompt = "You explain things concisely, focusing on only the most significant parts of the response.",
+  model = "claude-sonnet-4-6")
+```
+
+---
+
+# Activity: Conversations via API
+
+Now it's time to practice a conversational interaction with an API. We won't be spending a lot of time on this, but I would be remiss if you didn't at least get to kick the tires on this functionality in the workshop.
+
+## Console-based Interaction
+
+**Directions:** Have a short conversation with Claude in the console. It can be about anything; here are some suggestions for prompts:
+
+- Explain what it means to define a construct in educational measurement, and why poor construct definition can create problems for assessment design. Keep the response to no more than 2 paragraphs.
+- Describe one promising use of generative AI in the design of educational assessments, along with one important caution educators should keep in mind. Keep the response to no more than 2 paragraphs.
+- Describe how generative AI might help provide feedback to learners, and explain one reason educators should still review AI-generated feedback carefully. Keep the response to no more than 2 paragraphs.
+
+After a few turns, end the chat by submitting `Q` to quit.
+
+```{r console}
+live_console(chat)
+```
+
+## Browser-based Interaction
+
+Let's now see how the functionality changes for the browser-based version. You can use the same prompts, or start a new conversation. Again, after a few turns, end the chat.
+
+```{r browser}
+chat$set_turns(list()) # Resets the conversation
+live_browser(chat)
+```
+
+## Turn-based Interaction
+
+Lastly, let's try the final version of the chat where you send your prompts individually via R commands. Replace the placeholder text in each chunk with your own prompt before running.
+
+```{r turn-1}
+chat$set_turns(list()) # Resets the conversation
+# Paste your first prompt below
+chat$chat(" ")
+```
+
+```{r turn-2}
+# Paste your second prompt below
+chat$chat(" ")
+```
+
+```{r turn-3}
+# Paste your third prompt below
+chat$chat(" ")
+```
+
+Now review the turns in the conversation:
+
+```{r review-turns}
+turn_review <- chat$get_turns()
+turn_review
+```
+
+## Silly System Prompt
+
+Now try a single interaction using a whimsical system prompt.
+
+```{r silly-system}
+chat <- chat_anthropic(
+  system_prompt = "You are an assistant that likes to respond in rhymes.",
+  model = "claude-sonnet-4-6"
+)
+chat$chat("Briefly tell me the point of using a Rasch model.")
+```

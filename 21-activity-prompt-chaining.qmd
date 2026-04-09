@@ -532,16 +532,23 @@ cat(essay_w_feedback)
 Look how far we've come! From the simple starting place of choosing a learning objective from a pre-determined list, we've gone all the way to developing an essay question, a rubric with performance-level descriptors, _and_ provided feedback to the student on their performance. How cool!
 
 
-## BONUS: Reading in PDFs
+## BONUS: Reading in PDFs or Word documents
 
-In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. There's a size limit of 32MB and 100 pages, but that should be more than sufficient for most use cases.
+In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. For PDFs there's a size limit of 32MB and 100 pages, but that should be more than sufficient for most use cases.
 
-I've re-written the main `call_claude` function to include an argument for reading in a pdf. Below is a short test of that function.
+I've re-written the main `call_claude` function to include an argument for reading in either a .pdf or .docx file. The .pdf is directly encoded via the `base64enc` function, whereas the content from the .docx document is scraped via the `read_docx` argument in from the [`officer` package.`](https://davidgohel.github.io/officer/)
+
+### Main function
 
 ```{r, eval = FALSE}
 
-call_claude_pdf <- function(prompt,
-                            pdf_path,
+library(httr)
+library(jsonlite)
+library(base64enc)
+library(officer)
+
+call_claude_doc <- function(prompt,
+                            file_path,
                             model = "claude-sonnet-4-6",
                             system = NULL,
                             temperature = 0.5,
@@ -550,45 +557,78 @@ call_claude_pdf <- function(prompt,
   
   api_key <- Sys.getenv("ANTHROPIC_API_KEY")
   
-  # Handle URL paths by downloading to a temp file first
-  if (grepl("^https?://", pdf_path)) {
-    tmp <- tempfile(fileext = ".pdf")
-    download.file(pdf_path, tmp, mode = "wb", quiet = TRUE)
-    pdf_path <- tmp
-    on.exit(unlink(tmp))  # Clean up temp file when function exits
+  # ── Detect file type ──────────────────────────────────────────────────────
+  ext <- tolower(tools::file_ext(file_path))
+  
+  if (!ext %in% c("pdf", "docx")) {
+    stop("Unsupported file type '.", ext, "'. Only PDF and Word (.docx) files are supported.")
   }
   
-  pdf_base64 <- base64enc::base64encode(pdf_path)
+  # ── Handle URL vs. local path ─────────────────────────────────────────────
+  if (grepl("^https?://", file_path)) {
+    tmp <- tempfile(fileext = paste0(".", ext))
+    download.file(file_path, tmp, mode = "wb", quiet = TRUE)
+    file_path <- tmp
+    on.exit(unlink(tmp))
+  }
   
-  # Read and encode the PDF as base64
-  pdf_base64 <- base64enc::base64encode(pdf_path)
+  # ── Build message content based on file type ──────────────────────────────
+  if (ext == "pdf") {
+    
+    # PDFs are natively supported — send as base64-encoded document block
+    file_base64 <- base64enc::base64encode(file_path)
+    
+    message_content <- list(
+      list(
+        type = "document",
+        source = list(
+          type       = "base64",
+          media_type = "application/pdf",
+          data       = file_base64
+        )
+      ),
+      list(
+        type = "text",
+        text = prompt
+      )
+    )
+    
+  } else if (ext == "docx") {
+    
+    # Word docs are not natively supported — extract text via officer
+    # and prepend it to the prompt as plain text
+    doc       <- officer::read_docx(file_path)
+    doc_text  <- paste(officer::docx_summary(doc)$text, collapse = "\n")
+    
+    combined_prompt <- paste0(
+      "The following is the content of a Word document:\n\n",
+      doc_text,
+      "\n\n---\n\n",
+      prompt
+    )
+    
+    message_content <- list(
+      list(
+        type = "text",
+        text = combined_prompt
+      )
+    )
+    
+  }
   
-  # Build message with both the document and the text prompt
+  # ── Build and send request ─────────────────────────────────────────────────
   messages <- list(
     list(
-      role = "user",
-      content = list(
-        list(
-          type = "document",
-          source = list(
-            type = "base64",
-            media_type = "application/pdf",
-            data = pdf_base64
-          )
-        ),
-        list(
-          type = "text",
-          text = prompt
-        )
-      )
+      role    = "user",
+      content = message_content
     )
   )
   
   request_body <- list(
-    model = model,
-    messages = messages,
-    max_tokens = max_tokens,
-    temperature = temperature,
+    model         = model,
+    messages      = messages,
+    max_tokens    = max_tokens,
+    temperature   = temperature,
     output_config = list(effort = effort)
   )
   
@@ -597,15 +637,15 @@ call_claude_pdf <- function(prompt,
   }
   
   headers <- add_headers(
-    "x-api-key" = api_key,
+    "x-api-key"         = api_key,
     "anthropic-version" = "2023-06-01",
-    "content-type" = "application/json"
+    "content-type"      = "application/json"
   )
   
   response <- POST(
-    url = "https://api.anthropic.com/v1/messages",
+    url     = "https://api.anthropic.com/v1/messages",
     headers,
-    body = toJSON(request_body, auto_unbox = TRUE)
+    body    = toJSON(request_body, auto_unbox = TRUE)
   )
   
   if (http_status(response)$category != "Success") {
@@ -617,11 +657,38 @@ call_claude_pdf <- function(prompt,
   return(result$content$text)
   
 }
+
+# Example usage:
+
+# GitHub PDF
+# cat(call_claude_doc(
+#   prompt    = "Summarize the key guidance in this document.",
+#   file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf"
+# ))
+
+# GitHub Word document
+# cat(call_claude_doc(
+#   prompt    = "Summarize this document.",
+#   file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.docx"
+# ))
+
+
 ```
 
+### PDF document
+
 ```{r, eval = FALSE}
-pdf_summary <- call_claude_pdf("Summarize the attached document in a single paragraph",
-                               pdf_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf")
+pdf_summary <- call_claude_doc("Summarize the attached document in a single paragraph",
+                               file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf")
 
 cat(pdf_summary)
+```
+
+### Word document
+
+```{r, eval = FALSE}
+docx_summary <- call_claude_doc("Summarize the attached document in a single paragraph",
+                               file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf")
+
+cat(docx_summary)
 ```
