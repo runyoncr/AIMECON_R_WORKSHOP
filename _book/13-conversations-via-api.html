@@ -454,25 +454,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://ellmer.tidyverse.org/reference/chat_anthropic.html">models_anthropic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>                             id              name created_at cached_input input
-NA            claude-sonnet-4-6 Claude Sonnet 4.6 2026-02-17           NA    NA
-NA.1            claude-opus-4-6   Claude Opus 4.6 2026-02-04           NA    NA
-NA.2   claude-opus-4-5-20251101   Claude Opus 4.5 2025-11-24           NA    NA
-15    claude-haiku-4-5-20251001  Claude Haiku 4.5 2025-10-15         0.10  1.00
-23   claude-sonnet-4-5-20250929 Claude Sonnet 4.5 2025-09-29         0.30  3.00
-17     claude-opus-4-1-20250805   Claude Opus 4.1 2025-08-05         1.50 15.00
-18       claude-opus-4-20250514     Claude Opus 4 2025-05-22         1.50 15.00
-19     claude-sonnet-4-20250514   Claude Sonnet 4 2025-05-22         0.30  3.00
-8       claude-3-haiku-20240307    Claude Haiku 3 2024-03-07         0.03  0.25
+NA             claude-fable-5-1  Claude Fable 5.1 2026-08-28           NA    NA
+NA.1              claude-opus-5     Claude Opus 5 2026-07-24           NA    NA
+NA.2            claude-sonnet-5   Claude Sonnet 5 2026-06-29           NA    NA
+NA.3             claude-fable-5    Claude Fable 5 2026-06-07           NA    NA
+NA.4            claude-opus-4-8   Claude Opus 4.8 2026-05-28           NA    NA
+16              claude-opus-4-7   Claude Opus 4.7 2026-04-14          0.5     5
+24            claude-sonnet-4-6 Claude Sonnet 4.6 2026-02-17          0.3     3
+14              claude-opus-4-6   Claude Opus 4.6 2026-02-04          0.5     5
+13     claude-opus-4-5-20251101   Claude Opus 4.5 2025-11-24          0.5     5
+8     claude-haiku-4-5-20251001  Claude Haiku 4.5 2025-10-15          0.1     1
+22   claude-sonnet-4-5-20250929 Claude Sonnet 4.5 2025-09-29          0.3     3
      output
 NA       NA
 NA.1     NA
 NA.2     NA
-15     5.00
-23    15.00
-17    75.00
-18    75.00
-19    15.00
-8      1.25</code></pre>
+NA.3     NA
+NA.4     NA
+16       25
+24       15
+14       25
+13       25
+8         5
+22       15</code></pre>
 </div>
 </div>
 <p>The “input” column is the cost per million tokens of model input (the prompts). The “output” column is the cost per million tokens of the model response. For some context, Shakespeare’s <em>Romeo and Juliet</em> is about 25,000 words, which roughly translates to 40,000 tokens (depends on the <a href="@sec-tokens">tokenization method</a> of the model). Output tokens are often more expensive than input tokens in part because generating a response is an autoregressive process: the model must repeatedly predict the next token, updating the context at each step, rather than producing the full response all at once.</p>
@@ -563,42 +567,45 @@ Click to see first prompt and response
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">set_turns</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me about the history of the exploration of the moon"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>## Exploration of the Moon
+<pre><code>## History of Lunar Exploration
 
 ### Early Observations
-- **Ancient times**: Philosophers and astronomers tracked the Moon's phases and
-movements
-- **1609**: Galileo made the first telescopic observations, mapping craters and
-mountains
-- **17th-19th centuries**: Increasingly detailed maps produced by astronomers
+- **Ancient times**: Philosophers like Aristotle and Galileo (1609) studied the
+Moon through early telescopes, mapping craters and maria
+- **17th-19th centuries**: Increasingly detailed maps were produced; the Moon's
+synchronous rotation was understood
 
 ### The Space Race Era (1950s-1960s)
 - **1959**: Soviet Luna 1 became the first spacecraft to reach lunar vicinity; 
-Luna 2 crashed on the surface; Luna 3 photographed the far side
-- **1961**: Kennedy announced the goal of landing humans on the Moon
-- **1966**: Luna 9 made the first soft landing; Surveyor program confirmed the 
-surface could support a lander
-- **1966-67**: Lunar Orbiter missions mapped the surface for Apollo landing 
-sites
+Luna 2 crashed into the Moon; **Luna 3** photographed the far side for the 
+first time
+- **1966**: Luna 9 made the first soft landing; Luna 10 became the first lunar 
+orbiter
+- **US Ranger, Surveyor, and Lunar Orbiter programs** prepared for crewed 
+missions
 
-### Apollo Program (1969-1972)
+### Apollo Program (1961-1972)
+- **Apollo 8 (1968)**: First crewed orbit of the Moon
 - **Apollo 11 (1969)**: Neil Armstrong and Buzz Aldrin became the first humans 
-to walk on the Moon
-- **Six successful landings** total, with 12 astronauts walking on the surface
-- **Apollo 13 (1970)**: Famous failure/survival story; never landed
-- Scientists collected **382 kg of samples**
+on the Moon
+- **Six successful landings** total, collecting ~382 kg of samples
+- Program ended with **Apollo 17 (1972)**
 
-### Later Robotic Missions
-- **1990s-2000s**: Clementine and Lunar Prospector missions found evidence of 
-water ice at the poles
-- **2009**: NASA's LCROSS mission confirmed water ice
-- **Chang'e program**: China landed rovers and returned samples (2013-2020)
+### Post-Apollo Lull (1970s-1990s)
+- Soviet robotic missions continued (Lunokhod rovers)
+- Reduced interest after the Space Race ended
 
-### Current and Future Exploration
-- **Artemis program**: NASA aims to return humans to the Moon, including the 
-first woman
-- Multiple nations and private companies have active lunar programs
-- Interest in using the Moon as a stepping stone to Mars</code></pre>
+### Modern Era
+- **Clementine (1994)** and **Lunar Prospector (1998)** found evidence of water
+ice at poles
+- **LCROSS (2009)** confirmed water ice
+- **China's Chang'e program** landed rovers and returned samples (2013-2020)
+- **India's Chandrayaan missions** mapped resources
+- **Artemis program** (NASA) aims to return humans to the Moon in the 2020s
+
+### Key Significance
+The Moon remains scientifically valuable for understanding early solar system 
+history and is seen as a stepping stone for deeper space exploration.</code></pre>
 </div>
 </div>
 </div>
@@ -619,37 +626,41 @@ Click to see follow-up prompt and response
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"What are the most important non-USA exploration missions?"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>## Notable Non-USA Lunar Missions
+<pre><code>## Important Non-US Lunar Missions
 
-### Soviet Union / Russia
-- **Luna 2 (1959)**: First spacecraft to reach the Moon's surface
-- **Luna 3 (1959)**: First images of the Moon's far side - a major revelation
-- **Luna 9 (1966)**: First successful soft landing, proving the surface was 
-solid
-- **Luna 16 (1970)**: First robotic sample return mission
-- **Lunokhod 1 &amp; 2 (1970, 1973)**: First remote-controlled rovers, covering 
-significant ground
-- The Soviet program was arguably **equal to or ahead of the US** for much of 
-the 1960s
+### Soviet Union (USSR)
+- **Luna 2 (1959)** - First spacecraft to reach the Moon's surface
+- **Luna 3 (1959)** - First images of the Moon's far side, revolutionary for 
+science
+- **Luna 9 (1966)** - First successful soft landing
+- **Luna 16 (1970)** - First robotic sample return mission
+- **Lunokhod 1 (1970) &amp; 2 (1973)** - First remote-controlled rovers, traveled 
+kilometers across the surface
+- The USSR arguably led early lunar exploration before Apollo
 
-### China (Most Active Current Program)
-- **Chang'e 3 (2013)**: First Chinese soft landing; deployed Yutu rover
-- **Chang'e 4 (2019)**: First ever landing on the **far side** of the Moon - a 
-significant achievement
-- **Chang'e 5 (2020)**: Returned 1.7 kg of samples, first sample return since 
+### China (CNSA)
+- **Chang'e 3 (2013)** - First Chinese soft landing; deployed Yutu rover
+- **Chang'e 4 (2019)** - First ever landing on the Moon's far side, a 
+significant technical achievement
+- **Chang'e 5 (2020)** - Returned 1.7 kg of samples, first sample return since 
 1976
-- China is widely seen as the **leading current lunar power**
+- China is currently the most active lunar program
 
-### Other Nations
-- **Japan**: Kaguya orbiter (2007) produced high-definition mapping
-- **India**: Chandrayaan-1 (2008) contributed to confirming water ice; 
-Chandrayaan-3 (2023) successfully landed near the **south pole**
-- **European Space Agency**: SMART-1 orbiter (2003), primarily a technology 
-demonstrator
+### India (ISRO)
+- **Chandrayaan-1 (2008)** - Orbiter that provided strong confirmation of water
+molecules on the surface
+- **Chandrayaan-3 (2023)** - Successfully landed near the south pole, making 
+India the fourth country to soft-land on the Moon
 
-### Key Takeaway
-The Soviet Union was the dominant early explorer robotically, while China and 
-India have become the most significant players in the 21st century.</code></pre>
+### Japan &amp; Europe
+- **SELENE/Kaguya (2007)** - Japanese orbiter producing detailed gravity and 
+topography maps
+- **SMART-1 (2003)** - European orbiter testing ion propulsion and mapping 
+resources
+
+### Why These Matter
+These missions collectively confirmed water ice, mapped the far side, and 
+demonstrated that lunar exploration is now genuinely international.</code></pre>
 </div>
 </div>
 </div>
@@ -776,30 +787,25 @@ Since 2000, computer-adaptive testing (CAT) has revolutionized educational asses
 </div>
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Briefly tell me the point of using a Rasch model."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>The Rasch model is used to:
+<pre><code>The Rasch model is used to create **linear, equal-interval measurements** from 
+ordinal data (like test scores or survey responses). 
 
-1. **Measure on an interval scale** - It converts ordinal data (like test 
-scores or survey responses) into linear measurements where intervals have equal
-meaning
+Key points:
 
-2. **Separate person ability from item difficulty** - It estimates how 
-skilled/able a person is independently from how hard/easy the items are, 
-placing both on the same scale
+- **Separates person ability from item difficulty** - allows you to measure 
+both on the same scale independently
+- **Creates meaningful measurement** - transforms ordinal responses into 
+interval-level data where differences have consistent meaning
+- **Tests measurement validity** - identifies items that don't fit the expected
+pattern, helping you evaluate if your instrument actually measures what you 
+think it does
+- **Enables fair comparisons** - allows comparing people who took different 
+items, or comparing items across different groups
 
-3. **Assess measurement quality** - It tests whether items work consistently 
-and fairly across different groups (item fit) and whether the measurement tool 
-works as intended
-
-4. **Enable fair comparisons** - It allows comparing people who answered 
-different items, or comparing items answered by different groups
-
-**Key principle**: The model requires that only one underlying trait 
-(dimension) explains the responses, and that the probability of a 
-correct/positive response depends solely on the difference between person 
-ability and item difficulty.
-
-Common uses include educational testing, psychological assessments, and health 
-outcome surveys.</code></pre>
+Essentially, it's about building rigorous, scientific measurement in fields 
+(education, psychology, health) where you can't directly measure constructs 
+like "math ability" or "depression severity" the way you can measure height or 
+weight.</code></pre>
 </div>
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## rano &lt;- as.character(rasch_normal)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -815,15 +821,18 @@ outcome surveys.</code></pre>
 </div>
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Briefly tell me the point of using a Rasch model."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>A Rasch model's helpful claim to fame,
-Is measuring ability on a single scale's plane.
-It separates the person from the item's degree,
-Making fair comparisons, objective and free!
+<pre><code>The Rasch model's aim is quite neat,
+It makes measurement fair and complete.
+It separates skill from the test item's weight,
+So difficulty and ability don't conflate!
 
-Each question's difficulty stands on its own,
-While each person's skill level is precisely shown.
-No matter which questions a test-taker receives,
-The same ability score the model achieves!</code></pre>
+It puts both on one single scale,
+Making comparisons never fail.
+If the test is hard or if learners are bright,
+The model sorts out who's wrong and who's right.
+
+In short: objective measurement is its great feat,
+Making educational testing more concrete!</code></pre>
 </div>
 </div>
 <hr>

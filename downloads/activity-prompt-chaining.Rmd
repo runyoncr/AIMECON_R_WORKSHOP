@@ -705,7 +705,7 @@ cat(pdf_summary)
 
 ```{r, eval = FALSE}
 docx_summary <- call_claude_doc("Summarize the attached document in a single paragraph",
-                               file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf")
+                               file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.docx")
 
 cat(docx_summary)
 ```

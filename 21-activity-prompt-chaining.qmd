@@ -23,6 +23,9 @@ In this step, we will be pulling in a large list of candidate topics and learnin
 
 ```{r, eval = FALSE}
 library(dplyr)
+library(glue)
+library(httr)
+library(jsonlite)
 
 if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
   Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
@@ -139,7 +142,6 @@ cat(step2_res)
 Now we have guidelines in place to write the item stem.
 
 ```{r, eval = FALSE}
-library(jsonlite)
 
 write_essay_prompt <- function(guiding_los) {
   glue(
@@ -688,7 +690,7 @@ cat(pdf_summary)
 
 ```{r, eval = FALSE}
 docx_summary <- call_claude_doc("Summarize the attached document in a single paragraph",
-                               file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.pdf")
+                               file_path = "https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.docx")
 
 cat(docx_summary)
 ```
