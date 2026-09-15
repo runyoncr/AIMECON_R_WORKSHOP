@@ -15,16 +15,15 @@ These workshop materials were built and tested using R version 4.5.1 (Great Squa
 ## Installing R Studio Desktop
 
 [Posit](https://posit.co/){target="_blank"} makes a wonderful integrated development environment (IDE) called [R Studio Desktop](https://posit.co/download/rstudio-desktop/){target="_blank"}. 
-This is my preferred IDE for R, although you may choose others if you like. I will be using R Studio throughout the workshop.
+This was my preferred IDE for R, although you may choose others if you like. 
+I will be using R Studio throughout the workshop, except for a brief demonstration of how LLM coding assistants work.
 
 I am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.
-
-**Note:** I just started using [Positron](https://positron.posit.co/){target="_blank"}, the new IDE developed by Posit. I've only used it for a couple of weeks so I'm fluent in it / can't easily help you debug, but all files / syntax we'll use can be implemented in Positron as well as R. I will most likely transition to using Positron as my primary IDE for all future workshops, given the additional functionality that it affords. If I'm brave I might even do the entire workshop on Posit Cloud.
 
 ## Installing R Tools
 
 [RTools](https://cran.r-project.org/bin/windows/Rtools/){target="_blank"} is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. 
 The packages that are available on [CRAN](https://cran.rstudio.com/){target="_blank"} do not require having RTools installed because the packages hosted there are precompiled binary packages.
 
-I'm unsure of which packages I've downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.4. 
+I'm unsure of which packages I've downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.5 or newer. I'm using 4.5.6768.
 (And it's just good to have in case you need it later.)
