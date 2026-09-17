@@ -10,15 +10,16 @@
 This workshop is based in the [R programming language](https://www.r-project.org/){target="_blank"}. 
 As such, it is necessary to have a recent version installed on your computer. I would suggest R Version $\geq$ 4.4. 
 
-These workshop materials were built and tested using R version 4.5.1 (Great Square Root, released 2025-06-13), with all packages updated on or after October 5, 2025.
+These workshop materials were built and tested using R version 4.6.1 (Happy Hop, released 2026-06-26), with all packages updated on or after Septmber 14, 2026.
 
 ## Installing R Studio Desktop
 
 [Posit](https://posit.co/){target="_blank"} makes a wonderful integrated development environment (IDE) called [R Studio Desktop](https://posit.co/download/rstudio-desktop/){target="_blank"}. 
-This was my preferred IDE for R, although you may choose others if you like. 
+This _was_ my preferred IDE for R; I've since starting using VS Code because my organization offers an LLM coding assistant through that IDE.  
 I will be using R Studio throughout the workshop, except for a brief demonstration of how LLM coding assistants work.
+Posit also makes [Positron], which is largely based on VS Code, and will be their primary IDE going forward.
 
-I am using R Studio Version 2025.09.1+401, which was installed on October 5, 2025.
+I am using R Studio Version 2026.01.2+418, which was installed on September 14, 2026. Newer versions are available to use; I am required to use this version by my organization.
 
 ## Installing R Tools
 
