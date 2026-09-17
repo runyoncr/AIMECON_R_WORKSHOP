@@ -42,11 +42,9 @@ Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 Run the chunk below to load the function we will be using throughout the workshop. You do not need to modify anything here.
 
 ```{r call-claude-function}
-
 call_claude <- function(prompt,
-                        model = "claude-sonnet-4-6",
+                        model = "claude-sonnet-5",
                         system = NULL,
-                        temperature = 0.5,
                         max_tokens = 4096,
                         effort = "low") {
   
@@ -57,11 +55,14 @@ call_claude <- function(prompt,
   messages <- list(list(role = "user", content = prompt))
   
   # Build request body
+  # Note: temperature/top_k/top_p are deprecated for models released after
+  # Claude Opus 4.6 (incl. claude-sonnet-5) and will cause a 400 error if set
+  # to anything other than their defaults, so they are intentionally omitted.
+  # Use `effort` (low/medium/high/xhigh/max) to control response behavior instead.
   request_body <- list(
     model = model,
     messages = messages,
     max_tokens = max_tokens,
-    temperature = temperature,
     output_config = list(effort = effort)
   )
   

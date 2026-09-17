@@ -83,3 +83,6 @@ rsconnect/
 /.quarto/
 
 **/*.quarto_ipynb
+
+/.vscode/
+
