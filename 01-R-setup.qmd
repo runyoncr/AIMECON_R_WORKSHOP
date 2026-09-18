@@ -8,23 +8,25 @@
 ## Installing R
 
 This workshop is based in the [R programming language](https://www.r-project.org/){target="_blank"}. 
-As such, it is necessary to have a recent version installed on your computer. I would suggest R Version $\geq$ 4.4. 
+As such, it is necessary to have a recent version installed on your computer. I would suggest R version $\geq$ 4.4.
 
-These workshop materials were built and tested using R version 4.6.1 (Happy Hop, released 2026-06-26), with all packages updated on or after Septmber 14, 2026.
+These workshop materials were built and tested using R version 4.6.1 (Happy Hop, released 2026-06-26), with all packages updated on or after September 14, 2026.
 
-## Installing R Studio Desktop
+## Installing RStudio Desktop
 
-[Posit](https://posit.co/){target="_blank"} makes a wonderful integrated development environment (IDE) called [R Studio Desktop](https://posit.co/download/rstudio-desktop/){target="_blank"}. 
-This _was_ my preferred IDE for R; I've since starting using VS Code because my organization offers an LLM coding assistant through that IDE.  
-I will be using R Studio throughout the workshop, except for a brief demonstration of how LLM coding assistants work.
-Posit also makes [Positron], which is largely based on VS Code, and will be their primary IDE going forward.
+[Posit](https://posit.co/){target="_blank"} makes a wonderful integrated development environment (IDE) called [RStudio Desktop](https://posit.co/download/rstudio-desktop/){target="_blank"}.
+This _was_ my preferred IDE for R; I've since started using VS Code because my organization offers an LLM coding assistant through that IDE.
+I will be using RStudio throughout the workshop, except for a brief demonstration of how LLM coding assistants work.
+Posit also makes [Positron](https://positron.posit.co/){target="_blank"}, a data-science code editor based on the VS Code editor framework.
 
-I am using R Studio Version 2026.01.2+418, which was installed on September 14, 2026. Newer versions are available to use; I am required to use this version by my organization.
+I am using RStudio version 2026.01.2+418, which was installed on September 14, 2026. Newer versions are available; I am required to use this version by my organization.
 
 ## Installing R Tools
 
-[RTools](https://cran.r-project.org/bin/windows/Rtools/){target="_blank"} is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools. 
-The packages that are available on [CRAN](https://cran.rstudio.com/){target="_blank"} do not require having RTools installed because the packages hosted there are precompiled binary packages.
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/){target="_blank"} is necessary to install or build R packages that require compilation of C, C++, or Fortran code, as it provides the necessary compiler toolchain and build tools.
+Packages available on [CRAN](https://cran.rstudio.com/){target="_blank"} usually do not require Rtools because CRAN provides precompiled binary packages for Windows.
 
-I'm unsure of which packages I've downloaded from Github or other sources that require compilation, so I recommend also installing at RTools 4.5 or newer. I'm using 4.5.6768.
-(And it's just good to have in case you need it later.)
+Note that Rtools is Windows-specific. On macOS, compiling R packages may require the Xcode Command Line Tools (run `xcode-select --install` in Terminal) and a Fortran compiler; on Linux, you'll typically need the `build-essential` package (or your distribution's equivalent) along with development headers for R.
+
+I'm not sure which packages downloaded from GitHub or other sources require compilation, so I recommend also installing Rtools 4.5 or newer. I'm using 4.5.6768.
+(And it's just good to have in case you need it later.) You can confirm your build tools are set up correctly by running `pkgbuild::has_build_tools(debug = TRUE)` in the R console.
