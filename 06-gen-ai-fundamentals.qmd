@@ -23,9 +23,9 @@ I am not sure that I am convinced by this argument, but it does give you an idea
 As we move inward, we next have **Machine Learning**. 
 Machine learning is a subset of AI that involves using algorithms that learn patterns from data and improve their performance on tasks over time without being explicitly programmed for every possible scenario. In many machine learning approaches, the model identifies which patterns or features are useful for prediction from a large amount of available data.
 
-This is different from a regression, where you typically specify the predictor variables of interest based on your knowledge of the domain. 
-With many machine learning approaches, you instead supply a large set of potentially relevant variables and allow the algorithm to identify patterns that improve prediction. 
-Here is where we start to encounter so-called “black box” models, because interpreting the decision-making processes of the algorithm can become difficult due to the complexity of the models.
+This differs from a traditional regression workflow, where you often specify the predictor variables based on domain knowledge. Regression can also be used as a machine learning method when the model is trained to predict outcomes from data.
+With many other machine learning approaches, you instead supply a large set of potentially relevant variables and allow the algorithm to identify patterns that improve prediction.
+Here is where we may start to encounter so-called “black box” models, because interpreting the decision-making processes of complex algorithms can be difficult.
 One common example is when the values of some predictor variables take on complex nonlinear functional forms—how do we easily interpret this, especially if there are also complex interactions?
 
 Going further inward, we have **Deep Learning**, which is a subset of machine learning models. 
@@ -38,9 +38,9 @@ I will now jump to the right-hand side and the large field of **Natural Language
 There are areas of NLP that do not overlap with machine learning or deep learning, such as rule-based language systems and some forms of text analysis.
 
 If we look at the overlap between deep learning models and natural language processing models, we see that **Large Language Models** (LLMs) live here. 
-LLMs represent a deep learning approach within NLP that leverages vast amounts of text data to generate and understand human-like language. 
+LLMs are deep learning models trained on large amounts of language data to model and generate human language.
 These models go beyond many traditional NLP techniques by using statistical learning to predict and produce coherent, context-aware text at scale. 
-Not all LLMs are generative AI models; some language models are designed primarily for tasks such as classification, embedding, or reranking rather than open-ended generation.
+Some language models are designed primarily for tasks such as classification, embedding, or reranking rather than open-ended generation.
 
 Now, finally, in the middle we have **Generative AI Models** (Gen AI). These are a specific type of model designed to generate new output that resembles patterns in their training data. The most common example is a generative text model, although models are now being developed that can also generate images, audio, and video.
 
@@ -59,32 +59,30 @@ Once you have this information, you can then make predictions on new cases that 
 If the new case is well represented in your data, then your predictions will usually be fairly accurate.
 However, if the new case is less well represented in your data, then you will likely have to extrapolate from your data to make the best guess you can, usually with large standard errors.
 
-This kind of extrapolation beyond the training data is one way that generative AI models may hallucinate, or produce errors in their response, whether factual or structural.
+This kind of extrapolation beyond the training data can contribute to hallucinations, or factual and structural errors, but it is not the only source of such errors.
 While we are talking about training data...
 
 ### Pre-trained
 
 Generative AI models undergo a vast amount of model pre-training (**P**). 
 In a generative text model, this includes a vast corpus of text data. 
-To give you an idea of how large this training data is, when I was first learning about these models, I often heard presenters say that some of these models were trained on all of the publicly available text on the _internet_. 
-More recently, some researchers have argued that frontier models may be approaching the limits of the highest-quality publicly available text, which has helped drive growing interest in using synthetic data and refining training procedures to further improve model performance.
-Having such a vast amount of data equips the model with a broad “understanding” of language and its nuances.
+Training mixtures vary by model and may include public, licensed, and human-generated data; providers do not always disclose their complete datasets.
+Large and varied training data can give a model broad statistical knowledge of language, but it does not guarantee factual accuracy or complete coverage of any topic.
 This understanding is really a recognition of patterns of word usage across many contexts.
 
-It is important to note that these models are designed to generate content and do not have an inherent ability to verify the factual accuracy of the information they provide. 
+It is important to note that these models do not inherently verify the factual accuracy of the information they provide.
 If the training data contains extensive information related to the input, there is a higher probability that the output will be correct, but there is no guarantee.
-When using text models, these systems are often generating one token at a time based on the patterns they have learned from prior text. 
-There is no built-in self-reflective step in which the model evaluates whether the information being provided is factually accurate. 
+Autoregressive text models generally generate one token at a time based on patterns learned from prior text. External tools, retrieval, or a separate verification step can improve factual reliability, but they do not make errors impossible.
 
 ### Transformer
 
 And, finally, **T**—transformer. 
 This refers to the specific neural network architecture that makes models like GPT so powerful. 
-Before transformers were introduced, models processed language sequentially, one word at a time, which limited their ability to capture long-range context, understand ambiguities (e.g., pronoun referents, ambiguous negation, etc.), or parallelize computations efficiently. 
-The transformer architecture revolutionized this process by allowing models to “pay attention” to all parts of a text at once. 
+Before transformers were introduced, recurrent models processed language sequentially, which limited their ability to capture long-range context and parallelize computations efficiently.
+The transformer architecture changed this by allowing the model to compare positions across a sequence through attention and to process training sequences in parallel. Autoregressive transformer models still generate output tokens sequentially.
 Attention helps the model determine which words, or tokens, are most relevant to predicting the next one ([we'll talk more about attention soon](07-gen-ai-basics.qmd#sec-attention)).
 
 This design has two major advantages: it scales extremely well to large amounts of data, and it captures meaning flexibly across varying contexts. 
 In other words, the transformer gives modern language models much of their power and fluidity.
 
-[This blog post from the Financial Times](https://ig.ft.com/generative-ai/) is a great visual explanation of transformers and related concepts without being too technical.
+[This visual explainer from the Financial Times](https://ig.ft.com/generative-ai/) introduces transformers and related concepts without being too technical.

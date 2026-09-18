@@ -19,13 +19,13 @@ Later activities introduce additional packages as needed.
 
 ```{r}
 #| eval: false
-install.packages(c("httr", "jsonlite", "glue", "ellmer", "shiny"))
+install.packages(c("httr2", "jsonlite", "glue", "ellmer", "shiny"))
 ```
 
 For the API connection examples, load these two packages:
 
 ```{r}
-library(httr)
+library(httr2)
 library(jsonlite)
 ```
 
@@ -33,7 +33,7 @@ These commands normally complete without printing output.
 If R reports that a package is missing, install it in the R session you are using, then try loading it again.
 
 The workshop's [call_claude_AIMECON26.R helper](downloads/call_claude_AIMECON26.R) is an R script, not a package to install with `install.packages()`.
-It defines `call_claude()` and uses `httr` and `jsonlite` to communicate with Anthropic's API.
+It defines `call_claude()` and uses `httr2` to communicate with Anthropic's API.
 
 ## Individual package details
 
@@ -41,14 +41,13 @@ Here are the main roles of these packages in the workshop:
 
 | Package | Workshop use |
 |---|---|
-| [`httr`](https://httr.r-lib.org/) | Send HTTP requests to an API. |
+| [`httr2`](https://httr2.r-lib.org/) | Build and send HTTP requests to an API. |
 | [`jsonlite`](https://cran.r-project.org/package=jsonlite) | Convert between R objects and JSON data. |
 | [`glue`](https://glue.tidyverse.org/) | Insert values into reusable prompt templates. |
 | [`ellmer`](https://ellmer.tidyverse.org/) | Manage conversations with LLMs from R. |
 | [`shiny`](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/) | Build interactive web applications with R. |
 
-The `httr` maintainers recommend `httr2` for new work; `httr` is now superseded.
-We retain `httr` here because the workshop helper depends on it. Installing `httr2` does not replace that dependency.
+The workshop helper uses `httr2`, while `jsonlite` is used in later examples for working directly with JSON data.
 
 We'll explore prompt templates and JSON in [Practical Tools](11-practical-tools.qmd), and web applications in [R Shiny](23-shiny.qmd).
 

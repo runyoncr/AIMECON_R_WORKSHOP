@@ -1,15 +1,15 @@
 # API Implementation
 
-The chatbot interface is probably the most common method people first use to interact with a generative AI model.
-These interfaces support conversational interactions with an LLM, much like a text conversation, Teams chat, or AOL Instant Messaging.
+The chatbot interface is probably the most common way people first interact with a generative AI model.
+These interfaces support conversational interactions with an LLM, much like a text conversation or Teams chat.
 There is a text box: you enter a prompt, the model processes that prompt, and provides a response. You can then continue the exchange.
 
-This method of interacting with a generative AI model has many advantages, the most salient of which is ease of interaction.
+This method of interacting with a generative AI model has many advantages, especially its ease of use.
 It is easy to have a back-and-forth conversation, and many model providers have made it possible to continue old conversations or search through previous conversations.
 
-However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time consuming to copy, cut, paste, submit, and repeat that process for the _n_ number of times needed to complete a task. In these instances, it may be better to interact with a model via an **application programming interface (API).**
+However, for certain tasks, especially repetitive tasks that need to be completed at scale, the chatbot interface can be inefficient. It can be time-consuming to copy, paste, submit, and repeat that process for every item. In these instances, it may be better to interact with a model via an **application programming interface (API).**
 
 An API is a structured way for one piece of software to communicate with another.
 When you use a generative AI model through its API, you are programmatically sending requests with specific instructions and receiving structured responses. This allows you to integrate AI capabilities directly into your R scripts, automate repetitive tasks, and process data at scale.
-Unlike a chatbot interface, where you manually type and read each exchange, the API allows your code to handle hundreds or thousands of interactions automatically, making it the foundation for building LLM-powered tools and workflows.
+Unlike a chatbot interface, where you manually type and read each exchange, an API lets your code automate repeated interactions and handle larger workloads, subject to the provider's rate limits, usage policies, and costs. This makes APIs a foundation for building LLM-powered tools and workflows.
 

@@ -2,13 +2,11 @@
 
 Many of the interactive portions of this workshop depend on successfully being able to connect to a generative AI model via API (we will discuss API keys in more depth later). For this workshop you'll need to obtain your own Anthropic API key through [console.anthropic.com](https://console.anthropic.com). 
 
-$5 in credit should be sufficient for all workshop purposes, and you'll have enough left over to continue practicing sending LLM calls via API..
+$5 in credit should be sufficient for all workshop purposes, and you'll have enough left over to continue practicing sending LLM calls via API.
 
-The following is a basic function for you to test that you can connect to [Anthropic's Claude Sonnet 4.6 model](https://www.anthropic.com/news/claude-sonnet-4-6). We'll cover some of the elements of the function later. To use this function you'll need to have the API loaded for the R session, which can you do via the syntax below:
+The following is a basic function for testing your connection to an Anthropic Claude model. We'll cover some of its elements later. To use it, load your API key into the R session with the syntax below:
 
 ```{r api-key, eval = FALSE}
-library(httr)
-library(jsonlite)
 Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 ```
 
@@ -20,67 +18,12 @@ When using the API key in your workflow, you can skip this step by creating an .
 You can download the following function by clicking the copy button (looks like a clipboard) in the code chunk displayed below.
 Alternatively, you can click the icon below:
 
-<a href="downloads/call_claude_NCME26.R" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
-  📥 Download `call_claude_NCME26`
+<a href="downloads/call_claude_AIMECON26.R" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  📥 Download `call_claude_AIMECON26`
 </a>
 
 ```{r call_claude}
-
-library(httr)
-library(jsonlite)
-
-call_claude <- function(prompt,
-                        model = "claude-sonnet-4-6",
-                        system = NULL,
-                        temperature = 0.5,
-                        max_tokens = 4096,
-                        effort = "low") {
-  
-  # Get API key from environment
-  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
-  
-  # Convert text prompt to required message format
-  messages <- list(list(role = "user", content = prompt))
-  
-  # Build request body
-  request_body <- list(
-    model = model,
-    messages = messages,
-    max_tokens = max_tokens,
-    temperature = temperature,
-    output_config = list(effort = effort)
-  )
-  
-  # Add system prompt if provided
-  if (!is.null(system)) {
-    request_body$system <- system
-  }
-  
-  # Set up headers
-  headers <- add_headers(
-    "x-api-key" = api_key,
-    "anthropic-version" = "2023-06-01",
-    "content-type" = "application/json"
-  )
-  
-  # Make the API request
-  response <- POST(
-    url = "https://api.anthropic.com/v1/messages",
-    headers,
-    body = toJSON(request_body, auto_unbox = TRUE)
-  )
-  
-  # Check if request was successful
-  if (http_status(response)$category != "Success") {
-    stop(paste("API request failed:", http_status(response)$message,
-               "\nDetails:", content(response, "text", encoding = "UTF-8")))
-  }
-  
-  # Parse response and extract text content
-  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
-  return(result$content$text)
-  
-}
+source("downloads/call_claude_AIMECON26.R")
 
 
 ```

@@ -13,7 +13,7 @@ In essence, the API key is what allows researchers to treat a model as a callabl
 Understanding how to manage this key responsibly is a foundational step in incorporating LLMs into reproducible research and educational applications.
 
 In practice, an API key is a long string of letters and numbers that you include in your code whenever you send a request to the model.
-I asked OpenAI's ChatGPT5 to generate a fake API key for demonstrative purposes.
+I asked OpenAI's ChatGPT to generate a fake API key for demonstrative purposes.
 They generally look something like this: 
 
 `sk-1234567890abcdefGHIJKLMNOPQRSTUVWXYZ1234`.
@@ -37,174 +37,104 @@ If you do have some freedom in model selection, I encourage you to empirically t
 
 Links to documentation for API keys:
 
-- [Anthropic](https://console.anthropic.com/)
-  - [Anthropic API pricing](https://www.claude.com/pricing#api)
+- [Anthropic](https://platform.claude.com/)
+  - [Anthropic API pricing](https://platform.claude.com/docs/en/about-claude/pricing)
 - [OpenAI](https://platform.openai.com/api-keys)
-  - [OpenAI API pricing](https://openai.com/api/pricing/)
-- [Google Gemini](https://aistudio.google.com/welcome)
-  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing) (you get used to get in free credits to use in the first 90 days when making an account; unsure if this has changed)
-  - [Gemini API quickstart guide](https://ai.google.dev/gemini-api/docs/quickstart)
+  - [OpenAI API pricing](https://developers.openai.com/api/docs/pricing)
+- [Google Gemini](https://aistudio.google.com/apikey)
+  - [Google Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing)
+  - [Gemini API quickstart guide](https://ai.google.dev/gemini-api/docs/get-started)
 - [DeepSeek](https://api-docs.deepseek.com/); many DeepSeek models are available through Hugging Face, but using their API gives you access to their most recent models
   - [DeepSeek API pricing](https://api-docs.deepseek.com/quick_start/pricing)
 - [Mistral](https://docs.mistral.ai/api)
-  - [Mistral API pricing](https://mistral.ai/pricing#api-pricing)
+  - [Mistral API pricing](https://mistral.ai/pricing/api/)
 - [Qwen is available through Alibaba Cloud](https://www.alibabacloud.com/en/product/modelstudio); this is another model family for which some models are freely available, but using their API has its benefits
-  - [Qwen API Pricing](https://www.alibabacloud.com/help/en/model-studio/models); more details are available by clicking on specific models on the page above
+  - [Qwen API models and pricing](https://www.alibabacloud.com/help/en/model-studio/models); more details are available by clicking on specific models on the page above
 
 ### Calling the Model via API
 
-We used a very simple function to call the Anthropic Claude Sonnet 4.6 model [earlier](03-test-connect.qmd#sec-call-claude).
-I've repeated it below for those who want to review it without leaving this section. 
-I've provided more comments in this version about what needs to be changed to call another Anthropic model, include additional parameters, and so on.
+We used a very simple function to call an Anthropic Claude model [earlier](03-test-connect.qmd#sec-call-claude).
+The canonical helper is available in [call_claude_AIMECON26.R](downloads/call_claude_AIMECON26.R); source it below if you want to inspect or reuse it from this section.
 
-One important thing to note is the `max_tokens` argument. 
+One important thing to note is the `max_output_tokens` argument.
 I've set a fairly high default (`4096`, which is approximately 3000–3200 words). 
-When using a reasoning model, especially one where you're increasing the `effort` parameter, the model may use tokens during intermediate reasoning before producing the final response. 
+When using a reasoning model, especially one where you're increasing the `reasoning.effort` parameter, the model may use tokens during intermediate reasoning before producing the final response.
 This means that the total tokens required for a reasoning-model response may include both the tokens used during intermediate inference and the tokens in the visible output.
 
-If you set `max_tokens` too low, the model may use all available tokens during inference and fail to produce a final result. 
+If you set `max_output_tokens` too low, the model may use all available tokens during inference and fail to produce a final result.
 I learned this the hard way when trying to produce short text outputs with a high effort level; the model spent all of the available tokens "thinking" and did not have enough left to generate a response. 
 You still get charged for those tokens, so be sure to test the number of tokens needed for both the expected output length and the selected reasoning effort to ensure that you get what you need.
 
 ```{r, eval = FALSE}
-
-#```{r call_claude}
-
-library(httr)
-library(jsonlite)
-
-call_claude <- function(prompt,
-                        model = "claude-sonnet-4-6",
-                        system = NULL,
-                        temperature = 0.5,
-                        max_tokens = 4096,
-                        effort = "low") {
-  
-  # Get API key from environment
-  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
-  
-  # Convert text prompt to required message format
-  messages <- list(list(role = "user", content = prompt))
-  
-  # Build request body
-  request_body <- list(
-    model = model, # Can change to newer or different mdoels (e.g., claude-opus-4-6)
-    messages = messages, # The content you send to the reviewer
-    max_tokens = max_tokens, # The maximum number of tokens allowed for the model response
-    temperature = temperature, # Controls the sampling of candidate tokens; not available for all models
-    output_config = list(effort = effort)
-  )
-  
-  # Add system prompt if provided
-  if (!is.null(system)) {
-    request_body$system <- system
-  }
-  
-  # Set up headers
-  headers <- add_headers(
-    "x-api-key" = api_key,
-    "anthropic-version" = "2023-06-01",
-    "content-type" = "application/json"
-  )
-  
-  # Make the API request
-  response <- POST(
-    url = "https://api.anthropic.com/v1/messages",
-    headers,
-    body = toJSON(request_body, auto_unbox = TRUE)
-  )
-  
-  # Check if request was successful
-  if (http_status(response)$category != "Success") {
-    stop(paste("API request failed:", http_status(response)$message,
-               "\nDetails:", content(response, "text", encoding = "UTF-8")))
-  }
-  
-  # Parse response and extract text content
-  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
-  return(result$content$text)
-  
-}
+source("downloads/call_claude_AIMECON26.R")
 
 ```
 
-### OpenAI ChatGPT5 example {#sec-gpt5-call}
+### OpenAI GPT-6 Astra example {#sec-gpt6-call}
 
-Here is a version of a function you can use to call OpenAI's GPT5.2. The generation parameter of `reasoning_effort` is similar to the `effort` parameter in the Claude model.
+Here is a version of a function you can use to call OpenAI's GPT-6 Astra, OpenAI's current flagship model. This example uses the Responses API, which OpenAI recommends for new projects. The `reasoning.effort` parameter is similar to the `effort` parameter in the Claude model.
 
-[Here latest model page the OpenAI Platform; will change when new model is released.)](https://platform.openai.com/docs/guides/latest-model) In fact, GPT 5.4 is now available, but since I won't be using it in this workshop, I won't be covering that implementation via API.
+See OpenAI's [latest model guide](https://developers.openai.com/api/docs/guides/latest-model), [model catalog](https://developers.openai.com/api/docs/models), and [Responses API reference](https://developers.openai.com/api/reference/resources/responses/methods/create) for current model and parameter details.
 
 ```{r, eval = FALSE}
 
-library(httr)
-library(jsonlite)
+library(httr2)
 
-call_gpt52 <- function(prompt,
-                       model = "gpt-5.2",
-                       system = NULL,
-                       max_tokens = 4096,
-                       reasoning_effort = "low") {  # "none", "low", "medium", "high", "xhigh"
+call_gpt6_astra <- function(prompt,
+                             instructions = NULL,
+                             model = "gpt-6-astra",
+                             max_output_tokens = 4096,
+                             reasoning_effort = "low",
+                             verbosity = "medium") {
 
   api_key <- Sys.getenv("OPENAI_API_KEY")
   if (api_key == "") {
     stop("OpenAI API key is not set. Please set OPENAI_API_KEY in your environment.")
   }
 
-  # Build messages list
-  messages <- list(list(role = "user", content = prompt))
-
-  # Add system message if provided
-  if (!is.null(system)) {
-    messages <- c(list(list(role = "system", content = system)), messages)
-  }
-
-  # Build request body
-  body_list <- list(
+  request_body <- list(
     model = model,
-    messages = messages,
-    max_completion_tokens = max_tokens,
-    reasoning = list(effort = reasoning_effort)
+    input = prompt,
+    max_output_tokens = max_output_tokens,
+    reasoning = list(effort = reasoning_effort),
+    text = list(verbosity = verbosity)
   )
 
-  # Set up headers
-  headers <- add_headers(
-    Authorization = paste("Bearer", api_key),
-    `Content-Type` = "application/json"
-  )
-
-  # Make the API request
-  resp <- POST(
-    url = "https://api.openai.com/v1/chat/completions",
-    headers,
-    body = toJSON(body_list, auto_unbox = TRUE)
-  )
-
-  # Check if request was successful
-  if (http_status(resp)$category != "Success") {
-    stop(paste0("API request failed (", http_status(resp)$message, "): ",
-                content(resp, "text", encoding = "UTF-8")))
+  if (!is.null(instructions)) {
+    request_body$instructions <- instructions
   }
 
-  # Parse response and extract text content
-  res <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = TRUE)
-  return(res$choices[[1]]$message$content)
+  response <- request("https://api.openai.com/v1/responses") |>
+    req_headers(Authorization = paste("Bearer", api_key)) |>
+    req_body_json(request_body) |>
+    req_perform()
+
+  result <- resp_body_json(response)
+  text_blocks <- unlist(lapply(result$output, function(item) {
+    if (!identical(item$type, "message")) return(character())
+    vapply(item$content, function(content) {
+      if (identical(content$type, "output_text")) content$text else ""
+    }, character(1))
+  }))
+
+  paste(text_blocks[text_blocks != ""], collapse = "")
 
 }
 
 # Example usages:
 # 1. Default call
-# cat(call_gpt52("Explain item response theory in simple terms."))
+# cat(call_gpt6_astra("Explain item response theory in simple terms."))
 
-# 2. Lowest reasoning effort
-# cat(call_gpt52("Explain item response theory in simple terms.",
-#                reasoning_effort = "none"))
+# 2. Higher reasoning effort
+# cat(call_gpt6_astra("Explain item response theory in simple terms.",
+#                     reasoning_effort = "high"))
 
-# 3. Highest reasoning effort
-# cat(call_gpt52("Explain item response theory in simple terms.",
-#                reasoning_effort = "xhigh"))
+# 3. Lower response verbosity
+# cat(call_gpt6_astra("Explain item response theory in simple terms.",
+#                     verbosity = "low"))
 
 # 4. With a system prompt
-# cat(call_gpt52("Explain item response theory in simple terms.",
-#                system = "You are an expert in educational measurement. Respond concisely."))
+# cat(call_gpt6_astra("Explain item response theory in simple terms.",
+#                     instructions = "You are an expert in educational measurement. Respond concisely."))
 
 ```

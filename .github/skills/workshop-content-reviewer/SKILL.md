@@ -11,7 +11,7 @@ user-invocable: true
 
 Produce a clear, current, executable workshop page and a concise change report. Work on the requested page; if none is named, use the active workshop `.qmd` or `.Rmd` page. Ask for a target if neither is unambiguous. Review the whole page, not just selected text.
 
-Read other chapters to check overlap, but do not edit them without approval. Preserve existing user changes, learning objectives, audience level, section IDs, citations, and the workshop's voice. Do not rewrite the shared helper, change project-wide execution settings, or render the entire book without approval.
+Read other chapters to check overlap, but do not edit them without approval. Preserve existing user changes, learning objectives, audience level, section IDs, citations, and the workshop's voice. Keep the original author's writing style and wording whenever they are clear and accurate, including first-person perspective, conversational cadence, humor, rhetorical questions, and informal asides. Do not normalize the prose into a generic instructional voice or rewrite for stylistic preference; change wording only when needed for correctness, clarity, concision, currency, consistency, or executable behavior. Do not rewrite the shared helper, change project-wide execution settings, or render the entire book without approval.
 
 ## Procedure
 
@@ -33,7 +33,7 @@ Read other chapters to check overlap, but do not edit them without approval. Pre
 
 ### 3. Edit Writing and Function Usage
 
-- Correct grammar, punctuation, spelling, terminology, and inconsistent wording across headings, paragraphs, lists, tables, captions, callouts, instructions, and learner-facing code text. Improve clarity and conciseness without changing pedagogical meaning.
+- Correct grammar, punctuation, spelling, terminology, and inconsistent wording across headings, paragraphs, lists, tables, captions, callouts, instructions, and learner-facing code text. Improve clarity and conciseness without changing pedagogical meaning or unnecessarily replacing the author's phrasing, tone, cadence, or personality.
 - Update factual claims based on verified sources. Avoid gratuitous expansion, unnecessary jargon, or broad stylistic rewrites.
 - Update all applicable LLM examples, wrappers, setup instructions, source calls, and download links to use the canonical `call_claude_AIMECON26.R` helper and its actual current callable interface. Check stale filenames even when the exported function name is unchanged.
 - Adjust arguments, response extraction, printing, and downstream processing to match the real return value. Preserve useful unrelated R functions and examples intentionally teaching other providers or direct API calls; do not force incompatible examples through this helper. Document exceptions or ask if migrating them would change the lesson.

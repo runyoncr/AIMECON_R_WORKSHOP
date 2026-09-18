@@ -13,6 +13,8 @@ Here is an example of what I mean.
 ```{r, eval = FALSE}
 # Specifying the input variables
 
+source("downloads/call_claude_AIMECON26.R")
+
 sample_gender <- "cisgender male"
 sample_age <- "37 years old"
 sample_diagnosis <- "acute bronchitis"
