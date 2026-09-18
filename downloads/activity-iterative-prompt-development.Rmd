@@ -8,8 +8,6 @@ output: html_notebook
 Run this chunk first to load required packages, set your API key, load the essay data, and define the `call_claude()` function.
 
 ```{r setup}
-library(httr)
-library(jsonlite)
 library(dplyr)
 library(purrr)
 library(glue)
@@ -18,44 +16,9 @@ if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
   Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 }
 
-# Load student essay data
+# Load student essay data and the workshop's canonical Anthropic helper
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"))
-
-call_claude <- function(prompt,
-                        model = "claude-sonnet-4-6",
-                        system = NULL,
-                        temperature = 0.5,
-                        max_tokens = 4096,
-                        effort = "low") {
-  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
-  messages <- list(list(role = "user", content = prompt))
-  request_body <- list(
-    model = model,
-    messages = messages,
-    max_tokens = max_tokens,
-    temperature = temperature,
-    output_config = list(effort = effort)
-  )
-  if (!is.null(system)) {
-    request_body$system <- system
-  }
-  headers <- add_headers(
-    "x-api-key" = api_key,
-    "anthropic-version" = "2023-06-01",
-    "content-type" = "application/json"
-  )
-  response <- POST(
-    url = "https://api.anthropic.com/v1/messages",
-    headers,
-    body = toJSON(request_body, auto_unbox = TRUE)
-  )
-  if (http_status(response)$category != "Success") {
-    stop(paste("API request failed:", http_status(response)$message,
-               "\nDetails:", content(response, "text", encoding = "UTF-8")))
-  }
-  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
-  return(result$content$text)
-}
+source("call_claude_AIMECON26.R")
 ```
 
 ---
@@ -65,8 +28,8 @@ call_claude <- function(prompt,
 Now it's time to practice the first element of an LLM workflow: iterative prompt development. 
 This is the process of developing and tweaking a prompt until it's ready to be implemented more widely in your workflow.
 
-For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/) data, which is based on scoring essays from English as a foreign language learner. 
-I used responses for the essay prompt of "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?" when creating the 10 synthetic essays.
+For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/) data, which is based on essays written by English as a foreign language learners.
+I used responses to the essay prompt, "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?" when creating the 10 synthetic essays.
 
 The full dataset is available after filling out a [consent form](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform).
 
@@ -76,7 +39,7 @@ The following rubric was developed for their analysis:
 * **Organization:** The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.
 * **Language:** The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper. 
 
-The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for _each_ of the criteria.
+The essays in that dataset are scored on a range from 1 to 5, in increments of 0.5 for _each_ criterion.
 
 ## First Prompt
 
@@ -114,16 +77,18 @@ Provide a brief justification (1-2 sentences) for each score."
 
 prompt_improvement <- function(scoring_prompt){
   glue::glue("
-  I am preparing to use an LLM to help with the automated scoring of student essays.
-  
-  Please complete the following tasks:
-  1. Review the prompt and identify where more detail may improve the application of the rubric.
-  2. Review the prompt structure to ensure that the LLM can easily parse the different activities.
-  3. Draft an updated prompt incorporating the changes you suggested in (1) and (2), noting where more detail may need to be added.
-  4. Include instructions for the output of the prompt to produce a JSON file with the different score components.
-  5. Wrap the prompt in a function using the `glue` R package so I can easily cycle through the different essays to be scored.
-  
-  Here is the draft of my prompt: {scoring_prompt}
+     You are reviewing a prompt for an LLM-assisted essay-scoring workflow.
+
+     Review the draft below and respond concisely:
+     1. Identify the 3-5 most important ambiguities or missing instructions that could reduce consistent application of the existing rubric.
+     2. Recommend a clearer structure while preserving the existing criteria and 1-5 scoring scale in 0.5-point increments.
+     3. Provide a revised prompt wrapped in an R function named `score_essay(essay)` that uses `glue` and inserts the essay at the appropriate location.
+     4. Require the model to return only a valid JSON object with separate scores and brief justifications for Content, Organization, and Language, plus a total score.
+
+     Do not score an essay or invent new rubric criteria. Clearly label any decisions the author still needs to make, such as word-count rules or edge-case handling.
+
+     Draft prompt:
+     {scoring_prompt}
   ")
 }
 ```

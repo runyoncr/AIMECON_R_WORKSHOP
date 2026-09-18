@@ -77,11 +77,11 @@ api_key <- Sys.getenv("ANTHROPIC_API_KEY")
 # Prompts the User to enter their API key; flip for workshop
 # Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 
-# You'll see a Claude Sonnet 4 is being used by default.
+# The workshop uses Claude Sonnet 5 for this conversation.
 # I've included a system prompt, which we'll discuss below.
 chat <- chat_anthropic(
   system_prompt = "You explain things concisely, focusing on only the most significant parts of the response.",
-  model = "claude-sonnet-4-6")
+  model = "claude-sonnet-5")
 
 ```
 
@@ -201,7 +201,7 @@ chat_anthropic(
   model = NULL,
   cache = c("5m", "1h", "none"),
   api_args = list(),
-  base_url = "https://api.anthropic.com/v1",
+  base_url = NULL,
   beta_headers = character(),
   api_key = NULL,
   credentials = NULL,
@@ -260,7 +260,7 @@ You can also include this in your argument - the important part is that using `c
 
 ```{r, eval = FALSE}
 
-chat <- chat_anthoropic()
+chat <- chat_anthropic()
 
 ```
 

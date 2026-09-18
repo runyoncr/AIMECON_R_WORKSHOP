@@ -8,7 +8,7 @@ Download the notebook for this activity:
 Now it's time to practice a conversational interaction with an API.
 We won't be spending a lot of time on this, but I would be remiss if you didn't at least get to kick the tires on this functionality in the workshop.
 
-First you'll need to load the `ellmer` package and specify that we'll be using Claude Sonnet 4.6 for this activity:
+First you'll need to load the `ellmer` package and specify that we'll be using Claude Sonnet 5 for this activity:
 
 ```{r load ellmer, eval = FALSE}
 library(ellmer)
@@ -22,22 +22,23 @@ if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
 }
 ```
 
-And let's specify that we'll be using Claude Sonnet 4.6 for this activity:
+And let's specify that we'll be using Claude Sonnet 5 for this activity:
 
 ```{r start claude, eval = FALSE}
 chat <- chat_anthropic(
   system_prompt = "You explain things concisely, focusing on only the most significant parts of the response.",
-  model = "claude-sonnet-4-6")
+  model = "claude-sonnet-5")
 ```
 
 Now that our chat is loaded, let's start!
 
 ## Console-based interaction
 
-**Directions**: Have a short conversation with Claude in the console. It can be about anything; here are some suggestions for prompts.
-- Idea 1
-- Idea 2
-- Idea 3
+**Directions**: Have a short conversation with Claude in the console. It can be about anything; here are some suggestions for prompts:
+
+- Explain what it means to define a construct in educational measurement, and why poor construct definition can create problems for assessment design. Keep the response to no more than 2 paragraphs.
+- Describe one promising use of generative AI in the design of educational assessments, along with one important caution educators should keep in mind. Keep the response to no more than 2 paragraphs.
+- Describe how generative AI might help provide feedback to learners, and explain one reason educators should still review AI-generated feedback carefully. Keep the response to no more than 2 paragraphs.
 
 After a few turns, end the chat by submitting "Q" to quit.
 
@@ -95,7 +96,8 @@ Now try a single interaction using a whimsical system prompt.
 chat$set_turns(list()) # Resets the conversation
 
 chat <- chat_anthropic(
-  system_prompt = "You are an assistant that likes to respond in rhymes."
+  system_prompt = "You are an assistant that likes to respond in rhymes.",
+  model = "claude-sonnet-5"
 )
 
 chat$chat("Briefly tell me the point of using a Rasch model.")

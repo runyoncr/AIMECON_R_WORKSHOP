@@ -66,15 +66,15 @@ cat(call_claude(one_med_mcq))
 
 ```
 
-Question: A 37-year-old male presents to the clinic with a 5-day history of cough productive of yellow-green sputum, mild chest discomfort with coughing, and fatigue. He reports a low-grade fever of 38.1°C (100.6°F) at home but is afebrile in the office. Vital signs show BP 122/78 mmHg, HR 82 bpm, RR 16 breaths/min, and O2 saturation 98% on room air. Lung auscultation reveals coarse breath sounds bilaterally without wheezing or crackles. A chest X-ray is ordered and returns normal. Which of the following is the most appropriate next step in management?
+Question: A 37-year-old cisgender male presents to the clinic with a 5-day history of cough productive of yellow-green sputum, mild chest discomfort with coughing, and low-grade fever of 38.1°C (100.6°F). He denies shortness of breath at rest. Vital signs show a heart rate of 88 bpm, respiratory rate of 16 breaths/min, and oxygen saturation of 98% on room air. Lung auscultation reveals coarse breath sounds bilaterally without wheezing or crackles. A chest X-ray is performed and shows no infiltrates or consolidation. Which of the following is the most appropriate next step in management?
 
 A. Prescribe a 5-day course of azithromycin
 B. Prescribe a 7-day course of amoxicillin-clavulanate
-C. Order sputum culture and sensitivity before initiating treatment
-D. Provide supportive care with reassurance and recommend honey and analgesics as needed
-E. Prescribe a short course of oral corticosteroids to reduce airway inflammation
+C. Provide supportive care with reassurance, hydration, and honey or cough suppressants as needed
+D. Order sputum culture and sensitivity before initiating treatment
+E. Prescribe an inhaled corticosteroid to reduce airway inflammation
 
-Correct Answer: D
+Correct Answer: C
 
 <br>
 
@@ -93,7 +93,7 @@ med_prompt_array <- purrr::pmap_chr(
 
 ```
 
-# `JSON` formatting
+## `JSON` formatting
 
 It is helpful to provide the model with an expected output structure. For the sake of demonstration, let's say that the output from the prompt above was sufficient for your assessment purpose. Best practices for storing assessment content are probably _not_ to just have the assessment item with the stem, response options, and answer key all stored together in a single text file. You'd likely want to extract these components[^1] and store them separately in your database. If you had the output structured as above, this would require the use of some of the functions in the [`stringr` package](https://stringr.tidyverse.org/), or, even worse - regular expressions! 😬
 
@@ -145,7 +145,7 @@ cat(one_med_json_output)
 ```
 
 
-We can now use the `JSONlite`
+We can now use `jsonlite`.
 
 
 
@@ -189,9 +189,10 @@ data.frame(
 ## `glue` and JSON formatting
 
 The `med_mcq_prompt_json` function above also highlights that the `glue` package can easily handle special characters and formatting when building prompts. 
-It does require a some extra steps (e.g., using double brackets `{{` `}}` instead of single brackets, the need for escape `\` for quotes and other formatting), but it is still _much_ easier than trying to do this with `paste`. 
+It does require some extra steps (e.g., using double brackets `{{` `}}` instead of single brackets and escaping quotes with `\`), but it is still _much_ easier than trying to do this with `paste`.
 
-And, to be transparent, I often will ask an LLM to help me ensure that my function has the correct formatting for the JSON output - I don't know all of the minute details that always need included. 
+And, to be transparent, I often ask an LLM to help ensure that my function has the correct formatting for the JSON output—I don't know all of the small details that need to be included.
+
 
 
 [^1]: Along with item meta-data, etc.

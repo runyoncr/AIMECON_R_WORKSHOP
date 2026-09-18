@@ -23,7 +23,7 @@ Conversational modes shine in the early stages of workflow design or qualitative
 For example, when an educator is developing new analytic rubrics, they can ask the model to propose initial criteria, critique them, and rephrase descriptors until the language aligns with learning objectives. 
 Similarly, conversational prompting supports sensemaking—using LLMs to interpret latent structures in student responses or to suggest categories in open-text survey data before formal coding begins.
 
-From a pedagogical standpoint, conversational interfaces are valuable because they make the model’s interpretive process more visible, allowing human users to intervene, question, and adjust. 
+From a pedagogical standpoint, conversational interfaces are valuable because they make the interaction and evolving output more visible, allowing human users to intervene, question, and adjust.
 This transparency aligns with how researchers prototype new measures or refine construct definitions: iteratively and reflectively. 
 Thus, conversational workflows are ideal when the task involves discovery, refinement, or negotiation of meaning rather than high-volume execution.
 
@@ -31,7 +31,7 @@ Thus, conversational workflows are ideal when the task involves discovery, refin
 
 While conversational workflows are interactive, transactional interactions are task-oriented and repeatable.
 This makes them more appropriate for structured, scalable applications in which the logic is already well defined. 
-In R, this means calling an LLM once (or in a controlled loop or via [batch processing](18-batch-processing.qmd#sec-batch-processing)) to perform a fixed function, such as applying a rubric, classifying text, generating distractors for test items, or summarizing response sets. Once the prompt template is validated, the workflow can be automated across hundreds or thousands of responses, with little or no human intervention required for each transaction.
+In R, this means calling an LLM once (or in a controlled loop or via [batch processing](17-batch-processing.qmd#sec-batch-processing)) to perform a fixed function, such as applying a rubric, classifying text, generating distractors for test items, or summarizing response sets. Once the prompt template is validated, the workflow can be automated across hundreds or thousands of responses, reducing the amount of human intervention needed for each transaction while still requiring monitoring and quality control.
 
 Transactional use cases align closely with measurement and scoring pipelines. For example, an R script might use a model to:
 
@@ -40,6 +40,6 @@ Transactional use cases align closely with measurement and scoring pipelines. Fo
 - Convert qualitative comments into quantitative sentiment or topic labels.
 - Produce structured reports summarizing scoring trends or item performance.
 
-In essence, conversational LLM use is exploratory, while transactional use is executive. 
+In essence, conversational LLM use is exploratory, while transactional use is operational.
 The former helps you think with the model; the latter helps you scale that thinking once the process is validated. 
 Both belong in an R-based ecosystem for educational measurement: one for building understanding, the other for operationalizing it.

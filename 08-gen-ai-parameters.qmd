@@ -92,12 +92,13 @@ Longer or more intensive reasoning can be helpful for complex tasks, but that do
 It is also important to remember that this additional reasoning uses tokens. As a result, the cost of a response may reflect not only the tokens in the visible output, but also tokens consumed during intermediate test-time computation.
 
 The `effort` parameter in the `call_claude` function that we are using is what gives you control over how much computation Claude is willing to spend on a response.
-In Anthropic's current documentation, `high` is the default for Claude Sonnet 4.6 if you do not explicitly set the parameter (I have used `medium` as the default for this course).
+Anthropic's API currently defaults to `high` effort for Claude Sonnet 5 if you do not explicitly set the parameter. The workshop helper uses `claude-sonnet-5` and explicitly sets `effort = "low"` as its default, so change the argument when you want to compare other effort levels.
 Below is a copy of the table in the [Anthropic documentation](https://platform.claude.com/docs/en/build-with-claude/effort) describing the different effort settings:
 
 | Level | Description | Typical use case |
 |-------|-------------|-----------------|
-| `max` | Absolute maximum capability with no constraints on token spending. Opus 4.6 only. Requests using `max` on other models return an error. | Tasks requiring the deepest possible reasoning and most thorough analysis |
+| `max` | Absolute maximum capability with no constraints on token spending. Supported by Claude Sonnet 5 and selected other current models. | Tasks requiring the deepest possible reasoning and most thorough analysis |
+| `xhigh` | Extended capability for long-horizon work. Supported by Claude Sonnet 5 and selected other current models. | Long-running agentic and coding tasks |
 | `high` | High capability. Equivalent to not setting the parameter. | Complex reasoning, difficult coding problems, agentic tasks |
 | `medium` | Balanced approach with moderate token savings. | Agentic tasks that require a balance of speed, cost, and performance |
 | `low` | Most efficient. Significant token savings with some capability reduction. | Simpler tasks that need the best speed and lowest costs, such as subagents |

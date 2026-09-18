@@ -8,10 +8,10 @@ Download the notebook for this activity:
 Now it's time to practice the first element of an LLM workflow: iterative prompt development.
 This is the process of developing and tweaking a prompt until it's ready to be implemented more widely in your workflow.
 
-For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/) data, which is based on scoring essays from English as a foreign language learner. 
-I used responses for the essay prompt of "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?" when creating the 10 synthetic essays."
+For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/) data, which is based on essays written by English as a foreign language learners.
+I used responses to the essay prompt, "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?" when creating the 10 synthetic essays.
 
-The full dataset is available after filling out a [consent form](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform). The essays I generated
+The full dataset is available after filling out a [consent form](https://docs.google.com/forms/d/e/1FAIpQLSdqlywEiCl5Ddei7T7ujMBpMHFDLRyW7OBo033e_Oe-amGqmQ/viewform).
 
 The following rubric was developed for their analysis:
 
@@ -19,14 +19,14 @@ The following rubric was developed for their analysis:
 * **Organization:** The argument is very effectively structured and developed, making it easy for the reader to follow the ideas and understand how the writer is building the argument. Paragraphs use coherence devices effectively while focusing on a single main idea.
 * **Language:** The writing displays sophisticated control of a wide range of vocabulary and collocations. The essay follows grammar and usage rules throughout the paper. Spelling and punctuation are correct throughout the paper. 
 
-The essays in that dataset are scored on a range from 1 to 5 with increments of 0.5 for _each_ of the criteria.                      |
+The essays in that dataset are scored on a range from 1 to 5, in increments of 0.5 for _each_ criterion.
 
 ## First prompt
 
-The first step is to write an initial prompt to score the essays. I _very_ rarely use an initial prompt I develop with asking an LLM to review the prompt for completeness and organization. 
+The first step is to write an initial prompt to score the essays. I _very_ rarely use an initial prompt without asking an LLM to review it for completeness and organization.
 To demonstrate this first step, I purposefully have written a vague prompt that I wouldn't use in practice so we can see what type of guidance a model might provide for us.
-You can use this prompt, or you can review it and improve it on your before providing it to a model.
-I've also include the outer prompt that I would use when asking an LLM for feedback on a prompt.
+You can use this prompt, or you can review it and improve it on your own before providing it to a model.
+I've also included the outer prompt that I would use when asking an LLM for feedback on a prompt.
 
 ```{r, eval = FALSE}
 
@@ -55,16 +55,18 @@ Provide a brief justification (1-2 sentences) for each score."
 
 prompt_improvement <- function(scoring_prompt){
   glue::glue("
-  I am preparing to using an LLM to help with the automated scoring of student essays.
-  
-  Please complete the following tasks:
-  1. Review the prompt and identify where more detail may improve the application of the rubric.
-  2. Review the prompt structure to ensure that the LLM can easily parse the different activities.
-  3. Draft an updated prompt incorporating the changes you suggested in (1) and (2), noting where more detail may need tobe added.
-  3. Include instructions for the output of the prompt to produce a JSON file with with the different score components.
-  4. Wrap the prompt in a function using the `glue` R package so I can easily cycle through the different essays to be scored.
-  
-  Here is the draft of my prompt: {scoring_prompt}
+     You are reviewing a prompt for an LLM-assisted essay-scoring workflow.
+
+     Review the draft below and respond concisely:
+     1. Identify the 3-5 most important ambiguities or missing instructions that could reduce consistent application of the existing rubric.
+     2. Recommend a clearer structure while preserving the existing criteria and 1-5 scoring scale in 0.5-point increments.
+     3. Provide a revised prompt wrapped in an R function named `score_essay(essay)` that uses `glue` and inserts the essay at the appropriate location.
+     4. Require the model to return only a valid JSON object with separate scores and brief justifications for Content, Organization, and Language, plus a total score.
+
+     Do not score an essay or invent new rubric criteria. Clearly label any decisions the author still needs to make, such as word-count rules or edge-case handling.
+
+     Draft prompt:
+     {scoring_prompt}
   ")
 }
 
@@ -398,10 +400,10 @@ score_essay <- function(essay) {
 student_essays$scoring_prompt <- sapply(student_essays$essay, score_essay)
 
 # Trying the first one
-student_essays$scoring_ouptut <- NA
-student_essays$scoring_ouptut[1] <- call_claude(student_essays$scoring_prompt[1])
+student_essays$scoring_output <- NA
+student_essays$scoring_output[1] <- call_claude(student_essays$scoring_prompt[1])
 
-cat(student_essays$scoring_ouptut[1])
+cat(student_essays$scoring_output[1])
 
 ```
 
