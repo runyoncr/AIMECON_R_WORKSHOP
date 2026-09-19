@@ -6,6 +6,8 @@ Does an additional hour of studying have the same association with test scores f
 
 These are synthetic scores for 120 students. We deliberately build in a steeper study-hours slope for the workshop group, then add random noise.
 
+Each row of `students` represents one student. `runif()` draws study hours between one and nine, while `rep()` assigns 60 rows to each method. `factor()` tells R that the method is a category, not a numeric measurement. `set.seed()` makes the random draws reproducible when you rerun the example.
+
 ```{r}
 #| label: ex-interaction-data
 set.seed(2026)
@@ -30,9 +32,19 @@ students$score <- 65 +
 
 With R's default treatment coding, the first factor level, `Self-study`, is the reference group. Subtracting five makes `hours_centered = 0` mean **five hours of studying**, not zero hours.
 
+For example, two hours becomes -3 and eight hours becomes 3. Centering changes where we interpret the intercept and group difference; it does not change the fitted predictions when both predictors and their interaction remain in the model.
+
+The `workshop` variable is 0 for self-study and 1 for workshop students. That makes the score-generation rule easier to follow:
+
+- Self-study students have an expected score of 65 at five hours, with three additional points per extra hour.
+- Workshop students have four additional points at five hours and an hourly slope that is two points steeper: five rather than three.
+- `rnorm()` adds normally distributed noise with mean 0 and standard deviation 3, so students do not all fall exactly on these lines. The fitted coefficients will therefore differ somewhat from the values we used to generate the data.
+
 ## Fit the Interaction
 
 In an R model formula, `hours_centered * method` includes both predictors **and** their interaction: `hours_centered + method + hours_centered:method`. There is no need to create a product column yourself.
+
+The `~` separates the outcome, `score`, from the predictors. Using only `hours_centered + method` would allow different group intercepts but require the same hourly slope in both groups. Using `*` allows the slopes to differ too.
 
 ```{r}
 #| label: ex-interaction-model
@@ -41,7 +53,7 @@ coefficients <- coef(interaction_model)
 round(coefficients, 2)
 ```
 
-Read these estimates as follows:
+`lm()` fits the model, `coef()` extracts its named coefficient estimates, and `round()` changes only how we display them. Read these estimates as follows:
 
 | Coefficient | Interpretation |
 | --- | --- |
@@ -51,6 +63,8 @@ Read these estimates as follows:
 | `hours_centered:methodWorkshop` | Workshop minus self-study **slope difference**: `r round(coefficients["hours_centered:methodWorkshop"], 2)` points per hour. |
 
 The interaction coefficient is **not** the workshop slope. Add it to the self-study slope:
+
+The `[["..."]]` expressions below retrieve individual coefficients by name. The interaction estimate is the amount we add to the reference group's slope, not a replacement for that slope.
 
 ```{r}
 #| label: ex-interaction-slopes
@@ -66,6 +80,8 @@ An extra hour is associated with about `r round(self_study_slope, 2)` predicted 
 ## Compare Predicted Scores
 
 Use `predict()` to compare groups at specific hours. New data must use the **same centering value** as the training data.
+
+Here, `expand.grid()` creates all six combinations of three study durations and two methods. These rows are scenarios, not additional observed students. `predict()` uses the fitted model to estimate a mean score for each scenario; it does not generate new random scores.
 
 ```{r}
 #| label: ex-interaction-predictions
@@ -84,6 +100,10 @@ data.frame(
 ```
 
 Compare rows with the same hours: the workshop minus self-study difference changes as hours increase. The `methodWorkshop` coefficient describes that difference only at five hours, not at every study duration.
+
+For example, at eight hours the predicted scores are `r round(predictions$predicted_score[predictions$hours == 8 & predictions$method == "Self-study"], 1)` for self-study and `r round(predictions$predicted_score[predictions$hours == 8 & predictions$method == "Workshop"], 1)` for the workshop. Their difference is about `r round(coefficients[["methodWorkshop"]] + 3 * coefficients[["hours_centered:methodWorkshop"]], 1)` points: the five-hour group difference plus three hours of the additional workshop slope.
+
+To see that changing gap, `subset()` separates the prediction rows by method. `plot()` draws the self-study line, and `lines()` adds the workshop line to the same axes. Both lines come from our single interaction model, not separate regressions.
 
 ```{r}
 #| label: ex-interaction-plot

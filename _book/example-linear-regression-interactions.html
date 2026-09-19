@@ -419,6 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="generate-example-data" class="level2" data-number="29.1"><h2 data-number="29.1" class="anchored" data-anchor-id="generate-example-data">
 <span class="header-section-number">29.1</span> Generate Example Data</h2>
 <p>These are synthetic scores for 120 students. We deliberately build in a steeper study-hours slope for the workshop group, then add random noise.</p>
+<p>Each row of <code>students</code> represents one student. <code><a href="https://rdrr.io/r/stats/Uniform.html">runif()</a></code> draws study hours between one and nine, while <code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code> assigns 60 rows to each method. <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> tells R that the method is a category, not a numeric measurement. <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> makes the random draws reproducible when you rerun the example.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
 <span></span>
@@ -441,9 +442,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>With R’s default treatment coding, the first factor level, <code>Self-study</code>, is the reference group. Subtracting five makes <code>hours_centered = 0</code> mean <strong>five hours of studying</strong>, not zero hours.</p>
-</section><section id="fit-the-interaction" class="level2" data-number="29.2"><h2 data-number="29.2" class="anchored" data-anchor-id="fit-the-interaction">
+<p>For example, two hours becomes -3 and eight hours becomes 3. Centering changes where we interpret the intercept and group difference; it does not change the fitted predictions when both predictors and their interaction remain in the model.</p>
+<p>The <code>workshop</code> variable is 0 for self-study and 1 for workshop students. That makes the score-generation rule easier to follow:</p>
+<ul>
+<li>Self-study students have an expected score of 65 at five hours, with three additional points per extra hour.</li>
+<li>Workshop students have four additional points at five hours and an hourly slope that is two points steeper: five rather than three.</li>
+<li>
+<code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> adds normally distributed noise with mean 0 and standard deviation 3, so students do not all fall exactly on these lines. The fitted coefficients will therefore differ somewhat from the values we used to generate the data.</li>
+</ul></section><section id="fit-the-interaction" class="level2" data-number="29.2"><h2 data-number="29.2" class="anchored" data-anchor-id="fit-the-interaction">
 <span class="header-section-number">29.2</span> Fit the Interaction</h2>
 <p>In an R model formula, <code>hours_centered * method</code> includes both predictors <strong>and</strong> their interaction: <code>hours_centered + method + hours_centered:method</code>. There is no need to create a product column yourself.</p>
+<p>The <code>~</code> separates the outcome, <code>score</code>, from the predictors. Using only <code>hours_centered + method</code> would allow different group intercepts but require the same hourly slope in both groups. Using <code>*</code> allows the slopes to differ too.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">interaction_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">hours_centered</span> <span class="op">*</span> <span class="va">method</span>, data <span class="op">=</span> <span class="va">students</span><span class="op">)</span></span>
 <span><span class="va">coefficients</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">interaction_model</span><span class="op">)</span></span>
@@ -455,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                          4.95                          2.08 </code></pre>
 </div>
 </div>
-<p>Read these estimates as follows:</p>
+<p><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> fits the model, <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> extracts its named coefficient estimates, and <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> changes only how we display them. Read these estimates as follows:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -485,6 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>The interaction coefficient is <strong>not</strong> the workshop slope. Add it to the self-study slope:</p>
+<p>The <code>[["..."]]</code> expressions below retrieve individual coefficients by name. The interaction estimate is the amount we add to the reference group’s slope, not a replacement for that slope.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">self_study_slope</span> <span class="op">&lt;-</span> <span class="va">coefficients</span><span class="op">[[</span><span class="st">"hours_centered"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">workshop_slope</span> <span class="op">&lt;-</span> <span class="va">self_study_slope</span> <span class="op">+</span></span>
@@ -500,6 +510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="compare-predicted-scores" class="level2" data-number="29.3"><h2 data-number="29.3" class="anchored" data-anchor-id="compare-predicted-scores">
 <span class="header-section-number">29.3</span> Compare Predicted Scores</h2>
 <p>Use <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> to compare groups at specific hours. New data must use the <strong>same centering value</strong> as the training data.</p>
+<p>Here, <code><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid()</a></code> creates all six combinations of three study durations and two methods. These rows are scenarios, not additional observed students. <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> uses the fitted model to estimate a mean score for each scenario; it does not generate new random scores.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
 <span>  hours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,</span>
@@ -524,6 +535,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Compare rows with the same hours: the workshop minus self-study difference changes as hours increase. The <code>methodWorkshop</code> coefficient describes that difference only at five hours, not at every study duration.</p>
+<p>For example, at eight hours the predicted scores are 72.6 for self-study and 83.8 for the workshop. Their difference is about 11.2 points: the five-hour group difference plus three hours of the additional workshop slope.</p>
+<p>To see that changing gap, <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> separates the prediction rows by method. <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> draws the self-study line, and <code><a href="https://rdrr.io/r/graphics/lines.html">lines()</a></code> adds the workshop line to the same axes. Both lines come from our single interaction model, not separate regressions.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">self_study_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">predictions</span>, <span class="va">method</span> <span class="op">==</span> <span class="st">"Self-study"</span><span class="op">)</span></span>
 <span><span class="va">workshop_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">predictions</span>, <span class="va">method</span> <span class="op">==</span> <span class="st">"Workshop"</span><span class="op">)</span></span>
@@ -1019,106 +1032,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>These are synthetic scores for 120 students. We deliberately build in a steeper study-hours slope for the workshop group, then add random noise.</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-data</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours =</span> <span class="fu">runif</span>(<span class="dv">120</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">9</span>),</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="fu">factor</span>(</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Self-study"</span>, <span class="st">"Workshop"</span>), <span class="at">each =</span> <span class="dv">60</span>),</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Self-study"</span>, <span class="st">"Workshop"</span>)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>hours_centered <span class="ot">&lt;-</span> students<span class="sc">$</span>hours <span class="sc">-</span> <span class="dv">5</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>workshop <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(students<span class="sc">$</span>method <span class="sc">==</span> <span class="st">"Workshop"</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>score <span class="ot">&lt;-</span> <span class="dv">65</span> <span class="sc">+</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span> <span class="sc">*</span> students<span class="sc">$</span>hours_centered <span class="sc">+</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span> <span class="sc">*</span> workshop <span class="sc">+</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="sc">*</span> students<span class="sc">$</span>hours_centered <span class="sc">*</span> workshop <span class="sc">+</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="dv">120</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>With R's default treatment coding, the first factor level, <span class="in">`Self-study`</span>, is the reference group. Subtracting five makes <span class="in">`hours_centered = 0`</span> mean **five hours of studying**, not zero hours.</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>Each row of <span class="in">`students`</span> represents one student. <span class="in">`runif()`</span> draws study hours between one and nine, while <span class="in">`rep()`</span> assigns 60 rows to each method. <span class="in">`factor()`</span> tells R that the method is a category, not a numeric measurement. <span class="in">`set.seed()`</span> makes the random draws reproducible when you rerun the example.</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-data</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours =</span> <span class="fu">runif</span>(<span class="dv">120</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">9</span>),</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="fu">factor</span>(</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Self-study"</span>, <span class="st">"Workshop"</span>), <span class="at">each =</span> <span class="dv">60</span>),</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Self-study"</span>, <span class="st">"Workshop"</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>hours_centered <span class="ot">&lt;-</span> students<span class="sc">$</span>hours <span class="sc">-</span> <span class="dv">5</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>workshop <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(students<span class="sc">$</span>method <span class="sc">==</span> <span class="st">"Workshop"</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>score <span class="ot">&lt;-</span> <span class="dv">65</span> <span class="sc">+</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span> <span class="sc">*</span> students<span class="sc">$</span>hours_centered <span class="sc">+</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span> <span class="sc">*</span> workshop <span class="sc">+</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="sc">*</span> students<span class="sc">$</span>hours_centered <span class="sc">*</span> workshop <span class="sc">+</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="dv">120</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fit the Interaction</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>With R's default treatment coding, the first factor level, <span class="in">`Self-study`</span>, is the reference group. Subtracting five makes <span class="in">`hours_centered = 0`</span> mean **five hours of studying**, not zero hours.</span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>In an R model formula, <span class="in">`hours_centered * method`</span> includes both predictors **and** their interaction: <span class="in">`hours_centered + method + hours_centered:method`</span>. There is no need to create a product column yourself.</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>For example, two hours becomes -3 and eight hours becomes 3. Centering changes where we interpret the intercept and group difference; it does not change the fitted predictions when both predictors and their interaction remain in the model.</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-model</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>interaction_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> hours_centered <span class="sc">*</span> method, <span class="at">data =</span> students)</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>coefficients <span class="ot">&lt;-</span> <span class="fu">coef</span>(interaction_model)</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(coefficients, <span class="dv">2</span>)</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>Read these estimates as follows:</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Coefficient <span class="pp">|</span> Interpretation <span class="pp">|</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`(Intercept)`</span> <span class="pp">|</span> Predicted self-study score at five hours: <span class="in">`r round(coefficients["(Intercept)"], 2)`</span> points. <span class="pp">|</span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`hours_centered`</span> <span class="pp">|</span> Self-study slope: <span class="in">`r round(coefficients["hours_centered"], 2)`</span> additional predicted points per extra hour. <span class="pp">|</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`methodWorkshop`</span> <span class="pp">|</span> Workshop minus self-study difference **at five hours**: <span class="in">`r round(coefficients["methodWorkshop"], 2)`</span> points. <span class="pp">|</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`hours_centered:methodWorkshop`</span> <span class="pp">|</span> Workshop minus self-study **slope difference**: <span class="in">`r round(coefficients["hours_centered:methodWorkshop"], 2)`</span> points per hour. <span class="pp">|</span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>The interaction coefficient is **not** the workshop slope. Add it to the self-study slope:</span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-slopes</span></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>self_study_slope <span class="ot">&lt;-</span> coefficients[[<span class="st">"hours_centered"</span>]]</span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>workshop_slope <span class="ot">&lt;-</span> self_study_slope <span class="sc">+</span></span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>  coefficients[[<span class="st">"hours_centered:methodWorkshop"</span>]]</span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="st">"Self-study"</span> <span class="ot">=</span> self_study_slope, <span class="st">"Workshop"</span> <span class="ot">=</span> workshop_slope), <span class="dv">2</span>)</span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>An extra hour is associated with about <span class="in">`r round(self_study_slope, 2)`</span> predicted points for self-study and <span class="in">`r round(workshop_slope, 2)`</span> for workshop students. Neither coefficient is an overall slope averaged across both groups.</span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Compare Predicted Scores</span></span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`predict()`</span> to compare groups at specific hours. New data must use the **same centering value** as the training data.</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-predictions</span></span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>),</span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="fu">levels</span>(students<span class="sc">$</span>method)</span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>predictions<span class="sc">$</span>hours_centered <span class="ot">&lt;-</span> predictions<span class="sc">$</span>hours <span class="sc">-</span> <span class="dv">5</span></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>predictions<span class="sc">$</span>predicted_score <span class="ot">&lt;-</span> <span class="fu">predict</span>(interaction_model, <span class="at">newdata =</span> predictions)</span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours =</span> predictions<span class="sc">$</span>hours,</span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> predictions<span class="sc">$</span>method,</span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">predicted_score =</span> <span class="fu">round</span>(predictions<span class="sc">$</span>predicted_score, <span class="dv">1</span>)</span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>Compare rows with the same hours: the workshop minus self-study difference changes as hours increase. The <span class="in">`methodWorkshop`</span> coefficient describes that difference only at five hours, not at every study duration.</span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-plot</span></span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Two fitted score lines from two to eight study hours; the workshop line is steeper than the self-study line."</span></span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>self_study_predictions <span class="ot">&lt;-</span> <span class="fu">subset</span>(predictions, method <span class="sc">==</span> <span class="st">"Self-study"</span>)</span>
-<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>workshop_predictions <span class="ot">&lt;-</span> <span class="fu">subset</span>(predictions, method <span class="sc">==</span> <span class="st">"Workshop"</span>)</span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(predicted_score <span class="sc">~</span> hours, <span class="at">data =</span> self_study_predictions,</span>
-<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"steelblue4"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(predictions<span class="sc">$</span>predicted_score),</span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Study hours"</span>, <span class="at">ylab =</span> <span class="st">"Predicted score"</span>)</span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted_score <span class="sc">~</span> hours, <span class="at">data =</span> workshop_predictions,</span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"darkorange3"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Self-study"</span>, <span class="st">"Workshop"</span>),</span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"steelblue4"</span>, <span class="st">"darkorange3"</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span>
-<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>The <span class="in">`workshop`</span> variable is 0 for self-study and 1 for workshop students. That makes the score-generation rule easier to follow:</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Self-study students have an expected score of 65 at five hours, with three additional points per extra hour.</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Workshop students have four additional points at five hours and an hourly slope that is two points steeper: five rather than three.</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`rnorm()`</span> adds normally distributed noise with mean 0 and standard deviation 3, so students do not all fall exactly on these lines. The fitted coefficients will therefore differ somewhat from the values we used to generate the data.</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fit the Interaction</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>In an R model formula, <span class="in">`hours_centered * method`</span> includes both predictors **and** their interaction: <span class="in">`hours_centered + method + hours_centered:method`</span>. There is no need to create a product column yourself.</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>The <span class="in">`~`</span> separates the outcome, <span class="in">`score`</span>, from the predictors. Using only <span class="in">`hours_centered + method`</span> would allow different group intercepts but require the same hourly slope in both groups. Using <span class="in">`*`</span> allows the slopes to differ too.</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-model</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>interaction_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> hours_centered <span class="sc">*</span> method, <span class="at">data =</span> students)</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>coefficients <span class="ot">&lt;-</span> <span class="fu">coef</span>(interaction_model)</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(coefficients, <span class="dv">2</span>)</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="in">`lm()`</span> fits the model, <span class="in">`coef()`</span> extracts its named coefficient estimates, and <span class="in">`round()`</span> changes only how we display them. Read these estimates as follows:</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Coefficient <span class="pp">|</span> Interpretation <span class="pp">|</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`(Intercept)`</span> <span class="pp">|</span> Predicted self-study score at five hours: <span class="in">`r round(coefficients["(Intercept)"], 2)`</span> points. <span class="pp">|</span></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`hours_centered`</span> <span class="pp">|</span> Self-study slope: <span class="in">`r round(coefficients["hours_centered"], 2)`</span> additional predicted points per extra hour. <span class="pp">|</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`methodWorkshop`</span> <span class="pp">|</span> Workshop minus self-study difference **at five hours**: <span class="in">`r round(coefficients["methodWorkshop"], 2)`</span> points. <span class="pp">|</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`hours_centered:methodWorkshop`</span> <span class="pp">|</span> Workshop minus self-study **slope difference**: <span class="in">`r round(coefficients["hours_centered:methodWorkshop"], 2)`</span> points per hour. <span class="pp">|</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>The interaction coefficient is **not** the workshop slope. Add it to the self-study slope:</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>The <span class="in">`[["..."]]`</span> expressions below retrieve individual coefficients by name. The interaction estimate is the amount we add to the reference group's slope, not a replacement for that slope.</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-slopes</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>self_study_slope <span class="ot">&lt;-</span> coefficients[[<span class="st">"hours_centered"</span>]]</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>workshop_slope <span class="ot">&lt;-</span> self_study_slope <span class="sc">+</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>  coefficients[[<span class="st">"hours_centered:methodWorkshop"</span>]]</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="st">"Self-study"</span> <span class="ot">=</span> self_study_slope, <span class="st">"Workshop"</span> <span class="ot">=</span> workshop_slope), <span class="dv">2</span>)</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>An extra hour is associated with about <span class="in">`r round(self_study_slope, 2)`</span> predicted points for self-study and <span class="in">`r round(workshop_slope, 2)`</span> for workshop students. Neither coefficient is an overall slope averaged across both groups.</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Compare Predicted Scores</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`predict()`</span> to compare groups at specific hours. New data must use the **same centering value** as the training data.</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>Here, <span class="in">`expand.grid()`</span> creates all six combinations of three study durations and two methods. These rows are scenarios, not additional observed students. <span class="in">`predict()`</span> uses the fitted model to estimate a mean score for each scenario; it does not generate new random scores.</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-predictions</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>),</span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="fu">levels</span>(students<span class="sc">$</span>method)</span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>predictions<span class="sc">$</span>hours_centered <span class="ot">&lt;-</span> predictions<span class="sc">$</span>hours <span class="sc">-</span> <span class="dv">5</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>predictions<span class="sc">$</span>predicted_score <span class="ot">&lt;-</span> <span class="fu">predict</span>(interaction_model, <span class="at">newdata =</span> predictions)</span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours =</span> predictions<span class="sc">$</span>hours,</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> predictions<span class="sc">$</span>method,</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>  <span class="at">predicted_score =</span> <span class="fu">round</span>(predictions<span class="sc">$</span>predicted_score, <span class="dv">1</span>)</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>Compare rows with the same hours: the workshop minus self-study difference changes as hours increase. The <span class="in">`methodWorkshop`</span> coefficient describes that difference only at five hours, not at every study duration.</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>For example, at eight hours the predicted scores are <span class="in">`r round(predictions$predicted_score[predictions$hours == 8 &amp; predictions$method == "Self-study"], 1)`</span> for self-study and <span class="in">`r round(predictions$predicted_score[predictions$hours == 8 &amp; predictions$method == "Workshop"], 1)`</span> for the workshop. Their difference is about <span class="in">`r round(coefficients[["methodWorkshop"]] + 3 * coefficients[["hours_centered:methodWorkshop"]], 1)`</span> points: the five-hour group difference plus three hours of the additional workshop slope.</span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>To see that changing gap, <span class="in">`subset()`</span> separates the prediction rows by method. <span class="in">`plot()`</span> draws the self-study line, and <span class="in">`lines()`</span> adds the workshop line to the same axes. Both lines come from our single interaction model, not separate regressions.</span>
 <span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a>The different slopes show the fitted interaction. These are point estimates, not guaranteed individual scores or evidence that either method causes improvement. For uncertainty, <span class="in">`confint(interaction_model)`</span> gives coefficient confidence intervals; the interaction interval concerns the **difference in slopes**.</span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>For syntax, see the <span class="co">[</span><span class="ot">R documentation for `lm()`</span><span class="co">](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html)</span>; for interpretation, see <span class="co">[</span><span class="ot">UCLA's interaction guide</span><span class="co">](https://stats.oarc.ucla.edu/r/seminars/interactions-r/)</span>.</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-interaction-plot</span></span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Two fitted score lines from two to eight study hours; the workshop line is steeper than the self-study line."</span></span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>self_study_predictions <span class="ot">&lt;-</span> <span class="fu">subset</span>(predictions, method <span class="sc">==</span> <span class="st">"Self-study"</span>)</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a>workshop_predictions <span class="ot">&lt;-</span> <span class="fu">subset</span>(predictions, method <span class="sc">==</span> <span class="st">"Workshop"</span>)</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(predicted_score <span class="sc">~</span> hours, <span class="at">data =</span> self_study_predictions,</span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"steelblue4"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(predictions<span class="sc">$</span>predicted_score),</span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Study hours"</span>, <span class="at">ylab =</span> <span class="st">"Predicted score"</span>)</span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted_score <span class="sc">~</span> hours, <span class="at">data =</span> workshop_predictions,</span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"darkorange3"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Self-study"</span>, <span class="st">"Workshop"</span>),</span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"steelblue4"</span>, <span class="st">"darkorange3"</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a>The different slopes show the fitted interaction. These are point estimates, not guaranteed individual scores or evidence that either method causes improvement. For uncertainty, <span class="in">`confint(interaction_model)`</span> gives coefficient confidence intervals; the interaction interval concerns the **difference in slopes**.</span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>For syntax, see the <span class="co">[</span><span class="ot">R documentation for `lm()`</span><span class="co">](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html)</span>; for interpretation, see <span class="co">[</span><span class="ot">UCLA's interaction guide</span><span class="co">](https://stats.oarc.ucla.edu/r/seminars/interactions-r/)</span>.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
