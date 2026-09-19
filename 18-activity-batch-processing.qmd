@@ -5,6 +5,18 @@ Download the notebook for this activity:
   📥 Download `activity-batch-processing.Rmd`
 </a>
 
+Before running the examples below, source the workshop's canonical helper and confirm your Anthropic API key is available in the session. This activity reuses the same `call_claude()` interface described in the earlier connection chapter, rather than redefining a separate local version.
+
+```{r, eval = FALSE}
+if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+}
+
+source("downloads/call_claude_AIMECON26.R")
+```
+
+The shared helper returns the model's final text block as a single character string, which makes it easy to pass the result directly into `parse_scores()` or `purrr::map_chr()`.
+
 In the previous activity, we developed and refined a scoring prompt and tested it on a single essay.
 In the overview chapter, we saw that batch processing offers a path from that proof-of-concept to something operationally useful: consistent, traceable, and cost-efficient scoring at scale.
 
@@ -129,7 +141,7 @@ create_batch_requests <- function(essays_df) {
     list(
       custom_id = paste0("essay_", essays_df$id[i]),
       params = list(
-        model      = "claude-sonnet-4-20250514",
+        model      = "claude-sonnet-5",
         max_tokens = 1024,
         messages   = list(
           list(role = "user", content = essays_df$scoring_prompt[i])
@@ -172,28 +184,22 @@ The response includes a batch ID that you'll use to check status and retrieve re
 
 ```{r, eval = FALSE}
 
-library(httr)
+library(httr2)
 
 submit_batch <- function(jsonl_file) {
   jsonl_lines    <- readLines(jsonl_file)
   requests_list  <- lapply(jsonl_lines, fromJSON, simplifyVector = FALSE)
 
-  response <- POST(
-    url = "https://api.anthropic.com/v1/messages/batches",
-    add_headers(
+  result <- request("https://api.anthropic.com/v1/messages/batches") |>
+    req_headers(
       "x-api-key"         = Sys.getenv("ANTHROPIC_API_KEY"),
-      "anthropic-version" = "2023-06-01",
-      "content-type"      = "application/json"
-    ),
-    body   = toJSON(list(requests = requests_list), auto_unbox = TRUE),
-    encode = "json"
-  )
+      "anthropic-version" = "2023-06-01"
+    ) |>
+    req_body_json(list(requests = requests_list)) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform() |>
+    resp_body_json()
 
-  if (status_code(response) != 200) {
-    stop("Batch submission failed: ", content(response, "text"))
-  }
-
-  result <- content(response, "parsed")
   cat("Batch submitted successfully!\n")
   cat("Batch ID:", result$id, "\n")
   cat("Status:  ", result$processing_status, "\n")
@@ -212,19 +218,16 @@ For a small job like this one, it typically takes under two minutes.
 ```{r, eval = FALSE}
 
 check_batch_status <- function(batch_id) {
-  response <- GET(
-    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id),
-    add_headers(
+  result <- request("https://api.anthropic.com/v1/messages/batches") |>
+    req_url_path_append(batch_id) |>
+    req_headers(
       "x-api-key"         = Sys.getenv("ANTHROPIC_API_KEY"),
       "anthropic-version" = "2023-06-01"
-    )
-  )
+    ) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform() |>
+    resp_body_json()
 
-  if (status_code(response) != 200) {
-    stop("Status check failed: ", content(response, "text"))
-  }
-
-  result <- content(response, "parsed")
   cat("Status:     ", result$processing_status, "\n")
   cat("Succeeded:  ", result$request_counts$succeeded, "\n")
   cat("Errored:    ", result$request_counts$errored, "\n")
@@ -248,19 +251,16 @@ The response is JSONL again — one result object per line — so we split, pars
 ```{r, eval = FALSE}
 
 get_batch_results <- function(batch_id) {
-  response <- GET(
-    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id, "/results"),
-    add_headers(
+  results_text <- request("https://api.anthropic.com/v1/messages/batches") |>
+    req_url_path_append(batch_id, "results") |>
+    req_headers(
       "x-api-key"         = Sys.getenv("ANTHROPIC_API_KEY"),
       "anthropic-version" = "2023-06-01"
-    )
-  )
+    ) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform() |>
+    resp_body_string()
 
-  if (status_code(response) != 200) {
-    stop("Result retrieval failed: ", content(response, "text"))
-  }
-
-  results_text  <- content(response, "text", encoding = "UTF-8")
   results_lines <- strsplit(results_text, "\n")[[1]]
   results_lines <- results_lines[nzchar(results_lines)]
   lapply(results_lines, fromJSON, simplifyVector = FALSE)
@@ -350,7 +350,7 @@ create_multi_rep_requests <- function(essays_df, n_reps = 20, temperature = NULL
 
   for (i in seq_len(nrow(essays_df))) {
     params <- list(
-      model      = "claude-sonnet-4-20250514",
+      model      = "claude-sonnet-5",
       max_tokens = 1024,
       messages   = list(list(role = "user", content = essays_df$scoring_prompt[i]))
     )

@@ -9,7 +9,7 @@ library(shinyjs)
 library(glue)
 library(jsonlite)
 library(dplyr)
-library(httr)
+library(httr2)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HELPERS
@@ -22,22 +22,20 @@ if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
 call_claude <- function(prompt, max_tokens = 4000) {
   api_key <- Sys.getenv("ANTHROPIC_API_KEY")
   if (nchar(api_key) == 0) stop("ANTHROPIC_API_KEY environment variable is not set.")
-  resp <- POST(
-    "https://api.anthropic.com/v1/messages",
-    add_headers(
+  resp <- request("https://api.anthropic.com/v1/messages") |>
+    req_headers(
       "x-api-key"         = api_key,
-      "anthropic-version" = "2023-06-01",
-      "content-type"      = "application/json"
-    ),
-    body = toJSON(list(
-      model      = "claude-sonnet-4-20250514",
+      "anthropic-version" = "2023-06-01"
+    ) |>
+    req_body_json(list(
+      model      = "claude-sonnet-5",
       max_tokens = max_tokens,
       messages   = list(list(role = "user", content = prompt))
-    ), auto_unbox = TRUE),
-    encode = "raw"
-  )
-  if (http_error(resp)) stop("API error: ", content(resp, as = "text"))
-  content(resp, as = "parsed")$content[[1]]$text
+    )) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform()
+
+  resp_body_json(resp)$content[[1]]$text
 }
 
 clean_json <- function(x) {

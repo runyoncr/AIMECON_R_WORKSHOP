@@ -20,7 +20,7 @@ Here's an example of a simple `fill-mask` task calling the BERT model through th
 
 ```{r, eval = FALSE}
 
-library(httr)
+library(httr2)
 library(jsonlite)
 
 fill_mask <- function(text, model_id = "google-bert/bert-base-uncased") {
@@ -30,22 +30,13 @@ fill_mask <- function(text, model_id = "google-bert/bert-base-uncased") {
   # Construct URL with router endpoint
   url <- paste0("https://router.huggingface.co/hf-inference/models/", model_id)
   
-  # Make API call
-  response <- POST(
-    url = url,
-    add_headers(
-      Authorization = paste("Bearer", token),
-      `Content-Type` = "application/json"
-    ),
-    body = toJSON(list(inputs = text), auto_unbox = TRUE),
-    encode = "raw"
-  )
-  
-  # Parse response
-  response_text <- content(response, "text", encoding = "UTF-8")
-  result <- fromJSON(response_text)
-  
-  return(result)
+  # Make API call and parse the response
+  request(url) |>
+    req_headers(Authorization = paste("Bearer", token)) |>
+    req_body_json(list(inputs = text)) |>
+    req_error(body = function(resp) resp_body_string(resp)) |>
+    req_perform() |>
+    resp_body_json(simplifyVector = TRUE)
 }
 
 # Test it

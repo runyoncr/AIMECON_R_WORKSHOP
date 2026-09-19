@@ -5,10 +5,10 @@ output: html_notebook
 
 ## Setup
 
-Run this chunk first. It loads all required packages, sets your API key, loads the essay data, and defines the `call_claude()` and `score_essay()` functions needed for this activity.
+Run this chunk first. It loads the required packages, sets your API key, sources the canonical workshop helper, and loads the essay data for the activity.
 
 ```{r setup}
-library(httr)
+library(httr2)
 library(jsonlite)
 library(dplyr)
 library(purrr)
@@ -20,44 +20,10 @@ if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
   Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 }
 
+source("call_claude_AIMECON26.R")
+
 # Load student essay data
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"))
-
-call_claude <- function(prompt,
-                        model = "claude-sonnet-4-6",
-                        system = NULL,
-                        temperature = 0.5,
-                        max_tokens = 4096,
-                        effort = "low") {
-  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
-  messages <- list(list(role = "user", content = prompt))
-  request_body <- list(
-    model = model,
-    messages = messages,
-    max_tokens = max_tokens,
-    temperature = temperature,
-    output_config = list(effort = effort)
-  )
-  if (!is.null(system)) {
-    request_body$system <- system
-  }
-  headers <- add_headers(
-    "x-api-key" = api_key,
-    "anthropic-version" = "2023-06-01",
-    "content-type" = "application/json"
-  )
-  response <- POST(
-    url = "https://api.anthropic.com/v1/messages",
-    headers,
-    body = toJSON(request_body, auto_unbox = TRUE)
-  )
-  if (http_status(response)$category != "Success") {
-    stop(paste("API request failed:", http_status(response)$message,
-               "\nDetails:", content(response, "text", encoding = "UTF-8")))
-  }
-  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
-  return(result$content$text)
-}
 
 score_essay <- function(essay) {
   prompt <- glue(
@@ -172,6 +138,8 @@ cat(student_essays$scoring_ouptut[1])
 ---
 
 # Activity: Batch Processing
+
+This chapter reuses the workshop's shared `call_claude()` helper instead of redefining a separate local function, so the examples stay consistent with the earlier connection and API-key materials. The helper returns the model's final text output as a single character string, which is exactly what `parse_scores()` expects when you feed the result through `purrr::map_chr()`.
 
 In the previous activity, we developed and refined a scoring prompt and tested it on a single essay. In the overview chapter, we saw that batch processing offers a path from that proof-of-concept to something operationally useful: consistent, traceable, and cost-efficient scoring at scale.
 
@@ -312,22 +280,16 @@ submit_batch <- function(jsonl_file) {
   jsonl_lines   <- readLines(jsonl_file)
   requests_list <- lapply(jsonl_lines, fromJSON, simplifyVector = FALSE)
 
-  response <- POST(
-    url = "https://api.anthropic.com/v1/messages/batches",
-    add_headers(
+  result <- request("https://api.anthropic.com/v1/messages/batches") |>
+    req_headers(
       "x-api-key"         = Sys.getenv("ANTHROPIC_API_KEY"),
-      "anthropic-version" = "2023-06-01",
-      "content-type"      = "application/json"
-    ),
-    body   = toJSON(list(requests = requests_list), auto_unbox = TRUE),
-    encode = "json"
-  )
+      "anthropic-version" = "2023-06-01"
+    ) |>
+    req_body_json(list(requests = requests_list)) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform() |>
+    resp_body_json()
 
-  if (status_code(response) != 200) {
-    stop("Batch submission failed: ", content(response, "text"))
-  }
-
-  result <- content(response, "parsed")
   cat("Batch submitted successfully!\n")
   cat("Batch ID:", result$id, "\n")
   cat("Status:  ", result$processing_status, "\n")
@@ -343,19 +305,16 @@ Batches process asynchronously. Poll this endpoint until `processing_status` is 
 
 ```{r check-batch-status, eval = FALSE}
 check_batch_status <- function(batch_id) {
-  response <- GET(
-    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id),
-    add_headers(
+  result <- request("https://api.anthropic.com/v1/messages/batches") |>
+    req_url_path_append(batch_id) |>
+    req_headers(
       "x-api-key"         = Sys.getenv("ANTHROPIC_API_KEY"),
       "anthropic-version" = "2023-06-01"
-    )
-  )
+    ) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform() |>
+    resp_body_json()
 
-  if (status_code(response) != 200) {
-    stop("Status check failed: ", content(response, "text"))
-  }
-
-  result <- content(response, "parsed")
   cat("Status:     ", result$processing_status, "\n")
   cat("Succeeded:  ", result$request_counts$succeeded, "\n")
   cat("Errored:    ", result$request_counts$errored, "\n")
@@ -378,19 +337,16 @@ Once `processing_status` is `"ended"`, fetch the results. The response is JSONL 
 
 ```{r get-batch-results, eval = FALSE}
 get_batch_results <- function(batch_id) {
-  response <- GET(
-    url = paste0("https://api.anthropic.com/v1/messages/batches/", batch_id, "/results"),
-    add_headers(
+  results_text <- request("https://api.anthropic.com/v1/messages/batches") |>
+    req_url_path_append(batch_id, "results") |>
+    req_headers(
       "x-api-key"         = Sys.getenv("ANTHROPIC_API_KEY"),
       "anthropic-version" = "2023-06-01"
-    )
-  )
+    ) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform() |>
+    resp_body_string()
 
-  if (status_code(response) != 200) {
-    stop("Result retrieval failed: ", content(response, "text"))
-  }
-
-  results_text  <- content(response, "text", encoding = "UTF-8")
   results_lines <- strsplit(results_text, "\n")[[1]]
   results_lines <- results_lines[nzchar(results_lines)]
   lapply(results_lines, fromJSON, simplifyVector = FALSE)
@@ -450,7 +406,7 @@ datatable(comparison |> mutate(across(where(is.numeric), ~ round(.x, 2))),
 
 The loop and batch runs above each scored each essay once. That's appropriate for production scoring, but as measurement professionals you'll rightly ask: how stable are those scores? Does the model arrive at the same score if you ask again, and does that depend on how much randomness is in the sampling process?
 
-The `temperature` parameter controls that randomness. At the default value in our function (0.5), the model samples probabilistically from its output distribution, which means repeated calls might produce different scores for the same essay. At `temperature = 0`, the model always selects the highest-probability token at each step — so repeated calls should produce nearly identical output.
+The `temperature` parameter controls that randomness. The shared `call_claude()` helper does not set `temperature`, so the loop above ran at the API default (~1.0), where the model samples probabilistically from its output distribution and repeated calls might produce different scores for the same essay. At `temperature = 0`, the model always selects the highest-probability token at each step — so repeated calls should produce nearly identical output.
 
 Batch processing makes this kind of multi-rep study cheap and fast. The following code submits 20 calls per essay (200 requests total) at the default temperature and at `temperature = 0`, so we can see whether and how much scores vary.
 

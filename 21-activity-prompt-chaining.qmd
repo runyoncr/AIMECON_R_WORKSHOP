@@ -24,7 +24,7 @@ In this step, we will be pulling in a large list of candidate topics and learnin
 ```{r, eval = FALSE}
 library(dplyr)
 library(glue)
-library(httr)
+library(httr2)
 library(jsonlite)
 
 if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
@@ -546,14 +546,14 @@ I've re-written the main `call_claude` function to include an argument for readi
 
 ```{r, eval = FALSE}
 
-library(httr)
+library(httr2)
 library(jsonlite)
 library(base64enc)
 library(officer)
 
 call_claude_doc <- function(prompt,
                             file_path,
-                            model = "claude-sonnet-4-6",
+                            model = "claude-sonnet-5",
                             system = NULL,
                             temperature = 0.5,
                             max_tokens = 4096,
@@ -640,25 +640,23 @@ call_claude_doc <- function(prompt,
     request_body$system <- system
   }
   
-  headers <- add_headers(
-    "x-api-key"         = api_key,
-    "anthropic-version" = "2023-06-01",
-    "content-type"      = "application/json"
+  response <- request("https://api.anthropic.com/v1/messages") |>
+    req_headers(
+      "x-api-key"         = api_key,
+      "anthropic-version" = "2023-06-01"
+    ) |>
+    req_body_json(request_body) |>
+    req_error(body = function(resp) resp_body_json(resp)$error$message) |>
+    req_perform()
+  
+  result <- resp_body_json(response)
+  text_blocks <- vapply(
+    result$content,
+    function(block) if (identical(block$type, "text")) block$text else "",
+    character(1)
   )
   
-  response <- POST(
-    url     = "https://api.anthropic.com/v1/messages",
-    headers,
-    body    = toJSON(request_body, auto_unbox = TRUE)
-  )
-  
-  if (http_status(response)$category != "Success") {
-    stop(paste("API request failed:", http_status(response)$message,
-               "\nDetails:", content(response, "text", encoding = "UTF-8")))
-  }
-  
-  result <- fromJSON(content(response, "text", encoding = "UTF-8"))
-  return(result$content$text)
+  paste(text_blocks[text_blocks != ""], collapse = "")
   
 }
 
