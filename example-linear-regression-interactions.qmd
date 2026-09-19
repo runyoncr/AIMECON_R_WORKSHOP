@@ -1,0 +1,108 @@
+# Interactions in Linear Regression {#sec-example-regression-interactions}
+
+Does an additional hour of studying have the same association with test scores for every study method? An **interaction** lets that slope differ between groups; here we fit and interpret one using only base R.
+
+## Generate Example Data
+
+These are synthetic scores for 120 students. We deliberately build in a steeper study-hours slope for the workshop group, then add random noise.
+
+```{r}
+#| label: ex-interaction-data
+set.seed(2026)
+
+students <- data.frame(
+  hours = runif(120, min = 1, max = 9),
+  method = factor(
+    rep(c("Self-study", "Workshop"), each = 60),
+    levels = c("Self-study", "Workshop")
+  )
+)
+
+students$hours_centered <- students$hours - 5
+workshop <- as.numeric(students$method == "Workshop")
+
+students$score <- 65 +
+  3 * students$hours_centered +
+  4 * workshop +
+  2 * students$hours_centered * workshop +
+  rnorm(120, mean = 0, sd = 3)
+```
+
+With R's default treatment coding, the first factor level, `Self-study`, is the reference group. Subtracting five makes `hours_centered = 0` mean **five hours of studying**, not zero hours.
+
+## Fit the Interaction
+
+In an R model formula, `hours_centered * method` includes both predictors **and** their interaction: `hours_centered + method + hours_centered:method`. There is no need to create a product column yourself.
+
+```{r}
+#| label: ex-interaction-model
+interaction_model <- lm(score ~ hours_centered * method, data = students)
+coefficients <- coef(interaction_model)
+round(coefficients, 2)
+```
+
+Read these estimates as follows:
+
+| Coefficient | Interpretation |
+| --- | --- |
+| `(Intercept)` | Predicted self-study score at five hours: `r round(coefficients["(Intercept)"], 2)` points. |
+| `hours_centered` | Self-study slope: `r round(coefficients["hours_centered"], 2)` additional predicted points per extra hour. |
+| `methodWorkshop` | Workshop minus self-study difference **at five hours**: `r round(coefficients["methodWorkshop"], 2)` points. |
+| `hours_centered:methodWorkshop` | Workshop minus self-study **slope difference**: `r round(coefficients["hours_centered:methodWorkshop"], 2)` points per hour. |
+
+The interaction coefficient is **not** the workshop slope. Add it to the self-study slope:
+
+```{r}
+#| label: ex-interaction-slopes
+self_study_slope <- coefficients[["hours_centered"]]
+workshop_slope <- self_study_slope +
+  coefficients[["hours_centered:methodWorkshop"]]
+
+round(c("Self-study" = self_study_slope, "Workshop" = workshop_slope), 2)
+```
+
+An extra hour is associated with about `r round(self_study_slope, 2)` predicted points for self-study and `r round(workshop_slope, 2)` for workshop students. Neither coefficient is an overall slope averaged across both groups.
+
+## Compare Predicted Scores
+
+Use `predict()` to compare groups at specific hours. New data must use the **same centering value** as the training data.
+
+```{r}
+#| label: ex-interaction-predictions
+predictions <- expand.grid(
+  hours = c(2, 5, 8),
+  method = levels(students$method)
+)
+predictions$hours_centered <- predictions$hours - 5
+predictions$predicted_score <- predict(interaction_model, newdata = predictions)
+
+data.frame(
+  hours = predictions$hours,
+  method = predictions$method,
+  predicted_score = round(predictions$predicted_score, 1)
+)
+```
+
+Compare rows with the same hours: the workshop minus self-study difference changes as hours increase. The `methodWorkshop` coefficient describes that difference only at five hours, not at every study duration.
+
+```{r}
+#| label: ex-interaction-plot
+#| fig-width: 6
+#| fig-height: 4
+#| fig-alt: "Two fitted score lines from two to eight study hours; the workshop line is steeper than the self-study line."
+self_study_predictions <- subset(predictions, method == "Self-study")
+workshop_predictions <- subset(predictions, method == "Workshop")
+
+plot(predicted_score ~ hours, data = self_study_predictions,
+     type = "l", col = "steelblue4", lwd = 2,
+     ylim = range(predictions$predicted_score),
+     xlab = "Study hours", ylab = "Predicted score")
+lines(predicted_score ~ hours, data = workshop_predictions,
+      col = "darkorange3", lwd = 2, lty = 2)
+legend("topleft", legend = c("Self-study", "Workshop"),
+       col = c("steelblue4", "darkorange3"), lwd = 2, lty = c(1, 2), bty = "n")
+```
+
+The different slopes show the fitted interaction. These are point estimates, not guaranteed individual scores or evidence that either method causes improvement. For uncertainty, `confint(interaction_model)` gives coefficient confidence intervals; the interaction interval concerns the **difference in slopes**.
+
+For syntax, see the [R documentation for `lm()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html); for interpretation, see [UCLA's interaction guide](https://stats.oarc.ucla.edu/r/seminars/interactions-r/).

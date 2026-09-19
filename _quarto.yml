@@ -70,6 +70,10 @@ book:
         - 28-reference-materials.qmd #28
         - 29-acknowledgements.qmd #29
         - 30-references.qmd #30
+
+    - part: "Example Pages"
+      chapters:
+        - example-linear-regression-interactions.qmd
         
     # - part: "Retired Pages"
     #   chapters: 

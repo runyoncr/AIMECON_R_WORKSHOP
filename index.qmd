@@ -10,9 +10,15 @@ The current iteration of the workshop is for [AIMECON](https://ncme.org/events/a
 
 The workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham's (free) [R for Data Science](https://r4ds.hadley.nz/).
 
-This website licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en) License. 
+## How to Use This Site
 
-Changes to the book last made on: 
+Begin with [Setup](01-R-setup.qmd) to prepare R and your API access. The next sections introduce generative AI and its parameters before moving into practical R workflows, including conversations, batch processing, and chained prompts. The final section uses Shiny and AI-assisted coding to build interactive applications.
+
+Read in order for the workshop experience, or use the sidebar to return to a specific topic. Activities and downloadable notebooks are included throughout; some examples call external model APIs and may use your account's credits.
+
+This website is licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en) License.
+
+Changes to the book last made on:
 
 **`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`** (GMT)
 
@@ -41,7 +47,7 @@ Learning Objectives
 ⚠️ Privacy Reminder
 </div>
 
-Please don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.
+Please don’t enter personal, confidential, proprietary, or otherwise sensitive information into generative AI tools. Before using an AI service in an operational setting, consult your organization's IT, privacy, and legal guidance, and verify the provider's data-use terms.
 
 ***
 

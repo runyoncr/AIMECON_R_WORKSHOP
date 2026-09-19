@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Integrating Generative AI into R Workflows: From APIs to Shiny Apps",
     "section": "",
-    "text": "Welcome\nThis online resource shares materials from the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first presented at first AIMECON meeting in October, 2025. The second iteration of this workshop is on Wednesday, April 8, 2026 at the NCME Annual Meeting in Los Angeles.\nThe workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham’s (free) R for Data Science.\nThis website licensed under the CC BY-NC-ND 4.0 License.\nChanges to the book last made on:\n2026-04-09 13:18:07 (GMT)\n\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nImplement both conversational and transactional API interactions with LLMs from R\nDesign and deploy simple chained prompt workflows for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality\n\n 📥 Download All Activity Notebooks \n\n\n⚠️ Privacy Reminder\n\nPlease don’t enter any personal, confidential, or sensitive information into generative AI tools. This includes private details about yourself or others, as well as proprietary data. Assume that anything you input could be used to train future models or be visible to others. It is important for you to consult both your IT departments and legal counsel before using a generative AI model in any operational setting.\n\n\n⚖️ Legal Disclaimer\n\nThe information provided in this resource is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.",
+    "text": "Welcome\nThis online resource shares materials from the “Integrating Generative AI into R Workflows: From APIs to Shiny Apps” workshop, first presented at the inaugural AIMECON meeting in October, 2025, and later at NCME Annual Meeting in Los Angeles in April 2026. The current iteration of the workshop is for AIMECON again, where it will be presented on Monday, October 5th from 1pm-5pm EST.\nThe workshop assumes some working knowledge of the R programming language, and assumes little generative AI knowledge. If you need more information on using R, I highly recommend Hadley Wickham’s (free) R for Data Science.",
     "crumbs": [
       "Welcome"
     ]
@@ -1008,6 +1008,49 @@
     "crumbs": [
       "Setup",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Setup</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use-this-site",
+    "href": "index.html#how-to-use-this-site",
+    "title": "Integrating Generative AI into R Workflows: From APIs to Shiny Apps",
+    "section": "How to Use This Site",
+    "text": "How to Use This Site\nBegin with Setup to prepare R and your API access. The next sections introduce generative AI and its parameters before moving into practical R workflows, including conversations, batch processing, and chained prompts. The final section uses Shiny and AI-assisted coding to build interactive applications.\nRead in order for the workshop experience, or use the sidebar to return to a specific topic. Activities and downloadable notebooks are included throughout; some examples call external model APIs and may use your account’s credits.\nThis website is licensed under the CC BY-NC-ND 4.0 License.\nChanges to the book last made on:\n2026-09-18 21:25:32 (GMT)\n\n\nLearning Objectives\n\nBy the end of this workshop, participants will be able to:\n\nExplain key LLM architectural features that inform effective integration practices\nImplement both conversational and transactional API interactions with LLMs from R\nDesign and deploy simple chained prompt workflows for complex tasks\nBuild interactive Shiny applications that leverage LLM capabilities for end-user functionality\n\n 📥 Download All Activity Notebooks \n\n\n⚠️ Privacy Reminder\n\nPlease don’t enter personal, confidential, proprietary, or otherwise sensitive information into generative AI tools. Before using an AI service in an operational setting, consult your organization’s IT, privacy, and legal guidance, and verify the provider’s data-use terms.\n\n\n⚖️ Legal Disclaimer\n\nThe information provided in this resource is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The author disclaims any liability for actions taken based on the content provided here.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "example-linear-regression-interactions.html",
+    "href": "example-linear-regression-interactions.html",
+    "title": "29  Interactions in Linear Regression",
+    "section": "",
+    "text": "29.1 Generate Example Data\nDoes an additional hour of studying have the same association with test scores for every study method? An interaction lets that slope differ between groups; here we fit and interpret one using only base R.\nThese are synthetic scores for 120 students. We deliberately build in a steeper study-hours slope for the workshop group, then add random noise.\nCodeset.seed(2026)\n\nstudents &lt;- data.frame(\n  hours = runif(120, min = 1, max = 9),\n  method = factor(\n    rep(c(\"Self-study\", \"Workshop\"), each = 60),\n    levels = c(\"Self-study\", \"Workshop\")\n  )\n)\n\nstudents$hours_centered &lt;- students$hours - 5\nworkshop &lt;- as.numeric(students$method == \"Workshop\")\n\nstudents$score &lt;- 65 +\n  3 * students$hours_centered +\n  4 * workshop +\n  2 * students$hours_centered * workshop +\n  rnorm(120, mean = 0, sd = 3)\nWith R’s default treatment coding, the first factor level, Self-study, is the reference group. Subtracting five makes hours_centered = 0 mean five hours of studying, not zero hours.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Interactions in Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "example-linear-regression-interactions.html#fit-the-interaction",
+    "href": "example-linear-regression-interactions.html#fit-the-interaction",
+    "title": "29  Interactions in Linear Regression",
+    "section": "\n29.2 Fit the Interaction",
+    "text": "29.2 Fit the Interaction\nIn an R model formula, hours_centered * method includes both predictors and their interaction: hours_centered + method + hours_centered:method. There is no need to create a product column yourself.\n\nCodeinteraction_model &lt;- lm(score ~ hours_centered * method, data = students)\ncoefficients &lt;- coef(interaction_model)\nround(coefficients, 2)\n\n                  (Intercept)                hours_centered \n                        64.54                          2.69 \n               methodWorkshop hours_centered:methodWorkshop \n                         4.95                          2.08 \n\n\nRead these estimates as follows:\n\n\n\n\n\n\nCoefficient\nInterpretation\n\n\n\n(Intercept)\nPredicted self-study score at five hours: 64.54 points.\n\n\nhours_centered\nSelf-study slope: 2.69 additional predicted points per extra hour.\n\n\nmethodWorkshop\nWorkshop minus self-study difference at five hours: 4.95 points.\n\n\nhours_centered:methodWorkshop\nWorkshop minus self-study slope difference: 2.08 points per hour.\n\n\n\nThe interaction coefficient is not the workshop slope. Add it to the self-study slope:\n\nCodeself_study_slope &lt;- coefficients[[\"hours_centered\"]]\nworkshop_slope &lt;- self_study_slope +\n  coefficients[[\"hours_centered:methodWorkshop\"]]\n\nround(c(\"Self-study\" = self_study_slope, \"Workshop\" = workshop_slope), 2)\n\nSelf-study   Workshop \n      2.69       4.77 \n\n\nAn extra hour is associated with about 2.69 predicted points for self-study and 4.77 for workshop students. Neither coefficient is an overall slope averaged across both groups.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Interactions in Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "example-linear-regression-interactions.html#compare-predicted-scores",
+    "href": "example-linear-regression-interactions.html#compare-predicted-scores",
+    "title": "29  Interactions in Linear Regression",
+    "section": "\n29.3 Compare Predicted Scores",
+    "text": "29.3 Compare Predicted Scores\nUse predict() to compare groups at specific hours. New data must use the same centering value as the training data.\n\nCodepredictions &lt;- expand.grid(\n  hours = c(2, 5, 8),\n  method = levels(students$method)\n)\npredictions$hours_centered &lt;- predictions$hours - 5\npredictions$predicted_score &lt;- predict(interaction_model, newdata = predictions)\n\ndata.frame(\n  hours = predictions$hours,\n  method = predictions$method,\n  predicted_score = round(predictions$predicted_score, 1)\n)\n\n  hours     method predicted_score\n1     2 Self-study            56.5\n2     5 Self-study            64.5\n3     8 Self-study            72.6\n4     2   Workshop            55.2\n5     5   Workshop            69.5\n6     8   Workshop            83.8\n\n\nCompare rows with the same hours: the workshop minus self-study difference changes as hours increase. The methodWorkshop coefficient describes that difference only at five hours, not at every study duration.\n\nCodeself_study_predictions &lt;- subset(predictions, method == \"Self-study\")\nworkshop_predictions &lt;- subset(predictions, method == \"Workshop\")\n\nplot(predicted_score ~ hours, data = self_study_predictions,\n     type = \"l\", col = \"steelblue4\", lwd = 2,\n     ylim = range(predictions$predicted_score),\n     xlab = \"Study hours\", ylab = \"Predicted score\")\nlines(predicted_score ~ hours, data = workshop_predictions,\n      col = \"darkorange3\", lwd = 2, lty = 2)\nlegend(\"topleft\", legend = c(\"Self-study\", \"Workshop\"),\n       col = c(\"steelblue4\", \"darkorange3\"), lwd = 2, lty = c(1, 2), bty = \"n\")\n\n\n\n\n\n\n\nThe different slopes show the fitted interaction. These are point estimates, not guaranteed individual scores or evidence that either method causes improvement. For uncertainty, confint(interaction_model) gives coefficient confidence intervals; the interaction interval concerns the difference in slopes.\nFor syntax, see the R documentation for lm(); for interpretation, see UCLA’s interaction guide.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Interactions in Linear Regression</span>"
     ]
   }
 ]
