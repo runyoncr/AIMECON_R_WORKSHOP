@@ -1,47 +1,42 @@
 # Chained Workflows {#sec-chained-workflows}
 
 Generative AI models aren't just powerful in isolation - they become transformative when woven throughout your workflow.
-Instead of using the model as a thought partner or a colleague to help with some task, you can link together tasks to make automate _entire processes_, effectively creating your own team of AI agents.
+Instead of using the model as a thought partner or a colleague to help with some task, you can link together tasks to automate _entire processes_, effectively creating your own team of AI agents.
 
 Chaining also makes debugging and refinement easier. 
 If an error appears in the final result, you can isolate which link in the chain failed or didn't work as expected (remember the `medial heel` example?), and then you can iterate on that step until it's working as expected. 
 This modularity mirrors good measurement practice: test and validate each subcomponent of a process before interpreting the final results.
 It's similar to having an error in your data cleaning that leads to an erroneous statistical conclusion.
 
-If you've heard of "Multi-Agentic Systems" before, you may be wondering if chained workflows are examples of these systems. The answer is _it depends_.
-(Unsatifying, I know.)
+If you've heard of "multi-agent systems" before, you may be wondering if chained workflows are examples of these systems. The answer is _it depends_.
+(Unsatisfying, I know.)
 In general, the purpose of both processes is the same - breaking down a sophisticated process into discrete tasks - but the implementation of this process varies a bit when comparing chained workflows and multi-agentic systems.
 
-Chained workflows can be thought of as single-agent systems with structured memory and sequence. 
-Each step is still executed by one model instance (or “agent”), but the outputs are fed forward as inputs for subsequent steps. 
-Multi-agentic systems extend this concept further: instead of one model handling multiple roles, different agents — each specifically designed for a specialized task — interact or coordinate with one another (e.g., one generates items, another reviews for fairness, a third formats the output).
+Chained workflows can be thought of as explicit sequences of model calls with structured state passed from one step to the next. Each step may use the same model, different models, or tools; the important feature is that the workflow specifies how outputs become inputs for subsequent steps. Multi-agent systems extend this pattern when multiple role-specific agents interact or are coordinated by an orchestrator (e.g., one generates items, another reviews for fairness, and a third formats the output).
 
-Although implementing properly multi-agent systems requires more engineering than most educational researchers need, understanding the connection is useful. 
+Although implementing multi-agent systems properly requires more engineering than most educational researchers need, understanding the connection is useful.
 Chaining is the conceptual and methodological bridge to multi-agent workflows. 
 The same logic (task decomposition, model-to-model communication, and iteration) underpins both. 
 By designing your LLM tasks as transparent, stepwise processes now, you build a foundation that can later evolve into more automated and collaborative systems when institutional infrastructure or tooling catches up.
 
-OpenAI now offers [AgentKit](https://openai.com/index/introducing-agentkit/), a set of tools for "building, deploying, and optimizing agents." 
-A quick overview can be found in [this YouTube video](https://youtu.be/44eFf-tRiSg?si=F7xcH1YwleoC9-Ux).
-Here's a guide to an [agent builder](https://platform.openai.com/docs/guides/agent-builder), which is part of the AgentKit. 
-In these sections they often talk about [ChatKit](https://platform.openai.com/docs/guides/chatkit).
+OpenAI announced [AgentKit](https://openai.com/index/introducing-agentkit/) in October 2025 as a set of tools for building, deploying, and evaluating agents. However, the current announcement says that Agent Builder and Evals are being wound down after November 30, 2026; it recommends the [Agents SDK](https://developers.openai.com/api/docs/guides/agents) for code-based workflows and [Workspace Agents in ChatGPT](https://openai.com/index/introducing-workspace-agents-in-chatgpt/) for natural-language-oriented workflows. Product names and availability in this area are moving quickly, so treat this paragraph as a dated example rather than a permanent recommendation.
 
-I'm being a bit hand-wavy here because this is still new to me (was introduced at the [OpenAI Dev Day](https://openai.com/devday/) on October 6, 2025), but I expect to dive into this designing multi-agentic systems in the next few months. Check back later if you're interested to see what I learn! 
+I'm being a bit hand-wavy here because this is still new to me (AgentKit was introduced at the [OpenAI Dev Day](https://openai.com/devday/) on October 6, 2025), but I expect to dive into designing multi-agent systems in the next few months. Check back later if you're interested to see what I learn!
 
-## Prompt Chaining vs Multi-Agentic Systems
+## Prompt Chaining vs. Multi-Agent Systems
 
-I asked ChatGPT5 to make a table describing the differences between the two. I'm not completely sold on some of the distinctions made below, but here is the table nonetheless:
+I asked ChatGPT 5 to make a table describing the differences between the two. I'm not completely sold on some of the distinctions made below, but here is the table nonetheless. The comparison describes common patterns, not requirements; a framework can make a chained workflow more autonomous, or a multi-agent workflow more explicit and tightly controlled.
 
 | Feature               | Prompt chaining                                                        | Multi-agent system                                               |
 | --------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | Primary pattern       | Sequential prompts where each step consumes the previous step’s output | Multiple specialized agents coordinated by an orchestrator       |
 | Orchestration         | You (or your code) dictate the next step explicitly                    | Orchestrator/agents decide routing, handoffs, and tool calls     |
-| Modularity            | Lower; steps are prompts in a linear pipeline                          | Higher; agents have clear roles and can be reused                |
-| Autonomy              | Low; flow is mostly hard-coded                                         | Higher; agents can make decisions and call other agents/tools    |
-| Parallelism/branching | Usually linear; branching is manual                                    | Supports branching and parallel subtasks                         |
-| Tool integration      | Possible but usually wired per step                                    | First-class; agents can use tools, APIs, and call other agents   |
-| State & memory        | Minimal, often passed manually between steps                           | Agent/flow state maintained across handoffs                      |
-| Error handling        | Failures often break the chain                                         | Supervisory/validation agents can retry or route around failures |
-| Best for              | Simple, deterministic multi-step workflows                             | Complex, dynamic workflows with distinct sub-skills              |
+| Modularity            | Explicit steps are easy to inspect; reuse depends on implementation    | Roles can be reusable, but coordination adds complexity           |
+| Autonomy              | Usually low; routing is specified by code or configuration             | Can be higher, but depends on the orchestrator and guardrails     |
+| Parallelism/branching | Must be designed explicitly                                            | Often supported by the framework, but not automatic              |
+| Tool integration      | Possible and usually wired into individual steps                        | Possible through agents, tools, or an orchestrator                 |
+| State & memory        | Passed or stored explicitly by the workflow                             | May be managed across handoffs, depending on the framework        |
+| Error handling        | Must be implemented at the relevant steps                               | May include retries or validation, but these still require design |
+| Best for              | Simple, inspectable multi-step workflows                                | Complex workflows with distinct roles or dynamic routing          |
 | Cost/complexity       | Lower to build/maintain for small tasks                                | Higher initial setup; scales better for complex use cases        |
 

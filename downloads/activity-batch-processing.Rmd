@@ -130,9 +130,9 @@ score_essay <- function(essay) {
 student_essays$scoring_prompt <- sapply(student_essays$essay, score_essay)
 
 # Score the first essay to confirm the prompt is working
-student_essays$scoring_ouptut <- NA
-student_essays$scoring_ouptut[1] <- call_claude(student_essays$scoring_prompt[1])
-cat(student_essays$scoring_ouptut[1])
+student_essays$scoring_output <- NA
+student_essays$scoring_output[1] <- call_claude(student_essays$scoring_prompt[1])
+cat(student_essays$scoring_output[1])
 ```
 
 ---
@@ -178,7 +178,7 @@ parse_scores <- function(response_text) {
 Verify it works on the essay already scored in setup:
 
 ```{r verify-parse}
-parse_scores(student_essays$scoring_ouptut[1])
+parse_scores(student_essays$scoring_output[1])
 ```
 
 ### Running the Full Loop
@@ -190,7 +190,7 @@ start_time <- Sys.time()
 
 loop_results <- student_essays |>
   mutate(
-    raw_response = map_chr(scoring_prompt, call_claude),
+    raw_response = map_chr(scoring_prompt, ~ call_claude(.x, model = "claude-sonnet-4-5")),
     scores       = map(raw_response, parse_scores)
   ) |>
   tidyr::unnest(scores)
@@ -239,7 +239,7 @@ create_batch_requests <- function(essays_df) {
     list(
       custom_id = paste0("essay_", essays_df$id[i]),
       params = list(
-        model      = "claude-sonnet-4-6",
+        model      = "claude-sonnet-4-5",
         max_tokens = 1024,
         messages   = list(
           list(role = "user", content = essays_df$scoring_prompt[i])
@@ -406,9 +406,9 @@ datatable(comparison |> mutate(across(where(is.numeric), ~ round(.x, 2))),
 
 The loop and batch runs above each scored each essay once. That's appropriate for production scoring, but as measurement professionals you'll rightly ask: how stable are those scores? Does the model arrive at the same score if you ask again, and does that depend on how much randomness is in the sampling process?
 
-The `temperature` parameter controls that randomness. The shared `call_claude()` helper does not set `temperature`, so the loop above ran at the API default (~1.0), where the model samples probabilistically from its output distribution and repeated calls might produce different scores for the same essay. At `temperature = 0`, the model always selects the highest-probability token at each step — so repeated calls should produce nearly identical output.
+The `temperature` parameter controls that randomness. The shared `call_claude()` helper does not set `temperature`, so the loop above ran at the API default (`1.0`), where the model samples probabilistically from its output distribution and repeated calls might produce different scores for the same essay. For this exercise we use Claude Sonnet 4.5 because it supports the `temperature` values being compared. Anthropic's current models documentation marks `temperature` as deprecated for newer models, and even `temperature = 0` does not guarantee identical output. See the [Messages API documentation](https://platform.claude.com/docs/en/api/messages#body-temperature) for the current behavior.
 
-Batch processing makes this kind of multi-rep study cheap and fast. The following code submits 20 calls per essay (200 requests total) at the default temperature and at `temperature = 0`, so we can see whether and how much scores vary.
+Batch processing makes this kind of multi-rep study cheap and fast. The following code submits 20 calls per essay (200 requests per condition, 400 total) at the default temperature and at `temperature = 0`, so we can see whether and how much scores vary.
 
 ```{r multi-rep-helpers, eval = FALSE}
 # Helper: create n_reps requests per essay with a given temperature
@@ -418,7 +418,7 @@ create_multi_rep_requests <- function(essays_df, n_reps = 20, temperature = NULL
 
   for (i in seq_len(nrow(essays_df))) {
     params <- list(
-      model      = "claude-sonnet-4-6",
+      model      = "claude-sonnet-4-5",
       max_tokens = 1024,
       messages   = list(list(role = "user", content = essays_df$scoring_prompt[i]))
     )
@@ -528,7 +528,7 @@ datatable(low_temp_summary,
 <details>
 <summary><strong>What to look for</strong></summary>
 
-With default temperature you should see meaningful within-essay score variance (non-zero SDs), especially on the Language criterion where small differences in wording can tip a borderline response either way. At `temperature = 0` the SDs should collapse toward zero — or reach zero entirely — because the model is making the same deterministic choices on every call.
+With default temperature you should see meaningful within-essay score variance (non-zero SDs), especially on the Language criterion where small differences in wording can tip a borderline response either way. At `temperature = 0` the SDs may shrink, but they should not be expected to collapse completely: Anthropic notes that even zero temperature does not guarantee identical output.
 
 A few things worth reflecting on from a measurement standpoint:
 

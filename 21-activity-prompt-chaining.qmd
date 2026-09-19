@@ -15,7 +15,7 @@ This will include developing the entire ecosystem for the item, from initial dev
 This is a simple and artificial example, but will serve to help you get thinking about developing complex workflows for your own purposes. 
 All of these materials we'll be working with were all created with an LLM.
 In your own setting these materials would likely be created in collaboration with instructional designers, test development, subject-matter experts, etc., but the idea is the same: you can pull in important instructions or guiding materials at each step to improve the model performance.
-Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similiar materials, preserving your workflow.
+Also importantly, because these materials are not hard-coded in the prompt, you can easily revise them or swap them out for similar materials, preserving your workflow.
 
 ## Step 1: Selecting Guiding Learning Objective
 
@@ -226,6 +226,8 @@ clean_json <- function(x) {
 }
 ```
 
+This activity uses prompt-requested JSON and `clean_json()` so that each intermediate object remains visible and the workflow stays portable across providers. Current Anthropic models also support structured JSON outputs through `output_config.format`, which can guarantee schema-compliant output for supported models. That production-oriented option is not used here because the workshop's canonical `call_claude()` helper accepts text prompts but does not expose a schema argument; the cleanup step is therefore intentional for this exercise.
+
 ```{r, eval = FALSE}
 string_guiding_los <- clean_json(step2_res)
 
@@ -234,7 +236,7 @@ step3_res <- call_claude(write_essay_prompt(string_guiding_los))
 cat(step3_res)
 ```
 
-## Step 4:
+## Step 4: Develop Analytic Rubric with PLDs
 
 
 ```{r, eval = FALSE}
@@ -321,7 +323,7 @@ cat(step4_res)
 
 This is where you'd normally include a real writing sample.
 For the sake of demonstration, we're going to have Claude generate one for us.
-I've skipped the step
+We'll use Claude to generate a synthetic response so that we can continue through the complete workflow without needing a separate student-data file.
 
 ```{r, eval = FALSE}
 
@@ -538,9 +540,9 @@ Look how far we've come! From the simple starting place of choosing a learning o
 
 ## BONUS: Reading in PDFs or Word documents
 
-In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. For PDFs there's a size limit of 32MB and 100 pages, but that should be more than sufficient for most use cases.
+In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. Anthropic's current PDF limits are a 32 MB request size and up to 600 pages, or 100 pages when the request context window is under 1M tokens. Check the [PDF support documentation](https://platform.claude.com/docs/en/build-with-claude/pdf-support) before sending larger documents.
 
-I've re-written the main `call_claude` function to include an argument for reading in either a .pdf or .docx file. The .pdf is directly encoded via the `base64enc` function, whereas the content from the .docx document is scraped via the `read_docx` argument in from the [`officer` package.`](https://davidgohel.github.io/officer/)
+The canonical `call_claude()` helper above accepts text prompts only. This bonus therefore demonstrates a separate, direct Messages API request for document content; it is intentionally not a replacement for the shared helper. PDFs are encoded with `base64enc`, while `.docx` content is extracted with the [`officer` package](https://davidgohel.github.io/officer/).
 
 ### Main function
 
@@ -555,7 +557,6 @@ call_claude_doc <- function(prompt,
                             file_path,
                             model = "claude-sonnet-5",
                             system = NULL,
-                            temperature = 0.5,
                             max_tokens = 4096,
                             effort = "low") {
   
@@ -632,7 +633,6 @@ call_claude_doc <- function(prompt,
     model         = model,
     messages      = messages,
     max_tokens    = max_tokens,
-    temperature   = temperature,
     output_config = list(effort = effort)
   )
   

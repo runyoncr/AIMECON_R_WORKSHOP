@@ -37,6 +37,8 @@ clean_json <- function(x) {
 }
 ```
 
+This activity uses prompt-requested JSON and `clean_json()` so that each intermediate object remains visible and the workflow stays portable across providers. Current Anthropic models also support structured JSON outputs through `output_config.format`, which can guarantee schema-compliant output for supported models. That production-oriented option is not used here because the workshop's canonical `call_claude()` helper accepts text prompts but does not expose a schema argument; the cleanup step is therefore intentional for this exercise.
+
 ---
 
 # Activity: Prompt Chaining
@@ -517,9 +519,9 @@ Look how far we've come! From the simple starting place of choosing a learning o
 
 ## BONUS: Reading in PDFs or Word documents
 
-In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. For PDFs there's a size limit of 32MB and 100 pages, but that should be more than sufficient for most use cases.
+In the process above I read in .txt files. Claude can also read in PDFs. For other formats - e.g., .docx - you'll have to use another package - such as `officer` to extract the text. Anthropic's current PDF limits are a 32 MB request size and up to 600 pages, or 100 pages when the request context window is under 1M tokens. Check the [PDF support documentation](https://platform.claude.com/docs/en/build-with-claude/pdf-support) before sending larger documents.
 
-I've re-written the main `call_claude` function to include an argument for reading in either a .pdf or .docx file. The .pdf is directly encoded via the `base64enc` function, whereas the content from the .docx document is scraped via the `read_docx` argument in from the [`officer` package.`](https://davidgohel.github.io/officer/)
+The canonical `call_claude()` helper above accepts text prompts only. This bonus therefore demonstrates a separate, direct Messages API request for document content; it is intentionally not a replacement for the shared helper. PDFs are encoded with `base64enc`, while `.docx` content is extracted with the [`officer` package](https://davidgohel.github.io/officer/).
 
 ### Main function
 
@@ -534,7 +536,6 @@ call_claude_doc <- function(prompt,
                             file_path,
                             model = "claude-sonnet-5",
                             system = NULL,
-                            temperature = 0.5,
                             max_tokens = 4096,
                             effort = "low") {
   
@@ -611,7 +612,6 @@ call_claude_doc <- function(prompt,
     model         = model,
     messages      = messages,
     max_tokens    = max_tokens,
-    temperature   = temperature,
     output_config = list(effort = effort)
   )
   

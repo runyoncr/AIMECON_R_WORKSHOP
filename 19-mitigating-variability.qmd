@@ -20,16 +20,24 @@ This variability is not inherently bad.
 In fact, it is beneficial for creative tasks like brainstorming or ideation. 
 But it can be problematic for scoring tasks, where consistency is critical.
 
-I developed a 3-part framework that helps me think about sources of variability in model responses:
+I developed a three-part framework that helps me think about sources of variability in model responses:
 
 - Model-based strategies
 - Prompt-based strategies
 - Materials-based strategies
 
+::: {.callout-note}
+### A current-model caveat
+
+Temperature is still an important concept, especially for open-source models and earlier generations of API models. However, it is no longer a universal control for flagship models. For example, Anthropic now describes adaptive thinking and the `effort` setting as the primary ways to control how much reasoning a current model uses; `temperature`, `top_p`, and `top_k` are deprecated or restricted for newer models. The [generation-parameter chapter](08-gen-ai-parameters.qmd#sec-gen-params) provides the mechanics and the [parameter-testing activity](09-activity-temp-tester.qmd) demonstrates a comparison across temperature and effort.
+
+This changes the interpretation of a repeatability study. If a model does not expose temperature, compare explicitly chosen effort levels, model IDs or snapshots, and prompt versions instead. Also distinguish **format reliability** from **substantive reliability**: structured outputs can make a response valid JSON with the required fields, but they do not guarantee that the model's score or rationale is correct or stable. Keep the model, effort, prompt, materials, schema, and other relevant request settings fixed when estimating within-condition variation.
+:::
+
 ## Model-based strategies
 
 These strategies are specifically focused on changing the model's generation parameters. 
-As we [discussed earlier](08-gen-ai-parameters.qmd#sec-gen-params) and [experimented with in an activity](activity-parameter-testing.qmd#sec-act-parameter), lowering the `temperature` can encourage the model to select the same or similar tokens when generating a response.
+As we [discussed earlier](08-gen-ai-parameters.qmd#sec-gen-params), lowering the `temperature` can encourage some earlier models to select the same or similar tokens when generating a response. For newer reasoning models, the comparable control may be `effort`, which changes how much the model thinks and how many tokens it uses rather than simply flattening or sharpening a sampling distribution.
 
 ## Prompt-based strategies
 

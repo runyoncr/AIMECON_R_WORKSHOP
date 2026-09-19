@@ -24,7 +24,7 @@ This activity works through that progression in two parts.
 First, we'll extend the single-essay call from the previous activity into a full loop-based scoring run — the approach you'd reach for when batch processing isn't available or isn't needed.
 Then we'll implement the same task using Anthropic's Batch API, compare the approaches, and use the batch infrastructure to explore a question that should feel natural to measurement professionals: how consistent is the model's scoring across repeated calls?
 
-We'll pick up exactly where the previous activity left off: `student_essays` is loaded, `score_essay()` is defined, and we have a single scored essay in `student_essays$scoring_ouptut[1]` to confirm the prompt is working.
+We'll pick up exactly where the previous activity left off: `student_essays` is loaded, `score_essay()` is defined, and we have a single scored essay in `student_essays$scoring_output[1]` to confirm the prompt is working.
 
 ---
 
@@ -67,7 +67,7 @@ You can verify it works on the essay you already scored:
 
 ```{r, eval = FALSE}
 
-parse_scores(student_essays$scoring_ouptut[1])
+parse_scores(student_essays$scoring_output[1])
 
 ```
 
@@ -85,7 +85,7 @@ start_time <- Sys.time()
 
 loop_results <- student_essays |>
   mutate(
-    raw_response = map_chr(scoring_prompt, call_claude),
+    raw_response = map_chr(scoring_prompt, ~ call_claude(.x, model = "claude-sonnet-4-5")),
     scores       = map(raw_response, parse_scores)
   ) |>
   tidyr::unnest(scores)
@@ -141,7 +141,7 @@ create_batch_requests <- function(essays_df) {
     list(
       custom_id = paste0("essay_", essays_df$id[i]),
       params = list(
-        model      = "claude-sonnet-5",
+        model      = "claude-sonnet-4-5",
         max_tokens = 1024,
         messages   = list(
           list(role = "user", content = essays_df$scoring_prompt[i])
@@ -335,11 +335,11 @@ That's appropriate for production scoring, but as measurement professionals you'
 Does the model arrive at the same score if you ask again, and does that depend on how much randomness is in the sampling process?
 
 The `temperature` parameter controls that randomness.
-At the default value (~1.0), the model samples probabilistically from its output distribution, which means repeated calls can produce different scores for the same essay.
-At `temperature = 0`, the model is effectively deterministic — it always selects the highest-probability token at each step — so repeated calls should produce identical output.
+At the default value (`1.0`), the model samples probabilistically from its output distribution, which means repeated calls can produce different scores for the same essay.
+For this exercise we use Claude Sonnet 4.5 because it supports the `temperature` values being compared. Anthropic's current models documentation marks `temperature` as deprecated for newer models, and even `temperature = 0` does not guarantee identical output. See the [Messages API documentation](https://platform.claude.com/docs/en/api/messages#body-temperature) for the current behavior.
 
 Batch processing makes this kind of multi-rep study cheap and fast.
-The following code submits 20 calls per essay (200 requests total) at the default temperature and at `temperature = 0`, so we can see whether and how much scores vary.
+The following code submits 20 calls per essay (200 requests per condition, 400 total) at the default temperature and at `temperature = 0`, so we can see whether and how much scores vary.
 
 ```{r, eval = FALSE}
 
@@ -350,7 +350,7 @@ create_multi_rep_requests <- function(essays_df, n_reps = 20, temperature = NULL
 
   for (i in seq_len(nrow(essays_df))) {
     params <- list(
-      model      = "claude-sonnet-5",
+      model      = "claude-sonnet-4-5",
       max_tokens = 1024,
       messages   = list(list(role = "user", content = essays_df$scoring_prompt[i]))
     )
@@ -478,7 +478,7 @@ datatable(low_temp_summary,
 ## What to look for
 
 With default temperature you should see meaningful within-essay score variance (non-zero SDs), especially on the Language criterion where small differences in wording can tip a borderline response either way.
-At `temperature = 0` the SDs should collapse toward zero — or reach zero entirely — because the model is making the same deterministic choices on every call.
+At `temperature = 0` the SDs may shrink, but they should not be expected to collapse completely: Anthropic notes that even zero temperature does not guarantee identical output.
 
 A few things worth reflecting on from a measurement standpoint:
 

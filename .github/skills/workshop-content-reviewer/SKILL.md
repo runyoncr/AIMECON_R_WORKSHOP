@@ -1,6 +1,6 @@
 ---
 name: workshop-content-reviewer
-description: 'Review and update an AIMECON R workshop page: correct grammar, improve clarity and conciseness, fact-check current LLM developments, avoid duplication across chapters, migrate examples to call_claude_AIMECON26.R, rerun R chunks, refresh actual output, and report changes. Use when asked to review, refresh, modernize, or update workshop content in a Quarto or R Markdown page, or to use workshop_content_reviewer.'
+description: 'Review and update an AIMECON R workshop page: preserve and enrich the original writing, correct grammar, improve clarity and conciseness, audit section and layout components, fact-check current LLM developments, avoid duplication across chapters, migrate examples to call_claude_AIMECON26.R, rerun R chunks, refresh actual output, and report changes. Use when asked to review, refresh, modernize, enrich, restructure, or update workshop content in a Quarto or R Markdown page, or to use workshop_content_reviewer.'
 argument-hint: 'Workshop page path, or use the active page'
 user-invocable: true
 ---
@@ -34,7 +34,9 @@ Read other chapters to check overlap, but do not edit them without approval. Pre
 ### 3. Edit Writing and Function Usage
 
 - Correct grammar, punctuation, spelling, terminology, and inconsistent wording across headings, paragraphs, lists, tables, captions, callouts, instructions, and learner-facing code text. Improve clarity and conciseness without changing pedagogical meaning or unnecessarily replacing the author's phrasing, tone, cadence, or personality.
+- Preserve clear original writing, but actively identify places where a learner would benefit from a concise explanation, definition, example, caveat, transition, practical implication, or current reference. Add only relevant, evidence-supported enrichment that advances the page's learning objectives; match the author's existing voice and explain substantive additions in the report.
 - Update factual claims based on verified sources. Avoid gratuitous expansion, unnecessary jargon, or broad stylistic rewrites.
+- Audit the page's layout components as well as its prose: inspect the heading hierarchy, section names, section IDs, callouts, tabs, columns, lists, tables, figures, code/output blocks, links, and other Quarto components. Give each section a specific, learner-facing name; repair vague, repeated, misleading, orphaned, or incorrectly nested headings and duplicate IDs; remove or consolidate duplicated components; and check that the visual structure supports the intended sequence and scanability. Preserve stable public IDs unless a correction is necessary, and check links when headings or IDs change.
 - Update all applicable LLM examples, wrappers, setup instructions, source calls, and download links to use the canonical `call_claude_AIMECON26.R` helper and its actual current callable interface. Check stale filenames even when the exported function name is unchanged.
 - Adjust arguments, response extraction, printing, and downstream processing to match the real return value. Preserve useful unrelated R functions and examples intentionally teaching other providers or direct API calls; do not force incompatible examples through this helper. Document exceptions or ask if migrating them would change the lesson.
 - Prefer a local canonical source during validation. Preserve suitable workshop download/source conventions in learner-facing code, but verify that any remote helper is the intended version before executing it. Do not execute an unverified remote script.
@@ -58,6 +60,7 @@ Provide a Markdown report in the final response by default. Include:
 
 - **Page and summary:** target path, review date, and the main improvements.
 - **Writing:** meaningful grammar, clarity, and conciseness changes, with section references.
+- **Enrichment and layout:** useful additions made or considered, the evidence or learning objective supporting them, section/component naming and hierarchy changes, duplicate or orphaned content found, and any layout issues left unresolved.
 - **LLM updates:** changed claims, primary-source URLs, verification date, and unresolved currency questions.
 - **Duplication check:** chapters checked, overlap found, cross-references used, and intentional repetition retained.
 - **Function migration:** canonical helper path, interface changes, updated source/download links, and exceptions.
@@ -69,6 +72,8 @@ Keep the report proportional to the change; state "None" for categories with no 
 ## Completion Criteria
 
 - All writing on the selected page has been reviewed.
+- Clear prose was preserved, and relevant opportunities for explanation, examples, caveats, transitions, or current references were considered and either incorporated or recorded as intentionally out of scope.
+- Section names, hierarchy, IDs, layout components, and repeated content were audited; the page has no unexplained duplicate sections/components or broken structure within the reviewed scope.
 - Material LLM updates are source-verified or explicitly marked unverified.
 - Proposed additions were checked against other published workshop chapters.
 - Applicable function usage and associated links match the canonical helper.
