@@ -1,0 +1,82 @@
+# AI Coding Assistants {#sec-ai-coding-assistants}
+
+AI coding assistants bring a generative AI model into the environment where programming happens. Instead of moving between an R script and a separate chatbot, you can ask questions while the assistant has access to relevant code, files, error messages, and project conventions. Depending on the tool and the permissions you grant, it may suggest a single line, explain a function, edit several files, run commands, or check whether a change worked.
+
+In my own work, GitHub Copilot has significantly changed my workflow and how I think about programming. I have had similar experiences with Claude Code and Cursor. These products are examples, not requirements or endorsements; other coding assistants offer comparable workflows, and their capabilities change quickly.
+
+::: {.callout-note}
+## No installation is required for this workshop
+
+We will briefly demonstrate this way of working, but participants will not be asked to install or configure a coding assistant. Access may depend on an institution's software, privacy, licensing, and security policies.
+:::
+
+## From Completion to Agent
+
+"AI coding assistant" covers several related kinds of support:
+
+- **Inline completion** predicts the next line or block of code as you type. You decide whether to accept each suggestion.
+- **Chat and explanation** let you ask questions about selected code, an error, or a project. The assistant can explain unfamiliar syntax, compare approaches, or suggest a next step.
+- **Editing** applies a requested change to one or more files and shows you the proposed differences.
+- **Agentic work** gives the assistant a goal and tools. It can inspect a repository, propose a plan, edit files, run tests or other commands, and revise its work based on the results.
+
+The final category is the most consequential. A chatbot returns text for you to transfer into a project. A coding agent can take actions inside the project. That access makes the interaction more useful, but it also makes clear instructions, bounded permissions, review, and validation more important.
+
+## How the Workflow Changes
+
+A traditional programming workflow often begins with remembering syntax, searching documentation, copying an example, adapting it, and debugging the result. A coding assistant can compress parts of that loop because the question, the relevant files, the proposed edit, and the error output can remain in one working environment.
+
+This changes the programmer's role rather than removing it. More of the work can shift toward:
+
+- describing the intended behavior and important constraints;
+- giving the assistant the right project context;
+- dividing a large goal into changes that can be reviewed;
+- comparing a proposed solution with the actual requirement; and
+- running appropriate checks and interpreting the results.
+
+Programming knowledge still matters. It helps you ask more precise questions, notice when an answer is plausible but wrong, choose among alternatives, and determine what evidence would show that a change works.
+
+## Practical Benefits
+
+### Work With the Project in View
+
+An assistant embedded in an editor or terminal can reason about more than an isolated prompt. It can inspect nearby functions, configuration files, naming conventions, and tests before suggesting a change. This project context can reduce the repeated work of explaining how pieces fit together.
+
+### Shorten the Feedback Loop
+
+Coding assistants can help move quickly from an idea to a small draft, then from an error to a possible diagnosis. They are especially useful for scaffolding routine code, tracing where behavior is controlled, and making a consistent change across files. Agentic tools can also run local checks and use failures as feedback, although a successful command does not guarantee that the result meets the real need.
+
+### Support Learning at the Point of Need
+
+You can ask for an explanation of unfamiliar code while looking at the exact file where it appears. Follow-up questions can connect a general concept to the current example: Why is this object reactive? What does this error imply? What would a simpler version look like? This can make documentation and examples easier to apply, provided you verify important details against authoritative sources.
+
+### Make More Room for Higher-Level Decisions
+
+When an assistant handles some syntax recall and repetitive editing, you can spend more attention on the purpose of an analysis or application: the data being used, the assumptions being made, the people affected, and the evidence needed to trust the result. The benefit is not merely producing more code. It is creating more room to think about what the code should do.
+
+### Improve Routine Quality Practices
+
+An assistant can draft tests, documentation, validation checks, and clearer error messages alongside an implementation. These tasks still require review, but asking for them as part of the original task can make quality work a normal part of development rather than an afterthought.
+
+## Keep the Human in Charge
+
+Coding assistants can misunderstand a request, use an outdated interface, invent a function, weaken a security control, or produce code that runs but answers the wrong question. Treat generated changes as proposals:
+
+1. Review the plan and the file changes.
+2. Keep sensitive or restricted data out of tools that are not approved for it.
+3. Run focused checks using representative, non-sensitive inputs.
+4. Inspect the result, not only whether the code executed.
+5. Keep changes small enough to understand and reverse.
+
+Institutional policy matters as much as technical capability. Before using a coding assistant for work, confirm which products, accounts, repositories, and data are approved by your organization.
+
+## Examples of Current Tools
+
+- [GitHub Copilot](https://docs.github.com/en/copilot/get-started/what-is-github-copilot) combines inline suggestions, chat, editing, review, and agentic workflows across supported development environments.
+- [Claude Code](https://code.claude.com/docs/en/overview) is an agentic coding tool available through terminal, editor, desktop, and web interfaces.
+- [Cursor](https://cursor.com/docs) is an AI-focused code editor and coding agent designed to understand repositories, plan changes, edit code, debug, and review results.
+
+These examples illustrate a fast-moving product category rather than a complete comparison. Features, access, costs, and institutional controls vary by product and plan.[^ai-coding-assistant-currency]
+
+The next chapter examines how custom skills can give coding agents reusable procedures. The chapters that follow apply this broader idea to Shiny development. The goal is not to hand control to an assistant, but to use one as a collaborator while you remain responsible for the problem, the evidence, and the final code.
+
+[^ai-coding-assistant-currency]: Product descriptions were checked against official GitHub, Anthropic, and Cursor documentation on September 19, 2026.

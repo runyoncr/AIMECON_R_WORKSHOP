@@ -49,11 +49,11 @@ Here are the main roles of these packages in the workshop:
 
 The workshop helper uses `httr2`, while `jsonlite` is used in later examples for working directly with JSON data.
 
-We'll explore prompt templates and JSON in [Practical Tools](11-practical-tools.qmd), and web applications in [R Shiny](23-shiny.qmd).
+We'll explore prompt templates and JSON in [Practical Tools](11-practical-tools.qmd), and web applications in [R Shiny](25-shiny.qmd).
 
 ## Generative AI packages
 
 Several R packages provide interfaces to large language models (LLMs).
 We'll use [`ellmer`](https://ellmer.tidyverse.org/){target="_blank"} for [conversational interactions](13-conversations-via-api.qmd).
-For other options, see the [LLM-specific R packages](28-reference-materials.qmd#sec-r-llm-packages) in the reference materials.
+For other options, see the [LLM-specific R packages](30-reference-materials.qmd#sec-r-llm-packages) in the reference materials.
 
