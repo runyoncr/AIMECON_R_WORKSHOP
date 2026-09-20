@@ -56,7 +56,7 @@ book:
         # Activity: Simple chained workflows
         - 22-calling-other-llms.qmd #22
 
-    - part: "Vibe Coding with Shiny"
+    - part: "AI-Enhanced R Workflows"
       chapters: 
         - 23-ai-coding-assistants.qmd #23
         - 24-skill-agents.qmd #24
