@@ -1,34 +1,178 @@
-# Saving R Shiny Data
+# Saving R Shiny Data {#sec-saving-shiny-data}
 
-![](images/under-construction-data.png){fig-align="center" width=25%}
+Although Shiny is built around reactivity, you can also treat it like a front end for data collection. A Shiny app can collect survey responses, reviewer decisions, edited AI-generated content, uploaded files, scoring results, or the parameters that produced an analysis. This opens up possibilities that are difficult to implement in a conventional survey platform: custom validation, adaptive workflows, interactive data displays, and direct integration with an existing R pipeline.
 
-Although Shiny is built around reactivity, you can also treat it like a front end for data collection. 
-Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. 
-In simple setups that storage might be a local file; in production it’s typically a database or object store. 
-In your case, your organization exposes an API that writes to an S3 bucket, so Shiny acts as the UI, and your API is the bridge to persistent storage.
+Collecting information in the interface is only the first half of the job. A reactive value exists for the current R process, and a file written to the app's local directory may disappear when a deployed app restarts or moves to another instance. Posit's [shinyapps.io storage documentation](https://docs.posit.co/shinyapps.io/guide/storage/) explicitly describes its local filesystem as ephemeral and unavailable to other app instances. Data that must survive a session therefore needs a persistent destination outside the app process.
 
-A good first step is to define what you’ll save and when you’ll save it. 
-Decide on a schema (the fields and their types), including metadata that helps with traceability: timestamps, a unique ID (UUID), the user’s role or identifier (if appropriate), the app version, and the context (e.g., Grade, Subject for MCQ authoring). 
-Then select the save events: “Update” might just refresh the working state, while “Save” or “Submit” creates an immutable record. 
-Thinking this through upfront prevents headaches later when you want to reproduce analyses, audit changes, or join these records with other datasets.
+Conceptually, you capture the user's inputs or edited content at a meaningful moment, package that information into a well-defined record, validate it on the server, and send it to a storage service. In simple local prototypes that service might be a file or SQLite database. In production it is more often an organizational API, a managed database, or object storage such as Amazon S3.
 
-Because Shiny runs in users’ browsers and on your server, you’ll want validation on both sides. 
-At the UI layer, give people immediate feedback (required fields, consistent formats, one correct answer). 
-On the server side, validate again before sending to storage—never trust only the browser. 
-For reliability, incorporate patterns such as idempotency (use that UUID so repeats don’t create duplicates), debouncing or disabling the save button briefly to avoid double submissions, and friendly messaging that confirms success or explains errors. 
-If the network or API is momentarily unavailable, consider lightweight queuing and automatic retries with backoff so users don’t lose work.
+::: {.callout-tip}
+## Separate working state from saved data
 
-When saving to S3 via your company API, think about security and governance. 
-All traffic should be over HTTPS with short-lived tokens or API keys stored securely (environment variables or a secrets manager—not hard-coded). 
-On the S3 side, enforce least-privilege access (the API writes only to the specific bucket/prefix it needs), encrypt data at rest, and document retention rules. 
-Educational measurement often intersects with sensitive information; even if you’re not storing PII, adopt a “privacy by design” posture: collect only what you need, label datasets clearly, and maintain a simple data catalog so others know what’s in each object or table. 
-If you operate under IRB/FERPA/GDPR constraints, align your consent, retention, and access controls with those policies.
+An input changing does not necessarily mean that it should be permanently saved. **Update** might refresh a preview, **Save draft** might replace a user's working copy, and **Submit** might create an immutable record for later analysis. Making those events explicit reduces accidental writes and gives users a clearer sense of what the app has retained.
+:::
 
-Finally, plan for operational clarity. 
-Separate environments (dev/staging/prod) and use clear S3 prefixes or folders so test data never mingles with real submissions. 
-Standardize formats (CSV/JSON/Parquet) and include a minimal, consistent header/metadata block so downstream teams can parse files reliably. 
-Log every save event (who/when/what app version) and expose a simple status indicator in the UI so users know where their data went. 
-In practice, these small investments transform Shiny from “an interactive report” into a dependable data-collection front end—flexible enough to replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.
+## Start With the Record
+
+Before choosing a package, define what you will save and how one record will be identified. A useful schema often includes:
+
+- a unique submission or event ID;
+- a server-generated timestamp in a consistent time zone;
+- the values supplied or approved by the user;
+- relevant context, such as grade, subject, form, or workflow step;
+- the app and schema versions; and
+- a user or role identifier only when it is necessary and permitted.
+
+Keep the raw event separate from values that can be recomputed later. For example, save the submitted response, the prompt or rubric version used, and the model identifier when an LLM contributes to a result. You can then reproduce or reinterpret the output if the scoring logic changes. Do not log secrets, access tokens, or more identifying information than the task requires.
+
+The storage format should match how the data will be used. JSON preserves a nested event or API payload well. A rectangular CSV is convenient for small, simple records but does not preserve types as reliably. Parquet is efficient for larger analytical datasets. A relational database is usually a better fit when many users update shared entities, records must be queried immediately, or several related tables need transactional consistency.
+
+## Choose the Storage Boundary
+
+::: {.table-responsive}
+| Destination | Good fit | Important limitation |
+|---|---|---|
+| Reactive values or session objects | Temporary state during one session | Lost when the session or R process ends |
+| Local CSV, RDS, or SQLite file | Local prototypes and single-process tools | A deployed app's filesystem may be ephemeral or isolated from other instances |
+| Organizational API | Central validation, authentication, auditing, and controlled access to services such as S3 | Requires an API contract and operational support |
+| Relational database | Concurrent records, updates, queries, and transactions | Requires schema management and safe connection handling |
+| S3 or S3-compatible object storage | Durable JSON, images, reports, exports, and analytical files | Objects are replaced as units; S3 is not an append-oriented relational database |
+:::
+
+If your organization already exposes an approved API that writes to S3, that is usually the best boundary for the Shiny app. Shiny sends a validated record to the API; the API applies authorization, naming, validation, and storage rules; and the bucket remains inaccessible to the browser. This also keeps AWS credentials and bucket permissions out of the app code.
+
+Direct S3 access can still make sense for a service running with an approved IAM role, especially when it produces files rather than shared transactional records. It should be an intentional infrastructure choice, not simply the shortest route from a save button to a bucket.
+
+## A Reliable Save Pattern
+
+Because Shiny code can run more than once, design a save operation so that repeating the same request does not create an unintended duplicate. Generate a unique ID for the submission, send that ID with the request, and have the receiving service enforce its idempotency rule. Disable the action button while a save is in progress and report success only after the storage service confirms it.
+
+Validation belongs on both sides of the application. The UI can give immediate feedback about required fields and formats, but the server must validate again before writing. The API or database should enforce its own constraints as well; browser-side checks can be bypassed, and an older version of the app may send an outdated schema.
+
+When a write fails, preserve the user's unsaved work in the interface and provide a useful message. Automatic retries are appropriate only when the operation is idempotent. Otherwise, a timeout can leave the app uncertain whether the first request succeeded, and a retry may create a second record.
+
+## Saving Through an Organizational API
+
+The [`httr2`](https://httr2.r-lib.org/) package provides request construction, authentication helpers, timeouts, automatic HTTP error handling, and retry tools. The following template is intentionally not executed: its URL, token, required fields, response status, and idempotency behavior must match your organization's API contract.
+
+```{r, eval = FALSE}
+save_submission <- function(record) {
+	api_url <- Sys.getenv(
+		"SHINY_STORAGE_API_URL"
+	)
+	api_token <- Sys.getenv(
+		"SHINY_STORAGE_API_TOKEN"
+	)
+
+	if (!nzchar(api_url) || !nzchar(api_token)) {
+		stop(
+			"The storage API URL and token must be configured."
+		)
+	}
+
+	httr2::request(api_url) |>
+		httr2::req_headers(`Idempotency-Key` = record$submission_id) |>
+		httr2::req_auth_bearer_token(api_token) |>
+		httr2::req_body_json(record) |>
+		httr2::req_timeout(
+			seconds = 15
+		) |>
+		httr2::req_perform()
+}
+```
+
+The secret is read from the server environment, not supplied by the user or included in the source file. The example deliberately omits automatic retries because the API must first document how duplicate idempotency keys are handled.
+
+In a Shiny server function, call the wrapper from an explicit event and handle failures without discarding the form values:
+
+```{r, eval = FALSE}
+observeEvent(input$submit, {
+	record <- list(
+		submission_id = uuid::UUIDgenerate(),
+		submitted_at = format(Sys.time(), tz = "UTC", usetz = TRUE),
+		app_version = "1.0.0",
+		response = input$response
+	)
+
+	tryCatch(
+		{
+			save_submission(record)
+			showNotification("Submission saved.", type = "message")
+		},
+		error = function(error) {
+			showNotification(
+				"The submission was not saved. Please try again.",
+				type = "error",
+				duration = NULL
+			)
+		}
+	)
+}, ignoreInit = TRUE)
+```
+
+For a real app, also prevent a second click while the request is active and keep diagnostic details in restricted server logs rather than showing them to the user.
+
+## Packages for Persistent Shiny Outputs
+
+No single package solves every persistence problem. The following packages cover different layers of the workflow.[^saving-data-currency]
+
+::: {.table-responsive}
+| Package | Use it for | Notes |
+|---|---|---|
+| [`httr2`](https://httr2.r-lib.org/) | Sending validated JSON or files to an organizational storage API | A strong default when security and storage rules belong behind an API |
+| [`DBI`](https://dbi.r-dbi.org/) plus a backend such as [`RPostgres`](https://rpostgres.r-dbi.org/), [`RMariaDB`](https://rmariadb.r-dbi.org/), or [`odbc`](https://odbc.r-dbi.org/) | Writing structured records to a relational database | Use parameterized operations and database constraints; do not construct SQL from pasted user input |
+| [`pool`](https://rstudio.github.io/pool/) | Managing a reusable pool of database connections in an interactive Shiny process | Works with DBI and avoids opening a new connection for every reactive operation |
+| [`RSQLite`](https://rsqlite.r-dbi.org/) | A small local prototype or controlled single-host deployment | The database is still a local file; it does not solve ephemeral or multi-instance storage by itself |
+| [`paws.storage`](https://paws-r.r-universe.dev/paws.storage/doc/manual.html#s3) | Direct, lower-level S3 operations such as putting, getting, listing, and deleting objects | Best when the app's server has an approved AWS identity and you need control over object metadata or S3 options |
+| [`pins`](https://pins.rstudio.com/reference/board_s3.html) | Publishing named, optionally versioned R objects and files to S3 or S3-compatible storage | Well suited to shared artifacts, model objects, reference data, and reports; not a transactional event store |
+| [`arrow`](https://arrow.apache.org/docs/r/articles/fs.html) | Reading or writing Parquet and analytical datasets in S3 | Check `arrow::arrow_with_s3()` in the deployment environment; coordinate concurrent writers and partition updates |
+| [`jsonlite`](https://jeroen.r-universe.dev/jsonlite/) | Serializing nested records as JSON before an object upload | A format helper rather than a storage service |
+| [`uuid`](https://cran.r-project.org/package=uuid) | Generating identifiers for submissions or events | The storage layer should still enforce uniqueness |
+:::
+
+Shiny's `downloadHandler()` solves a different problem: it lets the user download a result to their own device. Bookmarking can restore application state. Neither should be treated as the authoritative persistence layer for centrally collected data.
+
+### Direct S3 Access
+
+[`paws.storage`](https://paws-r.r-universe.dev/paws.storage/doc/manual.html#s3) exposes the AWS S3 operations through an R client. A common pattern is to serialize each immutable submission to a distinct object key rather than repeatedly downloading, appending, and replacing one shared CSV file.
+
+```{r, eval = FALSE}
+s3 <- paws.storage::s3(region = Sys.getenv("AWS_REGION"))
+
+object_key <- paste0(
+	"production/submissions/",
+	record$submission_id,
+	".json"
+)
+
+s3$put_object(
+	Bucket = Sys.getenv("SHINY_STORAGE_BUCKET"),
+	Key = object_key,
+	Body = charToRaw(
+		jsonlite::toJSON(
+			record,
+			auto_unbox = TRUE
+		)
+	),
+	ContentType = "application/json"
+)
+```
+
+Do not put access keys in this code. AWS recommends temporary credentials supplied through IAM roles for applications running on AWS. For non-AWS hosting, follow your organization's approved credential mechanism and rotation policy. If the app should not possess direct bucket permissions, keep this operation behind the organizational API instead.
+
+[`pins::board_s3()`](https://pins.rstudio.com/reference/board_s3.html) provides a higher-level interface when the thing being saved is a named artifact that you want to read back or version. It uses `paws.storage` underneath and can also connect to some S3-compatible services through a custom endpoint. `pins` is convenient for publishing a model, lookup table, report, or periodic snapshot; creating thousands of individual user events as pins is generally a poor substitute for an event API or database.
+
+For larger analytical collections, [`arrow`](https://arrow.apache.org/docs/r/articles/fs.html) can read and write Parquet through an S3 filesystem or URI. This is useful when downstream analysis benefits from columnar storage and partitioning. It is not a reason to let multiple Shiny processes overwrite the same dataset path without a coordinated ingestion design.
+
+## Security, Governance, and Operations
+
+When saving through an API or directly to S3, use HTTPS and keep credentials in the server environment, an IAM role, or an approved secrets manager—not in source code or browser-visible values. Grant only the required operations on the required bucket and prefix. AWS recommends blocking public access, disabling ACLs for most modern use cases, using least-privilege policies, and requiring encrypted transport. Amazon S3 automatically encrypts new uploads at rest with S3-managed keys; use KMS-backed encryption when your organization's access-control or audit requirements call for it. See the current [Amazon S3 security best practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
+
+Educational measurement often intersects with sensitive information. Adopt a privacy-by-design posture even when you do not expect direct identifiers: collect only what you need, separate identifiers from response content when practical, document retention and deletion rules, and control who can retrieve the stored objects. When research oversight or laws such as FERPA or GDPR apply, align consent, retention, access, and incident-response procedures with qualified institutional guidance.
+
+Finally, keep development, staging, and production data separate. Use distinct databases, buckets, or prefixes; include schema and app versions; and monitor failed writes. S3 object keys are often displayed like folders, but prefixes are naming conventions rather than filesystem directories. Choose them deliberately, for example `production/app-name/year=2026/month=09/`, and avoid placing sensitive information in object names or logs.
+
+In practice, these decisions transform Shiny from "an interactive report" into a dependable data-collection front end—flexible enough to complement or replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.
 
 ***
 
@@ -36,6 +180,4 @@ In practice, these small investments transform Shiny from “an interactive repo
 
 ***
 
-## R Packages for Saving Shiny Outputs
-
-List them!
+[^saving-data-currency]: Package capabilities, shinyapps.io storage behavior, and AWS S3 security guidance were checked against official project documentation on September 20, 2026.

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>29&nbsp; Saving R Shiny Data – Integrating Generative AI into R Workflows: From APIs to Shiny Apps</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -77,8 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-23878c111f7dac4fb735463ab16209b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-23878c111f7dac4fb735463ab16209b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -104,18 +99,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
-<link rel="stylesheet" href="style.css">
+}</script><link rel="stylesheet" href="style.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -126,13 +115,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Integrating Generative AI into R Workflows: From APIs to Shiny Apps</a> 
     </div>
@@ -144,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -158,8 +143,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-R-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Setup</span></span></a>
@@ -190,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
@@ -199,8 +184,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-gen-ai-fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Generative AI Fundamentals</span></span></a>
@@ -225,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
@@ -234,8 +219,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-sample-workflow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sample Workflow</span></span></a>
@@ -314,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -323,8 +308,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./23-ai-coding-assistants.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">AI Coding Assistants</span></span></a>
@@ -367,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
@@ -376,8 +361,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./30-reference-materials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Reference Materials</span></span></a>
@@ -396,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
@@ -405,35 +390,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./example-linear-regression-interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Interactions in Linear Regression</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#r-packages-for-saving-shiny-outputs" id="toc-r-packages-for-saving-shiny-outputs" class="nav-link active" data-scroll-target="#r-packages-for-saving-shiny-outputs"><span class="header-section-number">29.1</span> R Packages for Saving Shiny Outputs</a></li>
+<li><a href="#start-with-the-record" id="toc-start-with-the-record" class="nav-link active" data-scroll-target="#start-with-the-record"><span class="header-section-number">29.1</span> Start With the Record</a></li>
+  <li><a href="#choose-the-storage-boundary" id="toc-choose-the-storage-boundary" class="nav-link" data-scroll-target="#choose-the-storage-boundary"><span class="header-section-number">29.2</span> Choose the Storage Boundary</a></li>
+  <li><a href="#a-reliable-save-pattern" id="toc-a-reliable-save-pattern" class="nav-link" data-scroll-target="#a-reliable-save-pattern"><span class="header-section-number">29.3</span> A Reliable Save Pattern</a></li>
+  <li><a href="#saving-through-an-organizational-api" id="toc-saving-through-an-organizational-api" class="nav-link" data-scroll-target="#saving-through-an-organizational-api"><span class="header-section-number">29.4</span> Saving Through an Organizational API</a></li>
+  <li>
+<a href="#packages-for-persistent-shiny-outputs" id="toc-packages-for-persistent-shiny-outputs" class="nav-link" data-scroll-target="#packages-for-persistent-shiny-outputs"><span class="header-section-number">29.5</span> Packages for Persistent Shiny Outputs</a>
+  <ul>
+<li><a href="#direct-s3-access" id="toc-direct-s3-access" class="nav-link" data-scroll-target="#direct-s3-access"><span class="header-section-number">29.5.1</span> Direct S3 Access</a></li>
   </ul>
-</nav>
+</li>
+  <li><a href="#security-governance-and-operations" id="toc-security-governance-and-operations" class="nav-link" data-scroll-target="#security-governance-and-operations"><span class="header-section-number">29.6</span> Security, Governance, and Operations</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-ai-coding-assistants.html">AI-Enhanced R Workflows</a></li><li class="breadcrumb-item"><a href="./29-saving-shiny-data.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></a></li></ol></nav>
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./23-ai-coding-assistants.html">AI-Enhanced R Workflows</a></li><li class="breadcrumb-item"><a href="./29-saving-shiny-data.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-saving-shiny-data" class="quarto-section-identifier"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Saving R Shiny Data</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -447,33 +436,249 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/under-construction-data.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></p>
-</figure>
+</header><p>Although Shiny is built around reactivity, you can also treat it like a front end for data collection. A Shiny app can collect survey responses, reviewer decisions, edited AI-generated content, uploaded files, scoring results, or the parameters that produced an analysis. This opens up possibilities that are difficult to implement in a conventional survey platform: custom validation, adaptive workflows, interactive data displays, and direct integration with an existing R pipeline.</p>
+<p>Collecting information in the interface is only the first half of the job. A reactive value exists for the current R process, and a file written to the app’s local directory may disappear when a deployed app restarts or moves to another instance. Posit’s <a href="https://docs.posit.co/shinyapps.io/guide/storage/">shinyapps.io storage documentation</a> explicitly describes its local filesystem as ephemeral and unavailable to other app instances. Data that must survive a session therefore needs a persistent destination outside the app process.</p>
+<p>Conceptually, you capture the user’s inputs or edited content at a meaningful moment, package that information into a well-defined record, validate it on the server, and send it to a storage service. In simple local prototypes that service might be a file or SQLite database. In production it is more often an organizational API, a managed database, or object storage such as Amazon S3.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Although Shiny is built around reactivity, you can also treat it like a front end for data collection. Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. In simple setups that storage might be a local file; in production it’s typically a database or object store. In your case, your organization exposes an API that writes to an S3 bucket, so Shiny acts as the UI, and your API is the bridge to persistent storage.</p>
-<p>A good first step is to define what you’ll save and when you’ll save it. Decide on a schema (the fields and their types), including metadata that helps with traceability: timestamps, a unique ID (UUID), the user’s role or identifier (if appropriate), the app version, and the context (e.g., Grade, Subject for MCQ authoring). Then select the save events: “Update” might just refresh the working state, while “Save” or “Submit” creates an immutable record. Thinking this through upfront prevents headaches later when you want to reproduce analyses, audit changes, or join these records with other datasets.</p>
-<p>Because Shiny runs in users’ browsers and on your server, you’ll want validation on both sides. At the UI layer, give people immediate feedback (required fields, consistent formats, one correct answer). On the server side, validate again before sending to storage—never trust only the browser. For reliability, incorporate patterns such as idempotency (use that UUID so repeats don’t create duplicates), debouncing or disabling the save button briefly to avoid double submissions, and friendly messaging that confirms success or explains errors. If the network or API is momentarily unavailable, consider lightweight queuing and automatic retries with backoff so users don’t lose work.</p>
-<p>When saving to S3 via your company API, think about security and governance. All traffic should be over HTTPS with short-lived tokens or API keys stored securely (environment variables or a secrets manager—not hard-coded). On the S3 side, enforce least-privilege access (the API writes only to the specific bucket/prefix it needs), encrypt data at rest, and document retention rules. Educational measurement often intersects with sensitive information; even if you’re not storing PII, adopt a “privacy by design” posture: collect only what you need, label datasets clearly, and maintain a simple data catalog so others know what’s in each object or table. If you operate under IRB/FERPA/GDPR constraints, align your consent, retention, and access controls with those policies.</p>
-<p>Finally, plan for operational clarity. Separate environments (dev/staging/prod) and use clear S3 prefixes or folders so test data never mingles with real submissions. Standardize formats (CSV/JSON/Parquet) and include a minimal, consistent header/metadata block so downstream teams can parse files reliably. Log every save event (who/when/what app version) and expose a simple status indicator in the UI so users know where their data went. In practice, these small investments transform Shiny from “an interactive report” into a dependable data-collection front end—flexible enough to replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.</p>
+<div class="callout-title-container flex-fill">
+Separate working state from saved data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An input changing does not necessarily mean that it should be permanently saved. <strong>Update</strong> might refresh a preview, <strong>Save draft</strong> might replace a user’s working copy, and <strong>Submit</strong> might create an immutable record for later analysis. Making those events explicit reduces accidental writes and gives users a clearer sense of what the app has retained.</p>
+</div>
+</div>
+<section id="start-with-the-record" class="level2" data-number="29.1"><h2 data-number="29.1" class="anchored" data-anchor-id="start-with-the-record">
+<span class="header-section-number">29.1</span> Start With the Record</h2>
+<p>Before choosing a package, define what you will save and how one record will be identified. A useful schema often includes:</p>
+<ul>
+<li>a unique submission or event ID;</li>
+<li>a server-generated timestamp in a consistent time zone;</li>
+<li>the values supplied or approved by the user;</li>
+<li>relevant context, such as grade, subject, form, or workflow step;</li>
+<li>the app and schema versions; and</li>
+<li>a user or role identifier only when it is necessary and permitted.</li>
+</ul>
+<p>Keep the raw event separate from values that can be recomputed later. For example, save the submitted response, the prompt or rubric version used, and the model identifier when an LLM contributes to a result. You can then reproduce or reinterpret the output if the scoring logic changes. Do not log secrets, access tokens, or more identifying information than the task requires.</p>
+<p>The storage format should match how the data will be used. JSON preserves a nested event or API payload well. A rectangular CSV is convenient for small, simple records but does not preserve types as reliably. Parquet is efficient for larger analytical datasets. A relational database is usually a better fit when many users update shared entities, records must be queried immediately, or several related tables need transactional consistency.</p>
+</section><section id="choose-the-storage-boundary" class="level2" data-number="29.2"><h2 data-number="29.2" class="anchored" data-anchor-id="choose-the-storage-boundary">
+<span class="header-section-number">29.2</span> Choose the Storage Boundary</h2>
+<div class="table-responsive">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Destination</th>
+<th>Good fit</th>
+<th>Important limitation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Reactive values or session objects</td>
+<td>Temporary state during one session</td>
+<td>Lost when the session or R process ends</td>
+</tr>
+<tr class="even">
+<td>Local CSV, RDS, or SQLite file</td>
+<td>Local prototypes and single-process tools</td>
+<td>A deployed app’s filesystem may be ephemeral or isolated from other instances</td>
+</tr>
+<tr class="odd">
+<td>Organizational API</td>
+<td>Central validation, authentication, auditing, and controlled access to services such as S3</td>
+<td>Requires an API contract and operational support</td>
+</tr>
+<tr class="even">
+<td>Relational database</td>
+<td>Concurrent records, updates, queries, and transactions</td>
+<td>Requires schema management and safe connection handling</td>
+</tr>
+<tr class="odd">
+<td>S3 or S3-compatible object storage</td>
+<td>Durable JSON, images, reports, exports, and analytical files</td>
+<td>Objects are replaced as units; S3 is not an append-oriented relational database</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If your organization already exposes an approved API that writes to S3, that is usually the best boundary for the Shiny app. Shiny sends a validated record to the API; the API applies authorization, naming, validation, and storage rules; and the bucket remains inaccessible to the browser. This also keeps AWS credentials and bucket permissions out of the app code.</p>
+<p>Direct S3 access can still make sense for a service running with an approved IAM role, especially when it produces files rather than shared transactional records. It should be an intentional infrastructure choice, not simply the shortest route from a save button to a bucket.</p>
+</section><section id="a-reliable-save-pattern" class="level2" data-number="29.3"><h2 data-number="29.3" class="anchored" data-anchor-id="a-reliable-save-pattern">
+<span class="header-section-number">29.3</span> A Reliable Save Pattern</h2>
+<p>Because Shiny code can run more than once, design a save operation so that repeating the same request does not create an unintended duplicate. Generate a unique ID for the submission, send that ID with the request, and have the receiving service enforce its idempotency rule. Disable the action button while a save is in progress and report success only after the storage service confirms it.</p>
+<p>Validation belongs on both sides of the application. The UI can give immediate feedback about required fields and formats, but the server must validate again before writing. The API or database should enforce its own constraints as well; browser-side checks can be bypassed, and an older version of the app may send an outdated schema.</p>
+<p>When a write fails, preserve the user’s unsaved work in the interface and provide a useful message. Automatic retries are appropriate only when the operation is idempotent. Otherwise, a timeout can leave the app uncertain whether the first request succeeded, and a retry may create a second record.</p>
+</section><section id="saving-through-an-organizational-api" class="level2" data-number="29.4"><h2 data-number="29.4" class="anchored" data-anchor-id="saving-through-an-organizational-api">
+<span class="header-section-number">29.4</span> Saving Through an Organizational API</h2>
+<p>The <a href="https://httr2.r-lib.org/"><code>httr2</code></a> package provides request construction, authentication helpers, timeouts, automatic HTTP error handling, and retry tools. The following template is intentionally not executed: its URL, token, required fields, response status, and idempotency behavior must match your organization’s API contract.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">save_submission</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">record</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">api_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span></span>
+<span>        <span class="st">"SHINY_STORAGE_API_URL"</span></span>
+<span>    <span class="op">)</span></span>
+<span>    <span class="va">api_token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span></span>
+<span>        <span class="st">"SHINY_STORAGE_API_TOKEN"</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nzchar</a></span><span class="op">(</span><span class="va">api_url</span><span class="op">)</span> <span class="op">||</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nzchar</a></span><span class="op">(</span><span class="va">api_token</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span></span>
+<span>            <span class="st">"The storage API URL and token must be configured."</span></span>
+<span>        <span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/request.html">request</a></span><span class="op">(</span><span class="va">api_url</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/req_headers.html">req_headers</a></span><span class="op">(</span>`Idempotency-Key` <span class="op">=</span> <span class="va">record</span><span class="op">$</span><span class="va">submission_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/req_auth_bearer_token.html">req_auth_bearer_token</a></span><span class="op">(</span><span class="va">api_token</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/req_body.html">req_body_json</a></span><span class="op">(</span><span class="va">record</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/req_timeout.html">req_timeout</a></span><span class="op">(</span></span>
+<span>            seconds <span class="op">=</span> <span class="fl">15</span></span>
+<span>        <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/req_perform.html">req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The secret is read from the server environment, not supplied by the user or included in the source file. The example deliberately omits automatic retries because the API must first document how duplicate idempotency keys are handled.</p>
+<p>In a Shiny server function, call the wrapper from an explicit event and handle failures without discarding the form values:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">submit</span>, <span class="op">{</span></span>
+<span>    <span class="va">record</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>        submission_id <span class="op">=</span> <span class="fu">uuid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/uuid/man/UUIDgenerate.html">UUIDgenerate</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        submitted_at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span>, tz <span class="op">=</span> <span class="st">"UTC"</span>, usetz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>        app_version <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>
+<span>        response <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">response</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span></span>
+<span>        <span class="op">{</span></span>
+<span>            <span class="fu">save_submission</span><span class="op">(</span><span class="va">record</span><span class="op">)</span></span>
+<span>            <span class="fu">showNotification</span><span class="op">(</span><span class="st">"Submission saved."</span>, type <span class="op">=</span> <span class="st">"message"</span><span class="op">)</span></span>
+<span>        <span class="op">}</span>,</span>
+<span>        error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">error</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="fu">showNotification</span><span class="op">(</span></span>
+<span>                <span class="st">"The submission was not saved. Please try again."</span>,</span>
+<span>                type <span class="op">=</span> <span class="st">"error"</span>,</span>
+<span>                duration <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>            <span class="op">)</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">}</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>For a real app, also prevent a second click while the request is active and keep diagnostic details in restricted server logs rather than showing them to the user.</p>
+</section><section id="packages-for-persistent-shiny-outputs" class="level2" data-number="29.5"><h2 data-number="29.5" class="anchored" data-anchor-id="packages-for-persistent-shiny-outputs">
+<span class="header-section-number">29.5</span> Packages for Persistent Shiny Outputs</h2>
+<p>No single package solves every persistence problem. The following packages cover different layers of the workflow.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="table-responsive">
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Package</th>
+<th>Use it for</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://httr2.r-lib.org/"><code>httr2</code></a></td>
+<td>Sending validated JSON or files to an organizational storage API</td>
+<td>A strong default when security and storage rules belong behind an API</td>
+</tr>
+<tr class="even">
+<td>
+<a href="https://dbi.r-dbi.org/"><code>DBI</code></a> plus a backend such as <a href="https://rpostgres.r-dbi.org/"><code>RPostgres</code></a>, <a href="https://rmariadb.r-dbi.org/"><code>RMariaDB</code></a>, or <a href="https://odbc.r-dbi.org/"><code>odbc</code></a>
+</td>
+<td>Writing structured records to a relational database</td>
+<td>Use parameterized operations and database constraints; do not construct SQL from pasted user input</td>
+</tr>
+<tr class="odd">
+<td><a href="https://rstudio.github.io/pool/"><code>pool</code></a></td>
+<td>Managing a reusable pool of database connections in an interactive Shiny process</td>
+<td>Works with DBI and avoids opening a new connection for every reactive operation</td>
+</tr>
+<tr class="even">
+<td><a href="https://rsqlite.r-dbi.org/"><code>RSQLite</code></a></td>
+<td>A small local prototype or controlled single-host deployment</td>
+<td>The database is still a local file; it does not solve ephemeral or multi-instance storage by itself</td>
+</tr>
+<tr class="odd">
+<td><a href="https://paws-r.r-universe.dev/paws.storage/doc/manual.html#s3"><code>paws.storage</code></a></td>
+<td>Direct, lower-level S3 operations such as putting, getting, listing, and deleting objects</td>
+<td>Best when the app’s server has an approved AWS identity and you need control over object metadata or S3 options</td>
+</tr>
+<tr class="even">
+<td><a href="https://pins.rstudio.com/reference/board_s3.html"><code>pins</code></a></td>
+<td>Publishing named, optionally versioned R objects and files to S3 or S3-compatible storage</td>
+<td>Well suited to shared artifacts, model objects, reference data, and reports; not a transactional event store</td>
+</tr>
+<tr class="odd">
+<td><a href="https://arrow.apache.org/docs/r/articles/fs.html"><code>arrow</code></a></td>
+<td>Reading or writing Parquet and analytical datasets in S3</td>
+<td>Check <code>arrow::arrow_with_s3()</code> in the deployment environment; coordinate concurrent writers and partition updates</td>
+</tr>
+<tr class="even">
+<td><a href="https://jeroen.r-universe.dev/jsonlite/"><code>jsonlite</code></a></td>
+<td>Serializing nested records as JSON before an object upload</td>
+<td>A format helper rather than a storage service</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/package=uuid"><code>uuid</code></a></td>
+<td>Generating identifiers for submissions or events</td>
+<td>The storage layer should still enforce uniqueness</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Shiny’s <code>downloadHandler()</code> solves a different problem: it lets the user download a result to their own device. Bookmarking can restore application state. Neither should be treated as the authoritative persistence layer for centrally collected data.</p>
+<section id="direct-s3-access" class="level3" data-number="29.5.1"><h3 data-number="29.5.1" class="anchored" data-anchor-id="direct-s3-access">
+<span class="header-section-number">29.5.1</span> Direct S3 Access</h3>
+<p><a href="https://paws-r.r-universe.dev/paws.storage/doc/manual.html#s3"><code>paws.storage</code></a> exposes the AWS S3 operations through an R client. A common pattern is to serialize each immutable submission to a distinct object key rather than repeatedly downloading, appending, and replacing one shared CSV file.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu">paws.storage</span><span class="fu">::</span><span class="fu">s3</span><span class="op">(</span>region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_REGION"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">object_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span></span>
+<span>    <span class="st">"production/submissions/"</span>,</span>
+<span>    <span class="va">record</span><span class="op">$</span><span class="va">submission_id</span>,</span>
+<span>    <span class="st">".json"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">s3</span><span class="op">$</span><span class="fu">put_object</span><span class="op">(</span></span>
+<span>    Bucket <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"SHINY_STORAGE_BUCKET"</span><span class="op">)</span>,</span>
+<span>    Key <span class="op">=</span> <span class="va">object_key</span>,</span>
+<span>    Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span></span>
+<span>        <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html">toJSON</a></span><span class="op">(</span></span>
+<span>            <span class="va">record</span>,</span>
+<span>            auto_unbox <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>        <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    ContentType <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Do not put access keys in this code. AWS recommends temporary credentials supplied through IAM roles for applications running on AWS. For non-AWS hosting, follow your organization’s approved credential mechanism and rotation policy. If the app should not possess direct bucket permissions, keep this operation behind the organizational API instead.</p>
+<p><a href="https://pins.rstudio.com/reference/board_s3.html"><code>pins::board_s3()</code></a> provides a higher-level interface when the thing being saved is a named artifact that you want to read back or version. It uses <code>paws.storage</code> underneath and can also connect to some S3-compatible services through a custom endpoint. <code>pins</code> is convenient for publishing a model, lookup table, report, or periodic snapshot; creating thousands of individual user events as pins is generally a poor substitute for an event API or database.</p>
+<p>For larger analytical collections, <a href="https://arrow.apache.org/docs/r/articles/fs.html"><code>arrow</code></a> can read and write Parquet through an S3 filesystem or URI. This is useful when downstream analysis benefits from columnar storage and partitioning. It is not a reason to let multiple Shiny processes overwrite the same dataset path without a coordinated ingestion design.</p>
+</section></section><section id="security-governance-and-operations" class="level2" data-number="29.6"><h2 data-number="29.6" class="anchored" data-anchor-id="security-governance-and-operations">
+<span class="header-section-number">29.6</span> Security, Governance, and Operations</h2>
+<p>When saving through an API or directly to S3, use HTTPS and keep credentials in the server environment, an IAM role, or an approved secrets manager—not in source code or browser-visible values. Grant only the required operations on the required bucket and prefix. AWS recommends blocking public access, disabling ACLs for most modern use cases, using least-privilege policies, and requiring encrypted transport. Amazon S3 automatically encrypts new uploads at rest with S3-managed keys; use KMS-backed encryption when your organization’s access-control or audit requirements call for it. See the current <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html">Amazon S3 security best practices</a>.</p>
+<p>Educational measurement often intersects with sensitive information. Adopt a privacy-by-design posture even when you do not expect direct identifiers: collect only what you need, separate identifiers from response content when practical, document retention and deletion rules, and control who can retrieve the stored objects. When research oversight or laws such as FERPA or GDPR apply, align consent, retention, access, and incident-response procedures with qualified institutional guidance.</p>
+<p>Finally, keep development, staging, and production data separate. Use distinct databases, buckets, or prefixes; include schema and app versions; and monitor failed writes. S3 object keys are often displayed like folders, but prefixes are naming conventions rather than filesystem directories. Choose them deliberately, for example <code>production/app-name/year=2026/month=09/</code>, and avoid placing sensitive information in object names or logs.</p>
+<p>In practice, these decisions transform Shiny from “an interactive report” into a dependable data-collection front end—flexible enough to complement or replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.</p>
 <hr>
 <p><strong>Note:</strong> The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</p>
 <hr>
-<section id="r-packages-for-saving-shiny-outputs" class="level2" data-number="29.1">
-<h2 data-number="29.1" class="anchored" data-anchor-id="r-packages-for-saving-shiny-outputs"><span class="header-section-number">29.1</span> R Packages for Saving Shiny Outputs</h2>
-<p>List them!</p>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Package capabilities, shinyapps.io storage behavior, and AWS S3 security guidance were checked against official project documentation on September 20, 2026.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -927,9 +1132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./28-activity-make-llm-shiny-app.html" class="pagination-link" aria-label="Activity: Making a Shiny App">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Activity: Making a Shiny App</span></span>
       </a>          
@@ -940,51 +1143,192 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Saving R Shiny Data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/under-construction-data.png)</span>{fig-align="center" width=25%}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Although Shiny is built around reactivity, you can also treat it like a front end for data collection. </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Conceptually, you capture the user’s inputs or edited content at meaningful moments (e.g., when they click “Save” or “Submit”), package that information into a well-defined record, and send it to a storage layer. </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>In simple setups that storage might be a local file; in production it’s typically a database or object store. </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>In your case, your organization exposes an API that writes to an S3 bucket, so Shiny acts as the UI, and your API is the bridge to persistent storage.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>A good first step is to define what you’ll save and when you’ll save it. </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Decide on a schema (the fields and their types), including metadata that helps with traceability: timestamps, a unique ID (UUID), the user’s role or identifier (if appropriate), the app version, and the context (e.g., Grade, Subject for MCQ authoring). </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Then select the save events: “Update” might just refresh the working state, while “Save” or “Submit” creates an immutable record. </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Thinking this through upfront prevents headaches later when you want to reproduce analyses, audit changes, or join these records with other datasets.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Because Shiny runs in users’ browsers and on your server, you’ll want validation on both sides. </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>At the UI layer, give people immediate feedback (required fields, consistent formats, one correct answer). </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>On the server side, validate again before sending to storage—never trust only the browser. </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>For reliability, incorporate patterns such as idempotency (use that UUID so repeats don’t create duplicates), debouncing or disabling the save button briefly to avoid double submissions, and friendly messaging that confirms success or explains errors. </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>If the network or API is momentarily unavailable, consider lightweight queuing and automatic retries with backoff so users don’t lose work.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>When saving to S3 via your company API, think about security and governance. </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>All traffic should be over HTTPS with short-lived tokens or API keys stored securely (environment variables or a secrets manager—not hard-coded). </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>On the S3 side, enforce least-privilege access (the API writes only to the specific bucket/prefix it needs), encrypt data at rest, and document retention rules. </span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>Educational measurement often intersects with sensitive information; even if you’re not storing PII, adopt a “privacy by design” posture: collect only what you need, label datasets clearly, and maintain a simple data catalog so others know what’s in each object or table. </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>If you operate under IRB/FERPA/GDPR constraints, align your consent, retention, and access controls with those policies.</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Finally, plan for operational clarity. </span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Separate environments (dev/staging/prod) and use clear S3 prefixes or folders so test data never mingles with real submissions. </span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Standardize formats (CSV/JSON/Parquet) and include a minimal, consistent header/metadata block so downstream teams can parse files reliably. </span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Log every save event (who/when/what app version) and expose a simple status indicator in the UI so users know where their data went. </span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>In practice, these small investments transform Shiny from “an interactive report” into a dependable data-collection front end—flexible enough to replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**Note:** The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## R Packages for Saving Shiny Outputs</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>List them!</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Saving R Shiny Data {#sec-saving-shiny-data}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Although Shiny is built around reactivity, you can also treat it like a front end for data collection. A Shiny app can collect survey responses, reviewer decisions, edited AI-generated content, uploaded files, scoring results, or the parameters that produced an analysis. This opens up possibilities that are difficult to implement in a conventional survey platform: custom validation, adaptive workflows, interactive data displays, and direct integration with an existing R pipeline.</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Collecting information in the interface is only the first half of the job. A reactive value exists for the current R process, and a file written to the app's local directory may disappear when a deployed app restarts or moves to another instance. Posit's <span class="co">[</span><span class="ot">shinyapps.io storage documentation</span><span class="co">](https://docs.posit.co/shinyapps.io/guide/storage/)</span> explicitly describes its local filesystem as ephemeral and unavailable to other app instances. Data that must survive a session therefore needs a persistent destination outside the app process.</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>Conceptually, you capture the user's inputs or edited content at a meaningful moment, package that information into a well-defined record, validate it on the server, and send it to a storage service. In simple local prototypes that service might be a file or SQLite database. In production it is more often an organizational API, a managed database, or object storage such as Amazon S3.</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Separate working state from saved data</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>An input changing does not necessarily mean that it should be permanently saved. **Update** might refresh a preview, **Save draft** might replace a user's working copy, and **Submit** might create an immutable record for later analysis. Making those events explicit reduces accidental writes and gives users a clearer sense of what the app has retained.</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Start With the Record</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Before choosing a package, define what you will save and how one record will be identified. A useful schema often includes:</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a unique submission or event ID;</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a server-generated timestamp in a consistent time zone;</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the values supplied or approved by the user;</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>relevant context, such as grade, subject, form, or workflow step;</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the app and schema versions; and</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a user or role identifier only when it is necessary and permitted.</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>Keep the raw event separate from values that can be recomputed later. For example, save the submitted response, the prompt or rubric version used, and the model identifier when an LLM contributes to a result. You can then reproduce or reinterpret the output if the scoring logic changes. Do not log secrets, access tokens, or more identifying information than the task requires.</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>The storage format should match how the data will be used. JSON preserves a nested event or API payload well. A rectangular CSV is convenient for small, simple records but does not preserve types as reliably. Parquet is efficient for larger analytical datasets. A relational database is usually a better fit when many users update shared entities, records must be queried immediately, or several related tables need transactional consistency.</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Choose the Storage Boundary</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>::: {.table-responsive}</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Destination <span class="pp">|</span> Good fit <span class="pp">|</span> Important limitation <span class="pp">|</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reactive values or session objects <span class="pp">|</span> Temporary state during one session <span class="pp">|</span> Lost when the session or R process ends <span class="pp">|</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Local CSV, RDS, or SQLite file <span class="pp">|</span> Local prototypes and single-process tools <span class="pp">|</span> A deployed app's filesystem may be ephemeral or isolated from other instances <span class="pp">|</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Organizational API <span class="pp">|</span> Central validation, authentication, auditing, and controlled access to services such as S3 <span class="pp">|</span> Requires an API contract and operational support <span class="pp">|</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Relational database <span class="pp">|</span> Concurrent records, updates, queries, and transactions <span class="pp">|</span> Requires schema management and safe connection handling <span class="pp">|</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> S3 or S3-compatible object storage <span class="pp">|</span> Durable JSON, images, reports, exports, and analytical files <span class="pp">|</span> Objects are replaced as units; S3 is not an append-oriented relational database <span class="pp">|</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>If your organization already exposes an approved API that writes to S3, that is usually the best boundary for the Shiny app. Shiny sends a validated record to the API; the API applies authorization, naming, validation, and storage rules; and the bucket remains inaccessible to the browser. This also keeps AWS credentials and bucket permissions out of the app code.</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>Direct S3 access can still make sense for a service running with an approved IAM role, especially when it produces files rather than shared transactional records. It should be an intentional infrastructure choice, not simply the shortest route from a save button to a bucket.</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## A Reliable Save Pattern</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>Because Shiny code can run more than once, design a save operation so that repeating the same request does not create an unintended duplicate. Generate a unique ID for the submission, send that ID with the request, and have the receiving service enforce its idempotency rule. Disable the action button while a save is in progress and report success only after the storage service confirms it.</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>Validation belongs on both sides of the application. The UI can give immediate feedback about required fields and formats, but the server must validate again before writing. The API or database should enforce its own constraints as well; browser-side checks can be bypassed, and an older version of the app may send an outdated schema.</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>When a write fails, preserve the user's unsaved work in the interface and provide a useful message. Automatic retries are appropriate only when the operation is idempotent. Otherwise, a timeout can leave the app uncertain whether the first request succeeded, and a retry may create a second record.</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving Through an Organizational API</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`httr2`</span><span class="co">](https://httr2.r-lib.org/)</span> package provides request construction, authentication helpers, timeouts, automatic HTTP error handling, and retry tools. The following template is intentionally not executed: its URL, token, required fields, response status, and idempotency behavior must match your organization's API contract.</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>save_submission <span class="ot">&lt;-</span> <span class="cf">function</span>(record) {</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    api_url <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SHINY_STORAGE_API_URL"</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    api_token <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SHINY_STORAGE_API_TOKEN"</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">nzchar</span>(api_url) <span class="sc">||</span> <span class="sc">!</span><span class="fu">nzchar</span>(api_token)) {</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>            <span class="st">"The storage API URL and token must be configured."</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    httr2<span class="sc">::</span><span class="fu">request</span>(api_url) <span class="sc">|&gt;</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        httr2<span class="sc">::</span><span class="fu">req_headers</span>(<span class="st">`</span><span class="at">Idempotency-Key</span><span class="st">`</span> <span class="ot">=</span> record<span class="sc">$</span>submission_id) <span class="sc">|&gt;</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>        httr2<span class="sc">::</span><span class="fu">req_auth_bearer_token</span>(api_token) <span class="sc">|&gt;</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        httr2<span class="sc">::</span><span class="fu">req_body_json</span>(record) <span class="sc">|&gt;</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        httr2<span class="sc">::</span><span class="fu">req_timeout</span>(</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>            <span class="at">seconds =</span> <span class="dv">15</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        httr2<span class="sc">::</span><span class="fu">req_perform</span>()</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>The secret is read from the server environment, not supplied by the user or included in the source file. The example deliberately omits automatic retries because the API must first document how duplicate idempotency keys are handled.</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>In a Shiny server function, call the wrapper from an explicit event and handle failures without discarding the form values:</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="fu">observeEvent</span>(input<span class="sc">$</span>submit, {</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    record <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>        <span class="at">submission_id =</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>(),</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>        <span class="at">submitted_at =</span> <span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="at">tz =</span> <span class="st">"UTC"</span>, <span class="at">usetz =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>        <span class="at">app_version =</span> <span class="st">"1.0.0"</span>,</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>        <span class="at">response =</span> input<span class="sc">$</span>response</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tryCatch</span>(</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>            <span class="fu">save_submission</span>(record)</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>            <span class="fu">showNotification</span>(<span class="st">"Submission saved."</span>, <span class="at">type =</span> <span class="st">"message"</span>)</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>        <span class="at">error =</span> <span class="cf">function</span>(error) {</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>            <span class="fu">showNotification</span>(</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>                <span class="st">"The submission was not saved. Please try again."</span>,</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">"error"</span>,</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>                <span class="at">duration =</span> <span class="cn">NULL</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>}, <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>For a real app, also prevent a second click while the request is active and keep diagnostic details in restricted server logs rather than showing them to the user.</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Packages for Persistent Shiny Outputs</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>No single package solves every persistence problem. The following packages cover different layers of the workflow.<span class="ot">[^saving-data-currency]</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>::: {.table-responsive}</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Package <span class="pp">|</span> Use it for <span class="pp">|</span> Notes <span class="pp">|</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`httr2`</span><span class="co">](https://httr2.r-lib.org/)</span> <span class="pp">|</span> Sending validated JSON or files to an organizational storage API <span class="pp">|</span> A strong default when security and storage rules belong behind an API <span class="pp">|</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`DBI`</span><span class="co">](https://dbi.r-dbi.org/)</span> plus a backend such as <span class="co">[</span><span class="ot">`RPostgres`</span><span class="co">](https://rpostgres.r-dbi.org/)</span>, <span class="co">[</span><span class="ot">`RMariaDB`</span><span class="co">](https://rmariadb.r-dbi.org/)</span>, or <span class="co">[</span><span class="ot">`odbc`</span><span class="co">](https://odbc.r-dbi.org/)</span> <span class="pp">|</span> Writing structured records to a relational database <span class="pp">|</span> Use parameterized operations and database constraints; do not construct SQL from pasted user input <span class="pp">|</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`pool`</span><span class="co">](https://rstudio.github.io/pool/)</span> <span class="pp">|</span> Managing a reusable pool of database connections in an interactive Shiny process <span class="pp">|</span> Works with DBI and avoids opening a new connection for every reactive operation <span class="pp">|</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`RSQLite`</span><span class="co">](https://rsqlite.r-dbi.org/)</span> <span class="pp">|</span> A small local prototype or controlled single-host deployment <span class="pp">|</span> The database is still a local file; it does not solve ephemeral or multi-instance storage by itself <span class="pp">|</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`paws.storage`</span><span class="co">](https://paws-r.r-universe.dev/paws.storage/doc/manual.html#s3)</span> <span class="pp">|</span> Direct, lower-level S3 operations such as putting, getting, listing, and deleting objects <span class="pp">|</span> Best when the app's server has an approved AWS identity and you need control over object metadata or S3 options <span class="pp">|</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`pins`</span><span class="co">](https://pins.rstudio.com/reference/board_s3.html)</span> <span class="pp">|</span> Publishing named, optionally versioned R objects and files to S3 or S3-compatible storage <span class="pp">|</span> Well suited to shared artifacts, model objects, reference data, and reports; not a transactional event store <span class="pp">|</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`arrow`</span><span class="co">](https://arrow.apache.org/docs/r/articles/fs.html)</span> <span class="pp">|</span> Reading or writing Parquet and analytical datasets in S3 <span class="pp">|</span> Check <span class="in">`arrow::arrow_with_s3()`</span> in the deployment environment; coordinate concurrent writers and partition updates <span class="pp">|</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`jsonlite`</span><span class="co">](https://jeroen.r-universe.dev/jsonlite/)</span> <span class="pp">|</span> Serializing nested records as JSON before an object upload <span class="pp">|</span> A format helper rather than a storage service <span class="pp">|</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`uuid`</span><span class="co">](https://cran.r-project.org/package=uuid)</span> <span class="pp">|</span> Generating identifiers for submissions or events <span class="pp">|</span> The storage layer should still enforce uniqueness <span class="pp">|</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>Shiny's <span class="in">`downloadHandler()`</span> solves a different problem: it lets the user download a result to their own device. Bookmarking can restore application state. Neither should be treated as the authoritative persistence layer for centrally collected data.</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### Direct S3 Access</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">`paws.storage`</span><span class="co">](https://paws-r.r-universe.dev/paws.storage/doc/manual.html#s3)</span> exposes the AWS S3 operations through an R client. A common pattern is to serialize each immutable submission to a distinct object key rather than repeatedly downloading, appending, and replacing one shared CSV file.</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> paws.storage<span class="sc">::</span><span class="fu">s3</span>(<span class="at">region =</span> <span class="fu">Sys.getenv</span>(<span class="st">"AWS_REGION"</span>))</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>object_key <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>    <span class="st">"production/submissions/"</span>,</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>    record<span class="sc">$</span>submission_id,</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>    <span class="st">".json"</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>s3<span class="sc">$</span><span class="fu">put_object</span>(</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>    <span class="at">Bucket =</span> <span class="fu">Sys.getenv</span>(<span class="st">"SHINY_STORAGE_BUCKET"</span>),</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>    <span class="at">Key =</span> object_key,</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>    <span class="at">Body =</span> <span class="fu">charToRaw</span>(</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>        jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(</span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>            record,</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>            <span class="at">auto_unbox =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>    <span class="at">ContentType =</span> <span class="st">"application/json"</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>Do not put access keys in this code. AWS recommends temporary credentials supplied through IAM roles for applications running on AWS. For non-AWS hosting, follow your organization's approved credential mechanism and rotation policy. If the app should not possess direct bucket permissions, keep this operation behind the organizational API instead.</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">`pins::board_s3()`</span><span class="co">](https://pins.rstudio.com/reference/board_s3.html)</span> provides a higher-level interface when the thing being saved is a named artifact that you want to read back or version. It uses <span class="in">`paws.storage`</span> underneath and can also connect to some S3-compatible services through a custom endpoint. <span class="in">`pins`</span> is convenient for publishing a model, lookup table, report, or periodic snapshot; creating thousands of individual user events as pins is generally a poor substitute for an event API or database.</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>For larger analytical collections, <span class="co">[</span><span class="ot">`arrow`</span><span class="co">](https://arrow.apache.org/docs/r/articles/fs.html)</span> can read and write Parquet through an S3 filesystem or URI. This is useful when downstream analysis benefits from columnar storage and partitioning. It is not a reason to let multiple Shiny processes overwrite the same dataset path without a coordinated ingestion design.</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## Security, Governance, and Operations</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>When saving through an API or directly to S3, use HTTPS and keep credentials in the server environment, an IAM role, or an approved secrets manager—not in source code or browser-visible values. Grant only the required operations on the required bucket and prefix. AWS recommends blocking public access, disabling ACLs for most modern use cases, using least-privilege policies, and requiring encrypted transport. Amazon S3 automatically encrypts new uploads at rest with S3-managed keys; use KMS-backed encryption when your organization's access-control or audit requirements call for it. See the current <span class="co">[</span><span class="ot">Amazon S3 security best practices</span><span class="co">](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)</span>.</span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>Educational measurement often intersects with sensitive information. Adopt a privacy-by-design posture even when you do not expect direct identifiers: collect only what you need, separate identifiers from response content when practical, document retention and deletion rules, and control who can retrieve the stored objects. When research oversight or laws such as FERPA or GDPR apply, align consent, retention, access, and incident-response procedures with qualified institutional guidance.</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>Finally, keep development, staging, and production data separate. Use distinct databases, buckets, or prefixes; include schema and app versions; and monitor failed writes. S3 object keys are often displayed like folders, but prefixes are naming conventions rather than filesystem directories. Choose them deliberately, for example <span class="in">`production/app-name/year=2026/month=09/`</span>, and avoid placing sensitive information in object names or logs.</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>In practice, these decisions transform Shiny from "an interactive report" into a dependable data-collection front end—flexible enough to complement or replace tools like Qualtrics or SurveyMonkey when you need custom logic, richer interactivity, or tight integration with psychometric workflows.</span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>**Note:** The information provided here is for general informational purposes only and does not constitute legal advice. You should not act upon any information presented without first seeking qualified legal counsel regarding your specific situation. The authors disclaim any liability for actions taken based on the content provided here.</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a><span class="ot">[^saving-data-currency]: </span>Package capabilities, shinyapps.io storage behavior, and AWS S3 security guidance were checked against official project documentation on September 20, 2026.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Copyright © 2026 by Christopher Runyon.<br> Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
 </div>   
@@ -996,8 +1340,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
   </div>
 </footer>
-
-
 
 
 </body></html>
