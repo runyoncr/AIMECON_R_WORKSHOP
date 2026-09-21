@@ -65,6 +65,8 @@ workshop-page-review/
 
 This structure supports **progressive disclosure**. The agent can see a short name and description when considering which skill to use, load the full instructions when the skill is selected, and read or execute supporting resources only when the task requires them. This keeps specialized detail available without placing every instruction into every conversation.
 
+For inspiration, the community-curated repository [agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) collects examples of skills people have built for different workflows and toolchains. Browsing a few examples can help you see how reusable procedures are packaged and shared in practice.
+
 ::: {.callout-important}
 ## Review skills before using them
 
