@@ -419,8 +419,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#build-and-check-a-small-prototype" id="toc-build-and-check-a-small-prototype" class="nav-link active" data-scroll-target="#build-and-check-a-small-prototype"><span class="header-section-number">27.1</span> Build and Check a Small Prototype</a></li>
+  <li><a href="#describe-the-interface-in-shiny-terms" id="toc-describe-the-interface-in-shiny-terms" class="nav-link" data-scroll-target="#describe-the-interface-in-shiny-terms"><span class="header-section-number">27.2</span> Describe the Interface in Shiny Terms</a></li>
+  <li><a href="#shiny-references-for-your-next-prompt" id="toc-shiny-references-for-your-next-prompt" class="nav-link" data-scroll-target="#shiny-references-for-your-next-prompt"><span class="header-section-number">27.3</span> Shiny References for Your Next Prompt</a>
+  <ul>
+  <li><a href="#choose-a-layout" id="toc-choose-a-layout" class="nav-link" data-scroll-target="#choose-a-layout"><span class="header-section-number">27.3.1</span> Choose a Layout</a></li>
+  <li><a href="#choose-inputs-outputs-and-feedback" id="toc-choose-inputs-outputs-and-feedback" class="nav-link" data-scroll-target="#choose-inputs-outputs-and-feedback"><span class="header-section-number">27.3.2</span> Choose Inputs, Outputs, and Feedback</a></li>
+  <li><a href="#explore-extensions" id="toc-explore-extensions" class="nav-link" data-scroll-target="#explore-extensions"><span class="header-section-number">27.3.3</span> Explore Extensions</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -444,26 +457,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>R Shiny and vibe coding naturally complement each other. Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. Vibe coding provides a structured way to navigate that complexity by letting you work through it iteratively. You might begin by prompting the model to create a simple Shiny scaffold—just a sidebar and a plot area—and then refine from there. As you test locally, you can describe what’s working or not, and have the model adjust accordingly.</p>
-<p>This collaborative approach turns what might otherwise be a steep learning curve into an engaging design conversation. The AI helps you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery. You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. The iterative process reinforces your understanding of how reactive elements flow through the app.</p>
-<p>In an educational measurement context, vibe coding can accelerate the development of prototype tools that might otherwise take days or weeks to produce. For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. Starting from a few conversational prompts, you can build functional prototypes that help communicate ideas to colleagues or test usability with end users before formal deployment.</p>
-<p>Ultimately, integrating vibe coding into Shiny development reframes programming as a creative partnership. Instead of coding alone in isolation, you’re working with a model that mirrors your thought process, helping you move from vague intent to concrete implementation. This approach doesn’t replace technical learning—it enhances it. By externalizing your reasoning and iteratively refining your code with feedback from an AI partner, you develop a deeper, more intuitive grasp of both Shiny and R as expressive tools for educational measurement.</p>
-<p>Although no Shiny training is needed to vibe code a Shiny app, being able to use certain terminology or provide webpages to the model can help you more quickly achieve your goals. Below are some quick Shiny references that can be helpful:</p>
+<p>R Shiny and the iterative, reviewed approach to <a href="./26-vibe-coding.html#sec-vibe-coding">vibe coding</a> described in the previous chapter naturally complement each other. Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. AI-assisted development can help you navigate that complexity by working through it iteratively.</p>
+<section id="build-and-check-a-small-prototype" class="level2" data-number="27.1">
+<h2 data-number="27.1" class="anchored" data-anchor-id="build-and-check-a-small-prototype"><span class="header-section-number">27.1</span> Build and Check a Small Prototype</h2>
+<p>You might begin by prompting the model to create a simple Shiny scaffold—just a sidebar and a plot area—and then refine from there. As you test locally, you can describe what’s working or not, and have the model adjust accordingly.</p>
+<p>This collaborative approach can turn what might otherwise be a steep learning curve into an engaging design conversation. The AI can help you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery. You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. The iterative process can reinforce your understanding of how reactive elements flow through the app when you inspect the code and check its behavior. The previous chapter’s <a href="./26-vibe-coding.html#give-the-model-something-you-can-check">small Shiny prompt</a> illustrates how to define those checks before adding features.</p>
+<p>In an educational measurement context, this approach can help you explore prototype tools. For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. Starting from a few conversational prompts, you can work toward functional prototypes that help communicate ideas to colleagues or test usability with end users before formal deployment. A prototype that runs is not yet evidence that its statistical calculations or data handling are appropriate for operational use; the <a href="./23-ai-coding-assistants.html#keep-the-human-in-charge">AI Coding Assistants</a> chapter covers the broader review practices.</p>
+</section>
+<section id="describe-the-interface-in-shiny-terms" class="level2" data-number="27.2">
+<h2 data-number="27.2" class="anchored" data-anchor-id="describe-the-interface-in-shiny-terms"><span class="header-section-number">27.2</span> Describe the Interface in Shiny Terms</h2>
+<p>You don’t need to master Shiny before asking for a first draft, but understanding the basics helps you evaluate what the model gives you. Being able to use certain terminology or provide relevant documentation can help you more quickly achieve your goals. The <a href="./25-shiny.html">R Shiny</a> chapter introduces the UI, server, and reactivity; here, the practical question is how to describe the interface you want:</p>
 <ul>
-<li><a href="https://shiny.posit.co/r/layouts/">R Shiny Layouts</a> : Offical layouts supported by Posit
-<ul>
-<li>If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. This is especially helpful when you have a sophisticated app layout with multiple steps - having a Navbar, Sidebar, or using a <a href="https://rstudio.github.io/shinydashboard/">Dashboard</a> layout may be helpful.</li>
-</ul></li>
-<li><a href="https://shiny.posit.co/r/components/">R Shiny Components</a> : Offical widgets supported by Posit
-<ul>
-<li>These are a subset of possible tasks that could be included in your Shiny app. Think of them like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey, although you can develop your own novel tasks by combining these widgets or installing an R package that can extend Shiny’s functionality (see below).</li>
-</ul></li>
-<li><a href="https://github.com/nanxstats/awesome-shiny-extensions">Awesome Shiny Extensions</a> : Curated GitHub page with links to <em>many</em> more packages that extend the R Shiny functionality. One we often use is <a href="https://deanattali.com/shinyjs/">shinyjs</a>. This isn’t an exhuastive list - nor it is the list of <em>best</em> packages that extend Shiny functionality - but it’s a good start. I always recommend Google for searching for new / specific packages (or just ask the LLM!).</li>
+<li><strong>Layout:</strong> Where should controls and results appear? For example, put grade and subject filters in a sidebar and the item table in the main area.</li>
+<li><strong>Inputs:</strong> What can the user change? Name the choices, initial values, and any restrictions instead of simply asking for “filters.”</li>
+<li><strong>Outputs:</strong> What should the app show, and which inputs should change it? For example, ask for the table and plot to use the same filtered dataset.</li>
 </ul>
+<p>A useful detail when reviewing generated code is that the UI reserves a place for an output, while the server supplies its contents. For a basic table, <code>tableOutput("item_table")</code> in the UI must match <code>output$item_table</code> in the server, where <code>renderTable()</code> produces the table. Posit’s <a href="https://shiny.posit.co/r/components/outputs/table/">table component example</a> shows both sides together. This is one concrete place to look when an app launches but an expected output is missing.</p>
+</section>
+<section id="shiny-references-for-your-next-prompt" class="level2" data-number="27.3">
+<h2 data-number="27.3" class="anchored" data-anchor-id="shiny-references-for-your-next-prompt"><span class="header-section-number">27.3</span> Shiny References for Your Next Prompt</h2>
+<section id="choose-a-layout" class="level3" data-number="27.3.1">
+<h3 data-number="27.3.1" class="anchored" data-anchor-id="choose-a-layout"><span class="header-section-number">27.3.1</span> Choose a Layout</h3>
+<p><a href="https://shiny.posit.co/r/layouts/">R Shiny Layouts</a> provides official examples of navigation bars, sidebars, tabs, and other arrangements. If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. A sidebar can keep filters near the results, while tabs or a navigation bar can separate different views. For dashboard layouts and theming, <a href="https://rstudio.github.io/bslib/"><code>bslib</code></a> is one option; <a href="https://rstudio.github.io/shinydashboard/"><code>shinydashboard</code></a> is another. Specify which package you intend to use so the model has a consistent starting point.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section>
+<section id="choose-inputs-outputs-and-feedback" class="level3" data-number="27.3.2">
+<h3 data-number="27.3.2" class="anchored" data-anchor-id="choose-inputs-outputs-and-feedback"><span class="header-section-number">27.3.2</span> Choose Inputs, Outputs, and Feedback</h3>
+<p><a href="https://shiny.posit.co/r/components/">R Shiny Components</a> provides official examples of inputs, outputs, and display messages. Think of the inputs like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey. Outputs display results such as tables and plots, while notifications and progress indicators tell users what the app is doing. You can develop your own tasks by combining these components or installing an R package that extends Shiny’s functionality.</p>
+</section>
+<section id="explore-extensions" class="level3" data-number="27.3.3">
+<h3 data-number="27.3.3" class="anchored" data-anchor-id="explore-extensions"><span class="header-section-number">27.3.3</span> Explore Extensions</h3>
+<p><a href="https://github.com/nanxstats/awesome-shiny-extensions">Awesome Shiny Extensions</a> is a curated GitHub page with links to <em>many</em> more packages that extend Shiny’s functionality. One we often use is <a href="https://deanattali.com/shinyjs/"><code>shinyjs</code></a>, which can show or hide elements and enable or disable inputs from R. This isn’t an exhaustive list, nor is it a list of the <em>best</em> packages that extend Shiny functionality, but it’s a good start. I always recommend Google for searching for new or specific packages (or just ask the LLM!). Before adopting a suggestion, check the package’s own documentation, maintenance status, and compatibility with your app.</p>
+<p>With a clearer description of the interface and a small prototype you can check, you’re ready for <a href="./28-activity-make-llm-shiny-app.html">Activity: Making a Shiny App</a>. If the app needs to retain reviewer decisions or edited content, the storage design belongs in <a href="./29-saving-shiny-data.html">Saving R Shiny Data</a>, not just in the layout.</p>
 
 
 <!-- -->
 
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Shiny layout and component descriptions, the table output pairing, and the roles of <code>bslib</code>, <code>shinydashboard</code>, and <code>shinyjs</code> were checked against the linked official project documentation on September 20, 2026. The extension list was checked at its source repository.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -935,35 +971,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Vibe Coding R Shiny Apps</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>R Shiny and vibe coding naturally complement each other. </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>R Shiny and the iterative, reviewed approach to <span class="co">[</span><span class="ot">vibe coding</span><span class="co">](26-vibe-coding.qmd#sec-vibe-coding)</span> described in the previous chapter naturally complement each other.</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Vibe coding provides a structured way to navigate that complexity by letting you work through it iteratively. </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>You might begin by prompting the model to create a simple Shiny scaffold—just a sidebar and a plot area—and then refine from there. </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>As you test locally, you can describe what’s working or not, and have the model adjust accordingly.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>AI-assisted development can help you navigate that complexity by working through it iteratively.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Build and Check a Small Prototype</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>This collaborative approach turns what might otherwise be a steep learning curve into an engaging design conversation. </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>The AI helps you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery. </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The iterative process reinforces your understanding of how reactive elements flow through the app.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>In an educational measurement context, vibe coding can accelerate the development of prototype tools that might otherwise take days or weeks to produce. </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Starting from a few conversational prompts, you can build functional prototypes that help communicate ideas to colleagues or test usability with end users before formal deployment.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Ultimately, integrating vibe coding into Shiny development reframes programming as a creative partnership. </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Instead of coding alone in isolation, you’re working with a model that mirrors your thought process, helping you move from vague intent to concrete implementation. </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>This approach doesn’t replace technical learning—it enhances it. </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>By externalizing your reasoning and iteratively refining your code with feedback from an AI partner, you develop a deeper, more intuitive grasp of both Shiny and R as expressive tools for educational measurement.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>You might begin by prompting the model to create a simple Shiny scaffold—just a sidebar and a plot area—and then refine from there. </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>As you test locally, you can describe what’s working or not, and have the model adjust accordingly.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>This collaborative approach can turn what might otherwise be a steep learning curve into an engaging design conversation.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>The AI can help you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>The iterative process can reinforce your understanding of how reactive elements flow through the app when you inspect the code and check its behavior. The previous chapter's <span class="co">[</span><span class="ot">small Shiny prompt</span><span class="co">](26-vibe-coding.qmd#give-the-model-something-you-can-check)</span> illustrates how to define those checks before adding features.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>In an educational measurement context, this approach can help you explore prototype tools.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Starting from a few conversational prompts, you can work toward functional prototypes that help communicate ideas to colleagues or test usability with end users before formal deployment. A prototype that runs is not yet evidence that its statistical calculations or data handling are appropriate for operational use; the <span class="co">[</span><span class="ot">AI Coding Assistants</span><span class="co">](23-ai-coding-assistants.qmd#keep-the-human-in-charge)</span> chapter covers the broader review practices.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Describe the Interface in Shiny Terms</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Although no Shiny training is needed to vibe code a Shiny app, being able to use certain terminology or provide webpages to the model can help you more quickly achieve your goals. Below are some quick Shiny references that can be helpful:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>You don't need to master Shiny before asking for a first draft, but understanding the basics helps you evaluate what the model gives you. Being able to use certain terminology or provide relevant documentation can help you more quickly achieve your goals. The <span class="co">[</span><span class="ot">R Shiny</span><span class="co">](25-shiny.qmd)</span> chapter introduces the UI, server, and reactivity; here, the practical question is how to describe the interface you want:</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R Shiny Layouts</span><span class="co">](https://shiny.posit.co/r/layouts/)</span> : Offical layouts supported by Posit</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. This is especially helpful when you have a sophisticated app layout with multiple steps - having a Navbar, Sidebar, or using a <span class="co">[</span><span class="ot">Dashboard</span><span class="co">](https://rstudio.github.io/shinydashboard/)</span> layout may be helpful.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R Shiny Components</span><span class="co">](https://shiny.posit.co/r/components/)</span> : Offical widgets supported by Posit</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>These are a subset of possible tasks that could be included in your Shiny app. Think of them like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey, although you can develop your own novel tasks by combining these widgets or installing an R package that can extend Shiny's functionality (see below).</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Layout:** Where should controls and results appear? For example, put grade and subject filters in a sidebar and the item table in the main area.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Inputs:** What can the user change? Name the choices, initial values, and any restrictions instead of simply asking for "filters."</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Outputs:** What should the app show, and which inputs should change it? For example, ask for the table and plot to use the same filtered dataset.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>A useful detail when reviewing generated code is that the UI reserves a place for an output, while the server supplies its contents. For a basic table, <span class="in">`tableOutput("item_table")`</span> in the UI must match <span class="in">`output$item_table`</span> in the server, where <span class="in">`renderTable()`</span> produces the table. Posit's <span class="co">[</span><span class="ot">table component example</span><span class="co">](https://shiny.posit.co/r/components/outputs/table/)</span> shows both sides together. This is one concrete place to look when an app launches but an expected output is missing.</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Awesome Shiny Extensions</span><span class="co">](https://github.com/nanxstats/awesome-shiny-extensions)</span> : Curated GitHub page with links to _many_ more packages that extend the R Shiny functionality. One we often use is [shinyjs](https://deanattali.com/shinyjs/). This isn't an exhuastive list - nor it is the list of _best_ packages that extend Shiny functionality - but it's a good start. I always recommend Google for searching for new / specific packages (or just ask the LLM!).</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shiny References for Your Next Prompt</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### Choose a Layout</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">R Shiny Layouts</span><span class="co">](https://shiny.posit.co/r/layouts/)</span> provides official examples of navigation bars, sidebars, tabs, and other arrangements. If you have a specific app layout in mind, it can be helpful to tell the model what it should look like. A sidebar can keep filters near the results, while tabs or a navigation bar can separate different views. For dashboard layouts and theming, <span class="co">[</span><span class="ot">`bslib`</span><span class="co">](https://rstudio.github.io/bslib/)</span> is one option; <span class="co">[</span><span class="ot">`shinydashboard`</span><span class="co">](https://rstudio.github.io/shinydashboard/)</span> is another. Specify which package you intend to use so the model has a consistent starting point.<span class="ot">[^shiny-integration-currency]</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Choose Inputs, Outputs, and Feedback</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">R Shiny Components</span><span class="co">](https://shiny.posit.co/r/components/)</span> provides official examples of inputs, outputs, and display messages. Think of the inputs like pre-formulated question types, like you might see when using Qualtrics or SurveyMonkey. Outputs display results such as tables and plots, while notifications and progress indicators tell users what the app is doing. You can develop your own tasks by combining these components or installing an R package that extends Shiny's functionality.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Explore Extensions</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Awesome Shiny Extensions</span><span class="co">](https://github.com/nanxstats/awesome-shiny-extensions)</span> is a curated GitHub page with links to _many_ more packages that extend Shiny's functionality. One we often use is [`shinyjs`](https://deanattali.com/shinyjs/), which can show or hide elements and enable or disable inputs from R. This isn't an exhaustive list, nor is it a list of the _best_ packages that extend Shiny functionality, but it's a good start. I always recommend Google for searching for new or specific packages (or just ask the LLM!). Before adopting a suggestion, check the package's own documentation, maintenance status, and compatibility with your app.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>With a clearer description of the interface and a small prototype you can check, you're ready for <span class="co">[</span><span class="ot">Activity: Making a Shiny App</span><span class="co">](28-activity-make-llm-shiny-app.qmd)</span>. If the app needs to retain reviewer decisions or edited content, the storage design belongs in <span class="co">[</span><span class="ot">Saving R Shiny Data</span><span class="co">](29-saving-shiny-data.qmd)</span>, not just in the layout.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ot">[^shiny-integration-currency]: </span>Shiny layout and component descriptions, the table output pairing, and the roles of <span class="in">`bslib`</span>, <span class="in">`shinydashboard`</span>, and <span class="in">`shinyjs`</span> were checked against the linked official project documentation on September 20, 2026. The extension list was checked at its source repository.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

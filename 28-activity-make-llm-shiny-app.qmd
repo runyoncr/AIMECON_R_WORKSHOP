@@ -1,38 +1,70 @@
 # Activity: Making a Shiny App
 
-Now that you've learned a bit about Shiny and vibe coding, we can combine that - _and_ our knowledge of how to call LLMs - to make interesting Shiny apps.
+Now that you've learned a bit about Shiny and vibe coding, we can combine that knowledge with what we've learned about calling LLMs to make interesting Shiny apps.
+The goal is to turn the [prompt-chaining activity](21-activity-prompt-chaining.qmd) into an interface where a user can review each stage before continuing. The supplied objectives and guidance are illustrative workshop materials, not a validated assessment blueprint.
 
-For ease of example (and in case we're running short on time), I've pasted below the prompt that I submitted to Claude Sonnet 4.6 via it's chatbot interface.
-I attached the `activity-prompt-chaining.qmd` when I submitted the prompt.
+## From Prompt Chain to App
+
+For ease of example (and in case we're running short on time), I've included the prompt I submitted to Claude Sonnet 4.6 via its chatbot interface, updated below to match the current workshop files and app behavior.
+I attached the prompt-chaining activity when I submitted the original prompt; its current workshop source is [21-activity-prompt-chaining.qmd](21-activity-prompt-chaining.qmd).
 It took a few minutes to respond (I had extended thinking turned on), but when it was done it provided a complete app!
-I needed to have the model make a few tweaks (cut-and-pasted the error codes from the R Console), but it took probably 10 minutes to make the app.
+I needed to have the model make a few tweaks (I copied and pasted the error messages from the R console), but it took probably 10 minutes to make the app.
 (Not counting the amount of time to make the .qmd file and all of the other supporting materials, which was _much_ longer, but you get the point.)
+That describes my original build experience, not a time estimate or a guarantee that generated code will work without review. The downloadable version has since been revised to use the workshop helper and validate model responses.
 
-<u>Here's my prompt:</u>
+### Prompt for the App Builder
 
 ---
 
-I am designing a workshop on integrating LLMs into R workflows. I want to show my participants how they can build a shiny app with the help of vibe-coding with an LLM, and how to incorporate an LLM call into the process.
+I am designing a workshop on integrating LLMs into R workflows. I want to show my participants how they can build a Shiny app with an AI coding assistant and incorporate LLM calls into the app.
 
-I've attached the qmd file for a completed activity that I'd like to transform into a shiny app. The shiny app should proceed in the following steps:
+I've attached the current prompt-chaining activity and `call_claude_AIMECON26.R`. Transform the activity into a Shiny app with these steps:
 
-* The user identifies an appropriate science learning objective (or lets AI select one)
-* Once complete, the AI will select the two best writing learning objectives - but the user can change them if they'd like.
-* Once complete, the model will develop an essay prompt. This should be returned into a text field that can be modifiable, with 3 options: "keep" "save edits" and "try again".
-* Once complete, the LLM will identify the PLDs for each of the learning objectives.
-* Once complete, there should be a large text box where the user can type an essay, paste an essay, or have the model generate one (using the same parameters in the function)
-* Once complete, there should be a button to "score" the essay via an LLM call, which also produces the feedback in the same step.
+1. The user selects a science learning objective from the supplied list, or asks the model to select one.
+2. The model suggests two distinct writing learning objectives from the supplied list. The user can change them before confirming.
+3. The model develops an essay prompt in an editable text field, with **Keep**, **Use Edits**, and **Try Again** options. Keep uses the generated prompt; Use Edits accepts the user's text for this session, without saving a file.
+4. The model drafts performance level descriptors (PLDs) for the science objective and both writing objectives, using Weak, Developing, and Competent levels. The user reviews and confirms the rubric.
+5. The user types or pastes a non-sensitive teaching essay, or asks the model to generate a synthetic essay with a requested level for each objective.
+6. A **Score Essay & Generate Feedback** button makes two sequential LLM calls: one assigns a performance level for each criterion, and the next generates feedback using those ratings, the rubric, and the essay.
+
+Source the local canonical helper and use its `call_claude(prompt, max_tokens = ...)` interface rather than defining another API wrapper. Read the API key from `ANTHROPIC_API_KEY`; never embed it in the app. Each model response should contain only the new fields for that step. Validate them and merge them into the existing record in R so the model cannot overwrite previously approved fields.
+
+Keep confirmed steps fixed so later results stay tied to the approved context. Clear old ratings and feedback when the essay changes, show request or response-validation errors, and require rubric confirmation before generating or scoring an essay. Label the app as a workshop prototype, not a validated scoring system.
 
 There are a lot of steps to complete in this Shiny app build, so please review everything carefully and take your time.
 
 ---
 
-As you'll see in a second, the app is _great_ for a first-pass. There are some design considerations that I'd change and additional functionality that I would implement, but I think it does a nice job of showing off the power of vibe coding and building LLM-supported apps. Think about how these apps could be helpful for you - for teaching, easing bottlenecks around tedious practices, content creation, to faciliate expert scoring, etc. - the limit is your imagination![^1]
+## Download and Run the App
+
+As you'll see in a second, the app is _great_ for a first pass. There are some design considerations that I'd change and additional functionality that I would implement, but I think it does a nice job of showing off the power of vibe coding and building LLM-supported apps. Think about how these apps could be helpful for you: for teaching, easing bottlenecks around tedious practices, content creation, or facilitating expert scoring. The limit is your imagination![^1]
 
 <a href="downloads/sab_test.R" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
   📥 Download `sab_test.R`
 </a>
 
-<br>
+Also download [call_claude_AIMECON26.R](downloads/call_claude_AIMECON26.R){download="call_claude_AIMECON26.R"} and place both R files in the same folder.
+
+1. Install the required packages if needed: `shiny`, `bslib`, `shinyjs`, `glue`, `jsonlite`, `dplyr`, and `httr2`. See [R Packages](02-R-packages.qmd) for workshop setup.
+2. Configure `ANTHROPIC_API_KEY` in your R environment using the [connection setup](03-test-connect.qmd). The app stops with a setup message if the key or helper is missing; do not put a key in the downloaded script.
+3. Set your R working directory to the folder containing the two files, then run:
+
+```{r, eval = FALSE}
+shiny::runApp("sab_test.R")
+```
+
+The app uses local workshop data when available; otherwise, it downloads the supplied science and writing objectives and the PLD and feedback guidance from the workshop's GitHub repository at startup. An internet connection is required for API calls. The helper currently defaults to `claude-sonnet-5` with `effort = "low"`; the app supplies step-specific output limits. These API settings are separate from the chatbot settings used for the original build.[^shiny-app-currency]
+
+## Inspect One Complete Workflow
+
+Work through the app using a synthetic or non-sensitive teaching example. Review the proposed writing objectives, make a small edit to the essay prompt with **Use Edits**, and confirm that the edited prompt carries into the rubric and essay steps. Inspect the rubric before confirming it; if it needs revision, start a new app session. This prototype does not support going back to revise confirmed steps.
+
+Generate a synthetic essay or enter your own teaching example, then select **Score Essay & Generate Feedback**. Check whether each rating is supported by the rubric and essay and whether the feedback matches the assigned rating. Requested performance levels for synthetic essays are generation targets, not known true scores. The scoring prompt also uses an illustrative lower-level tie-break rule; neither that rule nor the model's judgments have been validated for operational scoring.
+
+Finally, edit the essay and confirm that the old ratings and feedback disappear until you score it again. One complete pass uses five API calls when you choose the science objective and supply the essay yourself, or up to seven when both are model-generated. Retries and rescoring add calls and may add cost; the helper does not report token usage or cost to the app.
+
+**Use Edits is not persistent storage.** The prototype has no export or save-to-database feature; its working record lasts only for the current session. See [Saving R Shiny Data](29-saving-shiny-data.qmd) for extending it to retain records. General code-review practices remain in [AI Coding Assistants](23-ai-coding-assistants.qmd#keep-the-human-in-charge).
 
 [^1]: And data privacy concerns, internal security measures, API costs, and more, but you get the idea.
+
+[^shiny-app-currency]: The helper's defaults were checked against its local source and Anthropic's [model documentation](https://platform.claude.com/docs/en/about-claude/models/overview) on September 20, 2026. Availability and access depend on your API account.

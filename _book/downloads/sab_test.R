@@ -9,36 +9,24 @@ library(shinyjs)
 library(glue)
 library(jsonlite)
 library(dplyr)
-library(httr)
+library(httr2)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
 
 if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
-  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+  stop("Set ANTHROPIC_API_KEY in your R environment before launching the app.")
 }
 
-call_claude <- function(prompt, max_tokens = 4000) {
-  api_key <- Sys.getenv("ANTHROPIC_API_KEY")
-  if (nchar(api_key) == 0) stop("ANTHROPIC_API_KEY environment variable is not set.")
-  resp <- POST(
-    "https://api.anthropic.com/v1/messages",
-    add_headers(
-      "x-api-key"         = api_key,
-      "anthropic-version" = "2023-06-01",
-      "content-type"      = "application/json"
-    ),
-    body = toJSON(list(
-      model      = "claude-sonnet-4-20250514",
-      max_tokens = max_tokens,
-      messages   = list(list(role = "user", content = prompt))
-    ), auto_unbox = TRUE),
-    encode = "raw"
-  )
-  if (http_error(resp)) stop("API error: ", content(resp, as = "text"))
-  content(resp, as = "parsed")$content[[1]]$text
+helper_paths <- c("call_claude_AIMECON26.R", "downloads/call_claude_AIMECON26.R")
+helper_path <- helper_paths[file.exists(helper_paths)][1L]
+if (is.na(helper_path)) {
+  stop("Place call_claude_AIMECON26.R beside sab_test.R and run the app from that folder.")
 }
+helper_env <- new.env()
+source(helper_path, local = helper_env)
+call_claude <- helper_env$call_claude
 
 clean_json <- function(x) {
   x <- gsub("```[a-zA-Z]*\\n?", "", x)
@@ -53,19 +41,64 @@ clean_json <- function(x) {
   x
 }
 
+merge_response <- function(raw, template, base_json = "{}") {
+  parsed <- fromJSON(clean_json(raw), simplifyVector = FALSE)
+  validate_fields <- function(value, expected) {
+    if (is.list(expected)) {
+      if (!is.list(value) || !all(names(expected) %in% names(value))) {
+        stop("The model response is missing required fields. Please try again.")
+      }
+      for (field in names(expected)) validate_fields(value[[field]], expected[[field]])
+    } else {
+      if (!is.character(value) || length(value) != 1L || is.na(value) || !nzchar(trimws(value))) {
+        stop("The model response contains an empty or invalid field. Please try again.")
+      }
+      if (length(expected) > 1L && !value %in% expected) {
+        stop("The model response contains a value outside the permitted choices. Please try again.")
+      }
+    }
+  }
+  validate_fields(parsed, template)
+  record <- fromJSON(base_json, simplifyVector = FALSE)
+  record[names(template)] <- parsed[names(template)]
+  toJSON(record, auto_unbox = TRUE, pretty = TRUE)
+}
+
+criterion_keys <- c("science_learning_objective", "writing_learning_objective_1",
+                    "writing_learning_objective_2")
+performance_levels <- c("weak", "developing", "competent")
+rubric_template <- list(rubric = setNames(
+  rep(list(as.list(setNames(rep("", 3L), performance_levels))), 3L), criterion_keys
+))
+rating_template <- setNames(rep(list(performance_levels), 3L), paste0(criterion_keys, "_rating"))
+feedback_template <- list(student_feedback = setNames(rep(list(""), 3L), criterion_keys))
+
 # ══════════════════════════════════════════════════════════════════════════════
 # LOAD EXTERNAL DATA (once at startup)
 # ══════════════════════════════════════════════════════════════════════════════
 
-load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/science_los.Rdata"))
-load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/writing_los.Rdata"))
+workshop_data_source <- function(filename) {
+  candidates <- file.path(c("data", "../data"), filename)
+  local_path <- candidates[file.exists(candidates)][1L]
+  if (!is.na(local_path)) return(local_path)
+  paste0("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/", filename)
+}
+
+workshop_data <- new.env()
+for (data_file in c("science_los.Rdata", "writing_los.Rdata")) {
+  data_source <- workshop_data_source(data_file)
+  load(if (startsWith(data_source, "https://")) url(data_source) else data_source,
+       envir = workshop_data)
+}
+science_los <- workshop_data$science_los
+writing_los <- workshop_data$writing_los
 
 pld_guidance <- paste(
-  readLines("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/pld_guidance.txt"),
+  readLines(workshop_data_source("pld_guidance.txt")),
   collapse = "\n"
 )
 feedback_guidance <- paste(
-  readLines("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/feedback_guidance.txt"),
+  readLines(workshop_data_source("feedback_guidance.txt")),
   collapse = "\n"
 )
 
@@ -136,8 +169,7 @@ write_essay_prompt <- function(guiding_los) {
 "You are assisting with the development of a constructed-response item \
 for a middle-school science assessment.
 
-Below is the approved context and learning objectives as a JSON object. \
-All existing fields must be preserved exactly in your output.
+Below is the approved context and learning objectives as a JSON object.
 
 {guiding_los}
 
@@ -150,7 +182,7 @@ REQUIREMENTS:
 - Be answerable in one short paragraph (approximately 5-8 sentences).
 
 OUTPUT FORMAT:
-Return the same JSON object with one additional field \"item_stem\". \
+Return only a JSON object with the string field \"item_stem\". \
 Do not include any text outside the JSON object."
   )
 }
@@ -161,8 +193,7 @@ build_step4_prompt <- function(item_components, pld_guidance) {
 for a middle-school science assessment.
 
 ITEM SPECIFICATION:
-The following JSON object contains the current item specification. \
-All existing fields must be preserved exactly in your output.
+The following JSON object contains the current item specification.
 
 {item_components}
 
@@ -184,7 +215,7 @@ CONSTRAINTS:
 - Write descriptors in clear, practical language appropriate for educators.
 
 OUTPUT FORMAT:
-Return the same JSON object with one additional top-level field called \"rubric\". \
+Return only a JSON object with the top-level field \"rubric\" shown below. \
 Do not include any text outside the JSON object.
 
 {{
@@ -234,7 +265,7 @@ REALISM GUIDELINES:
 - Do not include meta-commentary or signals that reveal the intended performance levels.
 
 OUTPUT FORMAT:
-Return the same JSON object with one additional top-level field \"student_essay\". \
+Return only a JSON object with the string field \"student_essay\". \
 Do not include any text outside the JSON object."
   )
 }
@@ -258,7 +289,7 @@ SCORING GUIDELINES:
 - When between levels, select the lower level.
 
 OUTPUT FORMAT:
-Return the same JSON object with three additional top-level fields. \
+Return only a JSON object with the three rating fields shown below. \
 Do not include any text outside the JSON object.
 
 {{
@@ -294,7 +325,7 @@ CONSTRAINTS:
 - Include one specific, actionable suggestion per objective where relevant.
 
 OUTPUT FORMAT:
-Return the same JSON object with one additional top-level field \"student_feedback\". \
+Return only a JSON object with the top-level field \"student_feedback\" shown below. \
 Do not include any text outside the JSON object.
 
 {{
@@ -447,8 +478,8 @@ ui <- page_fluid(
     # ── Hero ──────────────────────────────────────────────────────────────────
     div(class = "app-hero",
       tags$h2("Science Essay Assessment Builder"),
-      p("Build a complete formative assessment — from learning objective selection \
-         to student feedback — using a prompt chaining workflow with Claude.")
+      p("Workshop prototype: draft learning objectives, an item, a rubric, and model feedback."),
+      p("Use synthetic or non-sensitive teaching examples only. Model-generated ratings are not validated scores.")
     ),
 
     # ── Step 1: Science Learning Objective ────────────────────────────────────
@@ -483,7 +514,7 @@ ui <- page_fluid(
         tags$h5(class = "step-title", "Select Writing Learning Objectives")
       ),
       p(class = "text-muted small mb-3",
-        "Claude selects the two writing objectives best suited to your science topic. \
+        "Claude suggests two writing objectives for your science topic. \
          You may override either using the dropdowns below."),
       uiOutput("step2_ai_display"),
       div(class = "row g-2",
@@ -507,12 +538,12 @@ ui <- page_fluid(
         tags$h5(class = "step-title", "Review & Edit Essay Prompt")
       ),
       p(class = "text-muted small mb-3",
-        "Review the generated item stem. Edit it directly, regenerate it, or keep it as-is."),
+        "Keep uses the generated stem; Use Edits uses your text. Neither saves a file."),
       textAreaInput("item_stem_edit", label = NULL, value = "", rows = 6, width = "100%",
         placeholder = "Item stem will appear here..."),
       div(class = "d-flex gap-2 flex-wrap mt-2",
         actionButton("btn3_keep",  "Keep",        class = "btn btn-success",           icon = icon("check")),
-        actionButton("btn3_save",  "Save Edits",  class = "btn btn-outline-primary",   icon = icon("floppy-disk")),
+        actionButton("btn3_save",  "Use Edits",   class = "btn btn-outline-primary",   icon = icon("check")),
         actionButton("btn3_retry", "Try Again",   class = "btn btn-outline-secondary", icon = icon("arrows-rotate"))
       )
     ),
@@ -524,7 +555,7 @@ ui <- page_fluid(
         tags$h5(class = "step-title", "Review Performance Level Descriptors")
       ),
       p(class = "text-muted small mb-3",
-        "Review the analytic rubric generated for your item, then confirm to continue."),
+        "Review the draft rubric, then confirm to continue. Start a new session if it needs revision."),
       uiOutput("pld_ui"),
       actionButton("btn4", "Confirm Rubric & Continue →",
         class = "btn btn-primary mt-3", icon = icon("circle-check"))
@@ -571,7 +602,7 @@ ui <- page_fluid(
     div(class = "step-card locked", id = "card6",
       div(class = "step-header",
         div(class = "step-num", id = "num6", "6"),
-        tags$h5(class = "step-title", "Scores & Student Feedback")
+        tags$h5(class = "step-title", "Model Ratings & Student Feedback")
       ),
       uiOutput("scores_ui"),
       hr(class = "my-4"),
@@ -589,6 +620,8 @@ server <- function(input, output, session) {
 
   # ── State ─────────────────────────────────────────────────────────────────
   rv <- reactiveValues(
+    writing_ready = FALSE,
+    rubric_confirmed = FALSE,
     subdomain  = NULL,   # character
     lo         = NULL,   # character
     step2_json = NULL,   # JSON string: {subdomain, lo, writing_lo1, writing_lo2}
@@ -643,7 +676,7 @@ server <- function(input, output, session) {
       final$writing_learning_objective_2_rating
     )
     div(
-      tags$h6("Assigned Scores", class = "fw-bold mb-3"),
+      tags$h6("Model-assigned Performance Levels", class = "fw-bold mb-3"),
       div(class = "row g-3",
         lapply(seq_along(lo_labels), function(i) {
           div(class = "col-md-4",
@@ -680,6 +713,22 @@ server <- function(input, output, session) {
     )
   }
 
+  output$scores_ui <- renderUI({
+    req(rv$final_json)
+    render_scores(fromJSON(rv$final_json))
+  })
+  output$feedback_ui <- renderUI({
+    req(rv$final_json)
+    render_feedback(fromJSON(rv$final_json))
+  })
+
+  observeEvent(input$essay_text, {
+    rv$final_json <- NULL
+    addClass("card6", "locked")
+    removeClass("num5", "done")
+    removeClass("num6", "done")
+  }, ignoreInit = TRUE)
+
   # ── Step 1: Populate manual selectors ─────────────────────────────────────
   observe({
     updateSelectInput(session, "manual_subdomain",
@@ -687,14 +736,13 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$manual_subdomain, {
-    los <- science_los |>
-      filter(sub_domain == input$manual_subdomain) |>
-      pull(learning_objective)
+    los <- science_los$learning_objective[science_los$sub_domain == input$manual_subdomain]
     updateSelectInput(session, "manual_lo", choices = los)
   })
 
   # ── Step 1: Confirm ────────────────────────────────────────────────────────
   observeEvent(input$btn1, {
+    req(!isTRUE(rv$writing_ready))
     withProgress(message = "Selecting science learning objective...", value = .5, {
 
       if (input$lo_mode == "ai") {
@@ -710,6 +758,14 @@ server <- function(input, output, session) {
       } else {
         rv$subdomain <- input$manual_subdomain
         rv$lo        <- input$manual_lo
+      }
+
+      if (!any(science_los$sub_domain == rv$subdomain &
+               science_los$learning_objective == rv$lo, na.rm = TRUE)) {
+        showNotification("Select a science objective from the supplied list.", type = "error")
+        rv$subdomain <- NULL
+        rv$lo <- NULL
+        return()
       }
 
       output$step1_result_ui <- renderUI({
@@ -736,10 +792,15 @@ server <- function(input, output, session) {
       if (is.null(raw)) return()
 
       parsed <- tryCatch(
-        fromJSON(clean_json(raw)),
+        fromJSON(merge_response(raw, list(writing_lo1 = all_writing_los,
+                                         writing_lo2 = all_writing_los))),
         error = function(e) { showNotification("Could not parse writing LO selection.", type = "error"); NULL }
       )
       if (is.null(parsed)) return()
+      if (identical(parsed$writing_lo1, parsed$writing_lo2)) {
+        showNotification("Two distinct writing objectives are required. Please try again.", type = "error")
+        return()
+      }
 
       updateSelectInput(session, "wlo1", choices = all_writing_los, selected = parsed$writing_lo1)
       updateSelectInput(session, "wlo2", choices = all_writing_los, selected = parsed$writing_lo2)
@@ -754,13 +815,20 @@ server <- function(input, output, session) {
         )
       })
 
+      rv$writing_ready <- TRUE
+      lapply(c("btn1", "lo_mode", "manual_subdomain", "manual_lo"), disable)
       removeClass("card2", "locked")
     })
   }
 
   # ── Step 2: Confirm ────────────────────────────────────────────────────────
   observeEvent(input$btn2, {
-    req(rv$subdomain, rv$lo)
+    req(rv$subdomain, rv$lo, rv$writing_ready, is.null(rv$step3_json))
+    if (!isTRUE(input$wlo1 %in% all_writing_los) ||
+        !isTRUE(input$wlo2 %in% all_writing_los) || identical(input$wlo1, input$wlo2)) {
+      showNotification("Select two distinct writing objectives from the supplied list.", type = "warning")
+      return()
+    }
 
     step2_list <- list(
       subdomain   = rv$subdomain,
@@ -778,7 +846,7 @@ server <- function(input, output, session) {
       if (is.null(raw)) return()
 
       clean <- tryCatch(
-        clean_json(raw),
+        merge_response(raw, list(item_stem = ""), rv$step2_json),
         error = function(e) { showNotification("Could not parse item stem.", type = "error"); NULL }
       )
       if (is.null(clean)) return()
@@ -788,6 +856,7 @@ server <- function(input, output, session) {
         value = fromJSON(clean)$item_stem)
 
       runjs("document.getElementById('num2').classList.add('done');")
+      lapply(c("btn2", "wlo1", "wlo2"), disable)
       removeClass("card3", "locked")
     })
   })
@@ -803,42 +872,50 @@ server <- function(input, output, session) {
       if (is.null(raw)) return()
 
       clean <- tryCatch(
-        clean_json(raw),
+        merge_response(raw, rubric_template, json_str),
         error = function(e) { showNotification("Could not parse PLD response.", type = "error"); NULL }
       )
       if (is.null(clean)) return()
 
+      rv$step3_json <- json_str
       rv$step4_json <- clean
       output$pld_ui <- renderUI(render_pld_table(fromJSON(clean)))
 
       runjs("document.getElementById('num3').classList.add('done');")
+      lapply(c("btn3_keep", "btn3_save", "btn3_retry", "item_stem_edit"), disable)
       removeClass("card4", "locked")
     })
   }
 
   observeEvent(input$btn3_keep, {
-    req(rv$step3_json)
+    req(rv$step3_json, is.null(rv$step4_json))
     trigger_step4(rv$step3_json)
   })
 
   observeEvent(input$btn3_save, {
-    req(rv$step3_json)
-    p <- fromJSON(rv$step3_json)
-    p$item_stem <- input$item_stem_edit
-    updated <- toJSON(p, auto_unbox = TRUE, pretty = TRUE)
-    rv$step3_json <- updated
+    req(rv$step3_json, is.null(rv$step4_json))
+    if (!isTruthy(input$item_stem_edit) || !nzchar(trimws(input$item_stem_edit))) {
+      showNotification("Enter an item stem before continuing.", type = "warning")
+      return()
+    }
+    item <- fromJSON(rv$step3_json)
+    item$item_stem <- input$item_stem_edit
+    updated <- toJSON(item, auto_unbox = TRUE, pretty = TRUE)
     trigger_step4(updated)
   })
 
   observeEvent(input$btn3_retry, {
-    req(rv$step2_json)
+    req(rv$step2_json, rv$step3_json, is.null(rv$step4_json))
     withProgress(message = "Regenerating item stem...", value = .5, {
       raw <- tryCatch(
         call_claude(write_essay_prompt(rv$step2_json), max_tokens = 800),
         error = function(e) { showNotification(conditionMessage(e), type = "error"); NULL }
       )
       if (is.null(raw)) return()
-      clean <- tryCatch(clean_json(raw), error = function(e) NULL)
+      clean <- tryCatch(
+        merge_response(raw, list(item_stem = ""), rv$step2_json),
+        error = function(e) { showNotification("Could not parse the regenerated item stem.", type = "error"); NULL }
+      )
       if (is.null(clean)) return()
       rv$step3_json <- clean
       updateTextAreaInput(session, "item_stem_edit",
@@ -848,20 +925,22 @@ server <- function(input, output, session) {
 
   # ── Step 4: Confirm ────────────────────────────────────────────────────────
   observeEvent(input$btn4, {
-    req(rv$step4_json)
+    req(rv$step4_json, !isTRUE(rv$rubric_confirmed))
     parsed <- fromJSON(rv$step4_json)
     output$stem_display_ui <- renderUI({
       div(class = "info-box mb-3", style = "font-style: italic;",
         tags$b("Prompt: "), parsed$item_stem
       )
     })
+    rv$rubric_confirmed <- TRUE
+    disable("btn4")
     runjs("document.getElementById('num4').classList.add('done');")
     removeClass("card5", "locked")
   })
 
   # ── Step 5: Generate synthetic essay ──────────────────────────────────────
   observeEvent(input$btn_gen_essay, {
-    req(rv$step4_json)
+    req(rv$step4_json, rv$rubric_confirmed)
     withProgress(message = "Generating synthetic essay...", value = .5, {
       raw <- tryCatch(
         call_claude(
@@ -876,8 +955,13 @@ server <- function(input, output, session) {
         error = function(e) { showNotification(conditionMessage(e), type = "error"); NULL }
       )
       if (is.null(raw)) return()
-      clean <- tryCatch(clean_json(raw), error = function(e) NULL)
+      clean <- tryCatch(
+        merge_response(raw, list(student_essay = "")),
+        error = function(e) { showNotification("Could not parse the synthetic essay.", type = "error"); NULL }
+      )
       if (is.null(clean)) return()
+      rv$final_json <- NULL
+      addClass("card6", "locked")
       updateTextAreaInput(session, "essay_text",
         value = fromJSON(clean)$student_essay)
     })
@@ -885,11 +969,13 @@ server <- function(input, output, session) {
 
   # ── Step 5: Score + Feedback ───────────────────────────────────────────────
   observeEvent(input$btn_score, {
-    req(rv$step4_json)
-    if (nchar(trimws(input$essay_text)) <= 20) {
+    req(rv$step4_json, rv$rubric_confirmed)
+    if (!isTruthy(input$essay_text) || nchar(trimws(input$essay_text)) <= 20) {
       showNotification("Please enter an essay before scoring.", type = "warning")
       return()
     }
+    rv$final_json <- NULL
+    addClass("card6", "locked")
     withProgress(message = "Scoring essay...", value = .2, {
 
       # Inject essay into rubric JSON
@@ -905,7 +991,7 @@ server <- function(input, output, session) {
       if (is.null(scored_raw)) return()
 
       scored_clean <- tryCatch(
-        clean_json(scored_raw),
+        merge_response(scored_raw, rating_template, essay_json_str),
         error = function(e) { showNotification("Could not parse scoring response.", type = "error"); NULL }
       )
       if (is.null(scored_clean)) return()
@@ -920,16 +1006,12 @@ server <- function(input, output, session) {
       if (is.null(feedback_raw)) return()
 
       final_clean <- tryCatch(
-        clean_json(feedback_raw),
+        merge_response(feedback_raw, feedback_template, scored_clean),
         error = function(e) { showNotification("Could not parse feedback response.", type = "error"); NULL }
       )
       if (is.null(final_clean)) return()
 
       rv$final_json <- final_clean
-      final <- fromJSON(final_clean)
-
-      output$scores_ui   <- renderUI(render_scores(final))
-      output$feedback_ui <- renderUI(render_feedback(final))
 
       runjs("document.getElementById('num5').classList.add('done');")
       runjs("document.getElementById('num6').classList.add('done');")

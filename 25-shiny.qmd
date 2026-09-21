@@ -5,16 +5,27 @@ For R users, this means you can take data analysis workflows—often trapped in 
 Shiny runs on R, so you can use the same packages and data manipulation techniques you already know.
 Shiny is also available for Python, but this workshop focuses on the R implementation.
 
+## How Reactivity Connects Inputs and Outputs
+
 At its core, Shiny operates through reactivity. 
-This system automatically updates outputs when inputs change, creating a dynamic relationship between the user interface (UI) and server logic.
+This system automatically updates outputs when the inputs they depend on change, creating a dynamic relationship between the user interface (UI) and server logic.
 You can think of it as an “if-this-then-update-that” structure: when the user moves a slider or selects a new dataset, Shiny re-runs the relevant code to update the output. 
+It does not re-run the entire script with every change; Shiny tracks dependencies between reactive components.
 This reactivity is managed through reactive expressions, observers, and reactive values—concepts that can initially feel foreign to R users accustomed to linear scripts, but which quickly become intuitive once you start building.
+Reactive values hold changing information, reactive expressions compute reusable results, and observers perform actions in response to changes. Posit's [reactivity overview](https://shiny.posit.co/r/articles/build/reactivity-overview/) walks through how these pieces fit together.
+
+## The UI and Server
 
 A basic Shiny app consists of two main components: the UI and the server. 
 The UI defines what the user sees (inputs, outputs, layout), and the server defines how the app responds to user actions (computations, visualizations, data updates). 
-Together, these are wrapped in a `shinyApp()` function that launches the interactive environment. From there, you can add interactivity and polish through packages like `shinydashboard`, `shinyWidgets`, or `shinyjs`.
+Together, these are passed to `shinyApp(ui = ui, server = server)`, which creates the app object. A common starting point is to put the UI, server, and this final call in a single `app.R` file, then launch it with RStudio's **Run App** button. Posit's [first Shiny lesson](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/) shows this structure in a complete example.
+From there, you can add layouts and theming through [`bslib`](https://rstudio.github.io/bslib/), or extend the app through packages like `shinydashboard`, `shinyWidgets`, or `shinyjs`.
+
+## Shiny for Educational Measurement
 
 For educational measurement professionals, Shiny opens up a world of possibilities. 
 Imagine a tool that allows psychometricians to explore item characteristic curves interactively, or a dashboard that lets stakeholders visualize test-taker performance by demographic subgroup, year, or item type. 
 Shiny can also support workflow tools—such as item review interfaces, item metadata trackers, or automated score reporting systems—that streamline processes across teams. 
-Because everything is written in R, these apps can connect directly to your existing data pipelines, ensuring consistency and reproducibility across projects.
+Because the analysis logic is written in R, these apps can connect directly to your existing data pipelines, supporting consistency and reproducibility across projects. Shiny itself does not guarantee reproducible results; those still depend on the data, code, and computational environment used.
+
+We'll put these ideas to work in [Activity: Making a Shiny App](28-activity-make-llm-shiny-app.qmd). For tools that need to retain reviewer decisions or edited content, see [Saving R Shiny Data](29-saving-shiny-data.qmd) for the distinction between temporary app state and saved records.
