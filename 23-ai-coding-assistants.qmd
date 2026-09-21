@@ -21,6 +21,22 @@ We will briefly demonstrate this way of working, but participants will not be as
 
 The final category is the most consequential. A chatbot returns text for you to transfer into a project. A coding agent can take actions inside the project. That access makes the interaction more useful, but it also makes clear instructions, bounded permissions, review, and validation more important.
 
+## Choosing Ask, Plan, and Agent
+
+Many coding assistants now make this difference explicit through modes or agent settings. The exact names vary by product and change over time, but GitHub Copilot currently distinguishes **Ask**, **Plan**, and **Agent** in ways that map nicely onto the interaction patterns we've already practiced.[^ai-coding-agent-modes]
+
+| Setting | Closest workshop pattern | What it is useful for | What to watch |
+|---|---|---|---|
+| **Ask** | Conversational interaction | Understanding code, exploring alternatives, explaining an error, or asking "what would happen if...?" | The response may be plausible without being grounded in the right files, package versions, or institutional constraints. Ask for the evidence you need. |
+| **Plan** | A conversation before a transaction | Turning a vague goal into a sequence of proposed steps before any code changes are made | A plan can feel complete while still hiding assumptions. Review the scope, answer open questions, and decide what evidence would make the implementation acceptable. |
+| **Agent** | A bounded transaction or chained workflow | Giving the assistant a concrete task that may require reading files, editing code, running checks, and revising based on failures | The assistant can create side effects. Keep the task small enough to review, inspect the diff, and validate the result with appropriate checks. |
+
+I find this distinction helpful because it separates three decisions that can otherwise get blurred together: Do I want an explanation? Do I want a reviewed plan? Or do I want the assistant to take action? In the earlier API chapters, this is similar to the difference between a conversation that helps refine thinking and a transactional call that produces an output for a workflow. With coding agents, the stakes are a little higher because the "output" may be changed files, terminal commands, or a running application.
+
+Plan mode is often a useful middle step when you are not yet sure what files matter, what the risks are, or how large the change should be. The plan itself is still just model output, so it needs review. But it can make the human decision point visible before the assistant starts changing the project. Agent mode is better once the task is bounded: "Update this Shiny app so the prompt is saved with each response, then run the existing tests" is a better agent task than "make the app better."
+
+The next chapter takes this one step further. If Ask, Plan, and Agent describe how much action the assistant should take in a single session, [skills](24-skill-agents.qmd) describe reusable procedures the assistant can bring into that session: how to review a workshop page, how to validate an analysis, or how to follow a team's release process.
+
 ## How the Workflow Changes
 
 A traditional programming workflow often begins with remembering syntax, searching documentation, copying an example, adapting it, and debugging the result. A coding assistant can compress parts of that loop because the question, the relevant files, the proposed edit, and the error output can remain in one working environment.
@@ -78,5 +94,7 @@ Institutional policy matters as much as technical capability. Before using a cod
 These examples illustrate a fast-moving product category rather than a complete comparison. Features, access, costs, and institutional controls vary by product and plan.[^ai-coding-assistant-currency]
 
 The next chapter examines how custom skills can give coding agents reusable procedures. The chapters that follow apply this broader idea to Shiny development. The goal is not to hand control to an assistant, but to use one as a collaborator while you remain responsible for the problem, the evidence, and the final code.
+
+[^ai-coding-agent-modes]: Ask, Plan, and Agent descriptions were checked against official [GitHub Copilot Chat documentation](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/asking-github-copilot-questions-in-your-ide) and [VS Code agent customization documentation](https://code.visualstudio.com/docs/agent-customization/custom-agents) on September 21, 2026.
 
 [^ai-coding-assistant-currency]: Product descriptions were checked against official GitHub, Anthropic, and Cursor documentation on September 19, 2026.

@@ -8,6 +8,8 @@ If an error appears in the final result, you can isolate which link in the chain
 This modularity mirrors good measurement practice: test and validate each subcomponent of a process before interpreting the final results.
 It's similar to having an error in your data cleaning that leads to an erroneous statistical conclusion.
 
+Metaprompting is useful before you start chaining prompts together. If each step has its own prompt, each prompt should be reviewed, tested, and revised before its output becomes the input to the next step. Otherwise, a small ambiguity early in the chain can quietly shape everything downstream.
+
 If you've heard of "multi-agent systems" before, you may be wondering if chained workflows are examples of these systems. The answer is _it depends_.
 (Unsatisfying, I know.)
 In general, the purpose of both processes is the same - breaking down a sophisticated process into discrete tasks - but the implementation of this process varies a bit when comparing chained workflows and multi-agentic systems.

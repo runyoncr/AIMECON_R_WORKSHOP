@@ -17,6 +17,7 @@ It does not make sense to maintain a conversation when you are asking the model 
 This does not mean that conversational interactions are not valuable when incorporating generative AI models into your workflow.
 When building prompts for a workflow, I find conversational interactions extremely valuable for helping optimize the prompt.
 I often ask the model to help me identify missing information or suggest how to provide an example output structure that will improve future downstream tasks I have planned.
+This kind of prompt-about-a-prompt is often called **metaprompting**. It may start as a conversation, but once the prompt is ready for repeated use, it should become a stable, testable instruction that can be used transactionally in your workflow.
 
 Even then, it is often useful to move back and forth between the two approaches:
 

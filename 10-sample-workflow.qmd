@@ -4,8 +4,8 @@ It will be helpful to have a fully developed, high-level template of what an LLM
 Subsequent sections will provide more detail on some of the individual components of the workflow, and having this initial workflow design will help structure that discussion.
 
 One aspect of using LLMs to support your workflow is how that use ties into your **validity argument** framework. 
-Although traditional validity frameworks were not developed when LLMs were ubiquitous and widely adopted, the same basic principles from these frameworks still apply.
-There are at least two perspectives on integrating LLM workflows into validity frameworks:
+Although traditional validity frameworks were developed before LLMs were ubiquitous and widely adopted, the same basic principles from these frameworks still apply.
+There are at least two perspectives on integrating LLM-supported workflows into validity frameworks:
 
 1.  An Aspect of the Validity Argument
 
@@ -21,39 +21,40 @@ That is, you are likely incorporating an LLM-supported workflow into a larger pr
 
 Here's the large diagram. More detail will be provided on the two main components below.
 
-![](images/Workflow_Cropped.png){fig-align="center" width=50%}
+![](images/Workflow_Cropped.png){fig-align="center" width=50% fig-alt="A high-level workflow diagram showing iterative prompt development followed by LLM workflow outcome evaluation."}
 
 ## Iterative Prompt Development
 
-Prior to using an LLm in any workflow, it's (obviously) imperative to ensure that the prompt is doing what you want it to do.
+Prior to using an LLM in any workflow, it's (obviously) imperative to ensure that the prompt is doing what you want it to do.
 This task should not be taken lightly, and significant time should be dedicated to this first step.
 Analogs in traditional measurement tasks include data cleaning and wrangling before completing an analysis, or thoroughly testing your data-generation process for a simulation study.
 Any issues not detected in this initial step will have downstream effects, so you want to mitigate that as much as possible.
 
 These first tasks are in the top part of the diagram:
 
-![](images/Prompt_Revision_Cropped.png){fig-align="center"}
+![](images/Prompt_Revision_Cropped.png){fig-align="center" fig-alt="A workflow diagram focused on revising and testing prompts before using them in a broader LLM workflow."}
 
 You start with an initial idea for a prompt, and then you should review and refine it multiple times before testing it.
 This process involves ensuring that your prompt contains all of the necessary details to help ensure it's successful.
 Most LLMs have evolved such that extensive prompt engineering isn't necessary, in the sense that these models now can have a generally good idea of what you want them to do, even if you don't phrase everything perfectly.
 However, this does not mean that the model has the level of detail necessary to successfully carry out the task.
-And, equally importantly, any important detail that is omitted the model will generate on its own, which may be problematic for specific tasks[^1].
+And, equally importantly, any important detail that is omitted is something the model will generate on its own, which may be problematic for specific tasks[^1].
+One strategy for catching these gaps before a prompt enters a workflow is **metaprompting** (sometimes written **meta-prompting**): asking an LLM to critique, clarify, or improve the prompt itself before you use it for the downstream task.
 
 The simple idea at the start of the workflow is: make a prompt &rarr; test it &rarr; see if the output of the prompt is good.
-For example, if you're working on a content generation prompt, you'll want to work carefully on the prompt, apply it to a handful of different use cases (content areas, etc), and then look _across the different outputs_ what worked and what didn't.
+For example, if you're working on a content generation prompt, you'll want to work carefully on the prompt, apply it to a handful of different use cases (content areas, etc), and then look _across the different outputs_ to see what worked and what didn't.
 It's hard to be able to identify nuanced shortcomings of model outputs if you're only testing the model on a subset of the conditions under which it'll be used (sound familiar?).
-When you get a sub-optimal output, it also takes time to think about how to prevent that from happening again by reverse-engineering additional prompt instructions or adjustments. 
+When you get a suboptimal output, it also takes time to think about how to prevent that from happening again by reverse-engineering additional prompt instructions or adjustments. 
 This reverse-engineering process is often what takes the most work for me - I think I know how to fix the issue, I implement a revision or add instructions, and it doesn't _quite_ do what I wanted it to do, so I have to do it again.
-And, often times, again and again.
-We'll practice this prompt engineering process [in an activity later.]()
+And, often, again and again.
+We'll practice this prompt engineering process [in an activity later](16-activity-iterative-prompt-development.qmd).
 
 **It should be expected that you will have to make some adjustments to your prompt.** 
-This is not a shortcoming of your prompt engineering skills or the LLM; sometimes you just don't realize what some of the nuances of the prompt-output will produce.
+This is not a shortcoming of your prompt engineering skills or the LLM; sometimes you just don't realize what some of the nuances of the prompt-output relationship will produce.
 Depending on the complexity of the prompt, I may have to revise anywhere from 3-20 times.
 
 I should note that, depending on the nature of your prompt, having subject-matter experts (SMEs) involved in this process can be _extremely_ beneficial. 
-For example, if you're using a prompt to generate content for a specific subject, having the same SMEs that you would trust with item writing involved in the initial prompt crafting can incredibly helpful.
+For example, if you're using a prompt to generate content for a specific subject, having the same SMEs that you would trust with item writing involved in the initial prompt crafting can be incredibly helpful.
 While you bring rigorous measurement design expertise to the build, they bring the necessary content-relevant knowledge that can really help you develop a strong prompt.
 
 When possible, and especially if you're working with a team, try to develop a set of candidate prompts for your workflow. 
@@ -62,7 +63,7 @@ Then test your prompts on the same set of candidate use cases, and see what work
 Then, through the reverse-engineering process above, make a new Frankenstein prompt and see if it accomplishes what you want it to accomplish.
 Visually, it might look like this:
 
-![](images/Single_Prompt_Cropped.png){fig-align="center"}
+![](images/Single_Prompt_Cropped.png){fig-align="center" fig-alt="A workflow diagram showing candidate prompt versions tested across the same candidate use cases before selecting and revising a prompt."}
 
 ### Sequential Prompt Development
 
@@ -72,23 +73,23 @@ Sure, they can probably do it, but will the final product be what you want it to
 What design decisions did the contractor make - e.g., how many bathrooms, bathroom locations, number of bedrooms, open-concept floorplan, etc.?
 If you didn't specify these in your instructions, the contractor had to make these decisions on their own.
 
-LLMs are the same way - anything that is important to complete the task that you don't specify, the model will have to generate on it's own.
-This is especially important when there is a sequential or logical dependence between the output that you're developing, and it provides you with more flexibility to alter the workflow at different stages.
+LLMs are the same way - anything that is important to complete the task that you don't specify, the model will have to generate on its own.
+This is especially important when there is a sequential or logical dependence among the outputs that you're developing, and it gives you more flexibility to alter the workflow at different stages.
 
 When using a sequential prompt workflow, the same evaluation for a single prompt generalizes to the multi-step prompts.
-The only wrinkle is that sometimes when evaluating later prompts (e.g., 1c below) you can catch that you might need to change something in your initial prompt (1a) to help that output due to the sequential nature of the build.
+The only wrinkle is that sometimes when evaluating later prompts (e.g., 1c below) you can catch that you might need to change something in your initial prompt (1a) to improve that later output because of the sequential nature of the build.
 Visually, it might look something like this:
 
-![](images/Complex_Prompt_Cropped.png){fig-align="center"}
+![](images/Complex_Prompt_Cropped.png){fig-align="center" fig-alt="A workflow diagram showing a complex prompt broken into multiple sequential prompt steps that can be tested and revised."}
 
 ## LLM Workflow Outcome Evaluation
 
 The second part of the workflow comes after you've done the hard work of initial prompt refinement.
 This is the fun part, much like finally running your analysis or starting your simulation study after the preliminary steps are completed.
 
-![](images/LLM_Eval_Cropped.png){fig-align="center"}
+![](images/LLM_Eval_Cropped.png){fig-align="center" fig-alt="A workflow diagram showing outcome evaluation after initial prompt refinement."}
 
-This part of the workflow likely mirrors existing non-LLM-support processes in your workflow.
+This part of the workflow likely mirrors existing non-LLM-supported processes in your workflow.
 What quality control work is done after you have item writers generate content?
 What scoring guardrails are used when evaluating human scores?
 You'll want to adapt that process for the LLM-supported workflow.
@@ -105,7 +106,7 @@ A model that achieves high agreement with noisy or biased human labels inherits 
 Second, aggregate performance metrics can obscure meaningful subgroup differences: a high F1 across a test set tells you nothing about whether the model behaves consistently across examinee demographics, item types, or content domains — the kinds of questions addressed by fairness analyses and differential item functioning studies. 
 Third, surface-level similarity to a reference item or response does not guarantee construct validity; an LLM-generated item can be fluent and structurally similar to expert-written content while still failing to assess the intended construct. 
 Finally, and perhaps most importantly, NLP metrics evaluate outputs in isolation, whereas educational measurement is concerned with the entire decision chain — from content generation or scoring through to the high-stakes decisions that follow. 
-Fitness for that purpose requires a different evaluative lens, going full-circle to the validity point at the beginning of this section.
+Fitness for that purpose requires a different evaluative lens, bringing us full circle to the validity point at the beginning of this section.
 
 
 [^1]: It is not problematic, but in fact awesome, when the task is for brainstorming.

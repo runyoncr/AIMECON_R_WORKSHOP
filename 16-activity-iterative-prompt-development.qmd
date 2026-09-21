@@ -7,6 +7,8 @@ Download the notebook for this activity:
 
 Now it's time to practice the first element of an LLM workflow: iterative prompt development.
 This is the process of developing and tweaking a prompt until it's ready to be implemented more widely in your workflow.
+One strategy we'll use here is **metaprompting**: asking an LLM to review and improve a prompt before that prompt is used for the real task.
+In other words, the model is not scoring essays yet; it is helping us improve the instructions we will later use for scoring.
 
 For the purposes of this activity, I made some synthetic essay responses with Claude Sonnet 4.5 based on the [`Dataset for Rubric-based Essay Scoring (DREsS)`](https://haneul-yoo.github.io/dress/) data, which is based on essays written by English as a foreign language learners.
 I used responses to the essay prompt, "Do you think that smartphones have destroyed communication among family and friends? Give specific reasons and details to support your opinion?" when creating the 10 synthetic essays.
@@ -26,7 +28,7 @@ The essays in that dataset are scored on a range from 1 to 5, in increments of 0
 The first step is to write an initial prompt to score the essays. I _very_ rarely use an initial prompt without asking an LLM to review it for completeness and organization.
 To demonstrate this first step, I purposefully have written a vague prompt that I wouldn't use in practice so we can see what type of guidance a model might provide for us.
 You can use this prompt, or you can review it and improve it on your own before providing it to a model.
-I've also included the outer prompt that I would use when asking an LLM for feedback on a prompt.
+I've also included the outer prompt that I would use when asking an LLM for feedback on a prompt. That outer prompt is the metaprompt: it tells the model how to review the scoring prompt, what kinds of weaknesses to look for, and what kind of revised prompt to return.
 
 ```{r, eval = FALSE}
 
@@ -271,6 +273,32 @@ essays_df <- essays_df |>
 | Edge case handling | Add rules for plagiarism flags, non-English responses, or AI-generated text if relevant |
 | API call | You will need to add your own LLM API call function to pass `prompt_ready` to the model and parse the returned JSON |
 
+:::
+
+## What Makes This Metaprompting?
+
+In this example, `score_rubric_prompt` is the prompt we eventually want to use for essay scoring. `prompt_improvement()` is the metaprompt because it asks the model to inspect that scoring prompt before we use it in the workflow. The model is being used as a reviewer of instructions rather than as the essay scorer.
+
+The reusable pattern is:
+
+1. Draft the task prompt.
+2. Ask the model to critique the prompt for ambiguity, missing context, edge cases, and output-format problems.
+3. Ask for a revised version that preserves the important constraints.
+4. Review the model's suggestions as a human expert.
+5. Test the revised prompt on several examples.
+6. Repeat until the prompt behaves consistently enough for the intended workflow.
+
+::: {.callout-tip}
+## A useful metaprompt checklist
+
+A good metaprompt usually tells the model to:
+
+- identify the downstream task and intended use of the prompt;
+- preserve non-negotiable criteria, rubric language, scoring scales, and policy constraints;
+- look for ambiguity, missing context, edge cases, and output-format risks;
+- suggest concrete revisions rather than only giving general advice;
+- label decisions that still require a human expert; and
+- avoid inventing new criteria or rules unless explicitly asked.
 :::
 
 ## Implement Revisions
