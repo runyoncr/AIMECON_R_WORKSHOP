@@ -95,6 +95,7 @@ Keep the report proportional to the selected mode. Include:
 - **Changes:** created or modified source, citations, companion files, navigation entries, and any approved renames or generated artifacts.
 - **Validation:** checks actually run, whether examples executed and visible output was inspected, and any blockers or skipped checks. Do not claim predictable exact output from stochastic models.
 - **Editorial follow-up:** remaining decisions or limitations. For integrated pages also summarize alignment/overlap review, operational risks, and currency evidence with source URLs and verification dates. Keep example reports short.
+- **Optional Shiny handoff:** for a validated example page, state its source path and central teaching claim so `/shiny-app-builder` can create a companion app. Do not invoke that skill automatically or promise an app before the page validates.
 
 ## Completion Checks
 

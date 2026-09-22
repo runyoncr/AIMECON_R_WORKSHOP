@@ -126,3 +126,92 @@ legend("topleft", legend = c("Self-study", "Workshop"),
 The different slopes show the fitted interaction. These are point estimates, not guaranteed individual scores or evidence that either method causes improvement. For uncertainty, `confint(interaction_model)` gives coefficient confidence intervals; the interaction interval concerns the **difference in slopes**.
 
 For syntax, see the [R documentation for `lm()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html); for interpretation, see [UCLA's interaction guide](https://stats.oarc.ucla.edu/r/seminars/interactions-r/).
+
+<!-- shiny-app-builder:start -->
+## Explore It with Shiny
+
+The companion app makes the page's central comparison adjustable: include the interaction to allow different fitted slopes, or remove it to require parallel slopes. You can also change the centering value, compare the methods at a selected number of study hours, and reveal the synthetic observations behind the lines.
+
+```{r}
+#| label: ex-interaction-shiny-preview-data
+#| echo: false
+shiny_preview_hour <- 8
+shiny_preview_predictions <- subset(predictions, hours == shiny_preview_hour)
+```
+
+::: {.shiny-preview aria-labelledby="shiny-preview-title"}
+<div class="shiny-preview-label" id="shiny-preview-title">Static preview</div>
+
+<p class="shiny-preview-note">This shows the app's default state. The controls are intentionally disabled because the workshop page is not running a Shiny server.</p>
+
+::: {.shiny-preview-layout}
+::: {.shiny-preview-controls aria-label="Static representations of app controls"}
+### Controls
+
+<label for="shiny-preview-model">Model specification</label>
+<select id="shiny-preview-model" disabled>
+  <option selected>Different slopes (interaction)</option>
+  <option>Parallel slopes (no interaction)</option>
+</select>
+
+<label for="shiny-preview-center">Center study hours at: <strong>5</strong></label>
+<input id="shiny-preview-center" type="range" min="1" max="9" value="5" disabled>
+
+<label for="shiny-preview-hour">Compare methods at: <strong>8 hours</strong></label>
+<input id="shiny-preview-hour" type="range" min="1" max="9" value="8" disabled>
+
+<label class="shiny-preview-check" for="shiny-preview-points">
+  <input id="shiny-preview-points" type="checkbox" disabled>
+  Show the synthetic student data
+</label>
+:::
+
+::: {.shiny-preview-output}
+### Fitted scores
+
+```{r}
+#| label: ex-interaction-shiny-preview-plot
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| fig-alt: "Static app preview with a workshop fitted line that is steeper than the self-study fitted line from two to eight study hours."
+plot(predicted_score ~ hours, data = self_study_predictions,
+     type = "l", col = "steelblue4", lwd = 3,
+     ylim = range(predictions$predicted_score),
+     xlab = "Study hours", ylab = "Predicted score")
+lines(predicted_score ~ hours, data = workshop_predictions,
+      col = "darkorange3", lwd = 3, lty = 2)
+legend("topleft", legend = c("Self-study", "Workshop"),
+       col = c("steelblue4", "darkorange3"), lwd = 3,
+       lty = c(1, 2), bty = "n")
+```
+
+<div class="shiny-preview-summary" aria-label="Default app results">
+<div class="shiny-preview-stat shiny-preview-stat-self">
+<span>Self-study slope</span>
+<strong>`r round(self_study_slope, 2)`</strong>
+<small>points per hour</small>
+</div>
+<div class="shiny-preview-stat shiny-preview-stat-workshop">
+<span>Workshop slope</span>
+<strong>`r round(workshop_slope, 2)`</strong>
+<small>points per hour</small>
+</div>
+</div>
+
+At eight hours, the fitted scores are **`r round(shiny_preview_predictions$predicted_score[shiny_preview_predictions$method == "Self-study"], 1)`** for self-study and **`r round(shiny_preview_predictions$predicted_score[shiny_preview_predictions$method == "Workshop"], 1)`** for the workshop.
+:::
+:::
+:::
+
+[Download the complete Shiny app](downloads/example-linear-regression-interactions-shiny.zip){download="example-linear-regression-interactions-shiny.zip"}
+
+After extracting the ZIP, install `shiny` if needed, open R in the extracted `example-linear-regression-interactions` folder, and run:
+
+```{r}
+#| eval: false
+shiny::runApp()
+```
+
+The app runs locally and does not use an API or upload data. Like the example above, it uses synthetic observations and illustrates fitted associations rather than causal effects. The app intentionally omits confidence intervals so the interaction and centering interpretations remain the focus.
+<!-- shiny-app-builder:end -->

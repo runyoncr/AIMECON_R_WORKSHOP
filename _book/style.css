@@ -5,3 +5,116 @@ h1, h2 {
 h3 {
   margin-top: 1.5em;
 }
+
+.shiny-preview {
+  margin: 1.5rem 0;
+  border: 1px solid #cbd3dc;
+  border-top: 4px solid #35698f;
+  background: #f7f8fa;
+}
+
+.shiny-preview-label {
+  display: inline-block;
+  padding: 0.45rem 0.75rem;
+  background: #35698f;
+  color: #fff;
+  font-weight: 700;
+}
+
+.shiny-preview-note {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #dce1e6;
+  color: #46525e;
+}
+
+.shiny-preview-layout {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.32fr) minmax(0, 0.68fr);
+}
+
+.shiny-preview-controls,
+.shiny-preview-output {
+  min-width: 0;
+  padding: 1rem;
+}
+
+.shiny-preview-controls {
+  border-right: 1px solid #dce1e6;
+  background: #fff;
+}
+
+.shiny-preview-controls h3,
+.shiny-preview-output h3 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.shiny-preview-controls label:not(.shiny-preview-check) {
+  display: block;
+  margin: 1rem 0 0.35rem;
+  font-weight: 600;
+}
+
+.shiny-preview-controls select,
+.shiny-preview-controls input[type="range"] {
+  width: 100%;
+}
+
+.shiny-preview-controls :disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.shiny-preview-check {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.shiny-preview-output .cell-output-display,
+.shiny-preview-output .quarto-figure {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.shiny-preview-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.shiny-preview-stat {
+  padding: 0.75rem;
+  border-top: 3px solid #466f99;
+  background: #fff;
+}
+
+.shiny-preview-stat-workshop {
+  border-color: #b85c20;
+}
+
+.shiny-preview-stat span,
+.shiny-preview-stat small,
+.shiny-preview-stat strong {
+  display: block;
+}
+
+.shiny-preview-stat strong {
+  margin: 0.2rem 0;
+  font-size: 1.45rem;
+}
+
+@media (max-width: 700px) {
+  .shiny-preview-layout,
+  .shiny-preview-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .shiny-preview-controls {
+    border-right: 0;
+    border-bottom: 1px solid #dce1e6;
+  }
+}

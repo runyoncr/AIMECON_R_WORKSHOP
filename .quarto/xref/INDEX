@@ -319,5 +319,17 @@
   },
   "30-references.qmd": {
     "30-references.html": "e15f166a"
+  },
+  "example-linear-regression-interactions.qmd": {
+    "example-linear-regression-interactions.html": "bcdf69d3"
+  },
+  "23-ai-coding-assistants.qmd": {
+    "23-ai-coding-assistants.html": "2fafce09"
+  },
+  "24-skill-agents.qmd": {
+    "24-skill-agents.html": "5fbc6981"
+  },
+  "28-activity-make-llm-shiny-app.qmd": {
+    "28-activity-make-llm-shiny-app.html": "d6c1b989"
   }
 }
