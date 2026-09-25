@@ -89,10 +89,12 @@ You may also have noticed that some providers offer options such as "Extended Th
 
 When using an LLM via API, you often have more precise control over how much reasoning a model performs before generating a response. 
 Longer or more intensive reasoning can be helpful for complex tasks, but that does not mean you should always use the highest setting—even lower settings are quite powerful for many use cases.
-It is also important to remember that this additional reasoning uses tokens. As a result, the cost of a response may reflect not only the tokens in the visible output, but also tokens consumed during intermediate test-time computation.
+It is also important to remember that additional reasoning uses additional token. 
+As a result, the cost of a response may reflect not only the tokens in the visible output, but also tokens consumed during intermediate test-time computation.
 
 The `effort` parameter in the `call_claude` function that we are using is what gives you control over how much computation Claude is willing to spend on a response.
-Anthropic's API currently defaults to `high` effort for Claude Sonnet 5 if you do not explicitly set the parameter. The workshop helper uses `claude-sonnet-5` and explicitly sets `effort = "low"` as its default, so change the argument when you want to compare other effort levels.
+Anthropic's API currently defaults to `high` effort for Claude Sonnet 5 if you do not explicitly set the parameter. 
+The workshop helper uses `claude-sonnet-5` and explicitly sets `effort = "low"` as its default, so change the argument when you want to compare other effort levels.
 Below is a copy of the table in the [Anthropic documentation](https://platform.claude.com/docs/en/build-with-claude/effort) describing the different effort settings:
 
 | Level | Description | Typical use case |
