@@ -27,12 +27,16 @@ library(jsonlite)
 
 ## Step 2: Enter Your API Key
 
-When you run the chunk below, a popup window will appear asking for your Anthropic API key. Paste your key into the box and click OK. Your key will be stored securely for this R session only — it is never saved to disk.
+When you run the chunk below, R will first check whether your Anthropic API key is already available in the `ANTHROPIC_API_KEY` environment variable. If it is not found, a popup window will appear asking for your key. Paste your key into the box and click OK. Your key will be stored securely for this R session only — it is never saved to disk.
 
 If you do not yet have an API key, you can create one at [console.anthropic.com](https://console.anthropic.com) under **API Keys**. You won't need many credits for the workshop - $5 should suffice.
 
 ```{r api-key}
-Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+if (!nzchar(Sys.getenv("ANTHROPIC_API_KEY"))) {
+  Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
+} else {
+  message("ANTHROPIC_API_KEY is already set.")
+}
 ```
 
 ---
