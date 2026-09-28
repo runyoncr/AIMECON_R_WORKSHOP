@@ -15,7 +15,7 @@ These workshop materials were built and tested using R version 4.6.1 (Happy Hop,
 ## Installing RStudio Desktop
 
 [Posit](https://posit.co/){target="_blank"} makes a wonderful integrated development environment (IDE) called [RStudio Desktop](https://posit.co/download/rstudio-desktop/){target="_blank"}.
-This _was_ my preferred IDE for R; I've since started using VS Code because my organization offers an LLM coding assistant through that IDE.
+This _was_ my preferred IDE for R; I've since started using VS Code because my organization offers an LLM coding assistant ([see here](23-llm-coding-assistant.qmd){target="_blank"}) through that IDE.
 I will be using RStudio throughout the workshop, except for a brief demonstration of how LLM coding assistants work.
 Posit also makes [Positron](https://positron.posit.co/){target="_blank"}, a data-science code editor based on the VS Code editor framework.
 

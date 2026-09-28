@@ -56,7 +56,7 @@ library(shinychat)
 
 chat$set_turns(list()) # Resets the conversation
 
-live_browser(chat)
+shiny::runGadget(shinychat::chat_app(chat, app_options = list(quiet = TRUE)))
 ```
 
 ## Turn-based interaction

@@ -47,7 +47,7 @@ Let's now see how the functionality changes for the browser-based version. You c
 
 ```{r browser}
 chat$set_turns(list()) # Resets the conversation
-live_browser(chat)
+shiny::runGadget(shinychat::chat_app(chat, app_options = list(quiet = TRUE)))
 ```
 
 ## Turn-based Interaction

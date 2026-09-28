@@ -137,9 +137,11 @@ one_med_mcq_json <- med_mcq_prompt_json(sample_gender, sample_age, sample_diagno
 
 one_med_json_output <- call_claude(one_med_mcq_json)
 ```
+
 ```{r, echo=FALSE}
 load("one_med_json_output.Rdata")
 ```
+
 ```{r}
 cat(one_med_json_output)
 ```

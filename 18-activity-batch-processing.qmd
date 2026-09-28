@@ -47,11 +47,13 @@ parse_scores <- function(response_text) {
 
   tryCatch({
     scores <- fromJSON(clean)
+    values <- unlist(scores[c("content_score", "organization_score", "language_score", "total_score")])
+    stopifnot(length(values) == 4L, is.numeric(values), all(is.finite(values)))
     data.frame(
-      content      = scores$content_score,
-      organization = scores$organization_score,
-      language     = scores$language_score,
-      total        = scores$total_score,
+      content      = values[1],
+      organization = values[2],
+      language     = values[3],
+      total        = values[4],
       stringsAsFactors = FALSE
     )
   }, error = function(e) {
@@ -85,7 +87,7 @@ start_time <- Sys.time()
 
 loop_results <- student_essays |>
   mutate(
-    raw_response = map_chr(scoring_prompt, ~ call_claude(.x, model = "claude-sonnet-4-5")),
+    raw_response = map_chr(scoring_prompt, call_claude),
     scores       = map(raw_response, parse_scores)
   ) |>
   tidyr::unnest(scores)
@@ -133,6 +135,7 @@ The five steps below mirror the structure described in the overview chapter: cre
 ### Step 1: Create Batch Requests
 
 Each request in a batch is a JSON object that contains a `custom_id` (your identifier, returned with the result so you can match responses back to inputs) and a `params` block that mirrors the body of a standard `/v1/messages` call.
+Batch requests go directly to the API, so we need to include the model, token limit, and effort settings used by the shared `call_claude()` helper ourselves.
 
 ```{r, eval = FALSE}
 
@@ -141,9 +144,10 @@ create_batch_requests <- function(essays_df) {
     list(
       custom_id = paste0("essay_", essays_df$id[i]),
       params = list(
-        model      = "claude-sonnet-4-5",
-        max_tokens = 1024,
-        messages   = list(
+        model         = "claude-sonnet-5",
+        max_tokens    = 4096,
+        output_config = list(effort = "low"),
+        messages      = list(
           list(role = "user", content = essays_df$scoring_prompt[i])
         )
       )
@@ -213,7 +217,7 @@ batch_info <- submit_batch(batch_jsonl)
 ### Step 4: Check Batch Status
 
 Batches process asynchronously. Poll this endpoint until `processing_status` is `"ended"`.
-For a small job like this one, it typically takes under two minutes.
+Even a small batch can take longer than expected; check its status before retrieving results.
 
 ```{r, eval = FALSE}
 
@@ -231,6 +235,8 @@ check_batch_status <- function(batch_id) {
   cat("Status:     ", result$processing_status, "\n")
   cat("Succeeded:  ", result$request_counts$succeeded, "\n")
   cat("Errored:    ", result$request_counts$errored, "\n")
+  cat("Canceled:   ", result$request_counts$canceled, "\n")
+  cat("Expired:    ", result$request_counts$expired, "\n")
   invisible(result)
 }
 
@@ -266,26 +272,44 @@ get_batch_results <- function(batch_id) {
   lapply(results_lines, fromJSON, simplifyVector = FALSE)
 }
 
+score_batch_result <- function(result) {
+  if (!identical(result$result$type, "succeeded")) {
+    warning("Request ", result$custom_id, " ended as ", result$result$type)
+    return(NULL)
+  }
+  if (!identical(result$result$message$stop_reason, "end_turn")) {
+    warning("Request ", result$custom_id, " stopped before completing")
+    return(NULL)
+  }
+
+  blocks <- result$result$message$content
+  text <- vapply(blocks, function(block) {
+    if (identical(block$type, "text")) block$text else ""
+  }, character(1))
+  scores <- parse_scores(paste(text[text != ""], collapse = ""))
+  if (anyNA(scores)) {
+    warning("No valid scores for request ", result$custom_id)
+    return(NULL)
+  }
+  scores
+}
+
 
 extract_batch_scores <- function(results_list) {
   rows <- lapply(results_list, function(result) {
-    if (result$result$type != "succeeded") {
-      warning("Request failed: ", result$custom_id, " — ", result$result$error$message)
-      return(NULL)
-    }
-
-    # The content field is a list with one text block
-    response_text <- result$result$message$content[[1]]$text
-
-    scores <- parse_scores(response_text)
+    scores <- score_batch_result(result)
+    if (is.null(scores)) return(NULL)
     scores$essay_id <- sub("^essay_", "", result$custom_id)
     scores
   })
 
-  do.call(rbind, Filter(Negate(is.null), rows))
+  rows <- Filter(Negate(is.null), rows)
+  if (length(rows) == 0L) stop("No valid scores in this batch")
+  do.call(rbind, rows)
 }
 
 
+if (!identical(batch_status$processing_status, "ended")) stop("Batch is still processing")
 batch_results <- get_batch_results(batch_info$id)
 batch_scores  <- extract_batch_scores(batch_results)
 
@@ -293,8 +317,7 @@ batch_scores  <- extract_batch_scores(batch_results)
 
 ### Comparing Loop and Batch Results
 
-Since both runs used the same prompt and model, scores should be very similar.
-Differences, if any, reflect natural sampling variation at the default temperature.
+Both runs use the same prompt, model, and effort setting. Compare the scores rather than assuming two independent calls will agree exactly.
 
 ```{r, eval = FALSE}
 
@@ -332,29 +355,25 @@ datatable(comparison |> mutate(across(where(is.numeric), ~ round(.x, 2))),
 
 The loop and batch runs above each scored each essay once.
 That's appropriate for production scoring, but as measurement professionals you'll rightly ask: how stable are those scores?
-Does the model arrive at the same score if you ask again, and does that depend on how much randomness is in the sampling process?
+What happens when we keep the prompt, model, and settings fixed and ask again?
 
-The `temperature` parameter controls that randomness.
-At the default value (`1.0`), the model samples probabilistically from its output distribution, which means repeated calls can produce different scores for the same essay.
-For this exercise we use Claude Sonnet 4.5 because it supports the `temperature` values being compared. Anthropic's current models documentation marks `temperature` as deprecated for newer models, and even `temperature = 0` does not guarantee identical output. See the [Messages API documentation](https://platform.claude.com/docs/en/api/messages#body-temperature) for the current behavior.
+We'll use Claude Sonnet 5 at `effort = "low"`, matching the workshop helper. Effort governs how much reasoning the model spends; it is not a replacement for the sampling control discussed in [Temperature](08-gen-ai-parameters.qmd#sec-temperature). Repeated calls can still produce different scores, so we'll measure what actually happens rather than predict it.
 
-Batch processing makes this kind of multi-rep study cheap and fast.
-The following code submits 20 calls per essay (200 requests per condition, 400 total) at the default temperature and at `temperature = 0`, so we can see whether and how much scores vary.
+Batch processing makes a multi-rep study more economical, though it still incurs charges and may take time. The following code prepares 20 calls per essay in a single batch. Check the printed request count before submitting it.
 
 ```{r, eval = FALSE}
 
-# Helper: create n_reps requests per essay with a given temperature
-create_multi_rep_requests <- function(essays_df, n_reps = 20, temperature = NULL) {
+create_multi_rep_requests <- function(essays_df, n_reps = 20) {
   requests <- list()
   k <- 1L
 
   for (i in seq_len(nrow(essays_df))) {
     params <- list(
-      model      = "claude-sonnet-4-5",
-      max_tokens = 1024,
-      messages   = list(list(role = "user", content = essays_df$scoring_prompt[i]))
+      model         = "claude-sonnet-5",
+      max_tokens    = 4096,
+      output_config = list(effort = "low"),
+      messages      = list(list(role = "user", content = essays_df$scoring_prompt[i]))
     )
-    if (!is.null(temperature)) params$temperature <- temperature
 
     for (rep in seq_len(n_reps)) {
       requests[[k]] <- list(
@@ -366,7 +385,7 @@ create_multi_rep_requests <- function(essays_df, n_reps = 20, temperature = NULL
   }
 
   cat("Created", length(requests), "requests for",
-      nrow(essays_df), "essays ×", n_reps, "repetitions\n")
+      nrow(essays_df), "essays x", n_reps, "repetitions\n")
   invisible(requests)
 }
 
@@ -374,58 +393,43 @@ create_multi_rep_requests <- function(essays_df, n_reps = 20, temperature = NULL
 # Helper: extract scores from a multi-rep batch, preserving essay_id and rep
 extract_multirep_scores <- function(results_list) {
   rows <- lapply(results_list, function(result) {
-    if (result$result$type != "succeeded") {
-      warning("Failed: ", result$custom_id)
-      return(NULL)
-    }
+    scores <- score_batch_result(result)
+    if (is.null(scores)) return(NULL)
 
-    response_text <- result$result$message$content[[1]]$text
-    scores        <- parse_scores(response_text)
-
-    # custom_id format: "essay_<id>_rep_<rep>"
-    parts           <- strsplit(result$custom_id, "_")[[1]]
-    scores$essay_id  <- parts[2]
-    scores$rep       <- as.integer(parts[4])
+    scores$essay_id <- sub("^essay_(.*)_rep_[0-9]+$", "\\1", result$custom_id)
+    scores$rep      <- as.integer(sub("^.*_rep_", "", result$custom_id))
     scores
   })
 
-  do.call(rbind, Filter(Negate(is.null), rows))
+  rows <- Filter(Negate(is.null), rows)
+  if (length(rows) == 0L) stop("No valid scores in this batch")
+  do.call(rbind, rows)
 }
 
 ```
 
 ```{r, eval = FALSE}
 
-# ── Default temperature ───────────────────────────────────────────────────────
-default_temp_requests <- create_multi_rep_requests(student_essays, n_reps = 20)
-default_temp_jsonl    <- write_batch_file(default_temp_requests, "batch_default_temp.jsonl")
-default_temp_info     <- submit_batch(default_temp_jsonl)
+repeat_requests <- create_multi_rep_requests(student_essays, n_reps = 20)
+cat("Confirm before submitting:", length(repeat_requests), "requests\n")
+repeat_jsonl <- write_batch_file(repeat_requests, "batch_repeat_scores.jsonl")
+
+```
+
+Once you've checked the count and are ready to incur the cost, submit the batch:
+
+```{r, eval = FALSE}
+
+repeat_info <- submit_batch(repeat_jsonl)
 
 ```
 
 ```{r, eval = FALSE}
 
-# Check when finished, then retrieve
-default_temp_status  <- check_batch_status(default_temp_info$id)
-default_temp_results <- get_batch_results(default_temp_info$id)
-default_temp_scores  <- extract_multirep_scores(default_temp_results)
-
-```
-
-```{r, eval = FALSE}
-
-# ── Temperature = 0 ───────────────────────────────────────────────────────────
-low_temp_requests <- create_multi_rep_requests(student_essays, n_reps = 20, temperature = 0)
-low_temp_jsonl    <- write_batch_file(low_temp_requests, "batch_low_temp.jsonl")
-low_temp_info     <- submit_batch(low_temp_jsonl)
-
-```
-
-```{r, eval = FALSE}
-
-low_temp_status  <- check_batch_status(low_temp_info$id)
-low_temp_results <- get_batch_results(low_temp_info$id)
-low_temp_scores  <- extract_multirep_scores(low_temp_results)
+repeat_status <- check_batch_status(repeat_info$id)
+if (!identical(repeat_status$processing_status, "ended")) stop("Batch is still processing")
+repeat_results <- get_batch_results(repeat_info$id)
+repeat_scores <- extract_multirep_scores(repeat_results)
 
 ```
 
@@ -433,13 +437,15 @@ low_temp_scores  <- extract_multirep_scores(low_temp_results)
 
 ```{r, eval = FALSE}
 
-summarise_scores <- function(df, label) {
-  df |>
+summarise_scores <- function(df, essays_df) {
+  valid_summary <- df |>
     group_by(essay_id) |>
     summarise(
-      n             = n(),
+      n_valid       = n(),
       total_mean    = mean(total,        na.rm = TRUE),
       total_sd      = sd(total,          na.rm = TRUE),
+      total_min     = min(total),
+      total_max     = max(total),
       content_mean  = mean(content,      na.rm = TRUE),
       content_sd    = sd(content,        na.rm = TRUE),
       org_mean      = mean(organization, na.rm = TRUE),
@@ -448,41 +454,35 @@ summarise_scores <- function(df, label) {
       lang_sd       = sd(language,       na.rm = TRUE),
       .groups = "drop"
     ) |>
-    mutate(across(where(is.numeric), ~ round(.x, 2)),
-           condition = label) |>
+    mutate(across(-c(essay_id, n_valid), ~ round(.x, 2)))
+
+  essays_df |>
+    transmute(essay_id = as.character(id)) |>
+    left_join(valid_summary, by = "essay_id") |>
+    mutate(n_valid = coalesce(n_valid, 0L)) |>
     arrange(total_mean)
 }
 
-default_summary <- summarise_scores(default_temp_scores, "Default temperature")
-low_temp_summary <- summarise_scores(low_temp_scores, "Temperature = 0")
+repeat_summary <- summarise_scores(repeat_scores, student_essays)
 
 ```
 
 ```{r, eval = FALSE}
 
-datatable(default_summary,
+datatable(repeat_summary,
           options = list(pageLength = 10, scrollX = TRUE),
-          caption = "Score consistency — default temperature (20 reps per essay)")
-
-```
-
-```{r, eval = FALSE}
-
-datatable(low_temp_summary,
-          options = list(pageLength = 10, scrollX = TRUE),
-          caption = "Score consistency — temperature = 0 (20 reps per essay)")
+          caption = "Score repeatability — Sonnet 5, low effort (20 requests per essay)")
 
 ```
 
 ::: {.callout-note}
 ## What to look for
 
-With default temperature you should see meaningful within-essay score variance (non-zero SDs), especially on the Language criterion where small differences in wording can tip a borderline response either way.
-At `temperature = 0` the SDs may shrink, but they should not be expected to collapse completely: Anthropic notes that even zero temperature does not guarantee identical output.
+Compare the number of valid responses with the 20 requests per essay, then inspect the range and SD of each criterion. An SD of zero means the observed scores matched in this run, not that the model will always give the same score. With only one valid response, the SD is undefined; investigate missing or invalid responses before interpreting the results.
 
 A few things worth reflecting on from a measurement standpoint:
 
-- **Determinism vs. reliability.** Zero variance at `temperature = 0` might look like perfect reliability, but it's better understood as repeatability under identical conditions. A model that always assigns the same score to an essay hasn't necessarily converged on the *correct* score. And remember, even under conditions of `temperature = 0`, this does not _guarantee_ that the model will provide the same score every time.
-- **Score distributions.** Compare the rank ordering of essays between the two conditions. If the rankings are stable but the variances differ, the temperature parameter is affecting precision rather than validity.
-- **Cost implications.** These 400 requests (20 essays × 20 reps × 2 conditions) would have cost roughly twice as much without batch pricing. For a real inter-rater reliability study at scale, that 50% discount compounds quickly.
+- **Repeatability vs. correctness.** A model that always assigns the same score to an essay hasn't necessarily converged on the *correct* score. Comparing with human or adjudicated scores is a separate validation step.
+- **Score distributions.** Which essays have the widest within-essay spread? Are the criterion scores or rank ordering stable enough for the intended use?
+- **Cost implications.** This extension submits `20 * nrow(student_essays)` requests in addition to the earlier loop and batch. Anthropic's batch discount reduces the token price, not the number of requests; review the count before running a larger study.
 :::
