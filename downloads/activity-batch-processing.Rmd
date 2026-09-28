@@ -20,111 +20,11 @@ if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
   Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 }
 
-source("call_claude_AIMECON26.R")
+source("downloads/call_claude_AIMECON26.R")
+source("downloads/score_essay.R")
 
 # Load student essay data
 load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"))
-
-score_essay <- function(essay) {
-  prompt <- glue(
-    "You are an expert essay grader with experience in evaluating argumentative writing
-    at the secondary and post-secondary level.
-
-    ## TASK
-    Score the student essay provided below using the three criteria in the rubric.
-    Each criterion is scored from 1 to 5 in increments of 0.5 (1, 1.5, 2, 2.5, 3,
-    3.5, 4, 4.5, 5). Apply each criterion independently before calculating the total.
-
-    ## ESSAY PROMPT GIVEN TO STUDENT
-    'Do you think that smartphones have destroyed communication among family and friends?
-    Give specific reasons and details to support your opinion.'
-
-    ## SCORING RUBRIC
-
-    ### CRITERION 1: Content (1-5)
-    Score the degree to which the essay develops a clear argument with relevant reasons
-    and specific supporting examples in response to the essay prompt.
-
-    - 5: Argument is thoroughly developed with multiple specific, relevant reasons and
-         concrete examples. All content directly supports the central claim.
-    - 4: Argument is well-developed with mostly specific reasons and examples. Minor
-         gaps in development or relevance.
-    - 3: Argument is adequately developed but reasons are sometimes general or examples
-         are vague. Some content may be loosely connected to the argument.
-    - 2: Argument is underdeveloped. Reasons are largely general or repetitive and
-         examples are missing or unclear.
-    - 1: Little to no recognizable argument. Content is largely irrelevant, missing,
-         or does not respond to the prompt.
-
-    Scores between these anchors (e.g., 1.5, 2.5) should be used when the essay falls
-    between two descriptors.
-
-    ### CRITERION 2: Organization (1-5)
-    Score the degree to which the essay is logically structured at both the essay level
-    (introduction, body, conclusion) and the paragraph level (topic sentences, coherence
-    devices, single main idea per paragraph).
-
-    - 5: Essay has a clear introduction with a thesis, well-organized body paragraphs
-         each focused on a single idea, and a conclusion. Transitions and coherence
-         devices are used effectively throughout.
-    - 4: Essay structure is clear and mostly effective. Minor issues with transitions
-         or paragraph focus.
-    - 3: Basic structure is present but inconsistently applied. Some paragraphs may
-         lack focus or transitions may be absent or mechanical.
-    - 2: Structure is difficult to follow. Paragraphs may lack topic sentences or blend
-         multiple unrelated ideas. Few or no transitions.
-    - 1: No discernible organizational structure. Ideas are presented randomly with no
-         paragraph logic.
-
-    ### CRITERION 3: Language (1-5)
-    Score the overall quality of language use across three equally weighted
-    sub-dimensions: (a) vocabulary range and accuracy, (b) grammar and usage
-    correctness, and (c) spelling and punctuation accuracy. Average across these three
-    sub-dimensions to arrive at a single Language score.
-
-    - 5: (a) Sophisticated and varied vocabulary with accurate collocations; (b) grammar
-         and usage are correct throughout; (c) spelling and punctuation are correct
-         throughout.
-    - 4: (a) Good vocabulary range with occasional imprecision; (b) mostly correct
-         grammar with minor errors that do not impede meaning; (c) few spelling or
-         punctuation errors.
-    - 3: (a) Adequate but limited vocabulary, some word choice errors; (b) grammar
-         errors are noticeable but meaning is generally clear; (c) some spelling and
-         punctuation errors.
-    - 2: (a) Narrow or frequently inaccurate vocabulary; (b) grammar errors are frequent
-         and sometimes obscure meaning; (c) spelling and punctuation errors are frequent.
-    - 1: (a) Very limited vocabulary with pervasive errors; (b) grammar errors throughout
-         severely impede meaning; (c) spelling and punctuation errors throughout.
-
-    ## HANDLING EDGE CASES
-    - If the essay is off-topic or does not respond to the prompt, assign a Content
-      score of 1 and note this in the justification.
-    - If the essay is fewer than 50 words, assign a maximum score of 2 for Content
-      and Organization, and score Language based on what is present.
-
-    ## STUDENT ESSAY TO SCORE
-    {essay}
-
-    ## OUTPUT INSTRUCTIONS
-    Return your response ONLY as a valid JSON object with no additional text before or
-    after it. Use the following structure exactly:
-
-    {{
-      'content_score': <number>,
-      'content_justification': '<1-2 sentence justification>',
-      'organization_score': <number>,
-      'organization_justification': '<1-2 sentence justification>',
-      'language_score': <number>,
-      'language_justification': '<1-2 sentence justification referencing vocabulary,
-                                  grammar, and mechanics>',
-      'total_score': <sum of three scores>
-    }}
-
-    Ensure that 'total_score' equals the sum of the three criterion scores. Do not
-    include any text outside the JSON object."
-  )
-  return(prompt)
-}
 
 # Build scoring prompts for all essays
 student_essays$scoring_prompt <- sapply(student_essays$essay, score_essay)
@@ -145,6 +45,8 @@ In the previous activity, we developed and refined a scoring prompt and tested i
 
 This activity works through that progression in two parts. First, we'll extend the single-essay call from the previous activity into a full loop-based scoring run — the approach you'd reach for when batch processing isn't available or isn't needed. Then we'll implement the same task using Anthropic's Batch API, compare the approaches, and use the batch infrastructure to explore a question that should feel natural to measurement professionals: how consistent is the model's scoring across repeated calls?
 
+We'll pick up exactly where the previous activity left off: `student_essays` is loaded, `score_essay()` is defined, and we have a single scored essay in `student_essays$scoring_output[1]` to confirm the prompt is working.
+
 ---
 
 ## Part 1: Scoring Essays in a Loop
@@ -159,7 +61,25 @@ parse_scores <- function(response_text) {
   clean <- trimws(clean)
 
   tryCatch({
-    scores <- fromJSON(clean)
+    scores <- tryCatch(
+      fromJSON(clean),
+      error = function(parse_error) {
+        score_names <- c("content_score", "organization_score",
+                         "language_score", "total_score")
+        extracted <- vapply(score_names, function(name) {
+          match <- regexec(
+            paste0("['\\\"]?", name,
+                   "['\\\"]?\\s*:\\s*(-?[0-9]+(?:\\.[0-9]+)?)"),
+            clean,
+            perl = TRUE
+          )
+          parts <- regmatches(clean, match)[[1]]
+          if (length(parts) < 2L) NA_real_ else as.numeric(parts[2])
+        }, numeric(1))
+        if (anyNA(extracted)) stop(parse_error)
+        as.list(setNames(extracted, score_names))
+      }
+    )
     values <- unlist(scores[c("content_score", "organization_score", "language_score", "total_score")])
     stopifnot(length(values) == 4L, is.numeric(values), all(is.finite(values)))
     data.frame(
@@ -333,9 +253,21 @@ batch_status <- check_batch_status(batch_info$id)
 <details>
 <summary><strong>Tip: Polling for completion</strong></summary>
 
-For jobs you'll leave running while you move on to other work, you can wrap `check_batch_status()` in a polling loop that checks every 30 seconds and prints a message when the job finishes. For our workshop setting, we'll just call it manually a minute or two after submitting.
+For jobs you'll leave running while you move on to other work, you can wrap `check_batch_status()` in a polling loop that checks every 30 seconds and prints a message when the job finishes.
+For our workshop setting, we'll just call it manually a minute or two after submitting, but I've included syntax below on how you can do this automatically with a polling loop.
 
 </details>
+
+```{r poll-batch-status, eval = FALSE}
+repeat {
+  batch_status <- check_batch_status(batch_info$id)
+  if (identical(batch_status$processing_status, "ended")) {
+    message("Batch processing finished.")
+    break
+  }
+  Sys.sleep(30)
+}
+```
 
 ### Step 5: Retrieve and Parse Results
 
@@ -422,6 +354,9 @@ comparison <- loop_scores |>
     by = "essay_id"
   )
 
+# save(comparison, file = "data/loop-vs-batch-comparison.RData")
+load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/loop-vs-batch-comparison.RData"))
+
 datatable(comparison |> mutate(across(where(is.numeric), ~ round(.x, 2))),
           options = list(pageLength = 10, scrollX = TRUE),
           caption = "Loop vs. Batch scores — same prompt, same model")
@@ -433,7 +368,7 @@ datatable(comparison |> mutate(across(where(is.numeric), ~ round(.x, 2))),
 
 The loop and batch runs above each scored each essay once. That's appropriate for production scoring, but as measurement professionals you'll rightly ask: how stable are those scores? What happens when we keep the prompt, model, and settings fixed and ask again?
 
-We'll use Claude Sonnet 5 at `effort = "low"`, matching the workshop helper. Effort governs how much reasoning the model spends; it is not a replacement for sampling controls such as temperature. Repeated calls can still produce different scores, so we'll measure what actually happens rather than predict it.
+We'll use Claude Sonnet 5 at `effort = "low"`, matching the workshop helper. Effort governs how much reasoning the model spends; it is not a replacement for the sampling control discussed in [Temperature](08-gen-ai-parameters.qmd#sec-temperature). Repeated calls can still produce different scores, so we'll measure what actually happens rather than predict it.
 
 Batch processing makes a multi-rep study more economical, though it still incurs charges and may take time. The following code prepares 20 calls per essay in a single batch. Check the printed request count before submitting it.
 
@@ -528,9 +463,13 @@ summarise_scores <- function(df, essays_df) {
 }
 
 repeat_summary <- summarise_scores(repeat_scores, student_essays)
+
+# save(repeat_summary, file = "data/repeat-summary.RData")
 ```
 
 ```{r table-repeat, eval = FALSE}
+load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/repeat-summary.RData"))
+
 datatable(repeat_summary,
           options = list(pageLength = 10, scrollX = TRUE),
           caption = "Score repeatability — Sonnet 5, low effort (20 requests per essay)")

@@ -406,17 +406,17 @@ score_essay <- function(essay) {
     after it. Use the following structure exactly:
     
     {{
-      'content_score': <number>,
-      'content_justification': '<1-2 sentence justification>',
-      'organization_score': <number>,
-      'organization_justification': '<1-2 sentence justification>',
-      'language_score': <number>,
-      'language_justification': '<1-2 sentence justification referencing vocabulary,
-                                  grammar, and mechanics>',
-      'total_score': <sum of three scores>
+     \"content_score\": <number>,
+     \"content_justification\": \"<1-2 sentence justification>\",
+     \"organization_score\": <number>,
+     \"organization_justification\": \"<1-2 sentence justification>\",
+     \"language_score\": <number>,
+     \"language_justification\": \"<1-2 sentence justification referencing vocabulary,
+                                  grammar, and mechanics>\",
+     \"total_score\": <sum of three scores>
     }}
     
-    Ensure that 'total_score' equals the sum of the three criterion scores. Do not
+     Ensure that \"total_score\" equals the sum of the three criterion scores. Do not
     include any text outside the JSON object."
   )
   

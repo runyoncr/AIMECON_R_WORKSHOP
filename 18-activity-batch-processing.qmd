@@ -5,14 +5,31 @@ Download the notebook for this activity:
   📥 Download `activity-batch-processing.Rmd`
 </a>
 
-Before running the examples below, source the workshop's canonical helper and confirm your Anthropic API key is available in the session. This activity reuses the same `call_claude()` interface described in the earlier connection chapter, rather than redefining a separate local version.
+Before running the examples below, source the workshop's canonical helper and confirm your Anthropic API key is available in the session. This activity reuses the same `call_claude()` interface described in the earlier connection chapter, rather than redefining a separate local version. We'll also reload the essays and function from the previous activity.
 
 ```{r, eval = FALSE}
+# Packages
+library(dplyr)
+library(purrr)
+library(glue)
+
 if (Sys.getenv("ANTHROPIC_API_KEY") == "") {
   Sys.setenv(ANTHROPIC_API_KEY = rstudioapi::askForSecret("Anthropic API Key"))
 }
 
 source("downloads/call_claude_AIMECON26.R")
+source("downloads/score_essay.R")
+
+# Download the data
+load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/student_essays.Rdata"))
+
+# Creating new column of prompts to keep it in the same df
+student_essays$scoring_prompt <- sapply(student_essays$essay, score_essay)
+
+# Trying the first one
+student_essays$scoring_output <- NA
+student_essays$scoring_output[1] <- call_claude(student_essays$scoring_prompt[1])
+
 ```
 
 The shared helper returns the model's final text block as a single character string, which makes it easy to pass the result directly into `parse_scores()` or `purrr::map_chr()`.
@@ -46,7 +63,25 @@ parse_scores <- function(response_text) {
   clean <- trimws(clean)
 
   tryCatch({
-    scores <- fromJSON(clean)
+    scores <- tryCatch(
+      fromJSON(clean),
+      error = function(parse_error) {
+        score_names <- c("content_score", "organization_score",
+                         "language_score", "total_score")
+        extracted <- vapply(score_names, function(name) {
+          match <- regexec(
+            paste0("['\\\"]?", name,
+                   "['\\\"]?\\s*:\\s*(-?[0-9]+(?:\\.[0-9]+)?)"),
+            clean,
+            perl = TRUE
+          )
+          parts <- regmatches(clean, match)[[1]]
+          if (length(parts) < 2L) NA_real_ else as.numeric(parts[2])
+        }, numeric(1))
+        if (anyNA(extracted)) stop(parse_error)
+        as.list(setNames(extracted, score_names))
+      }
+    )
     values <- unlist(scores[c("content_score", "organization_score", "language_score", "total_score")])
     stopifnot(length(values) == 4L, is.numeric(values), all(is.finite(values)))
     data.frame(
@@ -246,8 +281,21 @@ batch_status <- check_batch_status(batch_info$id)
 
 ::: {.callout-tip}
 For jobs you'll leave running while you move on to other work, you can wrap `check_batch_status()` in a polling loop that checks every 30 seconds and prints a message when the job finishes.
-For our workshop setting, we'll just call it manually a minute or two after submitting.
+For our workshop setting, we'll just call it manually a minute or two after submitting, but I've included syntax below on how you can do this automatically with a polling loop.
 :::
+
+```{r poll-batch-status, eval = FALSE}
+repeat {
+  batch_status <- check_batch_status(batch_info$id)
+  if (identical(batch_status$processing_status, "ended")) {
+    message("Batch processing finished.")
+    break
+  }
+  Sys.sleep(30)
+}
+```
+
+
 
 ### Step 5: Retrieve and Parse Results
 
@@ -342,6 +390,9 @@ comparison <- loop_scores |>
       rename_with(~ paste0("batch_", .x), -essay_id),
     by = "essay_id"
   )
+
+# save(comparison, file = "data/loop-vs-batch-comparison.RData")
+load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/loop-vs-batch-comparison.RData"))
 
 datatable(comparison |> mutate(across(where(is.numeric), ~ round(.x, 2))),
           options  = list(pageLength = 10, scrollX = TRUE),
@@ -465,9 +516,13 @@ summarise_scores <- function(df, essays_df) {
 
 repeat_summary <- summarise_scores(repeat_scores, student_essays)
 
+# save(repeat_summary, file = "data/repeat-summary.RData")
+
 ```
 
 ```{r, eval = FALSE}
+
+load(url("https://raw.githubusercontent.com/runyoncr/AIMECON_R_WORKSHOP/main/data/repeat-summary.RData"))
 
 datatable(repeat_summary,
           options = list(pageLength = 10, scrollX = TRUE),
