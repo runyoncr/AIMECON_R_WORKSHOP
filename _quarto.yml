@@ -76,6 +76,7 @@ book:
     - part: "Example Pages"
       chapters:
         - example-linear-regression-interactions.qmd
+        - example-statistical-suppression.qmd
         
     # - part: "Retired Pages"
     #   chapters: 
