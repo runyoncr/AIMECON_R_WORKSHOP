@@ -1437,5 +1437,49 @@
       "Example Pages",
       "<span class='chapter-number'>31</span>  <span class='chapter-title'>Interactions in Linear Regression</span>"
     ]
+  },
+  {
+    "objectID": "example-statistical-suppression.html",
+    "href": "example-statistical-suppression.html",
+    "title": "32  Suppressor Variables in Regression",
+    "section": "",
+    "text": "32.1 Generate Example Data\nCan a variable with almost no correlation with an outcome still help predict it? A suppressor variable can strengthen another predictor’s contribution by accounting for variation in that predictor that is unrelated to the outcome. Here we demonstrate this pattern using synthetic data and only base R.\nThese are synthetic measurements for 120 students, not results from an actual study. We deliberately construct a test_index that mixes subject knowledge with an unrelated response-style component. The outcome, score, depends on knowledge plus random noise, but not on response style.\nCodeset.seed(2026)\n\nknowledge &lt;- rnorm(120)\nresponse_style &lt;- rnorm(120)\n\nstudents &lt;- data.frame(\n  test_index = knowledge + response_style,\n  response_style = response_style,\n  score = 70 + 8 * knowledge + rnorm(120, mean = 0, sd = 3)\n)\n\nhead(students)\n\n  test_index response_style    score\n1  2.4267933      1.9062042 74.95445\n2  1.0521070      2.1317977 61.69374\n3  0.3706945      0.2314564 74.70120\n4  0.8121970      0.8969457 71.52194\n5 -2.4054323     -1.7387927 64.65335\n6 -2.0472411      0.4688479 49.80764\nEach row represents one student. rnorm() draws normally distributed values, and set.seed() makes the random draws reproducible. Knowledge and response style are generated independently, with mean 0 and standard deviation 1 in the population. Their sample correlation need not be exactly zero.\nThe test_index is an arbitrary numeric index, not a standardized test score. We retain response style as a measured predictor but leave knowledge out of the fitted models: the point is to see how the two observed predictors work together.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Suppressor Variables in Regression</span>"
+    ]
+  },
+  {
+    "objectID": "example-statistical-suppression.html#inspect-the-correlations",
+    "href": "example-statistical-suppression.html#inspect-the-correlations",
+    "title": "32  Suppressor Variables in Regression",
+    "section": "\n32.2 Inspect the Correlations",
+    "text": "32.2 Inspect the Correlations\ncor() calculates the pairwise Pearson correlations. round() changes only their displayed precision.\n\nCodecorrelations &lt;- cor(students)\nround(correlations, 2)\n\n               test_index response_style score\ntest_index           1.00           0.69  0.72\nresponse_style       0.69           1.00  0.04\nscore                0.72           0.04  1.00\n\n\nThe test index correlates with the outcome (0.72). Response style correlates with the test index (0.69) but has little correlation with the outcome (0.04). This is the pattern we built into the data: response style contributes to the index without contributing to the score-generation rule.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Suppressor Variables in Regression</span>"
+    ]
+  },
+  {
+    "objectID": "example-statistical-suppression.html#compare-two-regression-models",
+    "href": "example-statistical-suppression.html#compare-two-regression-models",
+    "title": "32  Suppressor Variables in Regression",
+    "section": "\n32.3 Compare Two Regression Models",
+    "text": "32.3 Compare Two Regression Models\nFirst predict scores using the test index alone. Then add response style. In an R formula, ~ separates the outcome from its predictors, and + includes both predictors without an interaction.\n\nCodesimple_model &lt;- lm(score ~ test_index, data = students)\nsuppression_model &lt;- lm(score ~ test_index + response_style, data = students)\n\nround(coef(simple_model), 2)\n\n(Intercept)  test_index \n      69.11        4.45 \n\nCoderound(coef(suppression_model), 2)\n\n   (Intercept)     test_index response_style \n         70.10           8.07          -7.75 \n\n\nlm() fits each model, and coef() extracts its named coefficient estimates. Compare the test_index coefficients using the same students and the same measurement units:\n\nCodesimple_slope &lt;- coef(simple_model)[[\"test_index\"]]\nadjusted_slope &lt;- coef(suppression_model)[[\"test_index\"]]\nstyle_slope &lt;- coef(suppression_model)[[\"response_style\"]]\n\ncomparison &lt;- data.frame(\n  model = c(\"Test index only\", \"Test index + response style\"),\n  test_index_slope = c(simple_slope, adjusted_slope),\n  r_squared = c(\n    summary(simple_model)$r.squared,\n    summary(suppression_model)$r.squared\n  ),\n  residual_sd = c(sigma(simple_model), sigma(suppression_model))\n)\n\ncomparison[-1] &lt;- round(comparison[-1], 2)\ncomparison\n\n                        model test_index_slope r_squared residual_sd\n1             Test index only             4.45      0.52        6.02\n2 Test index + response style             8.07      0.90        2.71\n\n\nsummary() supplies \\(R^2\\), the proportion of sample outcome variation explained by the model. sigma() supplies the residual standard deviation, in score points. The [[\"test_index\"]] expressions retrieve that predictor’s coefficient by name; comparison[-1] selects the numeric columns for rounding.\n\n\n\n\n\n\nQuantity\nInterpretation\n\n\n\nTest-index slope, alone\nOne additional index unit is associated with 4.45 additional predicted score points.\n\n\nTest-index slope, adjusted\nHolding response style constant, one additional index unit is associated with 8.07 additional predicted score points.\n\n\nResponse-style slope, adjusted\nHolding the test index constant, one additional response-style unit is associated with a -7.75-point change in predicted score.\n\n\n\nAdding response style makes the positive test-index coefficient larger, increases \\(R^2\\), and reduces the residual standard deviation. An increase in \\(R^2\\) alone is not evidence of suppression: adding a predictor cannot decrease ordinary in-sample \\(R^2\\). Here the coefficient change and correlation pattern are the important additional evidence.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Suppressor Variables in Regression</span>"
+    ]
+  },
+  {
+    "objectID": "example-statistical-suppression.html#see-the-coefficient-change",
+    "href": "example-statistical-suppression.html#see-the-coefficient-change",
+    "title": "32  Suppressor Variables in Regression",
+    "section": "\n32.4 See the Coefficient Change",
+    "text": "32.4 See the Coefficient Change\nBoth bars describe the same test-index unit, but they answer different questions: the first is an unadjusted association, and the second holds response style constant.\n\nCodebarplot(\n  c(simple_slope, adjusted_slope),\n  names.arg = c(\"Index alone\", \"Adjusted for style\"),\n  col = c(\"steelblue4\", \"darkorange3\"),\n  ylim = c(0, max(simple_slope, adjusted_slope) * 1.15),\n  ylab = \"Score points per test-index unit\",\n  border = NA\n)\nabline(h = 0)\n\n\n\n\n\n\n\nWhy does this happen? In our construction, test_index - response_style equals knowledge. The second predictor lets the model account for the response-style component that obscures the knowledge-score association. In the population, the index-only slope is 4; including response style gives slopes of 8 for the index and -8 for response style. The fitted values differ because this is a finite sample with random noise.\nThe negative response-style coefficient does not mean response style causes lower scores. At a fixed test index, a larger response-style component implies less knowledge in this constructed example. Its conditional association can therefore be negative even when its marginal correlation with the outcome is near zero.\nThis illustrates classical suppression: the suppressor is uncorrelated with the outcome in the population but improves another predictor’s contribution. Other forms of suppression need not have a zero marginal correlation. A variable’s role depends on the other predictors and the outcome, so screening predictors solely by their individual outcome correlations can miss this pattern.\nThese are in-sample associations, not evidence of causality or guaranteed improvement on new students. The bars show point estimates; confint(suppression_model) gives coefficient confidence intervals under the model’s assumptions. Real applications also require substantive justification for including a variable, model diagnostics, and assessment on new or held-out data.\nFor syntax, see the R documentation for lm(). For the methodological distinction between suppression, mediation, and confounding, see MacKinnon, Krull, and Lockwood (2000).",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Suppressor Variables in Regression</span>"
+    ]
   }
 ]
