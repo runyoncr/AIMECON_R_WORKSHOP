@@ -1481,5 +1481,71 @@
       "Example Pages",
       "<span class='chapter-number'>32</span>  <span class='chapter-title'>Suppressor Variables in Regression</span>"
     ]
+  },
+  {
+    "objectID": "example-rasch-model-assumptions.html",
+    "href": "example-rasch-model-assumptions.html",
+    "title": "33  Rasch Model Assumptions",
+    "section": "",
+    "text": "33.1 Generate Example Data\nThe Rasch model describes the probability that a person answers an item correctly using only two quantities: the person’s ability, \\(\\theta\\), and the item’s difficulty, \\(b\\):\n\\[\nP(\\text{correct}) = \\frac{1}{1 + e^{-(\\theta - b)}}\n\\]\nBecause every item shares the same slope, a person’s raw score carries all the information the model uses about their ability. That property is useful, but it depends on assumptions. Here we fit a Rasch model to synthetic data with deliberately built-in violations and check whether simple diagnostics find them.\nThese are synthetic responses from 1,000 simulated people to 10 right/wrong items, not results from a real test. Most items follow the Rasch model exactly. We build in two violations:\nCodeset.seed(2026)\n\nn_people &lt;- 1000\nn_items &lt;- 10\n\nability &lt;- rnorm(n_people)\ndifficulty &lt;- seq(-2, 2, length.out = n_items)\ndiscrimination &lt;- rep(1, n_items)\ndiscrimination[6] &lt;- 2.5\npassage &lt;- rnorm(n_people)\n\nlogits &lt;- outer(ability, difficulty, \"-\") * rep(discrimination, each = n_people)\nlogits[, 3] &lt;- logits[, 3] + 2 * passage\nlogits[, 4] &lt;- logits[, 4] + 2 * passage\n\nresponses &lt;- matrix(rbinom(length(logits), size = 1, prob = plogis(logits)),\n                    nrow = n_people)\ncolnames(responses) &lt;- sprintf(\"item%02d\", 1:n_items)\n\nround(colMeans(responses), 2)\n\nitem01 item02 item03 item04 item05 item06 item07 item08 item09 item10 \n  0.85   0.79   0.66   0.58   0.56   0.42   0.36   0.29   0.20   0.17\nEach row of responses is a person and each column is an item; 1 means correct. outer() computes \\(\\theta - b\\) for every person-item combination, plogis() converts those logits to probabilities, and rbinom() draws 0/1 responses. The output shows the proportion correct for each item. The true ability and passage values are used only to generate data; the analysis below never sees them.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
+    ]
+  },
+  {
+    "objectID": "example-rasch-model-assumptions.html#generate-example-data",
+    "href": "example-rasch-model-assumptions.html#generate-example-data",
+    "title": "33  Rasch Model Assumptions",
+    "section": "",
+    "text": "Item 6 has a much steeper curve (discrimination 2.5 instead of 1).\n\nItems 3 and 4 share an extra factor unrelated to ability, as if both asked about the same reading passage.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
+    ]
+  },
+  {
+    "objectID": "example-rasch-model-assumptions.html#fit-the-rasch-model",
+    "href": "example-rasch-model-assumptions.html#fit-the-rasch-model",
+    "title": "33  Rasch Model Assumptions",
+    "section": "\n33.2 Fit the Rasch Model",
+    "text": "33.2 Fit the Rasch Model\nA Rasch model can be fit as a logistic mixed model: item effects are fixed, and person abilities are random effects drawn from a normal distribution (De Boeck et al., 2011). glmer() from the lme4 package expects one row per person-item response, so we first reshape the data.\n\nCodelibrary(lme4)\n\nLoading required package: Matrix\n\nCodelong &lt;- data.frame(\n  person = factor(rep(1:n_people, times = n_items)),\n  item = factor(rep(colnames(responses), each = n_people)),\n  correct = as.vector(responses)\n)\n\nrasch_fit &lt;- glmer(\n  correct ~ 0 + item + (1 | person),\n  data = long,\n  family = binomial,\n  control = glmerControl(optimizer = \"bobyqa\")\n)\n\nest_difficulty &lt;- -fixef(rasch_fit)\nnames(est_difficulty) &lt;- colnames(responses)\nround(cbind(true = difficulty, estimated = est_difficulty), 2)\n\n        true estimated\nitem01 -2.00     -2.03\nitem02 -1.56     -1.59\nitem03 -1.11     -0.83\nitem04 -0.67     -0.37\nitem05 -0.22     -0.32\nitem06  0.22      0.37\nitem07  0.67      0.69\nitem08  1.11      1.07\nitem09  1.56      1.66\nitem10  2.00      1.88\n\nCodeability_sd &lt;- attr(VarCorr(rasch_fit)$person, \"stddev\")\nround(ability_sd, 2)\n\n(Intercept) \n       0.98 \n\n\nIn the formula, 0 + item gives each item its own intercept, and (1 | person) gives each person a random ability. Item intercepts are easiness values, so we reverse their sign to obtain difficulties. The estimated ability standard deviation is 0.98; the data were generated with a standard deviation of 1.\nMost difficulty estimates are close to their true values. Items 3 and 4 are furthest off, because the model cannot represent their shared passage factor. Difficulty estimates alone will not reveal every violation, though; item 6’s steeper slope barely shifts its difficulty, so we need targeted checks.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
+    ]
+  },
+  {
+    "objectID": "example-rasch-model-assumptions.html#check-equal-discrimination",
+    "href": "example-rasch-model-assumptions.html#check-equal-discrimination",
+    "title": "33  Rasch Model Assumptions",
+    "section": "\n33.3 Check Equal Discrimination",
+    "text": "33.3 Check Equal Discrimination\nTo check whether items have similar slopes, we first extract each person’s estimated ability. We then fit a separate logistic regression for each item, predicting that item’s responses from estimated ability.\n\nCodeest_ability &lt;- ranef(rasch_fit)$person[, 1]\n\nitem_slopes &lt;- sapply(colnames(responses), function(item) {\n  slope_fit &lt;- glm(responses[, item] ~ est_ability, family = binomial)\n  coef(slope_fit)[[\"est_ability\"]]\n})\n\nslope_ratio &lt;- item_slopes / median(item_slopes)\nround(rbind(slope = item_slopes, ratio_to_median = slope_ratio), 2)\n\n                item01 item02 item03 item04 item05 item06 item07 item08 item09\nslope             1.65   1.90   1.69   1.71   1.81   3.04   1.91   1.71   1.52\nratio_to_median   0.95   1.09   0.97   0.98   1.04   1.75   1.10   0.98   0.88\n                item10\nslope             1.77\nratio_to_median   1.02\n\n\nEstimated abilities are pulled toward the average, so all of these slopes are larger than 1. The useful comparison is between items. Item 6’s slope is 1.7 times the median item slope; the other items range from 0.88 to 1.1 times the median. A Rasch model assumes these slopes are equal, so item 6 is the clear outlier.\nThe plot below groups people into five equal-sized ability groups and shows the observed proportion correct for item 5 and item 6, which have similar difficulties.\n\nCodeability_group &lt;- cut(\n  est_ability,\n  breaks = quantile(est_ability, probs = seq(0, 1, 0.2)),\n  include.lowest = TRUE,\n  labels = FALSE\n)\n\nitem5_by_group &lt;- tapply(responses[, \"item05\"], ability_group, mean)\nitem6_by_group &lt;- tapply(responses[, \"item06\"], ability_group, mean)\n\nplot(1:5, item5_by_group, type = \"b\", pch = 16, col = \"steelblue4\",\n     ylim = c(0, 1), xaxt = \"n\",\n     xlab = \"Estimated ability group (lowest to highest)\",\n     ylab = \"Observed proportion correct\")\nlines(1:5, item6_by_group, type = \"b\", pch = 17, col = \"darkorange3\")\naxis(1, at = 1:5)\nlegend(\"topleft\", legend = c(\"Item 5 (Rasch)\", \"Item 6 (steeper)\"),\n       col = c(\"steelblue4\", \"darkorange3\"), pch = c(16, 17), lty = 1, bty = \"n\")\n\n\n\n\n\n\n\nBoth curves increase, consistent with monotonicity, but item 6 separates low- and high-ability people much more sharply. Under the Rasch model, item curves differ only in location, so they should look parallel.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
+    ]
+  },
+  {
+    "objectID": "example-rasch-model-assumptions.html#check-local-independence-and-unidimensionality",
+    "href": "example-rasch-model-assumptions.html#check-local-independence-and-unidimensionality",
+    "title": "33  Rasch Model Assumptions",
+    "section": "\n33.4 Check Local Independence and Unidimensionality",
+    "text": "33.4 Check Local Independence and Unidimensionality\nIf the model is adequate, what remains after subtracting each expected response from each observed response should be close to random noise. Yen’s \\(Q_3\\) is the correlation between two items’ residuals (Yen, 1984).\n\nCodeexpected &lt;- plogis(outer(est_ability, est_difficulty, \"-\"))\nresiduals_matrix &lt;- responses - expected\n\nq3 &lt;- cor(residuals_matrix)\ndiag(q3) &lt;- NA\n\naverage_q3 &lt;- mean(q3, na.rm = TRUE)\nmax_q3 &lt;- max(q3, na.rm = TRUE)\nround(c(item03_item04 = q3[\"item03\", \"item04\"],\n        average = average_q3,\n        max_minus_average = max_q3 - average_q3), 2)\n\n    item03_item04           average max_minus_average \n             0.24             -0.07              0.31 \n\n\nResidual correlations are slightly negative on average, even for well-fitting data, so Christensen, Makransky, and Horton recommend judging each \\(Q_3\\) against the average rather than against zero (Christensen et al., 2017). Items 3 and 4 have a residual correlation of 0.24, which is 0.31 above the average. They share something beyond ability: the simulated passage. No single critical value fits every test; the same article recommends simulating critical values for each data set.\nA related check looks for structure in the standardized residuals. If one ability explains the responses, no strong second pattern should remain.\n\nCodestandardized_residuals &lt;- residuals_matrix / sqrt(expected * (1 - expected))\nresidual_pca &lt;- eigen(cor(standardized_residuals))\n\nround(residual_pca$values[1:3], 2)\n\n[1] 1.58 1.22 1.11\n\nCoderound(setNames(residual_pca$vectors[, 1], colnames(responses)), 2)\n\nitem01 item02 item03 item04 item05 item06 item07 item08 item09 item10 \n  0.02  -0.21   0.57   0.56  -0.24  -0.29  -0.34  -0.24  -0.03  -0.02 \n\n\nThe first set of values are eigenvalues: the size of each leftover pattern in the residuals. The second set shows how strongly each item is associated with the largest pattern. Items 3 and 4 have the largest loadings, with the same sign. The signs themselves are arbitrary. The extra factor we built in looks like a small second dimension.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
+    ]
+  },
+  {
+    "objectID": "example-rasch-model-assumptions.html#interpretation",
+    "href": "example-rasch-model-assumptions.html#interpretation",
+    "title": "33  Rasch Model Assumptions",
+    "section": "\n33.5 Interpretation",
+    "text": "33.5 Interpretation\nEach built-in violation was flagged by the check aimed at it: item 6 had an unusually steep slope, and items 3 and 4 showed residual dependence. The other items behaved as expected. In practice, a flagged item calls for a content review before you decide what to do with it. For example, you might revise or remove the item, combine a dependent pair into a single scored unit, or choose a model that allows different slopes.\nSome limitations apply. These checks use estimated abilities, which are pulled toward the average, so slopes are best compared with each other. Rasch practitioners also commonly use infit and outfit mean-square statistics; with shrunken ability estimates like these, they tend to fall below 1 and are hard to read, so dedicated Rasch software is a better choice for them. This page does not test guessing or invariance across groups (DIF), and diagnostics are evidence, not proof, that the assumptions hold.\nFor the modeling approach, see Bates et al. (2015) on lme4 and De Boeck et al. (2011) on fitting item response models with it.",
+    "crumbs": [
+      "Example Pages",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
+    ]
   }
 ]

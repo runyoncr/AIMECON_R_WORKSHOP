@@ -334,5 +334,8 @@
   },
   "example-statistical-suppression.qmd": {
     "example-statistical-suppression.html": "74a925a8"
+  },
+  "example-rasch-model-assumptions.qmd": {
+    "example-rasch-model-assumptions.html": "2c7422f6"
   }
 }
