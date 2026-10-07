@@ -147,3 +147,18 @@ Some summaries have been edited, some have not.
 **PacketLLM** [Overview](https://antoniczolgowski.r-universe.dev/PacketLLM){target="_blank"} [CRAN](https://cran.r-project.org/package=PacketLLM){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/PacketLLM/vignettes/PacketLLM-introduction.html){target="_blank"}
 
 **PacketLLM** provides an interactive RStudio gadget for working with an AI assistant during package and script development. It can use selected editor text, the active source file, package metadata, and uploaded files as context for code explanation, code generation, documentation, and review workflows. It offers model presets, assistant behavior settings, and explicit copy, insert, and replace actions for the active source editor. API calls are performed asynchronously using `promises` and `future` to avoid blocking the R console.
+
+### AIGENIE
+**AIGENIE** [Overview](https://github.com/laralee/AIGENIE){target="_blank"} [CRAN](https://cran.r-project.org/package=AIGENIE){target="_blank"} [Documentation](https://laralee.github.io/AIGENIE/){target="_blank"}
+
+**AIGENIE** (AI-GENIE) is an R package for automated psychological scale development and structural validation using large language models and network psychometric methods. Its workflow generates candidate items, computes their embeddings, estimates dimensional structure with Exploratory Graph Analysis (EGA), identifies redundant items with Unique Variable Analysis (UVA), and assesses item and dimension stability with bootstrap EGA (bootEGA). It also supports validation of user-provided item sets.
+
+### GitAI
+**GitAI** [Overview](https://r-world-devs.github.io/GitAI/){target="_blank"} [CRAN](https://cran.r-project.org/package=GitAI){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/GitAI/vignettes/building-shiny-app-chatbot.html){target="_blank"}
+
+**GitAI** is an R framework for extracting knowledge from multiple Git repositories using large language models. It processes selected files to summarize content, extract information, or answer questions; results can optionally be stored in a vector database for semantic search or retrieval-augmented generation (RAG).
+
+### quallmer
+**quallmer** [Overview](https://quallmer.github.io/quallmer/){target="_blank"} [CRAN](https://cran.r-project.org/package=quallmer){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/quallmer/vignettes/getting-started.html){target="_blank"}
+
+**quallmer** is an R package for AI-assisted qualitative data coding using LLMs through **ellmer**. Researchers can define custom codebooks or use built-in ones to code text, images, audio, and other data, then replicate analyses across models and settings, assess agreement or validate against human-coded data, and document the workflow with audit trails.
