@@ -60,18 +60,19 @@ book:
       chapters: 
         - 23-ai-coding-assistants.qmd #23
         - 24-skill-agents.qmd #24
-        - 25-shiny.qmd #25
-        - 26-vibe-coding.qmd #26
-        - 27-shiny-integration.qmd #27
-        - 28-activity-make-llm-shiny-app.qmd #28
+        - 25-skill-agent-examples.qmd #25
+        - 26-shiny.qmd #26
+        - 27-vibe-coding.qmd #27
+        - 28-shiny-integration.qmd #28
+        - 29-activity-make-llm-shiny-app.qmd #29
         # Activity: Make Shiny App with LLM Call
-        - 29-saving-shiny-data.qmd #29
+        - 30-saving-shiny-data.qmd #30
 
     - part: "Resources"
       chapters: 
-        - 30-reference-materials.qmd #30
-        - 31-acknowledgements.qmd #31
-        - 32-references.qmd #32
+        - 31-reference-materials.qmd #31
+        - 32-acknowledgements.qmd #32
+        - 33-references.qmd #33
 
     - part: "Example Pages"
       chapters:

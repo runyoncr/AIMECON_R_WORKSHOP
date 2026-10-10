@@ -28,4 +28,4 @@ Imagine a tool that allows psychometricians to explore item characteristic curve
 Shiny can also support workflow tools—such as item review interfaces, item metadata trackers, or automated score reporting systems—that streamline processes across teams. 
 Because the analysis logic is written in R, these apps can connect directly to your existing data pipelines, supporting consistency and reproducibility across projects. Shiny itself does not guarantee reproducible results; those still depend on the data, code, and computational environment used.
 
-We'll put these ideas to work in [Activity: Making a Shiny App](28-activity-make-llm-shiny-app.qmd). For tools that need to retain reviewer decisions or edited content, see [Saving R Shiny Data](29-saving-shiny-data.qmd) for the distinction between temporary app state and saved records.
+We'll put these ideas to work in [Activity: Making a Shiny App](29-activity-make-llm-shiny-app.qmd). For tools that need to retain reviewer decisions or edited content, see [Saving R Shiny Data](30-saving-shiny-data.qmd) for the distinction between temporary app state and saved records.

@@ -1547,5 +1547,60 @@
       "Example Pages",
       "<span class='chapter-number'>33</span>  <span class='chapter-title'>Rasch Model Assumptions</span>"
     ]
+  },
+  {
+    "objectID": "25-skill-agent-examples.html",
+    "href": "25-skill-agent-examples.html",
+    "title": "25  Skill Examples for Coding Agents",
+    "section": "",
+    "text": "25.1 Metaprompting: Reviewing a Prompt Before Use\nThe previous chapter described how skills package reusable procedures for coding agents. Here are two concrete examples from this workshop: one reviews prompts before they are used, and the other creates new workbook pages. Both make the intended workflow explicit, including what the agent should check and when it should ask for a human decision.\nThe download buttons provide the complete skill files, including their metadata and instructions. The summaries below highlight their main decisions rather than reproduce every step.\n📥 Download skill-metaprompting.md\nThe metaprompting skill reviews and improves a prompt before it is used for a downstream LLM task. The prompt might be selected in the editor, pasted into chat, stored in an R string, or identified in a notebook. The goal is not simply to make the wording sound better. It is to clarify the task, preserve its important constraints, and identify problems that could affect the resulting workflow.",
+    "crumbs": [
+      "AI-Enhanced R Workflows",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Skill Examples for Coding Agents</span>"
+    ]
+  },
+  {
+    "objectID": "25-skill-agent-examples.html#sec-metaprompting-example",
+    "href": "25-skill-agent-examples.html#sec-metaprompting-example",
+    "title": "25  Skill Examples for Coding Agents",
+    "section": "",
+    "text": "25.1.1 What the Skill Checks\nThe instructions organize the review around three questions:\n\nWhat is the prompt’s job? Identify the intended task, audience, inputs, output format, and constraints that must not change.\nWhat could go wrong? Look for ambiguous criteria, missing context, conflicting instructions, unclear placeholders, output-parsing problems, and data-handling risks.\nWhat should change? Produce a revised prompt that preserves effective wording and the author’s intent, then suggest a small test before broader use.\n\nThe skill first resolves which prompt is under review. If several prompts are plausible, it asks the user to choose rather than revising the wrong one. It also marks unresolved substantive choices as Needs human decision instead of inventing a policy, rubric rule, or data definition.\n\n\n25.1.2 Details That Depend on the Workflow\nA scoring prompt needs different safeguards from a brainstorming prompt. For scoring or rubric prompts, this skill preserves the existing criteria, score scales, labels, and construct definitions unless the user explicitly requests changes. It flags missing score anchors or partial-credit rules, but does not create those rules on the author’s behalf.\nFor batch or API prompts, it checks whether required fields, allowed values, and text outside the requested output are specified clearly enough for downstream parsing. For chained workflows, it checks what each step consumes and returns, and recommends validation before passing an output to the next step. For coding-agent prompts, it looks for clear target files, permissions, stopping conditions, and validation expectations.\nThese checks connect directly to the workshop’s iterative prompt-development activity and chained workflows. The skill supplies a review procedure; it does not replace testing the prompt in its actual application.\n\n\n25.1.3 An Example Request\nAfter installing the skill in a compatible VS Code setup, you can invoke it explicitly with /metaprompting and add context.1 For example, select a scoring prompt in the editor and ask:\n/metaprompting Review the selected scoring prompt. Preserve the rubric,\nscore scale, and placeholders. Check whether the requested JSON output\ncan be parsed reliably, and suggest a small testing plan.\nDo not edit the source file or run the scoring prompt.\nThe skill’s default response contains Summary, Strengths, Issues to Fix, Revised Prompt, Testing Plan, and Open Decisions. Those headings separate suggested wording changes from decisions that require a subject-matter expert or institutional policy. This is an example request, not a recorded model response.\n\n\n\n\n\n\nReview Is Not Execution\n\n\n\nBy default, this skill does not edit source files, execute the prompt, or submit its content to an external model. Those actions require separate, explicit authorization. Running the coding assistant itself is still subject to the assistant’s own data-handling arrangements: do not include secrets or private learner data. A revised prompt also does not guarantee accuracy, fairness, validity, or deterministic output.",
+    "crumbs": [
+      "AI-Enhanced R Workflows",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Skill Examples for Coding Agents</span>"
+    ]
+  },
+  {
+    "objectID": "25-skill-agent-examples.html#sec-page-maker-example",
+    "href": "25-skill-agent-examples.html#sec-page-maker-example",
+    "title": "25  Skill Examples for Coding Agents",
+    "section": "25.2 Page Maker: Creating a Workshop Page",
+    "text": "25.2 Page Maker: Creating a Workshop Page\n 📥 Download skill-page-maker.md \nThe page-maker skill turns a request for a new page into a bounded drafting and validation workflow. Its intended outcome is a coherent, accurate, executable first draft, not a claim that the page is ready for publication. Unlike the metaprompting skill’s review-only default, page-maker authorizes creating the requested page and registering it in the workbook, subject to its approval and safety rules.\n\n25.2.1 Two Routes Through the Same Skill\nThe first decision is whether the request is for an integrated page or an example page. If the user has not specified the mode, the skill asks before researching the topic or drafting content.\n\n\n\n\n\n\n\nIntegrated page\nExample page\n\n\n\n\nFits within the main teaching sequence.\nProvides a short, self-contained demonstration.\n\n\nReviews neighboring chapters, prerequisites, terminology, and overlap.\nUses minimal prose and small, reproducible examples.\n\n\nProposes placement for approval when it was not supplied.\nAppends to the final Example Pages part without reordering existing content.\n\n\nReviews contextual and operational risks in depth.\nStill verifies factual claims and the intended teaching result.\n\n\n\nFor example, a chapter explaining a new LLM capability needs a different review from a short synthetic-data demonstration of a statistical concept. The distinction changes the editorial scope and placement, not the obligation to be correct.\n\n\n25.2.2 From Request to Validated Draft\nAfter resolving the mode, the skill reads the project configuration and relevant source pages. It checks for existing coverage, filename collisions, duplicate identifiers, and dependencies before making changes. An integrated page should extend the teaching sequence rather than repeat a substantial explanation already owned by another chapter.\nThe operational review asks whether code can run from the stated setup, where data come from, which files may be written, and whether an example requires credentials or submits data externally. For applicable Claude examples, the skill requires inspecting the workshop helper’s actual interface rather than guessing from its filename.\nValidation is also part of the instructions: check syntax and resource paths, run authorized local examples, verify the claimed teaching result, and render the target page when feasible. A successful render is not proof that every link in the whole book works. The final report must distinguish executed checks from skipped or blocked checks.\n\n\n25.2.3 Example Requests\nThese requests make the routing decision explicit:\n/page-maker Create an integrated explanation page about reviewing\nLLM-generated scoring feedback. Propose placement and an outline\nbefore drafting. Do not run live API calls.\n/page-maker Create an example page about statistical suppression,\nusing a small synthetic dataset and base R. Append it to Example Pages.\nThe first request calls for contextual review and placement approval. The second authorizes a concise example at the end of the workbook. Neither request authorizes paid calls, package installation, full-book rendering, or publication. Renumbering existing pages requires an approved filename map, and routine revision of an existing page is routed to the workshop’s content-reviewer skill instead.",
+    "crumbs": [
+      "AI-Enhanced R Workflows",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Skill Examples for Coding Agents</span>"
+    ]
+  },
+  {
+    "objectID": "25-skill-agent-examples.html#reusing-the-downloaded-skills",
+    "href": "25-skill-agent-examples.html#reusing-the-downloaded-skills",
+    "title": "25  Skill Examples for Coding Agents",
+    "section": "25.3 Reusing the Downloaded Skills",
+    "text": "25.3 Reusing the Downloaded Skills\nThe downloads have descriptive filenames so that the two files are easy to distinguish. To install them as project skills in VS Code, place each in its own directory and rename the file to SKILL.md:2\n.github/\n  skills/\n    metaprompting/\n      SKILL.md\n    page-maker/\n      SKILL.md\nKeep the name in the YAML frontmatter consistent with the parent directory name. In VS Code, these skills’ user-invocable: true metadata allows explicit slash-command invocation; discovery alone does not guarantee that an agent will select a skill for every relevant request. Supported locations and optional metadata can differ across coding assistants.\nReview the full instructions before enabling a downloaded skill. The metaprompting procedure can be adapted to many prompt-review workflows. The page-maker procedure is more closely tied to this workshop: it refers to the workbook configuration, the content-reviewer skill, and a Claude helper for relevant examples. Those dependencies must exist or be deliberately adapted before using it in another project. These downloads preserve the original instructions rather than silently removing those requirements.\nBoth examples illustrate the same design principle: a useful skill specifies an outcome, a procedure, and boundaries. It should help the agent know not only what to do, but also what to check and what it is not authorized to do.",
+    "crumbs": [
+      "AI-Enhanced R Workflows",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Skill Examples for Coding Agents</span>"
+    ]
+  },
+  {
+    "objectID": "25-skill-agent-examples.html#footnotes",
+    "href": "25-skill-agent-examples.html#footnotes",
+    "title": "25  Skill Examples for Coding Agents",
+    "section": "",
+    "text": "Skill directory structure and VS Code discovery and invocation behavior were checked against the Agent Skills specification and VS Code Agent Skills documentation on October 9, 2026. The workflows summarized here come from the repository’s metaprompting and page-maker skill files distributed above.↩︎\nSkill directory structure and VS Code discovery and invocation behavior were checked against the Agent Skills specification and VS Code Agent Skills documentation on October 9, 2026. The workflows summarized here come from the repository’s metaprompting and page-maker skill files distributed above.↩︎",
+    "crumbs": [
+      "AI-Enhanced R Workflows",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Skill Examples for Coding Agents</span>"
+    ]
   }
 ]

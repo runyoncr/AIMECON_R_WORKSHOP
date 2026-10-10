@@ -1,6 +1,6 @@
 # Vibe Coding R Shiny Apps
   
-R Shiny and the iterative, reviewed approach to [vibe coding](26-vibe-coding.qmd#sec-vibe-coding) described in the previous chapter naturally complement each other.
+R Shiny and the iterative, reviewed approach to [vibe coding](27-vibe-coding.qmd#sec-vibe-coding) described in the previous chapter naturally complement each other.
 Shiny development involves many small, interconnected components—UI elements, reactive expressions, render functions—that can be difficult to conceptualize all at once. 
 AI-assisted development can help you navigate that complexity by working through it iteratively.
 
@@ -12,7 +12,7 @@ As you test locally, you can describe what’s working or not, and have the mode
 This collaborative approach can turn what might otherwise be a steep learning curve into an engaging design conversation.
 The AI can help you debug reactivity chains, explain error messages, or suggest better layout functions without requiring you to memorize all of Shiny’s internal machinery.
 You remain in control of the logic and aesthetic decisions, while the model assists with the syntax, refactoring, and occasional creative push. 
-The iterative process can reinforce your understanding of how reactive elements flow through the app when you inspect the code and check its behavior. The previous chapter's [small Shiny prompt](26-vibe-coding.qmd#give-the-model-something-you-can-check) illustrates how to define those checks before adding features.
+The iterative process can reinforce your understanding of how reactive elements flow through the app when you inspect the code and check its behavior. The previous chapter's [small Shiny prompt](27-vibe-coding.qmd#give-the-model-something-you-can-check) illustrates how to define those checks before adding features.
 
 In an educational measurement context, this approach can help you explore prototype tools.
 For instance, you could co-develop an app that visualizes item characteristic curves, an interactive tool for reviewing differential item functioning (DIF) results, or a workflow dashboard for managing item-writing assignments. 
@@ -20,7 +20,7 @@ Starting from a few conversational prompts, you can work toward functional proto
 
 ## Describe the Interface in Shiny Terms
 
-You don't need to master Shiny before asking for a first draft, but understanding the basics helps you evaluate what the model gives you. Being able to use certain terminology or provide relevant documentation can help you more quickly achieve your goals. The [R Shiny](25-shiny.qmd) chapter introduces the UI, server, and reactivity; here, the practical question is how to describe the interface you want:
+You don't need to master Shiny before asking for a first draft, but understanding the basics helps you evaluate what the model gives you. Being able to use certain terminology or provide relevant documentation can help you more quickly achieve your goals. The [R Shiny](26-shiny.qmd) chapter introduces the UI, server, and reactivity; here, the practical question is how to describe the interface you want:
 
 - **Layout:** Where should controls and results appear? For example, put grade and subject filters in a sidebar and the item table in the main area.
 - **Inputs:** What can the user change? Name the choices, initial values, and any restrictions instead of simply asking for "filters."
@@ -42,6 +42,6 @@ A useful detail when reviewing generated code is that the UI reserves a place fo
 
 [Awesome Shiny Extensions](https://github.com/nanxstats/awesome-shiny-extensions) is a curated GitHub page with links to _many_ more packages that extend Shiny's functionality. One we often use is [`shinyjs`](https://deanattali.com/shinyjs/), which can show or hide elements and enable or disable inputs from R. This isn't an exhaustive list, nor is it a list of the _best_ packages that extend Shiny functionality, but it's a good start. I always recommend Google for searching for new or specific packages (or just ask the LLM!). Before adopting a suggestion, check the package's own documentation, maintenance status, and compatibility with your app.
 
-With a clearer description of the interface and a small prototype you can check, you're ready for [Activity: Making a Shiny App](28-activity-make-llm-shiny-app.qmd). If the app needs to retain reviewer decisions or edited content, the storage design belongs in [Saving R Shiny Data](29-saving-shiny-data.qmd), not just in the layout.
+With a clearer description of the interface and a small prototype you can check, you're ready for [Activity: Making a Shiny App](29-activity-make-llm-shiny-app.qmd). If the app needs to retain reviewer decisions or edited content, the storage design belongs in [Saving R Shiny Data](30-saving-shiny-data.qmd), not just in the layout.
 
 [^shiny-integration-currency]: Shiny layout and component descriptions, the table output pairing, and the roles of `bslib`, `shinydashboard`, and `shinyjs` were checked against the linked official project documentation on September 20, 2026. The extension list was checked at its source repository.

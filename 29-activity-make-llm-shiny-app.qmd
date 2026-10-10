@@ -63,7 +63,7 @@ Generate a synthetic essay or enter your own teaching example, then select **Sco
 
 Finally, edit the essay and confirm that the old ratings and feedback disappear until you score it again. One complete pass uses five API calls when you choose the science objective and supply the essay yourself, or up to seven when both are model-generated. Retries and rescoring add calls and may add cost; the helper does not report token usage or cost to the app.
 
-**Use Edits is not persistent storage.** The prototype has no export or save-to-database feature; its working record lasts only for the current session. See [Saving R Shiny Data](29-saving-shiny-data.qmd) for extending it to retain records. General code-review practices remain in [AI Coding Assistants](23-ai-coding-assistants.qmd#keep-the-human-in-charge).
+**Use Edits is not persistent storage.** The prototype has no export or save-to-database feature; its working record lasts only for the current session. See [Saving R Shiny Data](30-saving-shiny-data.qmd) for extending it to retain records. General code-review practices remain in [AI Coding Assistants](23-ai-coding-assistants.qmd#keep-the-human-in-charge).
 
 [^1]: And data privacy concerns, internal security measures, API costs, and more, but you get the idea.
 

@@ -15,7 +15,7 @@ As you test and refine, you can return to the model for troubleshooting (“I’
 
 AI-assisted development can also help lower the barrier to entry for frameworks like Shiny.
 Because reactivity and UI design can feel conceptually distant from typical R scripting, working with an AI assistant can make the process more approachable. 
-You can ask the model to explain why certain elements belong in the `server` versus `ui` sections, or how to use `reactive()` and `observeEvent()`, then check those explanations against the [Shiny references](27-shiny-integration.qmd).
+You can ask the model to explain why certain elements belong in the `server` versus `ui` sections, or how to use `reactive()` and `observeEvent()`, then check those explanations against the [Shiny references](28-shiny-integration.qmd).
 Over time, you can develop a sense of how Shiny feels—its rhythms, its syntax, its underlying logic—by co-creating with an AI partner that provides just-in-time feedback and examples.
 
 No specific AI model is required for vibe coding. 
@@ -31,7 +31,7 @@ A useful prompt describes the intended behavior, the data, the boundaries of the
 
 Before adding another feature, check that selecting a grade changes the displayed rows, that 8 out of 10 produces 0.8, and that zero tested students produces a missing value rather than an infinite or misleading result. A working interface is not evidence that the calculation is correct. If something fails, describe the action you took, what you expected, and what actually happened; include the relevant error message without sensitive data.
 
-Using AI to **write** an app does not mean the finished app needs to **call** an LLM. This small example needs no API connection at runtime. We'll combine app development with LLM calls in [Activity: Making a Shiny App](28-activity-make-llm-shiny-app.qmd).
+Using AI to **write** an app does not mean the finished app needs to **call** an LLM. This small example needs no API connection at runtime. We'll combine app development with LLM calls in [Activity: Making a Shiny App](29-activity-make-llm-shiny-app.qmd).
 
 ## Helpful Vibe Coding Resources
 

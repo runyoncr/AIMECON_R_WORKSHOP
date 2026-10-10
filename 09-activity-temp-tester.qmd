@@ -1,7 +1,7 @@
 # Activity: Generation Parameter Testing
 
 It will be useful to see how different generation settings affect the output of LLMs.
-To help you see how they work, I built a simple online app[^1] (using [vibe coding](26-vibe-coding.qmd#sec-vibe-coding)) where you can select:
+To help you see how they work, I built a simple online app[^1] (using [vibe coding](27-vibe-coding.qmd#sec-vibe-coding)) where you can select:
 
 * One of 5 pre-written measurement and assessment prompts
 * A verbosity style (Terse, Balanced, or Expansive)

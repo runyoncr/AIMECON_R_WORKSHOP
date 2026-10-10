@@ -1,0 +1,117 @@
+# Skill Examples for Coding Agents {#sec-skill-agent-examples}
+
+The [previous chapter](24-skill-agents.qmd) described how skills package reusable procedures for coding agents. Here are two concrete examples from this workshop: one reviews prompts before they are used, and the other creates new workbook pages. Both make the intended workflow explicit, including what the agent should check and when it should ask for a human decision.
+
+The download buttons provide the complete skill files, including their metadata and instructions. The summaries below highlight their main decisions rather than reproduce every step.
+
+## Metaprompting: Reviewing a Prompt Before Use {#sec-metaprompting-example}
+
+<a href="downloads/skill-metaprompting.md" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  &#128229; Download `skill-metaprompting.md`
+</a>
+
+The **metaprompting** skill reviews and improves a prompt before it is used for a downstream LLM task. The prompt might be selected in the editor, pasted into chat, stored in an R string, or identified in a notebook. The goal is not simply to make the wording sound better. It is to clarify the task, preserve its important constraints, and identify problems that could affect the resulting workflow.
+
+### What the Skill Checks
+
+The instructions organize the review around three questions:
+
+1. **What is the prompt's job?** Identify the intended task, audience, inputs, output format, and constraints that must not change.
+2. **What could go wrong?** Look for ambiguous criteria, missing context, conflicting instructions, unclear placeholders, output-parsing problems, and data-handling risks.
+3. **What should change?** Produce a revised prompt that preserves effective wording and the author's intent, then suggest a small test before broader use.
+
+The skill first resolves which prompt is under review. If several prompts are plausible, it asks the user to choose rather than revising the wrong one. It also marks unresolved substantive choices as `Needs human decision` instead of inventing a policy, rubric rule, or data definition.
+
+### Details That Depend on the Workflow
+
+A scoring prompt needs different safeguards from a brainstorming prompt. For **scoring or rubric prompts**, this skill preserves the existing criteria, score scales, labels, and construct definitions unless the user explicitly requests changes. It flags missing score anchors or partial-credit rules, but does not create those rules on the author's behalf.
+
+For **batch or API prompts**, it checks whether required fields, allowed values, and text outside the requested output are specified clearly enough for downstream parsing. For **chained workflows**, it checks what each step consumes and returns, and recommends validation before passing an output to the next step. For **coding-agent prompts**, it looks for clear target files, permissions, stopping conditions, and validation expectations.
+
+These checks connect directly to the workshop's [iterative prompt-development activity](16-activity-iterative-prompt-development.qmd) and [chained workflows](20-chained-workflows.qmd). The skill supplies a review procedure; it does not replace testing the prompt in its actual application.
+
+### An Example Request
+
+After installing the skill in a compatible VS Code setup, you can invoke it explicitly with `/metaprompting` and add context.[^skill-examples-currency] For example, select a scoring prompt in the editor and ask:
+
+```text
+/metaprompting Review the selected scoring prompt. Preserve the rubric,
+score scale, and placeholders. Check whether the requested JSON output
+can be parsed reliably, and suggest a small testing plan.
+Do not edit the source file or run the scoring prompt.
+```
+
+The skill's default response contains **Summary**, **Strengths**, **Issues to Fix**, **Revised Prompt**, **Testing Plan**, and **Open Decisions**. Those headings separate suggested wording changes from decisions that require a subject-matter expert or institutional policy. This is an example request, not a recorded model response.
+
+::: {.callout-important}
+## Review Is Not Execution
+
+By default, this skill does not edit source files, execute the prompt, or submit its content to an external model. Those actions require separate, explicit authorization. Running the coding assistant itself is still subject to the assistant's own data-handling arrangements: do not include secrets or private learner data. A revised prompt also does not guarantee accuracy, fairness, validity, or deterministic output.
+:::
+
+## Page Maker: Creating a Workshop Page {#sec-page-maker-example}
+
+<a href="downloads/skill-page-maker.md" download style="display: inline-block; padding: 10px 20px; background-color: #4A90E2; color: black; text-decoration: none; border-radius: 5px;">
+  &#128229; Download `skill-page-maker.md`
+</a>
+
+The **page-maker** skill turns a request for a new page into a bounded drafting and validation workflow. Its intended outcome is a coherent, accurate, executable **first draft**, not a claim that the page is ready for publication. Unlike the metaprompting skill's review-only default, page-maker authorizes creating the requested page and registering it in the workbook, subject to its approval and safety rules.
+
+### Two Routes Through the Same Skill
+
+The first decision is whether the request is for an **integrated page** or an **example page**. If the user has not specified the mode, the skill asks before researching the topic or drafting content.
+
+| Integrated page | Example page |
+|---|---|
+| Fits within the main teaching sequence. | Provides a short, self-contained demonstration. |
+| Reviews neighboring chapters, prerequisites, terminology, and overlap. | Uses minimal prose and small, reproducible examples. |
+| Proposes placement for approval when it was not supplied. | Appends to the final Example Pages part without reordering existing content. |
+| Reviews contextual and operational risks in depth. | Still verifies factual claims and the intended teaching result. |
+
+For example, a chapter explaining a new LLM capability needs a different review from a short synthetic-data demonstration of a statistical concept. The distinction changes the editorial scope and placement, not the obligation to be correct.
+
+### From Request to Validated Draft
+
+After resolving the mode, the skill reads the project configuration and relevant source pages. It checks for existing coverage, filename collisions, duplicate identifiers, and dependencies before making changes. An integrated page should extend the teaching sequence rather than repeat a substantial explanation already owned by another chapter.
+
+The operational review asks whether code can run from the stated setup, where data come from, which files may be written, and whether an example requires credentials or submits data externally. For applicable Claude examples, the skill requires inspecting the workshop helper's actual interface rather than guessing from its filename.
+
+Validation is also part of the instructions: check syntax and resource paths, run authorized local examples, verify the claimed teaching result, and render the target page when feasible. A successful render is not proof that every link in the whole book works. The final report must distinguish executed checks from skipped or blocked checks.
+
+### Example Requests
+
+These requests make the routing decision explicit:
+
+```text
+/page-maker Create an integrated explanation page about reviewing
+LLM-generated scoring feedback. Propose placement and an outline
+before drafting. Do not run live API calls.
+```
+
+```text
+/page-maker Create an example page about statistical suppression,
+using a small synthetic dataset and base R. Append it to Example Pages.
+```
+
+The first request calls for contextual review and placement approval. The second authorizes a concise example at the end of the workbook. Neither request authorizes paid calls, package installation, full-book rendering, or publication. Renumbering existing pages requires an approved filename map, and routine revision of an existing page is routed to the workshop's content-reviewer skill instead.
+
+## Reusing the Downloaded Skills
+
+The downloads have descriptive filenames so that the two files are easy to distinguish. To install them as project skills in VS Code, place each in its own directory and rename the file to `SKILL.md`:[^skill-examples-currency]
+
+```text
+.github/
+  skills/
+    metaprompting/
+      SKILL.md
+    page-maker/
+      SKILL.md
+```
+
+Keep the `name` in the YAML frontmatter consistent with the parent directory name. In VS Code, these skills' `user-invocable: true` metadata allows explicit slash-command invocation; discovery alone does not guarantee that an agent will select a skill for every relevant request. Supported locations and optional metadata can differ across coding assistants.
+
+Review the full instructions before enabling a downloaded skill. The metaprompting procedure can be adapted to many prompt-review workflows. The page-maker procedure is more closely tied to this workshop: it refers to the workbook configuration, the content-reviewer skill, and a Claude helper for relevant examples. Those dependencies must exist or be deliberately adapted before using it in another project. These downloads preserve the original instructions rather than silently removing those requirements.
+
+Both examples illustrate the same design principle: a useful skill specifies an outcome, a procedure, and boundaries. It should help the agent know not only what to do, but also what to check and what it is not authorized to do.
+
+[^skill-examples-currency]: Skill directory structure and VS Code discovery and invocation behavior were checked against the [Agent Skills specification](https://agentskills.io/specification) and [VS Code Agent Skills documentation](https://code.visualstudio.com/docs/copilot/customization/agent-skills) on October 9, 2026. The workflows summarized here come from the repository's `metaprompting` and `page-maker` skill files distributed above.
