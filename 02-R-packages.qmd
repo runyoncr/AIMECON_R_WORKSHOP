@@ -55,5 +55,5 @@ We'll explore prompt templates and JSON in [Practical Tools](11-practical-tools.
 
 Several R packages provide interfaces to large language models (LLMs).
 We'll use [`ellmer`](https://ellmer.tidyverse.org/){target="_blank"} for [conversational interactions](13-conversations-via-api.qmd).
-For other options, see the [LLM-specific R packages](31-reference-materials.qmd#sec-r-llm-packages) in the reference materials.
+For other options, see the [LLM-specific R packages](32-reference-materials.qmd#sec-r-llm-packages) in the reference materials.
 

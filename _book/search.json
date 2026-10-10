@@ -1602,5 +1602,93 @@
       "AI-Enhanced R Workflows",
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Skill Examples for Coding Agents</span>"
     ]
+  },
+  {
+    "objectID": "31-hugging-face.html",
+    "href": "31-hugging-face.html",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "",
+    "text": "31.1 What You Can Find on Hugging Face\nMost of this workshop has focused on asking an Anthropic model to generate a response. But generating text is only one thing you might want a model to do. You might also want to find related passages, assign categories to feedback, identify entities in text, or transcribe an audio recording. The API skills you have practiced can help you explore those capabilities, too.\nHugging Face is a company and platform supporting the development, sharing, and use of machine learning models. Its model catalog includes generative models, but also models designed for more narrowly defined tasks. This chapter introduces the platform and shows how an R API workflow can return numerical representations of text rather than a conversational answer. It is an extension of the workshop, not a replacement for the Anthropic workflow.\nThe Hugging Face Hub brings several kinds of resources together:1\nThink of the Hub as a place to discover and inspect resources, not as a single model. A model repository, a browser demonstration, and an API service are different things. Finding a model on the Hub does not establish that it is open-source, free to run, suitable for your data, or available through a hosted API.\nSome models can be downloaded and run locally with appropriate software and hardware. Others can be used through a hosted inference service. Inference means applying a trained model to new inputs; it is distinct from training or fine-tuning the model. We will stay with hosted inference here, so you do not need to set up Python or download model weights.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#what-you-can-find-on-hugging-face",
+    "href": "31-hugging-face.html#what-you-can-find-on-hugging-face",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "",
+    "text": "Models: repositories containing model files, configuration, and documentation. A model’s learned parameters are often called its weights.\n\nDatasets: repositories containing data and documentation that can support training, evaluation, or exploration. Check the dataset’s license, provenance, and permitted uses before adopting it.\n\nSpaces: hosted applications and demonstrations that let people explore models and workflows in a browser.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#start-with-the-task-not-the-model",
+    "href": "31-hugging-face.html#start-with-the-task-not-the-model",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "\n31.2 Start with the Task, Not the Model",
+    "text": "31.2 Start with the Task, Not the Model\nOn the Models page, task filters help narrow the catalog. The task tells you something about the expected inputs and outputs, not just the model’s name.\n\n\n\n\n\n\n\nTask\nInput and typical output\nA possible workflow to investigate\n\n\n\nText classification\nText to predefined labels and scores\nCategorize comments with a model trained for the relevant categories.\n\n\nZero-shot classification\nText and candidate labels to labels and scores\nExplore proposed topic categories before evaluating them against human coding.\n\n\nToken classification\nText to labeled words or spans\nIdentify names or organizations; do not assume complete de-identification.\n\n\nFeature extraction / embeddings\nText to numerical vectors\nRetrieve passages related to a query or explore text similarity.\n\n\nExtractive question answering\nA question and context to an answer span\nLocate information in a supplied passage.\n\n\nAutomatic speech recognition\nAudio to a transcript\nTranscribe a permitted recording for later review.\n\n\nImage classification\nAn image to labels and scores\nOrganize images using categories supported by the chosen model.\n\n\nText generation\nA prompt or messages to generated text\nDraft or revise content, as in the main workshop workflow.\n\n\n\nThese are starting points for investigation, not validated educational measurement applications. A sentiment classifier trained on reviews does not automatically measure the quality of an essay. A zero-shot label is not a rubric score, and a high classifier score is not necessarily a well-calibrated probability of correctness on your data. More specialized also does not automatically mean more accurate or fair.\nThe earlier chapter on calling other models demonstrates a fill-mask task. Rather than repeat that example, we will look at how to select a model and obtain embeddings.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#read-the-model-page-before-calling-it",
+    "href": "31-hugging-face.html#read-the-model-page-before-calling-it",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "\n31.3 Read the Model Page Before Calling It",
+    "text": "31.3 Read the Model Page Before Calling It\nA model card is the documentation accompanying a model. It should describe intended uses, training data, evaluation, and limitations, though the completeness of those descriptions varies. Inspect the evidence rather than treating a popularity ranking or a task label as an endorsement.\nFor a concrete example, open BAAI/bge-small-en-v1.5. Its model page identifies it as an English embedding model, lists an MIT license, and currently offers HF Inference for feature extraction. The card describes retrieval and similarity uses, input-length limits, and guidance that differs between retrieval queries and passages.\nBefore choosing any model, check:\n\n\nTask and output: Does it return the kind of result you need? An embedding vector is not generated feedback.\n\nLanguage and domain: How well do its training data and evaluations match your intended inputs?\n\nLimits and preprocessing: How are long inputs, instructions, and truncation handled?\n\nLicense and access: Are your uses permitted, and does the model require approval for access?\n\nInference availability: Is the model currently served by an appropriate provider, or would it require local execution or a dedicated deployment?\n\nYou can filter models by inference provider as well as task. Availability can change. Revisit the model page and its View Code example before running an old script.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#from-the-hub-to-an-api",
+    "href": "31-hugging-face.html#from-the-hub-to-an-api",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "\n31.4 From the Hub to an API",
+    "text": "31.4 From the Hub to an API\nInference Providers routes requests to supported hosted services. HF Inference is one provider; other providers serve different combinations of models and tasks. A separate service, Inference Endpoints, supports dedicated managed deployments. Neither is the same as downloading a repository or opening a Space.\nThe request cycle should look familiar: authenticate, construct a request, send it, check for errors, and inspect the response. The details are not interchangeable with Anthropic’s API, however. Endpoints, headers, input fields, and response schemas can differ. The OpenAI-compatible chat endpoint documented by Hugging Face is for chat completions, not a universal interface for every task.\nFor hosted calls, create a fine-grained Hugging Face token with Make calls to Inference Providers permission, and store it as HF_TOKEN using the secret-management practices from API Keys. Never put an actual token into the workbook, a shared script, or chat. Gated models may require additional access approval.\n\n\n\n\n\n\nCheck Access, Cost, and Data Handling First\n\n\n\nHosted inference can incur charges. The current pricing documentation lists no included monthly Inference Providers credits for free accounts; paid plans and purchased credits have their own conditions. Hub browsing and download rate limits are not an inference allowance. Model-page widgets can also use billed inference. Check the current terms, billing settings, and the selected provider’s data-handling arrangements before submitting anything. Use synthetic or otherwise authorized inputs, not private learner data.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#example-obtain-text-embeddings-from-r",
+    "href": "31-hugging-face.html#example-obtain-text-embeddings-from-r",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "\n31.5 Example: Obtain Text Embeddings from R",
+    "text": "31.5 Example: Obtain Text Embeddings from R\nAn embedding represents text as a numerical vector. Comparing vectors from the same model can support search and similarity workflows. The coordinates are not rubric criteria, and similarity is not an achievement score.\nThis example uses httr2, as in the earlier fill-mask example. The feature-extraction specification permits a list of text inputs and a normalization option. The explicit task route below follows Hugging Face’s HF Inference client implementation.\nThe three sentences are synthetic. All API-related chunks, including response processing, are intentionally disabled during rendering. No live result is displayed here; running these chunks yourself requires a valid token, current model availability, and authorization for the submission and any charges.\n\n31.5.1 Prepare the Request\n\nCodelibrary(httr2)\n\ntexts &lt;- c(\n  \"The workshop explains how to call a model from R.\",\n  \"Participants use R to send requests to an API.\",\n  \"The garden contains three apple trees.\"\n)\n\ntoken &lt;- Sys.getenv(\"HF_TOKEN\")\nif (!nzchar(token)) stop(\"Set HF_TOKEN securely before making a request.\")\n\nmodel_id &lt;- \"BAAI/bge-small-en-v1.5\"\nendpoint &lt;- paste0(\n  \"https://router.huggingface.co/hf-inference/models/\",\n  model_id,\n  \"/pipeline/feature-extraction\"\n)\n\nembedding_request &lt;- request(endpoint) |&gt;\n  req_auth_bearer_token(token) |&gt;\n  req_body_json(list(inputs = texts, normalize = TRUE)) |&gt;\n  req_timeout(60)\n\n\nConstructing embedding_request does not send it. The inputs field contains text rather than a conversation history, and the task is feature extraction rather than chat. This route is specific to HF Inference; do not assume it works unchanged for another provider.\n\n31.5.2 Submit and Inspect the Response\n\nCodeembedding_response &lt;- req_perform(embedding_request)\nembedding_rows &lt;- resp_body_json(\n  embedding_response,\n  simplifyVector = FALSE\n)\nstr(embedding_rows, max.level = 1)\n\n\nhttr2 raises an error for unsuccessful HTTP status codes by default. Check authentication or permissions for 401/403, availability or routing for 404, rate limits for 429, and service availability for 503. A timeout does not necessarily mean the provider did no work. Avoid uncontrolled retries, which can generate additional submissions and charges.\nFor this sentence-embedding model and list of inputs, the expected result is one numerical vector per sentence. Other feature-extraction models can return token-level arrays instead. Inspect the structure before turning a response into a matrix; flattening arbitrary nested output can silently change its meaning.\n\nCodevalid_row &lt;- function(row) {\n  is.list(row) && length(row) &gt; 0 &&\n    all(vapply(row, function(value) {\n      is.numeric(value) && length(value) == 1 && is.finite(value)\n    }, logical(1)))\n}\n\nstopifnot(\n  is.list(embedding_rows),\n  length(embedding_rows) == length(texts),\n  all(vapply(embedding_rows, valid_row, logical(1))),\n  length(unique(lengths(embedding_rows))) == 1\n)\n\nembedding_matrix &lt;- do.call(rbind, lapply(embedding_rows, unlist))\nvector_lengths &lt;- sqrt(rowSums(embedding_matrix^2))\nstopifnot(all(is.finite(vector_lengths)), all(vector_lengths &gt; 0))\n\nunit_embeddings &lt;- embedding_matrix / vector_lengths\nsimilarities &lt;- tcrossprod(unit_embeddings)\ndimnames(similarities) &lt;- list(\n  paste0(\"text_\", seq_along(texts)),\n  paste0(\"text_\", seq_along(texts))\n)\nround(similarities, 3)\n\n\nThe checks stop if the response has missing rows, incompatible dimensions, non-numerical or non-finite entries, or a zero-length vector. Normalizing each row and taking pairwise dot products computes cosine similarity, even if the provider has already normalized its output. Self-similarities should be approximately 1; the off-diagonal entries compare different texts.\nThe first two sentences discuss related ideas, so they offer a useful hypothesis to check against the third. Do not assume a particular ordering or invent values before obtaining the result. Similarity thresholds depend on the model and application; a value such as 0.8 is not automatically evidence of a correct answer or a particular level of proficiency. The model card also cautions against interpreting its scores using a universal threshold.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#where-to-go-next",
+    "href": "31-hugging-face.html#where-to-go-next",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "\n31.6 Where to Go Next",
+    "text": "31.6 Where to Go Next\nUse the same discovery process for another task: define the result you need, choose a candidate model and provider, inspect the documented input and output, and try a small authorized test. Classification returns labels and scores rather than vectors; speech recognition requires an audio input rather than this JSON text payload. API skills transfer, but the task contract changes.\nFor assessment-related applications, compare results with appropriate human judgments and investigate domain, language, and subgroup performance before relying on a model. An embeddings example demonstrates a technical capability, not validity for a scoring use. Record the model identifier, provider, date, preprocessing, and available version information when documenting a workflow; do not assume a hosted service is permanently fixed or deterministic.\nThe Hub documentation, Inference Providers guide, and task specifications are useful starting points for further exploration. The next chapter collects Reference Materials for the wider workshop. You can add capabilities selectively while continuing to use Anthropic for tasks where its generative workflow fits your needs.",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
+  },
+  {
+    "objectID": "31-hugging-face.html#footnotes",
+    "href": "31-hugging-face.html#footnotes",
+    "title": "31  Hugging Face: Beyond Chat Models",
+    "section": "",
+    "text": "Hugging Face Hub features, model-card guidance, authentication, task support, and pricing were checked against the official documentation linked in this chapter on October 9, 2026. The BAAI model card and official HF Inference client source were also checked on that date. Provider availability, permissions, endpoints, and billing can change; no live inference call was made to validate this example.↩︎",
+    "crumbs": [
+      "Resources",
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Hugging Face: Beyond Chat Models</span>"
+    ]
   }
 ]

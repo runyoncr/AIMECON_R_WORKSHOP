@@ -70,9 +70,10 @@ book:
 
     - part: "Resources"
       chapters: 
-        - 31-reference-materials.qmd #31
-        - 32-acknowledgements.qmd #32
-        - 33-references.qmd #33
+        - 31-hugging-face.qmd #31
+        - 32-reference-materials.qmd #32
+        - 33-acknowledgements.qmd #33
+        - 34-references.qmd #34
 
     - part: "Example Pages"
       chapters:
