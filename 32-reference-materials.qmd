@@ -123,6 +123,13 @@ Some summaries have been edited, some have not.
 
 **ellmer** is an R package that provides a unified interface for interacting with large language models from a range of official and community providers, including OpenAI, Anthropic, Google Gemini, and AWS Bedrock. It supports streaming and asynchronous calls, tool/function calling, structured data extraction, and multimodal inputs. Chat objects are stateful and maintain conversation context, enabling both interactive console-based conversations and programmatic use in R scripts and applications.
 
+### gander
+**gander** [Overview](https://simonpcouch.github.io/gander/){target="_blank"} [CRAN](https://cran.r-project.org/package=gander){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/gander/refman/gander.html){target="_blank"} [Posit Blog](https://posit.co/blog/introducing-gander){target="_blank"}
+
+**gander** is an R package developed by Simon Couch at Posit that brings an interactive, Copilot-like coding assistant directly into RStudio and Positron. Built on top of **ellmer**, **gander** addresses a key limitation of language-agnostic coding assistants (such as GitHub Copilot, Claude Code, or Cursor): generic tools only see the text in your source files and frequently hallucinate column names or data types because they have no access to the runtime environment. In contrast, **gander** inspects your active R session and global environment directly—automatically extracting dataframe structures, column names, variable types, and object summaries to supply relevant context to the model so it can generate runnable code on the first pass.
+
+The workflow is designed for rapid iteration: users highlight code or an object name in the source editor, press a keyboard shortcut (such as `Ctrl+Alt+G` on Windows/Linux or `Ctrl+Cmd+G` on macOS), and submit a plain-language prompt in a pop-up dialog. The assistant then streams minimal viable R code directly into the source document to replace or refine the selection. Because it is powered by user-configured **ellmer** chat objects (e.g., via `options(gander.chat = ...)` in `.Rprofile`), you can drive the assistant with Anthropic, OpenAI, Gemini, or local Ollama models using your own API keys, without requiring commercial coding-assistant subscriptions. For more discussion of AI coding assistants and agent workflows, see [23-ai-coding-assistants.qmd](23-ai-coding-assistants.qmd#L1).
+
 ### tidyprompt
 **tidyprompt** [Overview](https://github.com/KennispuntTwente/tidyprompt){target="_blank"} [CRAN](https://cran.r-project.org/package=tidyprompt){target="_blank"} [Documentation](https://cran.r-project.org/web/packages/tidyprompt/refman/tidyprompt.html){target="_blank"}
 
